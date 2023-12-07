@@ -1,0 +1,143 @@
+<p-sidebar *ngIf="!!details" [(visible)]="main.bottomPanelActive" position="bottom" [baseZIndex]="10000">
+    <h3 class="text-center" style="color:#6E6E6E;font-weight: 600;font-family: primaryFontBold;"><span
+            style="border-bottom: 3px solid #99ca3c;padding-bottom: 3px;">Details</span></h3>
+
+    <div>
+        <div class="action-row">
+            <div class="action-btn" (click)="main.addMaintance(details.id,details.vehicle.number)">
+                <h6>Add Vehicle Maintenance</h6>
+            </div>
+        </div>
+    </div>
+
+    <div class="head-row">
+        <h6 class="panel-parent-heading"><span>Scooter Num : {{ details.vehicle.number }}</span></h6>
+        <div class="btn-right-box">
+
+            <div class="last-child">
+                <img src="assets/layout/images/name.png" alt="" width="20">
+                <a href="https://www.google.com/maps/search/?api=1&amp;query={{
+                    details.loc_Latitude
+                }},{{ details.loc_Longitude }}" target="_blank">
+                    <span class="last-text">Map</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="submenu-content settings">
+        <div class="cus1-main">
+            <div class="us-main">
+                <div class="background">
+                </div>
+                <div class="profile-card">
+                    <div class="cover">
+                    </div>
+                    <div class="profile">
+                        <div class="pic">
+                        </div>
+                        <div class="above-fold">
+                            <div class="name"> <i style="color: #646464 !important;" class="fa fa-user"></i> {{
+                                userDetails.userName }}</div>
+                            <div class="role"> <i style="color: #646464 !important;" class="fa fa-envelope"></i> {{
+                                userDetails.email }}</div>
+                            <div class="location">
+                                <i style="color: #646464 !important;" class="fa fa-phone"></i> {{ userDetails.phoneNumber }}
+                            </div>
+                            <!-- <div class="role"><i style="color: #646464 !important;" class="fa fa-calendar"></i>{{details.created_at | date:'MM-dd-yyyy' }}</div> -->
+                        </div>
+    
+    
+                    </div>
+    
+    
+                </div>
+            </div>
+        </div>
+        <div class="main-row">
+            <div class="sales-settings card-main">
+                <h6><span>Date </span> </h6>
+                <img src="assets/layout/images/icon-calendar.png" alt="" width="40">
+                <h6> {{ details.created_at | date: "medium" }}</h6>
+            </div>
+            <div class="shipment-settings card-main">
+                <h6> <span>Ticket Number </span> </h6>
+                <img src="assets/layout/images/imei.png" alt="" width="40">
+                <h6> {{ details.ticket_Number }}</h6>
+            </div>
+            <div class="history-settings card-main">
+                <h6 style="margin-bottom: 10px;"><span><span>Message </span></span></h6>
+                <img src="assets/layout/images/icon-message.png" alt="" width="40">
+                <h6> {{ details.message }}</h6>
+            </div>
+            <div class="visitors-settings card-main" *ngIf="details.is_Active_Ride == false">
+                <h6><span> <span>Issue Type </span>
+                    </span></h6>
+                <img src="assets/layout/images/danger.png" alt="" width="40">
+                <h6>
+                    {{ details.ticket_Issue_Type.title }}
+                </h6>
+            </div>
+            <div class="leads-settings card-main" *ngIf="details.is_Active_Ride == false">
+                <h6><span>Ticket Status </span></h6>
+                <img src="assets/layout/images/status.png" alt="" width="40">
+                <h6>
+                    {{ details.support_Ticket_Status.title }}
+                </h6>
+            </div>
+
+            <div class="leads-settings card-main" *ngIf="details.is_Active_Ride == false">
+                <h6><span>Current Location
+                    </span></h6>
+                <img src="assets/layout/images/start.png" alt="" width="40">
+                <h6>
+                    {{ details.current_Location }}
+                </h6>
+            </div>
+        </div>
+      
+    
+    </div>
+
+
+
+
+    <!-- <div class="submenu-content settings">
+                <div class="grid">
+                    <div class="history-settings col-6">
+                        <i class="pi pi-bell"></i>
+                        <span>Date: </span>
+                       
+                    </div>
+                    <div class="sales-settings col-6">
+                        <i class="pi pi-car"></i>
+                       
+                    </div>
+                    <div class="shipment-settings col-6">
+                        <i class="pi pi-shield"></i>
+                        
+                    </div>
+                    <div class="shipment-settings col-6">
+                        <i class="pi pi-shield"></i>
+                        <span>Current Location: </span>
+                        {{ details.current_Location }}
+                    </div>
+                    <div class="shipment-settings col-6">
+                        <i class="pi pi-map"></i>
+                        <span>Map: </span>
+                       
+                    </div>
+                   
+                    <div class="shipment-settings col-6">
+                        <i class="pi pi-shield"></i>
+                      
+                    </div>
+                    <div class="shipment-settings col-6">
+                        <i class="pi pi-shield"></i>
+                        <span></span>
+                       
+                    </div>
+                </div>
+            </div> -->
+
+    
+</p-sidebar>

@@ -1,0 +1,52 @@
+<div class="bread-container">
+    <div class="left-box">
+        <h4>
+            <span>
+                Vehicle Head Count
+            </span>
+        </h4>
+    </div>
+    <div class="right-box">
+        <button pButton pRipple label="Add Head Count" class="p-button-success mr-2 theme-btn" *ngIf="!!vehicle_no"
+            (click)="showModal()"></button>
+    </div>
+</div>
+<form [formGroup]="vehicleForm" (ngSubmit)="onSubmitForm()">
+    <p-dialog id="new-vehicle-model" [(visible)]="showCreateModal" [style]="{width: '550px'}"
+        header="Vehicle Head Count" [modal]="true" class="p-fluid" [dismissableMask]="true">
+        <ng-template pTemplate="content">
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="vehicle-no">Vehicle No <span class="star-sign">*</span></label>
+                    <input type="text" pInputText id="vehicle-no" formControlName="vehicle_no" required
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted}" readonly />
+                    <small style="color:red;" class="ng-dirty ng-invalid"
+                        *ngIf="vehicleForm.controls.vehicle_no.errors?.required">Vehicle no is required.</small>
+                </div>
+                <div class="field col">
+                    <label for="token">Token <span class="star-sign">*</span></label>
+                    <input type="text" pInputText id="token" formControlName="token" required
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                    <small style="color:red;" class="ng-dirty ng-invalid"
+                        *ngIf="vehicleForm.controls.token.errors?.required">Token is required.</small>
+                </div>
+                <div class="field col">
+                    <label for="url">Url <span class="star-sign">*</span></label>
+                    <input type="url" pInputText id="url" formControlName="url" required
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                    <small style="color:red;" class="ng-dirty ng-invalid"
+                        *ngIf="vehicleForm.controls.url.errors?.required">Url is required.</small>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Save" [disabled]="!vehicleForm.valid" icon="pi pi-check"
+                class="p-button-text theme-btn">
+                <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}"
+                    styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"
+                    animationDuration=".5s"></p-progressSpinner>
+            </button>
+        </ng-template>
+    </p-dialog>
+</form>

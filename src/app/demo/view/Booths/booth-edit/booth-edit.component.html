@@ -1,0 +1,65 @@
+<p-toast></p-toast>
+
+<form [formGroup]="boothUpdateForm" (ngSubmit)="onSubmitForm()">
+    <p-dialog id="Update-Booth" [(visible)]="main.editPanelActive" [style]="{width: '550px'}" header="Update Booth"
+        [modal]="true" class="p-fluid" [dismissableMask]="true">
+        <ng-template pTemplate="content">
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="name">Title <span class="star-sign">*</span></label>
+                    <input type="text" pInputText id="name" formControlName="title" />
+                   
+                </div>
+                <div class="field col">
+                    <label for="name">Arabic Title <span class="star-sign">*</span></label>
+                    <input type="text" pInputText id="arname" formControlName="artitle" />
+                   
+                </div>
+                <!-- <div class="field col">
+                    <label>Booth Type<span class="star-sign">*</span></label>
+                    <p-dropdown id="txtcountryId" [options]="lstBoothTypes" name="boothTypeId"
+                        formControlName="boothTypeId" placeholder="Select Booth Type">
+                    </p-dropdown>
+        
+                </div> -->
+            </div>
+
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label>Wait Time<span class="star-sign">*</span></label>
+                    <input type="number" pInputText id="name" formControlName="wait_Time" /> 
+                </div>
+                <div class="field col">
+                    <label>Managers<span style="color: red">*</span></label>
+                    <p-multiSelect [options]="lstUsers"  formControlName="mangersIds"
+                        scrollHeight="100px" defaultLabel="Select a Manager" selectedItemsLabel="{0} items selected"></p-multiSelect>
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <small style="color:red;" class="ng-dirty ng-invalid"
+                                *ngIf="boothUpdateForm.value.mangersIds  ==  null || boothUpdateForm.value.mangersIds.length == 0 ">Please required Manager!</small>
+                        </div>
+                </div>
+            </div>
+
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="price">Latitude <span class="star-sign">*</span></label>
+                    <input type="number"  pInputText id="share" formControlName="latitude" min="0"/>
+                </div>
+                <div class="field col">
+                    <label for="price">Longitude <span class="star-sign">*</span></label>
+                    <input type="number"  pInputText id="share" formControlName="longitude" min="0"/>
+                </div>
+            </div>
+
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Save" [disabled]="!boothUpdateForm.valid" icon="pi pi-check"
+                class="p-button-text theme-btn">
+                <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}"
+                    styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"
+                    animationDuration=".5s"></p-progressSpinner>
+            </button>
+        </ng-template>
+    </p-dialog>
+</form>

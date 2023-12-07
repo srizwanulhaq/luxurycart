@@ -1,0 +1,82 @@
+<app-promo-code-details [details]="promoCode"></app-promo-code-details>
+<app-package-discount-details [details]="packagediscount"></app-package-discount-details>
+<app-coupon-code-details [details]="couponCode"></app-coupon-code-details>
+<app-discount-code-details [details]="discountcode"></app-discount-code-details>
+<app-promo-code-edit [editPromoCodeData]="editPromoCodeData" (eventChange)="onChange($event)"></app-promo-code-edit>
+<app-package-discount-edit (resetEditPachageDiscountData)="resetEditPachageDiscount()"
+    [editPachageDiscountData]="editPachageDiscountData" (eventChange)="onChange($event)"></app-package-discount-edit>
+<app-discount-code-edit [editDiscountCodeData]="editDiscountCodeData"
+    (eventChange)="onChange($event)"></app-discount-code-edit>
+<app-coupon-code-edit (resetEditCouponCodeData)="resetEditCouponCode()" [editCouponCodeData]="editCouponCodeData"
+    (eventChange)="onChange($event)"></app-coupon-code-edit>
+
+<div class="col-12">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <div class="card component-main-card">
+                <app-addpromocode [type]="type" (eventChange)="onChange($event)"></app-addpromocode>
+                <p-tabView styleClass="tabview-custom" id="promotion-tabb" (onChange)="tabChange($event)">
+                    <p-tabPanel>
+                        <ng-template pTemplate="header">
+    
+                            <span class="heading-tab">Promo Code</span>
+                        </ng-template>
+                        <app-promo-code-listing [event]="event"></app-promo-code-listing>
+    
+                    </p-tabPanel>
+                    <p-tabPanel>
+                        <ng-template pTemplate="header">
+    
+                            <span class="heading-tab">Coupon Code</span>
+                        </ng-template>
+                        <app-coupon-code-listing [event]="event"></app-coupon-code-listing>
+                    </p-tabPanel>
+                    <p-tabPanel>
+                        <ng-template pTemplate="header">
+    
+                            <span class="heading-tab">Discount Code</span>
+                        </ng-template>
+                        <app-discount-code-listing [event]="event"></app-discount-code-listing>
+                    </p-tabPanel>
+                    <p-tabPanel>
+                        <ng-template pTemplate="header">
+    
+                            <span class="heading-tab">Package Discounts</span>
+                        </ng-template>
+                        <app-promotion-listings [event]="event"></app-promotion-listings>
+                    </p-tabPanel>
+                </p-tabView>
+                <!-- <p-tabView styleClass="tabview-custom" id="mobile-view-tab" [scrollable]="true">
+                    <p-tabPanel>
+                        <ng-template pTemplate="header">
+    
+                            <span class="heading-tab">Promo Code</span>
+                        </ng-template>
+                        <app-promo-code-listing></app-promo-code-listing>
+                    </p-tabPanel>
+                    <p-tabPanel>
+                        <ng-template pTemplate="header">
+    
+                            <span class="heading-tab">Coupon Code</span>
+                        </ng-template>
+                        <app-coupon-code-listing></app-coupon-code-listing>
+                    </p-tabPanel>
+                    <p-tabPanel>
+                        <ng-template pTemplate="header">
+    
+                            <span class="heading-tab">Discount Code</span>
+                        </ng-template>
+                        <app-discount-code-listing></app-discount-code-listing>
+                    </p-tabPanel>
+                    <p-tabPanel>
+                        <ng-template pTemplate="header">
+    
+                            <span class="heading-tab">Package Discounts</span>
+                        </ng-template>
+                        <app-promotion-listings></app-promotion-listings>
+                    </p-tabPanel>
+                </p-tabView> -->
+            </div>
+        </div>
+    </div>
+</div>

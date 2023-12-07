@@ -1,0 +1,145 @@
+<p-toast></p-toast>
+<p-dialog
+    *ngIf="!!maintenanceIds"
+    class="Add-New-Form"
+    header="Add new vehicle maintenance"
+    [(visible)]="main.addMaintancePanelActive"
+    [style]="{ width: '35vw' }"
+    [baseZIndex]="10000"
+    [modal]="true" 
+    id="new-ride-model"
+>
+    <form #f="ngForm" (ngSubmit)="onStoreVM()" [formGroup]="vmForm">
+        <div class="form-row">
+            <div class="form-group col">
+                <input 
+                    type="hidden"
+                    formControlName="supportTicketId"
+                    class="w-100"
+                    name="supportTicketId"
+                    placeholder="Support Ticket"
+                    readonly
+                    pInputText
+                />
+            </div>
+            <div class="form-group col">
+                <label>Vehicle No</label>
+                <input
+                    type="text"
+                    formControlName="vehicleNumber"
+                    class="w-100"
+                    name="vehicleNumber"
+                    placeholder="Vehicle Number"
+                    readonly
+                    pInputText
+                />
+            </div>
+            <div class="grid">
+                <div class="form-group col">
+                    <label>Fixed Date</label>
+                    <input
+                        type="date"
+                        formControlName="fixedDate"
+                        class="w-100"
+                        name="fixedDate"
+                        pInputText
+                    />
+                </div>
+                <div class="form-group col">
+                    <label>Fixed Time</label>
+                    <input
+                        type="time"
+                        formControlName="fixedTime"
+                        class="w-100"
+                        name="fixedTime"
+                        pInputText
+                    />
+                </div>
+            </div>
+            <div class="form-group col">
+                <label>Description</label>
+                <textarea
+                    name="description"
+                    formControlName="description"
+                    class="w-100"
+                    pInputText
+                ></textarea>
+            </div>
+            <div class="col">
+                    <label>Inventory - (optional)</label>
+                    <div class="p-inputgroup w-100">
+                        <p-multiSelect id="support-man-drop"
+                            id="txtinventory"
+                            name="inventories"
+                            formControlName="inventories"
+                            [options]="itemInventories"
+                            scrollHeight="100px"
+                            [virtualScroll]="true"
+                            [itemSize]="6"
+                            [(ngModel)]="selectedInventories"
+                            defaultLabel="--Select--"
+                            optionLabel="name"
+                            display="chip"
+                            (onChange)="onInventoryChange($event)"
+                        >
+                        </p-multiSelect>
+                    </div>
+                <ng-container
+                    formArrayName="arrQuantity"
+                    *ngFor="
+                        let arrQuantity of InventoryQuantityControls;
+                        let i = index
+                    "
+                >
+                    <ng-container [formGroupName]="i">
+                        <div class="col mb-20px">
+                            <label
+                                >Quantity-{{
+                                    arrQuantity.value.inventoryName
+                                }}</label
+                            >
+                            <div class="p-inputgroup">
+                                <input
+                                    id="txtinventoryId"
+                                    name="inventoryId"
+                                    formControlName="inventoryId"
+                                    type="hidden"
+                                    pInputText
+                                />
+                                <input
+                                    id="txtinventoryId"
+                                    name="inventoryId"
+                                    formControlName="inventoryName"
+                                    type="hidden"
+                                    pInputText
+                                />
+                                <input
+                                    type="number"
+                                    name="quantity"
+                                    formControlName="quantity"
+                                    pInputText
+                                    placeholder="Quantity"
+                                    pInputText
+                                />
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+        
+        <div class="col">
+            <div class="button-footer text-right">
+            
+                <button
+                    type="submit"
+                    class="add-new-btn theme-btn"
+                    [disabled]="!vmForm.valid"
+                >
+                    <span *ngIf="btnloading"></span>
+                    Add
+                </button>
+            </div>
+        </div>
+    </form>
+</p-dialog>

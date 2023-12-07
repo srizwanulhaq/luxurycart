@@ -1,0 +1,53 @@
+<p-toast></p-toast>
+<p-confirmDialog #cd id="cutomer-confrim-model" [style]="{ width: '30vw', top: '-190px' }" [baseZIndex]="10000" >
+    <ng-template pTemplate="footer">
+        <button type="button" pButton class="cofirm-model-cancel-btn"  label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton  label="Yes" (click)="cd.accept()"></button>
+        </ng-template>
+</p-confirmDialog>
+<p-dialog id="new-ride-model" class="Add-New-Form" header="Vehicle Location" [(visible)]="main.locationPanelActive" [style]="{ width: '45vw' }" [baseZIndex]="10000" [dismissableMask]="true" [modal]="true">
+    <!-- //////////////////////////////////////// -->
+    <div class="form-section">
+        <div class="row">
+            <div class="field">
+                <label>Latitude</label>
+                <div class="p-inputgroup">
+                    <input (mouseout)="onUpdateMapPointer()" (mouseover)="onUpdateMapPointer()" (keypress)="onUpdateMapPointer()" type="number" id="txtnumber" name="location_latitude" pInputText placeholder="0.00" [(ngModel)]="location_latitude" />
+                </div>
+            </div>
+            <div class="field">
+                <label>Longitude</label>
+                <div class="p-inputgroup">
+                    <input (mouseout)="onUpdateMapPointer()" (mouseover)="onUpdateMapPointer()" (keypress)="onUpdateMapPointer()" type="number" id="txtnumber" name="location_longitude" pInputText placeholder="0.00" [(ngModel)]="location_longitude" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="map-section">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <agm-map [latitude]="location_latitude" [longitude]="location_longitude" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="false" (mapClick)="mapClicked($event)">
+                    <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label" [markerDraggable]="m.draggable" (dragEnd)="markerDragEnd(m, $event)">
+                        <agm-info-window>
+                            <strong>InfoWindow content</strong>
+                        </agm-info-window>
+                    </agm-marker>
+                </agm-map>
+            </div>
+        </div>
+    </div>
+    <div class="footer-section">
+        <hr />
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+               <div class="button-footer text-right">
+                  <button pButton pRipple label="Update"(click)="onSaveVehicleLocation()" class="p-button-text theme-btn">
+                     <span *ngIf="btnloading" class="spinner-border spinner-border-sm mr-1">                     </span>
+                   </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-dialog>

@@ -1,0 +1,31 @@
+<p-sidebar *ngIf="details" [(visible)]="main.bottomPanelActive" position="bottom" [baseZIndex]="10000">
+    <p-tabView id="role-detail-tabbing"> 
+        <p-tabPanel header="Role Info">
+            <div class="head-row">
+                <h6 class="panel-parent-heading"><span>Role : {{details.name}}</span></h6>
+            </div>
+            <div class="submenu-content settings">
+                <div class="main-row">
+                    <div class="sales-settings card-main">
+                        <h6><span>Normalized Name </span> </h6>
+                        <img src="assets/layout/images/scooti-icon.png" alt="" width="40">
+                        <h6> {{details.normalizedName}}</h6>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+        
+        <p-tabPanel header="Action ">
+            <div class="action-row ">
+                <div class="action-btn" (click)="main.onEditPanelButtonClick($event,details)">
+                    <!-- <img src="../../../../../assets/layout/images/end.png " alt=" " width="40 "> -->
+                    <h6>Edit Role</h6>
+                </div>
+                <div class="action-btn ">
+                    <!-- <img src="../../../../../assets/layout/images/refund.png " alt=" " width="40 "> -->
+                    <h6>Manage Role Permissions</h6>
+                </div>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</p-sidebar>

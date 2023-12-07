@@ -1,0 +1,11 @@
+<!-- *ngIf="isLoading | async" -->
+<p-toast></p-toast>
+<div class="grid">
+    <div class="col-12">
+        <div class="card component-main-card">
+            <app-vehicle-create [vehicle_no]="vehicle_no" (eventChange)="onChange($event)"></app-vehicle-create>
+            <app-vehicle-hc-listing [event]=" event"
+                (vehicleSelection)="onVehicleSelect($event)"></app-vehicle-hc-listing>
+        </div>
+    </div>
+</div>

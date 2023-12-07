@@ -1,0 +1,174 @@
+<div style="display: flex; width: 100%;">
+    <div class="layout-topbar layout-main header-main">
+        <div class="grid p-0">
+            <div class="col-12 p-0">
+                <div class="header-sec">
+                    <a id="menu-button" href="#" (click)="appMain.onMenuButtonClick($event)">
+                        <i class="fa fa-bars" style="color: #6e6e6e;"></i>
+                    </a>
+
+<!-- 
+                    <div id="user-dropdown">
+                        <div class="dropdown">
+                            <button onclick="myFunction()" class="dropbtn">
+                                Admin <i class="fa fa-user"></i>
+                            </button>
+                            <div id="myDropdown" class="dropdown-content">
+                                <a [routerLink]="[ '/users/user-main']" [queryParams]="{ customdata: currentUserName }" style="    border-bottom: 1px solid #0000000d;"> <i class="fa fa-user"></i> Edit Profile</a>
+                                <a (click)="logout()"> <i class="fa fa-sign-out"></i> Logout</a>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <a id="right-sidebar-button" href="#" (click)="rightPanelClick($event)">
+                        <i title="More Detail" class="pi pi-ellipsis-v more-d-right">
+                            <span *ngIf="activity?.count">
+                                {{activity?.count}}
+                            </span>
+                            <!-- <span>
+                                11
+                            </span> -->
+                        </i>
+                    </a>
+
+                    <a class="log-out-btn" title="Logout" (click)="logout()"> 
+                        <img src="../assets/layout/images/logout-round.png" alt="">
+                    </a>
+
+
+                    <!-- <img src="../assets/layout/images/more-detail.png" alt=""> -->
+
+
+
+
+                    <!-- <a id="layout-megamenu-button" href="#" (click)="appMain.onMegaMenuButtonClick($event)">
+                        <i class="pi pi-angle-down"></i>
+                        <span class="mega-menu-title">Mega Menu</span>
+                    </a> -->
+                    <a id="topbar-menu-button" href="#" (click)="appMain.onTopbarMenuButtonClick($event)"
+                        *ngIf="app.profileMode==='top' || appMain.isHorizontal()">
+                        <img src="assets/layout/images/avatar.png" alt="california-layout">
+                        <span>Pauline Harrell</span>
+                    </a>
+                    <ul id="topbar-usermenu" class="usermenu usermenu-overlay fadeInDown"
+                        [ngClass]="{'usermenu-active': appMain.topbarMenuActive}">
+                        <li #profile [ngClass]="{'menuitem-active':appMain.activeTopbarItem === profile}">
+                            <a href="#" (click)="appMain.onTopbarItemClick($event,profile)">
+                                <i class="pi pi-fw pi-user"></i>
+                                <span class="topbar-item-name">Profile</span>
+                            </a>
+                        </li>
+                        <li #settings [ngClass]="{'menuitem-active':appMain.activeTopbarItem === settings}">
+                            <a href="#" (click)="appMain.onTopbarItemClick($event,settings)">
+                                <i class="pi pi-fw pi-cog"></i>
+                                <span class="topbar-item-name">Settings</span>
+                                <i class="layout-menuitem-toggler pi pi-fw pi-angle-down"></i>
+                            </a>
+                            <ul class="fadeInDown">
+                                <li role="menuitem">
+                                    <a href="#" (click)="appMain.onTopbarSubItemClick($event)">
+                                        <i class="pi pi-fw pi-palette"></i>
+                                        <span>Change Theme</span>
+                                    </a>
+                                </li>
+                                <li role="menuitem">
+                                    <a href="#" (click)="appMain.onTopbarSubItemClick($event)">
+                                        <i class="pi pi-fw pi-star"></i>
+                                        <span>Favorites</span>
+                                    </a>
+                                </li>
+                                <li role="menuitem">
+                                    <a href="#" (click)="appMain.onTopbarSubItemClick($event)">
+                                        <i class="pi pi-fw pi-lock"></i>
+                                        <span>Lock Screen</span>
+                                    </a>
+                                </li>
+                                <li role="menuitem">
+                                    <a href="#" (click)="appMain.onTopbarSubItemClick($event)">
+                                        <i class="pi pi-fw pi-image"></i>
+                                        <span>Wallpaper</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li #messages [ngClass]="{'menuitem-active':appMain.activeTopbarItem === messages}">
+                            <a href="#" (click)="appMain.onTopbarItemClick($event,messages)">
+                                <i class="pi pi-fw pi-envelope"></i>
+                                <span class="topbar-item-name">Messages</span>
+                                <i class="layout-menuitem-toggler pi pi-fw pi-angle-down"></i>
+                            </a>
+                            <ul class="fadeInDown">
+                                <li role="menuitem">
+                                    <a href="#" class="topbar-message" (click)="appMain.onTopbarSubItemClick($event)">
+                                        <img src="assets/layout/images/avatar1.png" width="25" />
+                                        <span>Give me a call</span>
+                                    </a>
+                                </li>
+                                <li role="menuitem">
+                                    <a href="#" class="topbar-message" (click)="appMain.onTopbarSubItemClick($event)">
+                                        <img src="assets/layout/images/avatar2.png" width="25" />
+                                        <span>Sales reports attached</span>
+                                    </a>
+                                </li>
+                                <li role="menuitem">
+                                    <a href="#" class="topbar-message" (click)="appMain.onTopbarSubItemClick($event)">
+                                        <img src="assets/layout/images/avatar3.png" width="25" />
+                                        <span>About your invoice</span>
+                                    </a>
+                                </li>
+                                <li role="menuitem">
+                                    <a href="#" class="topbar-message" (click)="appMain.onTopbarSubItemClick($event)">
+                                        <img src="assets/layout/images/avatar2.png" width="25" />
+                                        <span>Meeting today at 10pm</span>
+                                    </a>
+                                </li>
+                                <li role="menuitem">
+                                    <a href="#" class="topbar-message" (click)="appMain.onTopbarSubItemClick($event)">
+                                        <img src="assets/layout/images/avatar4.png" width="25" />
+                                        <span>Out of office</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li #notifications [ngClass]="{'menuitem-active':appMain.activeTopbarItem === notifications}">
+                            <a href="#" (click)="appMain.onTopbarItemClick($event,notifications)">
+                                <i class="pi pi-fw pi-bell"></i>
+                                <span class="topbar-item-name">Notifications</span>
+                                <i class="layout-menuitem-toggler pi pi-fw pi-angle-down"></i>
+                            </a>
+                            <ul class="fadeInDown">
+                                <li role="menuitem">
+                                    <a href="#" (click)="appMain.onTopbarSubItemClick($event)">
+                                        <i class="pi pi-fw pi-sliders-h"></i>
+                                        <span>Pending tasks</span>
+                                    </a>
+                                </li>
+                                <li role="menuitem">
+                                    <a href="#" (click)="appMain.onTopbarSubItemClick($event)">
+                                        <i class="pi pi-fw pi-calendar"></i>
+                                        <span>Meeting today at 3pm</span>
+                                    </a>
+                                </li>
+                                <li role="menuitem">
+                                    <a href="#" (click)="appMain.onTopbarSubItemClick($event)">
+                                        <i class="pi pi-fw pi-download"></i>
+                                        <span>Download documents</span>
+                                    </a>
+                                </li>
+                                <li role="menuitem">
+                                    <a href="#" (click)="appMain.onTopbarSubItemClick($event)">
+                                        <i class="pi pi-fw pi-ticket"></i>
+                                        <span>Book flight</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

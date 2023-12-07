@@ -1,0 +1,72 @@
+<p-toast></p-toast>
+
+<form [formGroup]="userEditForm" (ngSubmit)="onSubmitForm()">
+    <p-dialog id="new-user-model" class="Update-Form" header="User Details" [(visible)]="main.editPanelActive" [style]="{width: '650px'}" [baseZIndex]="10000" class="p-fluid" [modal]="true" [dismissableMask]="true">
+        <ng-template pTemplate="content">
+            <input type="hidden" formControlName="userId" />
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="email">Email <span class="star-sign">*</span></label>
+                    <input type="text" pInputText id="email" formControlName="email" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted">Email is required.</small>
+                </div>
+                <div class="field col" id="user-add-pass">
+                    <label for="password">Password <span class="star-sign">*</span></label>
+                    <p-password formControlName="password" id="password" name="password" placeholder="**********" [toggleMask]="true"></p-password>
+                    <!-- <input type="password" pInputText id="password"  formControlName="password" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted}" /> -->
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted">Password is required.</small>
+                </div>
+            </div>
+
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="role">Role <span class="star-sign">*</span></label>
+                    <p-dropdown id="roleId" [options]="lstRoles" name="role" formControlName="roleId" placeholder="Select Role">
+                    </p-dropdown>
+                </div>
+
+                <div class="field col">
+                    <label for="account">Sub Account <span class="star-sign">*</span></label>
+                    <p-dropdown id="subAccountId" [options]="lstAccounts" name="account" formControlName="subAccountId" placeholder="Select Sub Account">
+                    </p-dropdown>
+                </div>
+
+                <div class="field col">
+                    <label for="account">Parent</label>
+                    <p-dropdown id="parentId" [options]="lstUsers"  filter="true" name="parent" formControlName="parentId" placeholder="Select Parent">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="account">Select Vehicles <span class="star-sign">*</span></label>
+                    <p-listbox [options]="groupedVehicles" [group]="true"  [(ngModel)]="selectedVehicles" formControlName="selectedVehicles" [metaKeySelection]="false"
+                        [checkbox]="true" [filter]="true" [multiple]="true" [listStyle]="{'max-height':'170px'}" >
+                        <ng-template let-group pTemplate="group">
+                            <div class="p-d-flex p-ai-center">
+                            <span>{{group.label}}</span>
+                            </div>
+                        </ng-template>
+                    </p-listbox>
+                </div>
+                <div class="field col">
+                    <label for="account">Select Zones <span class="star-sign">*</span></label>
+                    <p-listbox [options]="groupedZones" [group]="true" [(ngModel)]="selectedZones" formControlName="selectedZones" [metaKeySelection]="false"
+                        [checkbox]="true" [filter]="true" [multiple]="true" [listStyle]="{'max-height':'170px'}" >
+                        <ng-template let-group pTemplate="group">
+                            <div class="p-d-flex p-ai-center">
+                            <span>{{group.label}}</span>
+                            </div>
+                        </ng-template>
+                    </p-listbox>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Save" [disabled]="!userEditForm.valid" class="p-button-text theme-btn">
+                <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}" styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+            </button>
+        </ng-template>
+    </p-dialog>
+</form>

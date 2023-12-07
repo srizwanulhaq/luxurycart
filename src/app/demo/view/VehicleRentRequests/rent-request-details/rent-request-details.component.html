@@ -1,0 +1,99 @@
+<p-toast></p-toast>
+<p-sidebar id="vedicle-detail-penal" *ngIf="details" [(visible)]="main.bottomPanelActive" position="bottom"
+    [baseZIndex]="10000">
+    <h3 class="text-center" style="color:#6E6E6E;font-weight: 600;font-family: primaryFontBold;"><span
+            style="border-bottom: 3px solid #99ca3c;padding-bottom: 3px;">Rent Request Info</span></h3>
+
+    <div class="head-row">
+        <h6 class="panel-parent-heading"><span></span></h6>
+        <div class="btn-right-box">
+            <div class="child">
+
+                <a href="https://www.google.com/maps/search/?api=1&amp;query={{
+                details.locationLatitude != null
+        ? details.locationLatitude
+        : 0
+    }},{{
+      details.locationLongitude != null
+        ? details.locationLongitude
+        : 0
+    }}" class="navigation-marker" target="_blank">
+
+                    <p class="lock">Requested Location</p>
+                </a>
+
+            </div>
+            <div class="last-child">
+                <div class="top-right">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="md:col-4 col-12">
+            <div class="cus1-main ">
+                <div class="us-main ">
+                    <div class="background ">
+                    </div>
+                    <div class="profile-card ">
+                        <div class="cover ">
+                        </div>
+                        <div class="profile ">
+                            <div class="pic ">
+                            </div>
+                            <div class="above-fold ">
+                                <div class="name "> <i style="color: #646464 !important; " class="fa fa-user "></i>
+                                    {{details.customer.fullName}}</div>
+                                <div class="role "> <i style="color: #646464 !important; " class="fa fa-envelope "></i>
+                                    {{details.customer.email}}</div>
+                                <div class="location ">
+                                    <i style="color: #646464 !important; "
+                                        class="fa fa-phone "></i>{{details.customer.phoneNumber}}
+                                </div>
+                                <div class="role "><i style="color: #646464 !important; "
+                                        class="fa fa-calendar "></i>{{details.customer.createdAt | date:'MM-dd-yyyy'}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <div class="md:col-6 col-12">
+            <div class="submenu-content settings">
+       
+
+                <div class="main-row">
+        
+                    <div class="sales-settings card-main">
+                        <h6><span>Requested location Address </span> </h6>
+                        <img src="assets/layout/images/current.png" alt="" width="40">
+                        <h6> {{details.requestedLocation}}</h6>
+                    </div>
+                    <div class="sales-settings card-main">
+                        <h6><span>Delivery Address </span> </h6>
+                        <img src="assets/layout/images/locate-green.png" alt="" width="40">
+                        <h6> {{details.deliveryAddress}}</h6>
+                    </div>
+                </div>
+        
+               
+            </div>
+        </div>
+        <div class="md:col-2 col-12">
+            <p class="m-0">Change status</p>
+            <p-dropdown [options]="itemsVehicleRentStatus" [(ngModel)]="details.vehicles_Rent_Status.number"
+                placeholder="Select Item" [filter]="false"
+                (ngModelChange)="ChangeRentVehicleStatus(details.id,details.vehicles_Rent_Status.number)">
+            </p-dropdown>
+        </div>
+    </div>
+
+
+ 
+
+
+</p-sidebar>

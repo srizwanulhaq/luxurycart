@@ -1,0 +1,43 @@
+<p-toast></p-toast>
+<form [formGroup]="cityEditForm" (ngSubmit)="onSubmitForm()">
+    <p-dialog id="new-ride-model" [(visible)]="main.editPanelActive" [style]="{width: '550px'}" header="City Details"
+        [modal]="true" class="p-fluid" [dismissableMask]="true">
+        <ng-template pTemplate="content">
+            <div class="formgrid grid">
+                <div class="field md:col-12 col-12">
+                    <label for="name">Name <span class="star-sign">*</span></label>
+                    <input type="text" pInputText id="name" formControlName="name" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                    <!-- <small style="color:red;" class="ng-dirty ng-invalid"
+                        *ngIf="vehicleForm.controls.number.errors?.pattern">Enter number like: 0011</small> -->
+                </div>
+                <div class="field md:col-12 col-12">
+                    <label for="name">Arabic Name <span class="star-sign">*</span></label>
+                    <input type="text" pInputText id="arabic_name" formControlName="arabic_name" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                    <!-- <small style="color:red;" class="ng-dirty ng-invalid"
+                        *ngIf="vehicleForm.controls.number.errors?.pattern">Enter number like: 0011</small> -->
+                </div>
+            </div>
+
+            <div class="formgrid grid">
+                <div class="field md:col-12 col-12">
+                    <label>Country<span class="star-sign">*</span></label>
+                    <p-dropdown id="txtcountryId" [options]="lstCountries" name="country_Id" formControlName="country_Id" (onChange)="onSelect($event)" placeholder="Select Country">
+                    </p-dropdown>
+                </div>
+           
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Update" [disabled]="!cityEditForm.valid" icon="pi pi-check"
+                class="p-button-text theme-btn">
+                <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}"
+                    styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"
+                    animationDuration=".5s"></p-progressSpinner>
+            </button>
+        </ng-template>
+    </p-dialog>
+</form>
+

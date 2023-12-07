@@ -1,0 +1,214 @@
+<div  class="lodi">
+    <div *ngIf="loading" class="lodi-child">
+        <div class="custom-loader"></div>
+    </div>
+<p-table id="rides-table" #dt [columns]="cols" [value]="lstTransactions" [lazy]="true"
+    (onLazyLoad)="loadTransactionLazy($event)" autoLayout="true" [paginator]="true" [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="rowsPerPageOptions" columnResizeMode="expand" [totalRecords]="totalRecords" [rows]="10"
+    stateStorage="local" stateKey="lstTransactions-local">
+    <ng-template pTemplate="caption">
+        <!-- <shared-date-range [startDate]="startDate" [endDate]="endDate" [loading]="loading"
+            (onRangeChange)="onRangeChange($event)" (onDateChange)="onDateChange($event)"></shared-date-range> -->
+        <div class="grid">
+            <div class="text-right md:col-12 col-12 pb-0">
+                <!-- <h5 class="m-0">Manage Rides</h5> -->
+
+                <div style="display: flex; justify-content: end;">
+                    <span class="transactio-exp-btn">
+
+
+                        <div class="dropdown">
+                            <button onclick="myFunction1()" class="dropbtn1">Export <i
+                                    class="pi pi-chevron-up"></i></button>
+                            <div id="myDropdown1" class="dropdown-content1">
+                                <div class="grid">
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/excel-icon.png" alt=""
+                                                width="20">
+                                            <p>Excel</p>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/pdf-icon.png" alt=""
+                                                width="20">
+                                            <p>Pdf</p>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/icons8-export-csv-80.png"
+                                                alt="" width="20">
+                                            <p>Csv</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </span>
+                    <div class="">
+                        <div class="dropdown">
+                            <button onclick="myFunction()" class="dropbtn" title="Filter"
+                                style="margin-top: 7px;margin-left: 8px;background: #99ca3c;">
+                                <img src="../../../assets/layout/images/filter-16.png" alt="">
+                            </button>
+                            <div id="myDropdown" class="dropdown-content" style="margin-top: 0;">
+                                <i onclick="myFunction()" class="fa fa-times close-bt-show-mb"></i>
+                                <!-- <i onclick="myFunction()" class="fa fa-times close-bt"></i> -->
+
+                                <div class="calender-box">
+                                    <shared-date-range [startDate]="startDate" [endDate]="endDate" [loading]="loading"
+                                        (onRangeChange)="onRangeChange($event)"
+                                        (onDateChange)="onDateChange($event)"></shared-date-range>
+                                </div>
+                                <!-- <div class="btun-box">
+                                       <ul class="left-list">
+                                           <li> <button>Today</button> </li>
+                                           <li> <button>Yesterday</button> </li>
+                                           <li> <button>Monthly</button> </li>
+                                           <li> <button>Total</button> </li>
+                                        </ul>
+                                   </div> -->
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- <div id="serch-ani">
+                        <div class="it-box" style="margin-top: 8px;">
+                            <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                                (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                                style="background: #99ca3c;" />
+                            <span class="search" style="background: #99ca3c;">
+                                <i class="pi pi-search search-icon"></i>
+                            </span>
+                            <i class="pi pi-times close-icon" (click)="resetDataTable(dt)"></i>
+                        </div>
+                    </div> -->
+                    <!-- <div class="search-wrapper mt-2">
+                        <div class="input-holder">
+                            <input type="text" class="search-input" placeholder="Type to search" [(ngModel)]="filterGlobalValue" (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')"/>
+                            <button class="search-icon" onclick="searchToggle(this, event);" (click)="dt.filterGlobal(filterGlobalValue, 'contains')"><span></span></button>
+                        </div>
+                        <span class="close" onclick="searchToggle(this, event);" (click)="resetDataTable(dt)"></span>
+                    </div> -->
+
+                    <div class="custom-in-box transaction-filter mt-2">
+                        <i title="Reset Filter" class="pi pi-times" (click)="resetDataTable(dt)"></i>
+                        <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                            (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                            class="search-input p-0 tran-search" />
+                        <span (click)="dt.filterGlobal(filterGlobalValue, 'contains')">Search
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th>
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="serial_No">ID
+                <p-sortIcon field="serial_No"></p-sortIcon>
+            </th>
+            <th pSortableColumn="createdAt">Date and Time
+                <p-sortIcon field="createdAt"></p-sortIcon>
+            </th>
+            <th pSortableColumn="customer_Name">Customer
+                <p-sortIcon field="customer_Name"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="mode_Title">Mode
+                <p-sortIcon field="mode_Title"></p-sortIcon>
+            </th>
+            <th pSortableColumn="category_Title">Category
+                <p-sortIcon field="category_Title"></p-sortIcon>
+            </th>
+            <!-- <th pSortableColumn="user_Name">User Name
+                <p-sortIcon field="user_Name"></p-sortIcon>
+            </th> -->
+            <th>
+                Credit
+            </th>
+            <th>
+                Debit
+            </th>
+            <th>Details</th>
+
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-transaction>
+        <tr>
+            <td>
+                <p-tableCheckbox [value]="transaction"></p-tableCheckbox>
+            </td>
+            <td>
+                <span class="p-column-title">Serial Number</span>
+                {{transaction.serial_No }}
+            </td>
+
+            <td>
+                <span class="p-column-title">Date and Time</span>
+                {{transaction.createdAt | date:'medium'}}
+            </td>
+
+            <td><span class="p-column-title">Customer</span>
+                <!-- <a [routerLink]="redirectionPage.customer" [queryParams]="{ customdata: transaction.customers.fullName, isPhone: false }" class="navigation-marker">
+
+            </a> -->
+                {{transaction.customers.fullName}}
+            </td>
+            <td><span class="p-column-title">Mode</span> {{transaction.transactionModes.title}}
+            </td>
+            <td><span class="p-column-title">Category</span> {{transaction.transactionCategories.title }}
+            </td>
+            <!-- <td><span class="p-column-title">User Name</span> {{transaction.userId != null ? transaction.userId  : '-'  }}
+            </td> -->
+
+            <td><span class="p-column-title">Credit</span>
+                <div *ngIf="transaction.transactionTypes.number == 1">
+                    {{transaction.amount | number : '1.2-2'}}
+                </div>
+                <div *ngIf="transaction.transactionTypes.number == 2">
+                    0.00
+                </div>
+            </td>
+            <td><span class="p-column-title">Debit</span>
+                <div *ngIf="transaction.transactionTypes.number == 2">
+                    {{transaction.amount | number : '1.2-2'}}
+                </div>
+                <div *ngIf="transaction.transactionTypes.number == 1">
+                    0.00
+                </div>
+            </td>
+            <td class="sm-jus-end">
+                <button title="More Details" pButton pRipple class="p-button-rounded p-button-success theme-btn ac-btn"
+                    (click)="main.onBottomPanelButtonClick($event, transaction)">
+                    <img src="../../../../../assets/layout/images/more-detail.png" alt="" width="18">
+                </button>
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <tr>
+            <td colspan="6"></td>
+            <td class="text-center">
+                {{this.total_credit | number : '1.2-2' }}
+            </td>
+            <td class="text-center">
+                {{this.total_debit | number : '1.2-2'}}
+            </td>
+            <td></td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>

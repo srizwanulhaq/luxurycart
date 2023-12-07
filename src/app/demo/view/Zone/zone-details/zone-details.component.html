@@ -1,0 +1,264 @@
+<p-toast></p-toast>
+<p-confirmDialog #cd id="cutomer-confrim-model" [style]="{ width: '30vw', top: '-190px' }">
+    <ng-template pTemplate="footer">
+        <button type="button" pButton class="cofirm-model-cancel-btn" label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton label="Yes" (click)="cd.accept()"></button>
+    </ng-template>
+
+</p-confirmDialog>
+<p-sidebar id="vedicle-detail-penal" *ngIf="details" [(visible)]="main.bottomPanelActive" position="bottom"
+    [baseZIndex]="10000">
+    <p-tabView id="detail-tabbing">
+        <div class="action-row ">
+            <div class="action-btn " (click)="main.onEditPanelButtonClick($event,details) ">
+                <h6>Update</h6>
+            </div>
+
+        </div>
+        <div class="head-row">
+            <h6 class="panel-parent-heading"><span>Zone Number : {{details.number}}</span></h6>
+
+            <!-- <div *ngFor="let package of details.zone_PackagesList">
+                <p>
+                    {{package.wallet_Packages.title }}
+                </p>
+            </div> -->
+
+            <h6 style="font-size: 17px; text-align: center;padding-top: 10px;" class="panel-parent-heading"><span style="border: 0;">Package : </span> <span style="border: 0;" *ngFor="let package of details.zone_PackagesList">{{package.wallet_Packages.title }}</span> </h6>
+
+            <div class="btn-right-box">
+                <h6 class="m-0">Change Status</h6>
+                <p-inputSwitch actionTitle="Status" (onChange)="onStatus($event,details.id)"
+                    [(ngModel)]="details.active">
+                </p-inputSwitch>
+            </div>
+
+        </div>
+        <p-tabPanel header="Zone info">
+
+            <div class="submenu-content settings">
+                <div class="main-row">
+                    <div class="sales-settings card-main">
+                        <h6><span>Arbic Name </span> </h6>
+                        <img src="assets/layout/images/name.png" alt="" width="40">
+                        <h6> {{details.arTitle != null ? details.arTitle : '-' }}</h6>
+                    </div>
+                    <div class="sales-settings card-main">
+                        <h6><span>Country </span> </h6>
+                        <img src="assets/layout/images/company.png" alt="" width="40">
+                        <h6> {{details.city != null ? details.city.country.name : '-' }}</h6>
+                    </div>
+                    <div class="shipment-settings card-main">
+
+                        <h6><span>Min Wallet Balance</span> </h6>
+                        <img src="assets/layout/images/am.png" alt="" width="40">
+                        <h6> {{details.min_Wallet_Balance}}</h6>
+                    </div>
+
+                    <div class="shipment-settings card-main">
+
+                        <h6> <span>Default Speed</span> </h6>
+                        <img src="assets/layout/images/model.png" alt="" width="40">
+                        <h6>
+                            {{ details.default_Speed }}
+                        </h6>
+                    </div>
+                    <div class="shipment-settings card-main">
+
+                        <h6> <span>Create at</span> </h6>
+                        <img src="assets/layout/images/calender.png" alt="" width="40">
+                        <h6>
+                            {{ details.created_at | date:'MM-dd-yyyy'}}
+                        </h6>
+                    </div>
+                    <div class="shipment-settings card-main">
+
+                        <h6> <span>End Ride With Zone </span> </h6>
+                        <img src="assets/layout/images/end-with.png" alt="" width="40">
+                        <h6>
+                            {{ details.rideEnd_WithIn_Zone == true ? 'Active': 'Deactive' }}
+                        </h6>
+                    </div>
+                    <div class="shipment-settings card-main">
+
+                        <h6> <span>Near Red Zone </span> </h6>
+                        <img src="assets/layout/images/red-z.png" alt="" width="40">
+                        <h6>
+                            {{ details.nearby_RedZone == true ? 'Active': 'Deactive' }}
+                        </h6>
+                    </div>
+                    <div class="shipment-settings card-main">
+
+                        <h6> <span>Segway Throttle Command </span> </h6>
+                        <img src="assets/layout/images/iot-num.png" alt="" width="40">
+                        <h6>
+                            {{ details.segway_Throttle_Command == true ? 'Active': 'Deactive' }}
+                        </h6>
+                    </div>
+                    <!-- <div class="shipment-settings card-main">
+
+                        <h6> <span>End Time </span> </h6>
+                        <img src="assets/layout/images/end-time.png" alt="" width="40">
+
+                        <h6 *ngIf="details.zone_Start_Time == null">
+                            Time not set
+                        </h6>
+                        <h6 *ngIf="details.zone_Start_Time != null">
+                            {{ details.zone_End_Time | date:'medium' }}
+                        </h6>
+                    </div>
+
+                    <div class="shipment-settings card-main">
+
+                        <h6> <span>Start Time </span> </h6>
+                        <img src="assets/layout/images/start-time.png" alt="" width="40">
+
+                        <h6 *ngIf="details.zone_Start_Time == null">
+                            Time not set
+                        </h6>
+                        <h6 *ngIf="details.zone_Start_Time != null">
+                            {{ details.zone_Start_Time | date:'medium' }}
+                        </h6>
+                    </div> -->
+
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Zone Fare Setting"
+            *ngIf="details.zone_Type != null ? details.zone_Type.number != 3 : true ">
+
+
+            <p-table id="rides-table" #dt [value]="details.ride_Fare_SettingList" dataKey="id"
+                styleClass="p-datatable-gridlines" [rowHover]="true" [showCurrentPageReport]="true"
+                [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                columnResizeMode="expand" [totalRecords]="details.ride_Fare_SettingList.length" [rows]="10"
+                [lazy]="true" autoLayout="true" stateStorage="local" stateKey="lstCustomersRide-local">
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Ride Type</th>
+                        <th>Vehicle Company</th>
+                        <th>Time Price</th>
+                        <th>Km Price</th>
+                        <th>Fixed Start Price</th>
+                        <!-- <th>Pasue Time Price</th> -->
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rideFare let-rowIndex="rowIndex">
+                    <tr class="p-selectable-row">
+                        <td>
+                            <span class="p-column-title">Ride Type</span>
+                            {{rideFare.rideType.title}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Vehicle Company</span>
+
+                            {{rideFare.vehicleCompany.name}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Time Price</span>
+
+                            {{rideFare.time_Price}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Km Price</span>
+
+                            {{rideFare.price_Per_Kilometer}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Fixed Start Price</span>
+
+                            {{rideFare.fixed_Start_Price}}
+                        </td>
+                        <!-- <td>
+                            {{rideFare.paused_Time_Price}}
+                        </td> -->
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="6">
+                            <p class="empty-list">No Zone fare setting found.</p>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+        <p-tabPanel header="Map">
+            <div class="agm-container">
+                <agm-map [zoom]="10" [latitude]="details.center_Latitude" [mapTypeControl]="true"
+                    [longitude]="details.center_Longitude" [draggable]="false">
+                    <agm-polygon #polygon [paths]="details.zone_Coordinates" [strokeColor]="green" [visible]="true">
+                    </agm-polygon>
+                </agm-map>
+            </div>
+
+        </p-tabPanel>
+        <p-tabPanel header="Ride Scrutiny Setting"
+            *ngIf="details.zone_Type != null ? details.zone_Type.number != 3 : true ">
+
+            <p-table id="rides-table" #dt [value]="details.ride_Scrutiny_SettingList" dataKey="id" styleClass="p-datatable-gridlines"
+                [rowHover]="true" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+                [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                columnResizeMode="expand" [totalRecords]="details.ride_Scrutiny_SettingList.length" [rows]="10"
+                [lazy]="true" autoLayout="true" stateStorage="local" stateKey="lstCustomersRide-local">
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Selected Template</th>
+                        <th>Rides</th>
+                        <th>Sequence</th>
+                        <th>Min Before Send</th>
+                        <th>Enable 24 Hours</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Applied Days</th>
+                        <th>Send Customer Notification</th>
+                        <th>Send Admin Notification</th>
+                        <th>Allow Ride End</th>
+                        <th>Turn Speed Low</th>
+                        <th>Turn Throttle Off</th>
+                        <th>Status</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-setting let-rowIndex="rowIndex">
+                    <tr class="p-selectable-row">
+                        <td>
+                            <span class="p-column-title">Selected Template</span>
+                            {{setting.ride_Scrutiny_Templates.title}}</td>
+                        <td><span class="p-column-title">Rides</span>
+                            {{setting.no_Of_Rides}}</td>
+                        <td> <span class="p-column-title">Sequence</span> {{setting.sequence}}</td>
+                        <td> <span class="p-column-title">Min Before Send</span> {{setting.totalLeftMinutes}}</td>
+                        <td> <span class="p-column-title">Enable 24 Hours</span> {{setting.enable24Hours}}</td>
+                        <td> <span class="p-column-title">Start Time</span> {{setting.startTime }}</td>
+                        <td> <span class="p-column-title">End Time</span> {{setting.endTime }}</td>
+                        <td> <span class="p-column-title">Applied Days</span> {{setWeekDays(setting.appliedDays)}}</td>
+                        <td> <span class="p-column-title">Send Customer Notification</span> {{setting.sendCustomerNotification}}</td>
+                        <td> <span class="p-column-title">Send Admin Notification</span> {{setting.sendAdminNotification}}</td>
+                        <td> <span class="p-column-title">Allow Ride End</span> {{setting.allowRideEnd}}</td>
+                        <td> <span class="p-column-title">Turn Speed Low</span> {{setting.turnSpeedLow}}</td>
+                        <td> <span class="p-column-title">Turn Throttle Off</span> {{setting.turnThrottleOff}}</td>
+                        <td> <span class="p-column-title">Status</span>
+                            <p-inputSwitch actionTitle="Status" (onChange)="onScrutinyStatus($event,setting.id)"
+                                [(ngModel)]="setting.active">
+                            </p-inputSwitch>
+                        </td>
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="15">
+                            <p class="empty-list">No Ride Security setting found.</p>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+
+
+    </p-tabView>
+</p-sidebar>

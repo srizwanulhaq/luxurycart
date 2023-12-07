@@ -1,0 +1,202 @@
+<p-toast></p-toast>
+<div class="bread-container">
+    <div class="left-box">
+        <h4>
+            <span>
+                Hajj Survey
+            </span>
+        </h4>
+    </div>
+    <div class="right-box">
+        <button pButton pRipple label="Add Survey" class="p-button-success mr-2 theme-btn" (click)="openNew()"></button>
+    </div>
+</div>
+
+<form [formGroup]="surveyForm" (ngSubmit)="onSubmitForm()">
+    <p-dialog id="new-survey-model" [(visible)]="surveyDialog" [style]="{width: '700px'}" header="Survey Details"
+        [modal]="true" class="p-flui" [dismissableMask]="true">
+        <ng-template pTemplate="content">
+            <div class=" grid">
+                <div class="field col-12 md:col-4">
+                    <label for="language">Language</label>
+                    <p-dropdown id="lang" [options]="languages" placeholder="Select Language" name="lang"
+                        optionLabel="label" optionValue="value" (onChange)="changeLang($event)" [filter]="true"
+                        dataKey="value">
+                    </p-dropdown>
+                </div>
+                <div class="field col-12 md:col-4">
+                    <label for="name">{{ locale[selectedLang][0] }} <span class="star-sign">*</span></label>
+                    <p-dropdown #nationality id="txtsubAccount" [options]="countries" name="subAccount"
+                        formControlName="nationality" placeholder="Select Nationality"
+                        (onChange)="getNationalityName(nationality)" optionLabel="name" [filter]="true" filterBy="name"
+                        [showClear]="true">
+                        <ng-template let-country pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                                    [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                                <div>{{ country.name }}</div>
+                            </div>
+                        </ng-template>
+
+                    </p-dropdown>
+
+                </div>
+                <div class="field col-12 md:col-4">
+                    <label for="name">{{ locale[selectedLang][1] }} <span class="star-sign">*</span></label>
+                    <div *ngFor="let glass of yesNo" class="field-checkbox">
+                        <p-radioButton [inputId]="glass.name" [value]="glass.key"
+                            formControlName="isServiceAlreadyUsed"></p-radioButton>
+                        <label [for]="glass.key" class="ml-2">{{ glass.name }}</label>
+                    </div>
+                </div>
+                <div class="field col-12 md:col-4">
+                    <label for="name">{{ locale[selectedLang][2] }} <span class="star-sign">*</span></label>
+                    <div *ngFor="let gander of ganders" class="field-checkbox">
+                        <p-radioButton [inputId]="gander.name" [value]="gander.name"
+                            formControlName="gender"></p-radioButton>
+                        <label [for]="gander.key" class="ml-2">{{ gander.name }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="formgrid grid">
+
+                <div class="field col-12 md:col-4">
+                    <label for="name">{{ locale[selectedLang][3] }} <span class="star-sign">*</span></label>
+                    <div *ngFor="let rideDirection of rideDirections" class="field-checkbox">
+                        <p-radioButton [inputId]="rideDirection.name" [value]="rideDirection.name"
+                            formControlName="rideDirection"></p-radioButton>
+                        <label [for]="rideDirection.key" class="ml-2">{{ rideDirection.name }}</label>
+                    </div>
+                </div>
+                <div class="col-12 md:col-4">
+                    <label for="name">{{ locale[selectedLang][4] }} <span class="star-sign">*</span></label>
+                    <div *ngFor="let age of ages" class="field-checkbox">
+                        <p-radioButton [inputId]="age.name" [value]="age.name"
+                            formControlName="ageBracket"></p-radioButton>
+                        <label [for]="age.key" class="ml-2">{{ age.name }}</label>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-4 field">
+                    <label for="name">{{ locale[selectedLang][5] }} <span class="star-sign">*</span></label>
+                    <div *ngFor="let glass of yesNo" class="field-checkbox">
+                        <p-radioButton [inputId]="glass.name" [value]="glass.key"
+                            formControlName="isWearingGlasses"></p-radioButton>
+                        <label [for]="glass.key" class="ml-2">{{ glass.name }}</label>
+                    </div>
+                </div>
+            <div class="formgrid grid">
+                <div class="col-12 md:col-4 field">
+                    <label for="name">{{ locale[selectedLang][6] }}<span class="star-sign">*</span></label>
+                    <div *ngFor="let glass of yesNo" class="field-checkbox">
+                        <p-radioButton [inputId]="glass.name" [value]="glass.key"
+                            formControlName="haveScooterKnowledge"></p-radioButton>
+                        <label [for]="glass.key" class="ml-2">{{ glass.name }}</label>
+                    </div>
+                </div>
+
+                <div class="col-12 md:col-4 field">
+                    <label for="name">{{ locale[selectedLang][7] }} <span class="star-sign">*</span></label>
+                    <p-dropdown id="type" [options]="lstTypes" name="type" formControlName="vehicle_Type_Id"
+                        placeholder="Select Type">
+                    </p-dropdown>
+
+                </div>
+                <div class="col-12 md:col-4 field">
+                    <label for="name">{{ locale[selectedLang][8] }} <span class="star-sign">*</span></label>
+                    <p-slider formControlName="qualityOfTrackFloor" [min]="0" [max]="8"></p-slider>
+                    <h5>{{qualityOfTrackFloor}}</h5>
+
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="col-12 md:col-4 field">
+                    <label for="name">{{ locale[selectedLang][9] }} <span class="star-sign">*</span></label>
+                    <p-slider formControlName="qualityOfLighting" [min]="0" [max]="8"></p-slider>
+                    <h5>{{qualityOfLighting}}</h5>
+                </div>
+                <div class="col-12 md:col-4 field">
+                    <label for="name">{{ locale[selectedLang][10] }} <span class="star-sign">*</span></label>
+                    <p-slider formControlName="qualityOfPickupZone" [min]="0" [max]="8"></p-slider>
+                    <h5>{{qualityOfPickupZone}}</h5>
+                </div>
+                <div class="col-12 md:col-4 field">
+                    <label for="name">{{ locale[selectedLang][11] }} <span class="star-sign">*</span></label>
+                    <p-slider formControlName="qualityOfDepartureZone" [min]="0" [max]="8"></p-slider>
+                    <h5>{{qualityOfDepartureZone}}</h5>
+
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="col-12 md:col-4 field">
+                    <label for="name">{{ locale[selectedLang][12] }} <span class="star-sign">*</span></label>
+                    <p-slider formControlName="sustainabilityOfScooterSpeed" [min]="0" [max]="8"></p-slider>
+                    <h5>{{sustainabilityOfScooterSpeed}}</h5>
+                </div>
+                <div class="col-12 md:col-4 field">
+                    <label for="name">{{ locale[selectedLang][13] }} <span class="star-sign">*</span></label>
+                    <p-slider formControlName="scooterPickupProcess" [min]="0" [max]="8"></p-slider>
+                    <h5>{{scooterPickupProcess}}</h5>
+                </div>
+                <div class="col-12 md:col-4 field">
+                    <label for="name">{{ locale[selectedLang][14] }} <span class="star-sign">*</span></label>
+                    <p-slider formControlName="scooterDropOffProcess" [min]="0" [max]="8"></p-slider>
+                    <h5>{{scooterDropOffProcess}}</h5>
+
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-12 md:col-4 field">
+                    <label for="name">{{ locale[selectedLang][15] }}<span class="star-sign">*</span></label>
+                    <div *ngFor="let glass of yesNo" class="field-checkbox">
+                        <p-radioButton [inputId]="glass.name" [value]="glass.key"
+                            formControlName="supportProvisionOfScooter"></p-radioButton>
+                        <label [for]="glass.key" class="ml-2">{{ glass.name }}</label>
+                    </div>
+                </div>
+                <div class="col-12 md:col-4 field">
+                    <label for="name">{{ locale[selectedLang][16] }} <span class="star-sign">*</span></label>
+                    <p-slider formControlName="qualityOfScooterCondition" [min]="0" [max]="8"> </p-slider>
+                    <h5>{{qualityOfScooterCondition}}</h5>
+
+                </div>
+                <div class="col-12 md:col-4 field">
+
+                    <div class="col-12 md:col-4 field">
+                        <label for="name">{{ locale[selectedLang][17] }} <span class="star-sign">*</span></label>
+                        <p-slider formControlName="satisfiedExperince" [min]="0" [max]="8"></p-slider>
+                        <h5>{{satisfiedExperince}}</h5>
+
+                    </div>
+                </div>
+                <div class="col-12 md:col-4 field">
+                    <div class="item">
+                    <label for="name">The quality of the condition of the scooter used<span
+                            class="star-sign">*</span></label>
+                    <p-slider [(ngModel)]="qualityOfScooterCondition" formControlName="qualityOfScooterCondition"
+                        [min]="0" [max]="10"> </p-slider>
+                    <h5>{{qualityOfScooterCondition}}</h5>
+                        </div>
+                </div>
+                <div class="col-12 md:col-4 field">
+                    <div class="item">
+                    <label for="name">How satisfied are you with the experience<span class="star-sign">*</span></label>
+                    <p-slider [(ngModel)]="satisfiedExperince" formControlName="satisfiedExperince" [min]="0"
+                        [max]="10"></p-slider>
+                    <h5>{{satisfiedExperince}}</h5>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Save" [disabled]="!surveyForm.valid" icon="pi pi-check"
+                class="p-button-text theme-btn">
+                <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}"
+                    styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"
+                    animationDuration=".5s"></p-progressSpinner>
+            </button>
+        </ng-template>
+    </p-dialog>
+</form>

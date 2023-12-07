@@ -1,0 +1,79 @@
+<p-sidebar *ngIf="details" [(visible)]="main.bottomPanelActive" position="bottom" [baseZIndex]="10000">
+    <p-tabView id="detail-tabbing">
+        <div class="action-row ">
+            <div class="action-btn ">
+                <div (click)="main.onEditPackageDiscountButtonClick($event,details) ">
+                    <h6>Edit</h6>
+                </div>
+            </div>
+            <div style="padding-left: 9px;text-align: center;">
+                <h6 class="m-0">Active And Deactive Toggle</h6>
+                <p-inputSwitch (onChange)="onChangePromoCode($event,details.id)"
+                [(ngModel)]="details.active"></p-inputSwitch>
+            </div>
+        </div>
+        <div class="head-row">
+            <h6 class="panel-parent-heading"><span>ID : 12</span></h6>
+            <div class="btn-right-box" *ngIf="details.lstCityPackageDiscounts != null">
+                <ol>
+                    <li *ngFor="let item of details.lstCityPackageDiscounts">
+                        {{item.city.name}}
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <p-tabPanel header="Code Info">
+
+            <div class="submenu-content settings ">
+                <div class="main-row ">
+                    <div class="history-settings card-main ">
+                        <h6><span>Code</span></h6>
+                        <img src="assets/layout/images/imei.png " alt=" " width="40 ">
+                        <h6>{{details.code}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Discount Percentage</span></h6>
+                        <img src="assets/layout/images/model.png " alt=" " width="40 ">
+                        <h6>{{details.percentage_Discount}}%</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Max Purchase</span></h6>
+                        <img src="assets/layout/images/battery.png " alt=" " width="40 ">
+                        <h6>{{details.max_Purchase}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Zone</span></h6>
+                        <img src="assets/layout/images/model.png " alt=" " width="40 ">
+                        <h6>{{details.parking_Zones.title}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Start Date</span></h6>
+                        <img src="assets/layout/images/model.png " alt=" " width="40 ">
+                        <h6>{{details.created_at | date:"medium"}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Expiry Date</span></h6>
+                        <img src="assets/layout/images/model.png " alt=" " width="40 ">
+                        <h6>{{details.expiry | date: "medium"}}</h6>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Uses">
+            <app-code-uses-listing type="package" [code_id]="details.id" [code]="details.code"></app-code-uses-listing>
+        </p-tabPanel>
+        <!-- <p-tabPanel header="Action ">
+            <div class="top-action">
+                <h6>Actice And Deactive Toggle</h6>
+                <p-inputSwitch (onChange)="onChangePromoCode($event,details.id)"
+                    [(ngModel)]="details.active"></p-inputSwitch>
+            </div>
+            <div class="action-row ">
+                <div class="action-btn" (click)="main.onEditPackageDiscountButtonClick($event,details) ">
+                    <h6>Edit</h6>
+                </div>
+            </div>
+        </p-tabPanel> -->
+    </p-tabView>
+</p-sidebar>

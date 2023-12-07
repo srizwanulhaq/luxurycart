@@ -1,0 +1,121 @@
+<div class="bread-container">
+    <div class="left-box">
+        <h4>
+            <span>
+                Ride Scrutiny Template
+            </span>
+        </h4>
+    </div>
+</div>
+
+<p-table #dt [value]="rideScrutinyTemplates" [columns]="cols" [lazy]="true" (onLazyLoad)="loadList($event)"
+    [totalRecords]="totalRecords" [rows]="10" [paginator]="true" [rowsPerPageOptions]="rowsPerPageOptions"
+    [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    selectionMode="multiple" [rowHover]="true" dataKey="id" stateStorage="local"
+    stateKey="rideScrutinyTemplatesDao-local" [responsive]="true">
+    <ng-template pTemplate="caption">
+        <shared-date-range [startDate]="startDate" [endDate]="endDate" [loading]="loading"
+            (onRangeChange)="onRangeChange($event)" (onDateChange)="onDateChange($event)"></shared-date-range>
+        <div class="grid">
+            <div class="col-12">
+                <div class="right-box">
+                    <button pButton pRipple label="Add Ride Scrutiny Template" class="p-button-success mr-2 theme-btn"
+                        (click)="formData()"></button>
+                </div>
+                <div style="display: flex; justify-content: end;">
+                    <span>
+                        <div class="dropdown">
+                            <button onclick="myFunction1()" class="dropbtn1">Export <i
+                                    class="pi pi-chevron-up"></i></button>
+                            <div id="myDropdown1" class="dropdown-content1">
+                                <div class="grid">
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/excel-icon.png" alt=""
+                                                width="20">
+                                            <p>Excel</p>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/pdf-icon.png" alt=""
+                                                width="20">
+                                            <p>Pdf</p>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/icons8-export-csv-80.png"
+                                                alt="" width="20">
+                                            <p>Csv</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </span>
+                    <div class="custom-in-box">
+                        <i title="Reset Filter" class="pi pi-times" (click)="resetDataTable(dt)"></i>
+                        <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                            (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                            class="search-input p-0" [(ngModel)]="filterVal" />
+                        <span (click)="dt.filterGlobal(filterGlobalValue, 'contains')">Search
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="title">Title
+                <p-sortIcon field="title">
+                </p-sortIcon>
+            </th>
+            <th pSortableColumn="body">Body
+                <p-sortIcon field="body"></p-sortIcon>
+            </th>
+            <th pSortableColumn="active">Active
+                <p-sortIcon field="active"></p-sortIcon>
+            </th>
+            <th pSortableColumn="created_at">Date
+                <p-sortIcon field="created_at"></p-sortIcon>
+            </th>
+            <th>Action</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rideScrutinyTemplate let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="rideScrutinyTemplate" [pSelectableRowIndex]="rowIndex">
+            <td>
+                <p-tableCheckbox [value]="rideScrutinyTemplate"></p-tableCheckbox>
+            </td>
+            <td><span class="p-column-title">Title</span> {{rideScrutinyTemplate.title}}</td>
+            <td><span class="p-column-title">Body</span> {{rideScrutinyTemplate.body}}</td>
+            <td><span class="p-column-title">Active</span>
+                <button type="button" class="btn" [ngClass]="rideScrutinyTemplate.active?'btn-success':'btn-danger'"
+                    (click)="toggleItem(rideScrutinyTemplate.id)" [disabled]="loading">{{
+                    rideScrutinyTemplate.active ? 'Active':'Deactive'
+                    }}</button>
+            </td>
+            <td><span class="p-column-title">Date</span> {{rideScrutinyTemplate.created_at| date: "medium"}}</td>
+            <td>
+                <button type="button" class="btn btn-info" (click)="formData(rideScrutinyTemplate.id)">Edit</button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <tr *ngIf="totalRecords == 0">
+            <td colspan="7" class="text-center">
+                <div>
+                    No ride scrutiny templates right now
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+
+</p-table>
+<p-toast></p-toast>

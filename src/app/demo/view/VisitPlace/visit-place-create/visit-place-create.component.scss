@@ -1,0 +1,33 @@
+.preview-wrapper {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    .img-preview-item {
+        border: 1px solid #0000002e;
+        padding: 10px;
+        border-radius: 7px;
+        width: 30%;
+        position: relative;
+        img {
+            height: 100px;
+            width: 100px;
+            display: block;
+            margin: auto;
+        }
+        button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: red;
+            color: white;
+            border: 0;
+            border-radius: 3px;
+            padding-bottom: 3px;
+            cursor: pointer;
+        }
+    }
+}

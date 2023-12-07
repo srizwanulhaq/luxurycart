@@ -1,0 +1,40 @@
+<p-toast></p-toast>
+<div class="bread-container">
+    <div class="left-box">
+        <h4>
+            <span>
+                Manage Rides
+            </span>
+        </h4>
+    </div>
+    <div class="right-box">
+        <button pButton pRipple label="Add New Ride" class="p-button-success mr-2 theme-btn" (click)="openNew()"></button>
+    </div>
+</div>
+
+<form [formGroup]="rideForm" (ngSubmit)="onSubmitForm()">
+    <p-dialog id="new-ride-model" [(visible)]="rideDialog" [style]="{width: '550px'}" header="Add New Ride" [modal]="true" class="p-fluid" [dismissableMask]="true">
+        
+            <ng-template pTemplate="content">
+                <div class="field">
+                    <label for="phone">Customer Phone <span class="star-sign">*</span> </label> 
+                    <p-autoComplete [(ngModel)]="selectedPhone" formControlName="selectedPhone" [minLength]="5" field="name" [suggestions]="filteredPhones" (completeMethod)="searchPhones($event)"  placeholder ="Search without +sign"></p-autoComplete>
+                    <small  style="color:red;" class="ng-dirty ng-invalid" *ngIf="filteredPhones == 0">Phone doesn't exist.</small>
+                </div>
+                <div class="field">
+                    <label for="name">Scooter <span class="star-sign">*</span></label>  
+                    <p-autoComplete [(ngModel)]="selectedVehicle" formControlName="selectedVehicle" [minLength]="2" field="name" [suggestions]="filteredVehicles" (completeMethod)="searchVehicles($event)"></p-autoComplete>
+                    <small  style="color:red;" class="ng-dirty ng-invalid" *ngIf="filteredVehicles == 0 ">Scooter doesn't exist</small>
+                </div>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <!-- <p-button pButton  label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></p-button> -->
+                <button pButton pRipple label="Add Ride" [disabled]="!rideForm.valid   ||  filteredPhones ==0 || filteredVehicles ==0" icon="pi pi-check" class="p-button-text theme-btn" >
+                    <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}" styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+                </button>
+            </ng-template>
+
+    </p-dialog>
+</form>

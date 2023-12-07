@@ -1,0 +1,11 @@
+<div class="col-12">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <div class="card component-main-card">
+                <app-package-details [details]="package"></app-package-details>
+                <app-package-edit [editPackageData]="package" (eventChange)="onChange($event)"></app-package-edit>
+                <app-package-create (eventChange)="onChange($event)"></app-package-create>
+                <app-package-listing [event]="event" ></app-package-listing>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,13 @@
+<app-supportt-details [details]="supportTicket"></app-supportt-details>
+<app-supportm-add
+    [maintenanceIds]="maintenanceIds"
+    (resetMaintenanceIds)="resetMaintenanceIds()"
+    (eventChange)="onChange($event)"
+></app-supportm-add>
+<div class="grid">
+    <div class="col-12">
+        <div class="card component-main-card">
+            <app-supportt-listing [event]="event"></app-supportt-listing>
+        </div>
+    </div>
+</div>

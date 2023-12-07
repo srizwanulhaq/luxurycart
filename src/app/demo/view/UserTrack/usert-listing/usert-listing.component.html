@@ -1,0 +1,221 @@
+<div class="bread-container">
+    <div class="left-box">
+        <h4>
+            <span>
+                Users Tracking
+            </span>
+        </h4>
+    </div>
+    <div class="right-box">
+        <!-- <button pButton pRipple label="Add New Ride" class="p-button-success mr-2 theme-btn" (click)="openNew()"></button> -->
+    </div>
+</div>
+
+<div  class="lodi">
+    <div *ngIf="loading" class="lodi-child">
+        <div class="custom-loader"></div>
+    </div>
+<p-table #dt [value]="userTracks" [columns]="cols" [lazy]="true" (onLazyLoad)="loadUserTracks($event)"
+    [totalRecords]="totalRecords" [rows]="10" [paginator]="true" [rowsPerPageOptions]="rowsPerPageOptions"
+    [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    selectionMode="multiple" [rowHover]="true" dataKey="id" stateStorage="local" stateKey="userTrackListDao-local"
+    [responsive]="true">
+    <ng-template pTemplate="caption">
+        <!-- <shared-date-range [startDate]="startDate" [endDate]="endDate" [loading]="loading"
+            (onRangeChange)="onRangeChange($event)" (onDateChange)="onDateChange($event)"></shared-date-range> -->
+        <div class="grid">
+            <div class="md:col-5 col-12">
+               
+                <div class="grid">
+                    <br>
+                    <div class="col-6">
+                        
+                        <label for="login-status">Login Status</label>
+                        <p-dropdown id="user-t-drp"
+                            [options]="[{name:'All', value:''},{name:'Online', value:'1'},{name:'Offline', value:'2'}]"
+                            optionValue="value" [(ngModel)]="selectedLogStatus" (onChange)="dt.filter()"
+                            optionLabel="name"></p-dropdown>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="isWithInZone">Within Zone</label>
+                        <p-dropdown id="user-t-drp"
+                            [options]="[{name:'All', value:''},{name:'Yes', value:'1'},{name:'No', value:'0'}]"
+                            optionValue="value" [(ngModel)]="isWithinZone" (onChange)="dt.filter()"
+                            optionLabel="name"></p-dropdown>
+                    </div>
+                </div>
+
+            </div>
+            <div class="md:col-7 col-12 mt-3">
+                <div class="three-btn-box" style="display: flex; justify-content: end;">
+                    <span class="cut-list-send-btn">
+                        <button pButton pRipple label="Show On Map" class="p-button-success mr-2 alert-btn"
+                            (click)="onMapOpen()"></button>
+                    </span>
+                    <span class="transactio-exp-btn">
+                        <div class="dropdown">
+                            <button onclick="myFunction1()" class="dropbtn1">Export <i
+                                    class="pi pi-chevron-up"></i></button>
+                            <div id="myDropdown1" class="dropdown-content1">
+                                <div class="grid">
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/excel-icon.png" alt=""
+                                                width="20">
+                                            <p>Excel</p>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/pdf-icon.png" alt=""
+                                                width="20">
+                                            <p>Pdf</p>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/icons8-export-csv-80.png"
+                                                alt="" width="20">
+                                            <p>Csv</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </span>
+                    <!-- <div class="custom-in-box transaction-filter">
+                        <i title="Reset Filter" class="pi pi-times" (click)="resetDataTable(dt)"></i>
+                        <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                            (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                            class="search-input tran-search p-0" />
+                        <span (click)="dt.filterGlobal(filterGlobalValue, 'contains')">Search
+                        </span>
+                    </div> -->
+                    <div class="">
+                        <div class="dropdown">
+                            <button onclick="myFunction()" class="dropbtn" title="Filter"
+                                style="margin-top: 7px;margin-left: 8px;background: #99ca3c;">
+                                <img src="../../../assets/layout/images/filter-16.png" alt="">
+                            </button>
+                            <div id="myDropdown" class="dropdown-content" style="margin-top: 0;">
+                                <i onclick="myFunction()" class="fa fa-times close-bt-show-mb"></i>
+
+                                <div class="calender-box">
+                                    <shared-date-range [startDate]="startDate" [endDate]="endDate" [loading]="loading"
+                                        (onRangeChange)="onRangeChange($event)"
+                                        (onDateChange)="onDateChange($event)"></shared-date-range>
+                                </div>
+                                <!-- <div class="btun-box">
+                                       <ul class="left-list">
+                                           <li> <button>Today</button> </li>
+                                           <li> <button>Yesterday</button> </li>
+                                           <li> <button>Monthly</button> </li>
+                                           <li> <button>Total</button> </li>
+                                        </ul>
+                                   </div> -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div id="serch-ani">
+                        <div class="it-box" style="margin-top: 8px;">
+                            <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                                (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                                style="background: #99ca3c;" />
+                            <span class="search" style="background: #99ca3c;">
+                                <i class="pi pi-search search-icon"></i>
+                            </span>
+                            <i class="pi pi-times close-icon" (click)="resetDataTable(dt)"></i>
+                        </div>
+                    </div> -->
+                    <!-- <div class="search-wrapper mt-2">
+                        <div class="input-holder">
+                            <input type="text" class="search-input" placeholder="Type to search" [(ngModel)]="filterGlobalValue" (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')"/>
+                            <button class="search-icon" onclick="searchToggle(this, event);" (click)="dt.filterGlobal(filterGlobalValue, 'contains')"><span></span></button>
+                        </div>
+                        <span class="close" onclick="searchToggle(this, event);" (click)="resetDataTable(dt)"></span>
+                    </div> -->
+
+                    <div class="custom-in-box transaction-filter mt-2">
+                        <i title="Reset Filter" class="pi pi-times" (click)="resetDataTable(dt)"></i>
+                        <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                            (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                            class="search-input p-0 tran-search" />
+                        <span (click)="dt.filterGlobal(filterGlobalValue, 'contains')">Search
+                        </span>
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- <div class="col-12">
+                <button type="button" (click)="onMapOpen()">Show On Map</button>
+            </div> -->
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="userName">Username
+                <p-sortIcon field="userName">
+                </p-sortIcon>
+            </th>
+            <th pSortableColumn="zoneTitle">Nearest Zone
+                <p-sortIcon field="zoneTitle"></p-sortIcon>
+            </th>
+            <th pSortableColumn="is_Within_Zone">In Zone
+                <p-sortIcon field="is_Within_Zone"></p-sortIcon>
+            </th>
+            <th pSortableColumn="log_Status">Login Status
+                <p-sortIcon field="log_Status"></p-sortIcon>
+            </th>
+            <th pSortableColumn="log_DateTime">Login Datetime
+                <p-sortIcon field="log_DateTime"></p-sortIcon>
+            </th>
+            <th>Location</th>
+            <th>Details</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-userTrack let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="userTrack" [pSelectableRowIndex]="rowIndex">
+            <td>
+                <p-tableCheckbox [value]="userTrack"></p-tableCheckbox>
+            </td>
+            <td><span class="p-column-title">Username</span> {{userTrack.userName}}</td>
+            <td><span class="p-column-title">Nearest Zone</span> {{userTrack.zoneTitle}}</td>
+            <td><span class="p-column-title">In Zone</span> {{userTrack.is_Within_Zone?'Yes':'No'}}</td>
+            <td><span class="p-column-title">Login Status</span> {{userTrack.log_Status==1?'Online':'Offline'}}</td>
+            <td><span class="p-column-title">Login Datetime</span> {{userTrack.log_DateTime| date: "medium"}}</td>
+            <td><span class="p-column-title">Location</span>
+                <a class="p-button-rounded p-button-success theme-btn ac-btn " style="padding: 2px 6px;"
+                    [href]="'http://maps.google.com/maps?q='+userTrack.latitude+','+userTrack.longitude"
+                    target="_blank">
+                    <i class="pi pi-map lot-btn" style="font-size: 12px;"></i>
+                </a>
+            </td>
+            <td class="sm-jus-end">
+                <div class="flex" style="position: relative;justify-content: center;">
+                    <button pButton pRipple class="p-button-rounded p-button-success theme-btn ac-btn"
+                        (click)="getDetails(userTrack.userId)">
+                        <img src="../../../../../assets/layout/images/more-detail.png" alt="" width="18">
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <tr *ngIf="totalRecords == 0">
+            <td colspan="7" class="text-center">
+                <div>
+                    No User Tracks right now
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+
+</p-table>
+</div>
+<p-toast></p-toast>

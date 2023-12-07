@@ -1,0 +1,108 @@
+@font-face {
+  font-family: primaryFont;
+  src: url(./../../../../../assets/layout/fonts/gilroy/Gilroy-Light.otf);
+}
+:host ::ng-deep .progress-spinner {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+:host ::ng-deep .loading-indicator:before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.53);
+}
+
+agm-map {
+  height: 600px;
+}
+
+// * {
+//   font-family: Lato;
+// }
+
+a {
+  color: darkblue;
+}
+
+:host ::ng-deep section#main-maps .card {
+  padding: 2%;
+}
+ul {
+  padding-left: 0;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 0;
+
+  li {
+    display: flex;
+    background: #edebebbd;
+    padding: 9px 10px;
+    border-radius: 10px;
+    margin-right: 1px;
+    width: 31%;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: primaryFont;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.map-det {
+  margin: 0;
+  font-family: primaryFont;
+}
+.zone-detail {
+  // margin-top: 20px;
+  display: flex;
+  p {
+    font-size: 13px;
+    font-family: arial;
+    margin: 0;
+    margin-left: 10px;
+    background: #f2f0f0;
+    padding: 6px 7px;
+    border-radius: 9px;
+    width: 33%;
+    text-align: center;
+    font-family: primaryFont;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px;
+    img{
+      display: table;
+      margin: auto;
+      width: 39px;
+    }
+  }
+}
+
+.dropdown-content {
+  top: -75px;
+}
+@media only screen and (max-width: 480px) and (min-width: 320px) {
+  ul li {
+    width: 31%;
+  }
+}

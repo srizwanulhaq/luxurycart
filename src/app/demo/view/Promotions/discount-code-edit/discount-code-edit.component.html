@@ -1,0 +1,69 @@
+<p-toast></p-toast>
+<p-dialog [modal]="true" class="p-fluid" [dismissableMask]="true" header="Edit Discount Code" [(visible)]="main.editDiscountCodeActive" [style]="{ width: '35vw' }" [baseZIndex]="10000">
+    <form #f="ngForm" (ngSubmit)="onSubmitUpdate()" [formGroup]="EditDiscountCodeForm">
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Country<span style="color: red">*</span></label>
+                        <p-dropdown id="txtcountryId" [options]="lstCountries" [(ngModel)]="country_Id" name="country_Id" formControlName="country_Id" (onChange)="onSelect($event)" placeholder="Select Country">
+                        </p-dropdown>
+                    </div>
+                    <div class="field col">
+                        <label>City<span style="color: red">*</span></label>
+                        <p-multiSelect [options]="getlstCities" optionLabel="name" [(ngModel)]="selectlstCities" formControlName="selectlstCitiess" selectedItemsLabel="{0} items selected"scrollHeight="100px"  defaultLabel="Select a City" ></p-multiSelect>
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Zone<span style="color: red">*</span></label>
+                        <p-dropdown id="txtparkingzonesId" [options]="_itemparkingzones" name="Parking_Zone_Id" formControlName="Parking_Zone_Id" placeholder="Select Parking Zones">
+                        </p-dropdown>
+                    </div>
+                    <div class="field col">
+                        <label>Code<span style="color: red">*</span></label>
+                        <input type="text" id="txtcode" name="code" formControlName="code" pInputText placeholder="Code"/>
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Discount Percentage<span style="color: red">*</span></label>
+                        <input type="number" id="txtpercentagediscount" name="percentage_Discount" formControlName="percentage_Discount" pInputText placeholder="Percentage Discount"/>
+                    </div>
+                    <div class="field col">
+                        <label>Discount_Upto<span style="color: red">*</span></label>
+                        <input type="number" id="txtdiscountupto" name="discount_Upto" formControlName="discount_Upto" pInputText placeholder="Discount Upto"/>
+                    </div>
+                </div>
+                    <div class="formgrid grid">
+                    <div class="field col">
+                        <label>No Of Rides<span style="color: red">*</span></label>
+                        <input type="number" id="txtnumberofrides" name="no_Of_Rides" formControlName="no_Of_Rides" pInputText placeholder="No of Rides"/>
+                    </div>
+                <div class="field col">
+                <label>Expiry Date<span style="color: red">*</span></label><br>
+                <input type="datetime-local" id="txtexpiry" name="expiry" formControlName="expiry" pInputText placeholder="Expiry"/>
+            </div>
+                    </div>
+            </div>
+        </div>
+  
+            <div class="col-md-12">
+                <div class="button-footer text-right">
+                    <button
+                    class="cancel-custom mr-2" style="width: auto;"
+                    (click)="main.editDiscountCodeActive = false" 
+                    label="Cancel"
+                    pButton
+                >
+                </button>
+                <button type="submit" class="add-new-btn theme-btn" [disabled]="!EditDiscountCodeForm.valid">
+                    <span *ngIf="btnloading"></span>
+                    Update
+                  </button>
+                </div>
+            </div>
+
+    </form>
+</p-dialog>
+

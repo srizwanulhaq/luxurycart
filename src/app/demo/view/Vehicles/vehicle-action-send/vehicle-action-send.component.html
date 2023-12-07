@@ -1,0 +1,41 @@
+<div class="send-com-right" id="layout-right-sidebar" [ngClass]="{'layout-right-sidebar-active': !!actionType}">
+    <i class="fa fa-times cross" (click)="onCloseActionPanel()"></i>
+    <div class="right-panel-scroll-content">
+        <div class="right-panel-main">
+            <h3 class="text-center text-white py-4 mb-0 tit"> <span>Send {{ actionType }}</span> </h3>
+            <div class="tiles-area" *ngIf="vehicleCommands!=undefined && vehicleStatuses!=undefined">
+                <ng-container *ngIf="actionType=='command'; else statusList">
+                    <div class="item" *ngFor="let command of vehicleCommands">
+                        <button class="" (click)="setAndSendCommandNo(command.number)">
+                            {{command.title}}
+                        </button>
+                        <div class="button" *ngIf="command.title=='Send_THROTTLE_ON'">
+                            <select name="value" id="speed-value" [(ngModel)]="actionVal">
+                                <option value="1">10</option>
+                                <option value="2">15</option>
+                                <option value="3">25</option>
+                            </select>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #statusList>
+
+                    <div class="col-12">
+                        <select name="status" id="status" [(ngModel)]="selectedNo">
+                            <option [value]="status.number" *ngFor="let status of vehicleStatuses">{{ status.title
+                                }}</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <textarea *ngIf="selectedNo==4" class="w-100 mb-3" name="message" id="message" cols="30"
+                            rows="10" [(ngModel)]="actionVal" placeholder="Message...."></textarea>
+
+                        <button pButton pRipple label="Update" class="w-100 p-button-success theme-btn"
+                            [disabled]="!selectedNo || (selectedNo==4 && !actionVal)" (click)="onSendAction()"></button>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+
+    </div>
+</div>

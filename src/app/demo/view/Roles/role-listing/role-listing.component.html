@@ -1,0 +1,72 @@
+<div class="formgrid grid">
+    <div class="field md:col-6 col-12">
+        <div class="col-box">
+            <h4 style="font-weight: 900;margin: 0;font-size: 17px;margin-bottom: 3px;">Select Role</h4>
+            <p-dropdown id="select-role-drop" [options]="lstRoles" placeholder="Select a role" [filter]="true" (onChange)="changeRole()"
+                [(ngModel)]="selectedRole" optionLabel="label">
+
+            </p-dropdown>
+            <div class="item-box">
+                <button class="item-child" *ngFor="let item of modules" (click)="onChangeModule(item.code)">
+                    <span>{{item.name}}</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+    <div class="field md:col-6 col-12" >
+        <div class="col-box">
+            <ng-template *ngIf="1==1/2">
+                <h6>Select User</h6>
+                <p-dropdown [options]="lstUsers" [placeholder]="'Select a '+ (lstUsers.length>0?'user':'role first')"
+                    [filter]="true" (onChange)="changeUser()" [(ngModel)]="selectedUser" optionLabel="label"></p-dropdown>
+                <br>
+            </ng-template>
+            <br>
+            <p-table [value]="Permission" styleClass="p-datatable-sm" responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Permission</th>
+                        <th>Action</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-permission>
+                    <tr>
+                        <td>{{permission.name}}</td>
+                        <td><p-inputSwitch [(ngModel)]="permission.isSelected"
+                                (onChange)="onPermissionChange(permission)" [disabled] ="!selectedRole" ></p-inputSwitch></td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- <p-splitter [style]="{'height': '300px'}">
+
+    <ng-template pTemplate>
+        <p-listbox [options]="modules" [(ngModel)]="selectedModule" (onChange)="onChangeModule()" optionLabel="name"></p-listbox>
+    </ng-template>
+
+    <ng-template pTemplate>
+
+        <p-table [value]="Permission" styleClass="p-datatable-sm" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Action</th>
+                    <th>Permission</th>
+                </tr>
+            </ng-template>
+            <ng-template  pTemplate="body" let-permission>
+                <tr>
+                    <td>{{permission.name}}</td>
+                    <td><p-inputSwitch [(ngModel)]="permission.isSelected" (onChange)="onPermissionChange(permission)"></p-inputSwitch></td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+    </ng-template>
+</p-splitter> -->

@@ -1,0 +1,370 @@
+<p-confirmDialog #cd id="cutomer-confrim-model" [style]="{ width: '30vw', top: '-190px' }">
+    <ng-template pTemplate="footer">
+        <button type="button" pButton class="cofirm-model-cancel-btn" label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton label="Yes" (click)="cd.accept()"></button>
+    </ng-template>
+
+</p-confirmDialog>
+<p-sidebar *ngIf="details" [(visible)]="main.bottomPanelActive" position="bottom" [baseZIndex]="10000">
+    <p-tabView id="detail-tabbing">
+        <!-- <div class="text-right">
+            <h6 class="m-0">Group Ride Eligibility</h6>
+            <p-inputSwitch moduleName="Customers" actionTitle="Eligibility"
+                (onChange)="onChangeGroupEligibility($event,details.id)" [(ngModel)]="details.group_Ride_Eligibility">
+            </p-inputSwitch>
+        </div> -->
+        <div class="action-row ">
+            <img src="assets/layout/images/locate-green.png" alt="" width="20">
+            <a href="https://www.google.com/maps/search/?api=1&amp;query={{details.latitude}},{{details.longitude}}"
+                class="navigation-marker mr-2" target="_blank">
+                <span class="last-text">Current Location</span>
+            </a>
+            <div class="action-btn">
+                <h6 (click)="main.addValue(details,'chargeForm')"> Charge Wallet </h6>
+            </div>
+            <div class="action-btn">
+
+                <h6 (click)="main.addValue(details,'bonusForm')"> Add Bonus </h6>
+            </div>
+            <div class="action-btn">
+
+                <h6 (click)="main.addValue(details,'walletForm')"> Add Wallet </h6>
+            </div>
+            
+
+            <!-- <div class="action-btn">
+
+                <h6 (click)="main.addValue(details,'settleBonusForm')"> Add Settlement Bonus </h6>
+            </div> -->
+            <div class="action-btn" (click)="main.onEditPanelButtonClick($event,details)">
+                <h6>Update</h6>
+            </div>
+            <div class="action-btn" *ngIf="details.customerStatusNumber == 3" (click)="blockAndUnBlock(details.id)">
+                <h6>Block</h6>
+            </div>
+            <div class="action-btn" *ngIf="details.customerStatusNumber == 2" (click)="blockAndUnBlock(details.id)">
+                <h6>Unblock</h6>
+            </div>
+
+
+            
+
+        </div>
+        <div class="head-row">
+            <h6 class="panel-parent-heading">
+                <span *ngIf="details.is_Primary_Card ==false"><img src="assets/layout/images/card.png" alt=""
+                        width="20"> Card Saved: No</span>
+                <span *ngIf="details.is_Primary_Card ==true"><img src="assets/layout/images/card.png" alt="" width="20">
+                    Card Saved: Yes</span>
+            </h6>
+            <div class="btn-right-box">
+                <!-- <div class="wrapper">
+                    <div class="jumbotron">
+                        <label class="drop">
+                            <input type="checkbox" id="target-drop-example">
+                            <span class="control">Action</span>
+
+                            <ul class="drop-items">
+                                <li class="item-drop">
+                                    <a (click)="main.addValue(details,'chargeForm')"> Charge Wallet </a>
+                                </li>
+                                <li class="item-drop">
+
+                                    <a (click)="main.addValue(details,'bonusForm')"> Add Bonus </a>
+                                </li>
+                                <li class="item-drop">
+
+                                    <a (click)="main.addValue(details,'walletForm')"> Add Wallet </a>
+                                </li>
+
+                                <li class="item-drop">
+
+                                    <a (click)="main.addValue(details,'settleBonusForm')"> Add Settlement Bonus </a>
+                                </li>
+                                <li class="item-drop">
+
+                                </li>
+                                <li class="item-drop" (click)="main.onEditPanelButtonClick($event,details)">
+                                    <a>Update</a>
+                                </li>
+                                <li class="item-drop" *ngIf="details.customerStatusNumber == 3"
+                                    (click)="blockAndUnBlock(details.id)">
+                                    <a>Block</a>
+                                </li>
+                                <li class="item-drop" *ngIf="details.customerStatusNumber == 2"
+                                    (click)="blockAndUnBlock(details.id)">
+                                    <a>Un Block</a>
+                                </li>
+                            </ul>
+                            <label for="target-drop-example" class="overlay-close"></label>
+                        </label>
+
+                    </div>
+                </div> -->
+                <div class="text-center">
+                    <h6 class="m-0">Group Ride Eligibility</h6>
+                    <p-inputSwitch moduleName="Customers" actionTitle="Eligibility"
+                        (onChange)="onChangeGroupEligibility($event,details.id)"
+                        [(ngModel)]="details.group_Ride_Eligibility">
+                    </p-inputSwitch>
+                </div>
+
+            </div>
+            <h6 class="ride-head" *ngIf="customerDetails != null">
+                <span>Total Ride Cost : {{customerDetails.totalRidesCost}}</span>
+             </h6>
+        </div>
+        <p-tabPanel header="Customer Info">
+            <div class="main-s">
+                <div class="cus1-main">
+                    <div class="us-main">
+                        <div class="background">
+                        </div>
+                        <div class="profile-card">
+                            <div class="cover">
+                            </div>
+                            <div class="profile">
+                                <div class="pic">
+                                </div>
+                                <div class="above-fold">
+                                    <div class="name"> <i style="    color: #99ca3c !important;font-size: 17px;"
+                                            class="fa fa-user"></i>
+                                        {{details.full_Name}}</div>
+                                    <div class="role"> <i style="    color: #99ca3c !important;font-size: 17px;"
+                                            class="fa fa-envelope"></i>
+                                        {{details.email}}</div>
+                                    <div class="location">
+                                        <i style="    color: #99ca3c !important;font-size: 17px;"
+                                            class="fa fa-phone"></i>{{details.phone}}
+                                    </div>
+                                    <div class="role"><i style="    color: #99ca3c !important;font-size: 17px;"
+                                            class="fa fa-calendar"></i>{{details.created_at | date:'MM-dd-yyyy' }}</div>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="cus-right" *ngIf="customerDetails != null">
+                    <h6>Wallet Info</h6>
+                    <table [cellPadding]="0" [cellSpacing]="0">
+                        <tr>
+                            <td> <b>Current Wallet Amount</b> </td>
+                            <td> <b>{{customerDetails.total_Wallet_Amount}} {{countryCurrency}}</b> </td>
+                        </tr>
+                        <tr>
+                            <td>Current TopUp</td>
+                            <td>{{customerDetails.current_Wallet_Amount | number: "1.2-2"}}
+                                <span>{{countryCurrency}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Current Bonus</td>
+                            <td>{{customerDetails.current_Bonus_Amount | number: "1.2-2"}}
+                                <span>{{countryCurrency}}</span>
+                            </td>
+                        </tr>
+
+                        <!-- <tr>
+                            <td>Total Top Up</td>
+                            <td>{{customerDetails.totalTopUp}} {{countryCurrency}}</td>
+                        </tr> -->
+                        <!-- <tr>
+                            <td>Total Bonus</td>
+                            <td>{{customerDetails.total_Bonus_Amount | number: "1.2-2"}} <span>{{countryCurrency}}</span></td>
+                        </tr> -->
+                        <!-- <tr>
+                            <td>Current Wallet Amount</td>
+                            <td>{{customerDetails.current_Wallet_Amount | number: "1.2-2"}} <span>{{countryCurrency}}</span></td>
+                        </tr> -->
+
+                        <tr>
+                            <td>Current Debt</td>
+                            <td>{{customerDetails.debit_Amount | number: "1.2-2"}} <span>{{countryCurrency}}</span></td>
+                        </tr>
+
+
+
+
+                    </table>
+                </div>
+                <div class="cus-right" *ngIf="customerDetails != null">
+                    <h6>Overall Wallet Details</h6>
+                    <table [cellPadding]="0" [cellSpacing]="0">
+                        <tr>
+                            <td>Total Top Up</td>
+                            <td>{{customerDetails.totalTopUp}} {{countryCurrency}}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Total Bonus</td>
+                            <td>{{customerDetails.total_Bonus_Amount | number: "1.2-2"}}
+                                <span>{{countryCurrency}}</span>
+                            </td>
+                        </tr>
+
+
+
+                        <tr>
+                            <td>Total VAT Deduction </td>
+                            <td>{{customerDetails.total_VAT_Deduction | number: "1.2-2"}}
+                                <span>{{countryCurrency}}</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Total VAT Adjustment </td>
+                            <td>{{customerDetails.total_VAT_Adjustment | number: "1.2-2"}}
+                                <span>{{countryCurrency}}</span>
+                            </td>
+                        </tr>
+
+
+
+                        <!-- <tr>
+                                <td>Wallet Amount</td>
+                                <td>{{customerDetails.total_Wallet_Amount}} {{countryCurrency}}</td>
+                            </tr>
+                            
+                        
+                            <tr>
+                                <td>Current Wallet Amount</td>
+                                <td>{{customerDetails.current_Wallet_Amount | number: "1.2-2"}} <span>{{countryCurrency}}</span></td>
+                            </tr>
+                            <tr>
+                                <td>Current Bonus Amount</td>
+                                <td>{{customerDetails.current_Bonus_Amount | number: "1.2-2"}} <span>{{countryCurrency}}</span> </td>
+                            </tr>
+                            <tr>
+                                <td>Current Debt</td>
+                                <td>{{customerDetails.debit_Amount | number: "1.2-2"}} <span>{{countryCurrency}}</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>Current TopUp</td>
+                                <td>{{customerDetails.current_TopUp | number: "1.2-2"}} <span>{{countryCurrency}}</span></td>
+                            </tr> -->
+
+
+                    </table>
+                </div>
+
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Rides Info">
+            <div class="grid mt-4">
+                <div class="md:col-5 col-12">
+
+                    <div class="submenu-content settings">
+                        <div class="fare-card">
+                            <div class="order-settings fare-card-item">
+                                <a *ngIf="details.last_Ride_Id != null" [routerLink]="[ '/rides/ride-main'] "
+                                    [queryParams]="{ customdata: details.last_Ride_Id , status:details.last_Ride_Status }">
+                                    <h6>
+                                        <span><i class="pi pi-link"></i></span> <br>
+                                        <span> Last RIde Id </span>
+                                    </h6>
+                                    <h5>{{details.last_Ride_Id}}</h5>
+                                </a>
+
+                            </div>
+
+                            <div class="order-settings fare-card-item">
+                                <h6>
+                                    <span><i class="fa fa-bicycle"></i></span> <br>
+                                    <span> Total Rides </span>
+                                </h6>
+                                <h5>{{details.ridesCount}}</h5>
+                            </div>
+                            <div class="shipment-settings fare-card-item">
+
+                                <h6>
+                                    <span> <i class="pi pi-money-bill"></i></span> <br>
+                                    <span>Total Ride Cost </span>
+                                </h6>
+                                <h5 *ngIf="customerDetails != null">
+                                    {{customerDetails.totalRidesCost}} <span>{{countryCurrency}}</span>
+                                </h5>
+
+                            </div>
+                            <div class="visitors-settings fare-card-item last">
+                                <h6>
+                                    <span> <i class="pi pi-arrow-up-right"></i></span> <br>
+                                    <span>Highest Paid Ride</span>
+                                </h6>
+                                <h5 *ngIf="customerDetails != null">
+                                    {{customerDetails.hightest_Paid_ride}} <span>{{countryCurrency}}</span>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:col-7 col-12">
+                    <app-customer-ride-list [details]="details"></app-customer-ride-list>
+                </div>
+            </div>
+
+        </p-tabPanel>
+        <p-tabPanel header="Alerts">
+           <div class="grid">
+            <div class="md:col-12 col-12 text-right">
+                <button class="theme-btn mt-2" (click)="main.showAlertForm($event,details)">Send Alert</button>
+            </div>
+           </div>
+            
+            <p-table #dt [value]="lstCustomersAlert" dataKey="id" styleClass="p-datatable-gridlines" [rowHover]="true"
+                [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                columnResizeMode="expand" [totalRecords]="totalRecords" [rows]="10" [lazy]="true"
+                (onLazyLoad)="loadIndividualAlertLazy($event)" autoLayout="true" stateStorage="local"
+                stateKey="lstCustomersAlert-local">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th [pSortableColumn]="'created_at'" pResizableColumn>
+                            Date
+                            <p-sortIcon [field]="'created_at'"></p-sortIcon>
+                        </th>
+                        <th [pSortableColumn]="'eng_Message'" pResizableColumn>
+                            Message
+                            <p-sortIcon [field]="'eng_Message'"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-alert let-rowIndex="rowIndex">
+                    <tr class="p-selectable-row">
+                        <td> <span class="p-column-title">#</span>
+                            {{rowIndex + 1}}
+                        </td>
+                        <td> <span class="p-column-title">Date</span>
+                            {{alert.created_at | date:'dd-MM-yyyy'}}
+                        </td>
+                        <td> <span class="p-column-title">English Message</span>
+                            {{alert.eng_Message}}
+                        </td>
+                        <!-- <td> <span class="p-column-title">Arabic Message</span>
+                            {{alert.arabic_Message}}
+                        </td> -->
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="11">
+                            <p class="empty-list">No Customer Alert found.</p>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+        <p-tabPanel header="Transactions">
+            <br>
+            <app-customer-transaction-list [details]="details"></app-customer-transaction-list>
+
+        </p-tabPanel>
+    </p-tabView>
+</p-sidebar>

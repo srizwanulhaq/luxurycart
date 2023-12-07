@@ -1,0 +1,11 @@
+<div class="col-12">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <div class="card component-main-card">
+                <app-vcompany-form [vehicleCompany]="vehicleCompany" [showModal]="showModal"
+                    (eventChange)="onChange($event)" (closeForm)="onCloseForm()"></app-vcompany-form>
+                <app-vcompany-listing [event]="event" (formCall)="onFormCall($event)"></app-vcompany-listing>
+            </div>
+        </div>
+    </div>
+</div>

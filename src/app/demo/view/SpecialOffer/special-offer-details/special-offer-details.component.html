@@ -1,0 +1,49 @@
+<p-confirmDialog #cd id="cutomer-confrim-model" [style]=" {width: '35vw', top: '-190px'} " [baseZIndex]="10000 ">
+    <ng-template pTemplate="footer">
+        <button type="button" pButton class="cofirm-model-cancel-btn"  label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton  label="Yes" (click)="cd.accept()"></button>
+        </ng-template>
+</p-confirmDialog>
+<p-sidebar *ngIf="details" [(visible)]="main.bottomPanelActive" position="bottom" [baseZIndex]="10000">
+    <p-tabView id="miot-detail-tabbing">
+        <p-tabPanel header="Iot Info">
+
+            <h6 class="last-para">Expire Date : {{details.expiry_Date | date:'medium'}}</h6>
+
+            <div class="submenu-content settings ">
+                <div class="main-row ">
+                    <div class="history-settings card-main ">
+                        <h6><span>Total Ride Minutes</span></h6>
+                        <img src="assets/layout/images/imei.png " alt=" " width="40 ">
+                        <h6>{{details.total_Ride_Minutes}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Offer Purchase Limit</span></h6>
+                        <img src="assets/layout/images/model.png " alt=" " width="40 ">
+                        <h6>{{details.offer_Purchase_Limit}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Offer Expiry</span></h6>
+                        <img src="assets/layout/images/battery.png " alt=" " width="40 ">
+                        <h6>{{details.is_Offer_Expiry == true ? "Yes" : "No"}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Expire With Offer</span></h6>
+                        <img src="assets/layout/images/battery.png " alt=" " width="40 ">
+                        <h6>{{details.expire_With_Offer == true ? "Yes" : "No"}}</h6>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Action">
+            <div class="action-row">
+                <div class="action-btn" (click)="main.onEditPanelButtonClick($event,details) ">
+                    <h6>Update</h6>
+                </div>
+                <div class="action-btn " (click)="deleteOffer(details.id) ">
+                    <h6>Delete</h6>
+                </div>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</p-sidebar>

@@ -1,0 +1,46 @@
+<form [formGroup]="updateManageIotForm" (ngSubmit)="onSubmitManageIotForm()">
+    <p-dialog id="new-iot-model" class="Update-Form" header="Update IOT" [(visible)]="main.editPanelActive" [style]="{width: '650px'}" [baseZIndex]="10000" class="p-fluid" [modal]="true" [dismissableMask]="true">
+        <ng-template pTemplate="content">
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label>IMEI <span class="star-sign">*</span></label>
+                    <input type="text" id="txtimei" name="imei" formControlName="imei" pInputText placeholder="IMEI" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                    <small style="color:red;" class="ng-dirty ng-invalid" *ngIf="updateManageIotForm.controls.imei.errors?.pattern">Please IMEI must have 15 numbers .</small>
+                </div>
+                <div class="field col">
+                    <label>Battery %<span class="star-sign">*</span></label>
+                    <input type="number" id="txtbattery" min="0" max="100" name="battery" formControlName="battery" pInputText pInputText required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                    <small style="color:red;" class="ng-dirty ng-invalid" *ngIf="updateManageIotForm.controls.battery.errors?.max">Please  battery value between 0 and 100</small>
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label>Sub Account <span class="star-sign">*</span></label>
+                    <p-dropdown id="txtsubAccount" [options]="lstAccounts" name="subAccount" formControlName="subAccount" placeholder="Select Sub Account">
+                    </p-dropdown>
+                </div>
+                <div class="field col">
+                    <label>IOT model <span class="star-sign">*</span></label>
+                    <p-dropdown id="txtiotModel" [options]="lstModels" name="iotModel" formControlName="iotModel" placeholder="Select Model">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label>Device Id <span class="star-sign">*</span></label>
+                    <input type="number" id="txtbattery"  name="device_Id" formControlName="device_Id" pInputText pInputText required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                </div>
+                <div class="field col">
+            
+                </div>
+            </div>
+
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Update" [disabled]="!updateManageIotForm.valid" icon="pi pi-check" class="p-button-text theme-btn">
+                <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}" styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+            </button>
+        </ng-template>
+    </p-dialog>
+</form>

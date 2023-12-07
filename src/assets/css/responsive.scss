@@ -1,0 +1,82 @@
+.show-mob{
+    display: none;
+}
+.show-desktop{
+    display: block;
+}
+.filter-show-on-mobile{
+    display: none;
+}
+@media only screen and (max-width: 991px) {
+    .show-mob{
+        display: flex;
+    }
+    .show-desktop{
+        display: none;
+    }
+    .rev-head{
+        text-align: center;
+    }
+    .select-box-mobile {
+    }
+   
+    .grid-center-on-mob{
+        justify-content: center;
+    }
+  
+    .p-dialog{
+        width: 90% !important;
+        // overflow: auto;
+    }
+    .dropdown{
+        font-size: 10px;
+        // padding: 0px 8px;
+        .pi-chevron-up {
+            margin-left: 8px;
+            font-size: 10px;
+        }
+    }
+
+   
+    .centent-sm-center{
+        display: flex;
+        justify-content: center;
+    }
+    
+  
+   
+    #vehicle-status-tab{
+        .p-tabview .p-tabview-nav li .p-tabview-nav-link{
+            font-size: 10px;
+        }
+    }
+    
+    .sm-jus-end{
+        justify-content: end !important;
+    }
+    .dashboard-zone-selected-title{
+        font-size: 11px !important;
+    }
+    #dash-top-tab .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+        padding: 10px 28px !important;
+    }
+    .more-d-right {
+        margin-top: -8px !important;
+    }
+    .layout-wrapper .layout-main {
+        padding-top: 0px;
+    }
+    .filter-d-none-on-mobile{
+        display: none;
+    }
+    .filter-show-on-mobile{
+        display: block;
+    }
+    .dropbtn {
+        // margin-top: 17px !important;
+    }
+//    .mar0-on-mob{
+//     margin-top: 0 !important;
+//     margin-right: 0 !important;
+//    }
+}

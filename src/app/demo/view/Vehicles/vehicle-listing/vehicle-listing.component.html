@@ -1,0 +1,239 @@
+<div class="lodi">
+    <div *ngIf="loading" class="lodi-child">
+        <div class="custom-loader"></div>
+    </div>
+    <p-table id="rides-table" #dt [value]="vehicles" [lazy]="true" (onLazyLoad)="loadVehicles($event)"
+        [totalRecords]="totalRecords" [rows]="10" [paginator]="true" [rowsPerPageOptions]="rowsPerPageOptions"
+        [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        selectionMode="multiple" [rowHover]="true" dataKey="id" stateStorage="local" stateKey="vehiclesListDAO-local"
+        (onRowSelect)="onToggleSelection()" (onRowUnselect)="onToggleSelection()"
+        (onHeaderCheckboxToggle)="onToggleSelection()" [(selection)]="selectedVehicles">
+        <ng-template pTemplate="caption">
+            <!-- <shared-date-range [startDate]="startDate" [endDate]="endDate" [loading]="loading"
+                (onRangeChange)="onRangeChange($event)" (onDateChange)="onDateChange($event)"></shared-date-range> -->
+            <div class="grid">
+                <div class="md:col-6 col-12">
+                    <span class="">
+                        <span>
+                            <h6
+                                style="margin: 10px 0px;font-weight: bold;font-size: 18px;color: #2a3042;letter-spacing: 0.5px;">
+                                <span style="border-bottom: 3px solid #99ca3c;">Status</span> </h6>
+                            <p-tabView (onChange)="statusChanged($event)" id="vehicle-status-tab" [scrollable]="true"
+                                *ngIf="statuses.length>0" [(activeIndex)]="defaultIndex">
+                                <p-tabPanel [header]="status.label" *ngFor="let status of statuses"></p-tabPanel>
+                            </p-tabView>
+
+                        </span>
+                    </span>
+                </div>
+                <div class="md:col-6 col-12">
+                    <h6
+                        style="margin: 10px 0px;font-weight: bold;font-size: 18px;color: #2a3042;letter-spacing: 0.5px;">
+                        <span style="border-bottom: 3px solid #99ca3c;">States</span></h6>
+                    <p-tabView (onChange)="statesChanged($event)" id="vehicle-status-tab" [scrollable]="true"
+                        *ngIf="states.length>0" [(activeIndex)]="selectedStats">
+                        <p-tabPanel [header]="stats.label" *ngFor="let stats of states"></p-tabPanel>
+                    </p-tabView>
+                </div>
+                <div class="md:col-12 text-right col-12">
+
+                    <!-- <div style="display: flex; justify-content: end; align-items: center; height: 100%;" class="searc-b ride-search-b">
+                    <span class="btn-left-box">
+                        <div class="dropdown">
+                            <button onclick="myFunction1()" class="dropbtn1">Export <i
+                                    class="pi pi-chevron-up"></i></button>
+                            <div id="myDropdown1" class="dropdown-content1">
+                                <div class="grid">
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/excel-icon.png" alt=""
+                                                width="20">
+                                            <p>Excel</p>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/pdf-icon.png" alt=""
+                                                width="20">
+                                            <p>Pdf</p>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/icons8-export-csv-80.png"
+                                                alt="" width="20">
+                                            <p>Csv</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </span>
+
+                    <div class="custom-in-box">
+                        <i title="Reset Filter" class="pi pi-times" (click)="resetDataTable(dt)"></i>
+                        <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                            (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                            class="search-input vehicle-list-in p-0" />
+                        <span (click)="dt.filterGlobal(filterGlobalValue, 'contains')">Search
+                        </span>
+                    </div>
+
+                </div> -->
+
+                    <div style="display: flex; justify-content: end; align-items: center; height: 100%;">
+                        <span class="btn-left-box mr-2">
+                            <div class="dropdown" style="margin-top: 0;">
+                                <button onclick="myFunction1()" class="dropbtn1"
+                                    style="margin-top: 0;background: #99ca3c;">Export <i
+                                        class="pi pi-chevron-up"></i></button>
+                                <div id="myDropdown1" class="dropdown-content1">
+                                    <div class="grid">
+                                        <div class="md:col-4 col-4">
+                                            <div class="export-item">
+                                                <img src="../../../../../assets/layout/images/excel-icon.png" alt=""
+                                                    width="20">
+                                                <p>Excel</p>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-4 col-4">
+                                            <div class="export-item">
+                                                <img src="../../../../../assets/layout/images/pdf-icon.png" alt=""
+                                                    width="20">
+                                                <p>Pdf</p>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-4 col-4">
+                                            <div class="export-item">
+                                                <img src="../../../../../assets/layout/images/icons8-export-csv-80.png"
+                                                    alt="" width="20">
+                                                <p>Csv</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </span>
+
+                        <div class="">
+                            <div class="dropdown">
+                                <button onclick="myFunction()" class="dropbtn" title="Filter"
+                                    style="margin-top: 4px;margin-left: 2px;background: #99ca3c;">
+                                    <img src="../../../assets/layout/images/filter-16.png" alt="">
+                                </button>
+                                <div id="myDropdown" class="dropdown-content" style="margin-top: 0;">
+                                    <i onclick="myFunction()" class="fa fa-times close-bt-show-mb"></i>
+
+                                    <div class="calender-box">
+                                        <shared-date-range [startDate]="startDate" [endDate]="endDate"
+                                            [loading]="loading" (onRangeChange)="onRangeChange($event)"
+                                            (onDateChange)="onDateChange($event)"></shared-date-range>
+                                    </div>
+                                    <!-- <div class="btun-box">
+                                       <ul class="left-list">
+                                           <li> <button>Today</button> </li>
+                                           <li> <button>Yesterday</button> </li>
+                                           <li> <button>Monthly</button> </li>
+                                           <li> <button>Total</button> </li>
+                                        </ul>
+                                   </div> -->
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div id="serch-ani">
+                        <div class="it-box" style="margin-top: 0;">
+                            <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                                (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                                style="background: #99ca3c;" />
+                            <span class="search" style="background: #99ca3c;">
+                                (click)="dt.filterGlobal(filterGlobalValue, 'contains')"
+                                <i class="pi pi-search search-icon"></i>
+                            </span>
+                            <i class="pi pi-times close-icon" (click)="resetDataTable(dt)"></i>
+                        </div>
+                    </div> -->
+                        <!-- <div class="search-wrapper">
+                        <div class="input-holder">
+                            <input type="text" class="search-input" placeholder="Type to search" [(ngModel)]="filterGlobalValue" (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')"/>
+                            <button class="search-icon" onclick="searchToggle(this, event);" (click)="dt.filterGlobal(filterGlobalValue, 'contains')"><span></span></button>
+                        </div>
+                        <span class="close" onclick="searchToggle(this, event);" (click)="resetDataTable(dt)"></span>
+                    </div> -->
+                        <div class="custom-in-box transaction-filter">
+                            <i title="Reset Filter" class="pi pi-times" (click)="resetDataTable(dt)"></i>
+                            <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                                (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                                class="search-input p-0 tran-search" />
+                            <span (click)="dt.filterGlobal(filterGlobalValue, 'contains')">Search
+                            </span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="number">Scooter
+                    <p-sortIcon field="number"></p-sortIcon>
+                </th>
+                <th pSortableColumn="name">Company
+                    <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="type">Type
+                    <p-sortIcon field="type"></p-sortIcon>
+                </th>
+                <th pSortableColumn="battery">Battery
+                    <p-sortIcon field="battery"></p-sortIcon>
+                </th>
+                <th pSortableColumn="zoneTitle">Zone
+                    <p-sortIcon field="parking_Zones.title"></p-sortIcon>
+                </th>
+                <th pSortableColumn="imei">IMEI
+                    <p-sortIcon field="iot.imei"></p-sortIcon>
+                </th>
+                <th>Details</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-vehicle>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="vehicle"></p-tableCheckbox>
+                </td>
+                <td><span class="p-column-title">Trip</span> {{vehicle.number}}
+                </td>
+                <td><span class="p-column-title">Company</span> {{vehicle.vehicleCompany.name}}
+                </td>
+                <td><span class="p-column-title">Type</span> {{vehicle.vehicleTypes.title}}
+                </td>
+                <td style="width:14%; min-width:8rem;"><span class="p-column-title">Battery</span>
+                    {{vehicle.vehicleBattery}}%
+                </td>
+                <td><span class="p-column-title">Zone</span> {{vehicle.parkingZones == null ? "-" :
+                    vehicle.parkingZones.title }}
+                </td>
+                <td>
+                    {{vehicle.iot.imei}}
+                </td>
+                <td class="sm-jus-end">
+                    <button title="More Details" pButton pRipple
+                        class="p-button-rounded p-button-success theme-btn ac-btn" href="#"
+                        (click)="main.onBottomPanelButtonClick($event, vehicle)">
+                        <img src="../../../../../assets/layout/images/more-detail.png" alt="" width="18">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

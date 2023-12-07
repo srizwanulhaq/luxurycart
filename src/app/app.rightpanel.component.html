@@ -1,0 +1,85 @@
+<div id="layout-right-sidebar" [ngClass]="{'layout-right-sidebar-active': app.rightPanelActive}"
+    (click)="app.onRightPanelClick()">
+    <div class="right-panel-scroll-content">
+        <div class="right-panel-main">
+            <ng-container *ngIf="!loading">
+                <p class="manage-para"> <a style="color: white;" [routerLink]="['/notifications']">See All
+                        Notification</a> </p>
+                <div class="notification-area">
+                    <ul *ngIf="notifications.length>0;else none">
+                        <li *ngFor="let noti of notifications">
+                            <h6>{{ noti.title }}</h6>
+                            <p>{{ noti.message }}
+                            <p>
+                        </li>
+                    </ul>
+                    <ng-template #none>
+                        <p class="no-p">No New Notificatios</p>
+                    </ng-template>
+                </div>
+            </ng-container>
+            <div class="tiles-area">
+                <div class="col-12">
+                    <div class="grid">
+                        <div class="col-4">
+                            <div class="tiles-item" routerLink="/users/user-main" (click)="app.onLayoutClick()">
+                                <img src="../assets/layout/images/user-white.png" alt="">
+                                <p>Users</p>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="tiles-item" routerLink="/roles/role-main" (click)="app.onLayoutClick()">
+                                <img src="../assets/layout/images/user-activity.png" alt="">
+                                <p>User Roles</p>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="tiles-item">
+                                <span>
+                                    Under <br> Devlopment
+                                </span>
+                                <img src="../assets/layout/images/history-white.png" alt=""
+                                    (click)="app.onLayoutClick()">
+                                <p>Iot History</p>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="tiles-item" routerLink="/support-tickets/support-ticket-main"
+                                (click)="app.onLayoutClick()">
+                                <img src="../assets/layout/images/support-white.png" alt="">
+                                <p>Manager Support</p>
+                            </div>
+                        </div>
+
+
+                        <div class="col-4">
+                            <div class="tiles-item">
+                                <span>
+                                    Under <br> Devlopment
+                                </span>
+                                <img src="../assets/layout/images/model-white.png" alt="" (click)="app.onLayoutClick()">
+                                <p>Vehicle Models</p>
+                            </div>
+                        </div>
+
+
+                        <div class="col-4">
+                            <div class="tiles-item" (click)="app.onLayoutClick()">
+                                <span>
+                                    Under <br> Devlopment
+                                </span>
+                                <img src="../assets/layout/images/alert-white.png" alt="">
+                                <p>Alerts</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

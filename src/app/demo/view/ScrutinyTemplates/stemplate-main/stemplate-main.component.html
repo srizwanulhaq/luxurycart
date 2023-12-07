@@ -1,0 +1,9 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card component-main-card">
+            <app-stemplate-form [rideScrutinyTemplate]="rideScrutinyTemplate" [showModal]="showModal"
+                (eventChange)="onChange($event)" (closeForm)="onCloseForm()"></app-stemplate-form>
+            <app-stemplate-listing [event]="event" (formCall)="onFormCall($event)"></app-stemplate-listing>
+        </div>
+    </div>
+</div>

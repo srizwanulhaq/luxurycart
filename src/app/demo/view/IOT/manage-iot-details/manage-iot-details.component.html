@@ -1,0 +1,129 @@
+<p-confirmDialog #cd id="cutomer-confrim-model" [style]=" {width: '35vw', top: '-190px'} " [baseZIndex]="10000 ">
+    <ng-template pTemplate="footer">
+        <button type="button" pButton class="cofirm-model-cancel-btn"  label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton  label="Yes" (click)="cd.accept()"></button>
+        </ng-template>
+</p-confirmDialog>
+<p-sidebar *ngIf="details" [(visible)]="main.bottomPanelActive" position="bottom" [baseZIndex]="10000">
+    <p-tabView id="miot-detail-tabbing">
+        <h3 class="text-center" style="color:#6E6E6E;font-weight: 600;font-family: primaryFontBold;"><span style="border-bottom: 3px solid #99ca3c;padding-bottom: 3px;">Iot Info</span></h3>
+        <div class="action-row">
+            <div class="action-btn " (click)="main.onEditPanelButtonClick($event,details) ">
+                <h6>Update</h6>
+            </div>
+            <div class="action-btn " (click)="deleteIot(details.id) ">
+                <h6>Delete</h6>
+
+            </div>
+            <div class="action-btn " (click)="rebootIot(details.id) ">
+                <h6>Reboot</h6>
+
+            </div>
+        </div>
+            <div class="head-row">
+                <h6 class="panel-parent-heading"><span><img src="assets/layout/images/id.png" alt="" width="20"> {{details.no}}</span></h6>
+                <div class="btn-right-box">
+                <div class="child">
+                    <a href="https://www.google.com/maps/search/?api=1&amp;query={{
+                        details.ioT_Location != null
+                ? details.ioT_Location.latitude
+                : 0
+            }},
+            {{
+              details.ioT_Location != null
+                ? details.ioT_Location.longitude
+                : 0
+            }}" class="navigation-marker" target="_blank">
+            <img src="assets/layout/images/locate-green.png" alt="" width="20">Current Location</a>
+
+                </div>
+                <div class="last-child">
+                    <a *ngIf="details.vehicles != null" [routerLink]="[ '/vehicles/vehicle-main'] " [queryParams]="{ customdata: details.vehicles.number } " class="clickable-v-btn ">Last Used By : <span>
+                             {{details.vehicles.number}}
+                        </span>
+                       </a>
+
+                    <a *ngIf="details.vehicles == null">
+                        Last Used By : <span>
+                            -
+                        </span>
+                    </a>
+
+                </div>
+                </div>
+            </div>
+
+            <!-- <h6 class=" last-para "></h6> -->
+
+            <div class="submenu-content settings mt-4">
+                <div class="main-row ">
+                    <div class="history-settings card-main ">
+                        <h6><span>IMEI</span></h6>
+                        <img src="assets/layout/images/imei.png " alt=" " width="40 ">
+                        <h6>{{details.imei}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Model</span></h6>
+                        <img src="assets/layout/images/model.png " alt=" " width="40 ">
+                        <h6>{{details.iotModels.title}} - {{details.iotModels.code}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Battery</span></h6>
+                        <img src="assets/layout/images/battery.png " alt=" " width="40 ">
+                        <h6>{{details.battery}}%</h6>
+                    </div>
+
+                    <div class="history-settings card-main ">
+                        <h6><span>Last Updated At</span></h6>
+                        <img src="assets/layout/images/battery.png " alt=" " width="40 ">
+                        <h6> {{details.updated_at | date:'MM-dd-yyyy'}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Device Id</span></h6>
+                        <img src="assets/layout/images/battery.png " alt=" " width="40 ">
+                        <h6>{{details.device_Id}}</h6>
+                    </div>
+                    <div class="history-settings card-main " *ngIf="details.password != null">
+                        <h6><span>Password</span></h6>
+                        <img src="assets/layout/images/battery.png " alt=" " width="40 ">
+                        <h6>{{details.password}}</h6>
+                    </div>
+                </div>
+                <!-- <div class="main-right ">
+                    <div class="grid ">
+                        <div class="col-6 right-it" style="border-right:1px solid #80808066;border-bottom:1px solid #80808066; ">
+                            <h6>Integrated : {{details.integrated}}</h6>
+                        </div>
+                        <div class="col-6 right-it" style="border-bottom:1px solid #80808066; ">
+                            <h6>TCP commands : {{details.allowTCPCommands}}</h6>
+                        </div>
+                        <div class="col-6 right-it" style="border-right:1px solid #80808066; ">
+                            <h6>Notes : {{details.notes == null?"- ":details.notes}}</h6>
+                        </div>
+                        <div class="col-6 right-it">
+                            <h6>Custom ID : {{details.customId == null?"- ":details.customId}}</h6>
+                        </div>
+                    </div>
+
+
+
+
+                </div> -->
+            </div>
+        <!-- <p-tabPanel header="Action">
+            <div class="action-row">
+                <div class="action-btn " (click)="main.onEditPanelButtonClick($event,details) ">
+                    <h6>Update</h6>
+                </div>
+                <div class="action-btn " (click)="deleteIot(details.id) ">
+                    <h6>Delete</h6>
+
+                </div>
+                <div class="action-btn " (click)="rebootIot(details.id) ">
+                    <h6>Reboot</h6>
+
+                </div>
+            </div>
+        </p-tabPanel> -->
+    </p-tabView>
+</p-sidebar>

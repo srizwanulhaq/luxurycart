@@ -1,0 +1,21 @@
+<div class="col-12">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <div class="card component-main-card">
+                <app-vehicle-action-send [actionType]="actionType" [vehicleCommands]="vehicleCommands"
+                    [vehicleStatuses]="vehicleStatuses" [vehicles]="selectedVehicles" (sendAction)="onActionSend()"
+                    (onResetSendAction)="resetSendAction()"></app-vehicle-action-send>
+                <app-vehicle-create (eventChange)="onChange($event)"
+                    [selectedVehiclesCount]="selectedVehicles.length"></app-vehicle-create>
+                <app-vehicle-edit (resetEditVehData)="resetEditVeh()" [editVehicleData]="editVehicleData"
+                    (eventChange)="onChange($event)"></app-vehicle-edit>
+                <app-vehicle-details [details]="vehicle" (eventChange)="onChange($event)"
+                    [lstStatuses]="vehicleStatuses"></app-vehicle-details>
+                <app-vehicle-listing [event]="event" (vehicleSelection)="onVehicleSelect($event)"></app-vehicle-listing>
+                <app-vehicle-change-location [details]="vehicle"
+                    (eventChange)="onChange($event)"></app-vehicle-change-location>
+            </div>
+        </div>
+    </div>
+    
+</div>

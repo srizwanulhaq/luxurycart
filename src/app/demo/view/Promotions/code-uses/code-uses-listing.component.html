@@ -1,0 +1,88 @@
+<div  class="lodi">
+    <div *ngIf="loading" class="lodi-child">
+        <div class="custom-loader"></div>
+    </div>
+<p-table #dt [value]="list" [columns]="cols" [lazy]="true" (onLazyLoad)="loadCodeUses()" [lazyLoadOnInit]="false"
+    responsiveLayout="scroll" [totalRecords]="totalRecords" [rows]="10" [paginator]="true"
+    [rowsPerPageOptions]="rowsPerPageOptions" [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple"
+    [rowHover]="true" dataKey="id">
+    <ng-template pTemplate="caption">
+        <div class="bread-container promocode-list" style="margin-bottom: 4px;">
+            <div class="left-box">
+                <h4 style="margin-top: 10px;text-transform: capitalize;">
+                    <span>{{ type }} Code - {{ code }}</span>
+                </h4>
+            </div>
+            <div class="right-box">
+                <div style="display: flex; justify-content: end;">
+                    <!-- <span class="transactio-exp-btn">
+                        <div class="dropdown">
+                            <button onclick="myFunction1()" class="dropbtn1">Export <i
+                                    class="pi pi-chevron-up"></i></button>
+                            <div id="myDropdown1" class="dropdown-content1">
+                                <div class="grid">
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/excel-icon.png" alt=""
+                                                width="20">
+                                            <p>Excel</p>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/pdf-icon.png" alt=""
+                                                width="20">
+                                            <p>Pdf</p>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/icons8-export-csv-80.png"
+                                                alt="" width="20">
+                                            <p>Csv</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </span> -->
+                    <div class="search-wrapper">
+                        <div class="input-holder">
+                            <input type="text" class="search-input" placeholder="Type to search" [(ngModel)]="searchValue" (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')"/>
+                            <button class="search-icon" onclick="searchToggle(this, event);" (click)="loadCodeUses()"><span></span></button>
+                        </div>
+                        <span class="close" onclick="searchToggle(this, event);" (click)="loadCodeUses(true)"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="customer">Customer <p-sortIcon field="customer"></p-sortIcon></th>
+            <th pSortableColumn="country">Country <p-sortIcon field="country"></p-sortIcon></th>
+            <th pSortableColumn="created_at">Created At <p-sortIcon field="created_at"></p-sortIcon></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+        <tr>
+            <td>
+                <p-tableCheckbox [value]="item"></p-tableCheckbox>
+            </td>
+            <td><span class="p-column-title">Customer</span>
+                {{item.customer}}
+            </td>
+            <td><span class="p-column-title">Country</span>
+                {{item.country}}
+            </td>
+            <td><span class="p-column-title">Created At</span>
+                {{item.created_at|date:'medium'}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>

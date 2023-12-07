@@ -1,0 +1,147 @@
+<p-toast></p-toast>
+<p-confirmDialog
+    [style]="{ width: '35vw', top: '-240px' }"
+    [baseZIndex]="10000"
+>
+</p-confirmDialog>
+<p-table
+    #dt
+    [value]="activityLoggings"
+    [columns]="cols"
+    [lazy]="true"
+    (onLazyLoad)="loadActivityLoggings($event)"
+    [loading]="loading"
+    responsiveLayout="scroll"
+    [totalRecords]="totalRecords"
+    [rows]="10"
+    [paginator]="true"
+    [rowsPerPageOptions]="rowsPerPageOptions"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    selectionMode="multiple"
+    [rowHover]="true"
+    dataKey="id"
+    stateStorage="local" stateKey="activityList-local"
+>
+    <ng-template pTemplate="caption">
+        <div class="grid">
+            <div class="text-right col-8">
+                <div style="display: flex; justify-content: end">
+                    <button type="button" (click)="markAsRead()">
+                        Mark All As Read
+                    </button>
+                    <span>
+                        <div class="dropdown">
+                            Export <i class="pi pi-chevron-up"></i>
+                            <ul class="dropdown-menu">
+                                <span>
+                                    <img
+                                        src="../../../../../assets/layout/images/excel-icon.png"
+                                        alt=""
+                                        width="20"
+                                    />
+                                </span>
+                                <span
+                                    ><img
+                                        src="../../../../../assets/layout/images/excel-icon.png"
+                                        alt=""
+                                        width="20"
+                                /></span>
+                                <br />
+                                <span
+                                    ><img
+                                        src="../../../../../assets/layout/images/excel-icon.png"
+                                        alt=""
+                                        width="20"
+                                /></span>
+                                <span
+                                    ><img
+                                        src="../../../../../assets/layout/images/excel-icon.png"
+                                        alt=""
+                                        width="20"
+                                /></span>
+                            </ul>
+                        </div>
+                    </span>
+
+                    <span>
+                        <div class="custom-in-box">
+                            <i class="pi pi-search"></i>
+                            <input
+                                pInputText
+                                type="text"
+                                [(ngModel)]="filterVal"
+                                (input)="
+                                    dt.filterGlobal(
+                                        $event.target.value,
+                                        'contains'
+                                    )
+                                "
+                                placeholder="Search..."
+                                class="search-input"
+                            />
+                            <i
+                                class="pi pi-times"
+                                (click)="resetDataTable(dt)"
+                            ></i>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="created_at">
+                Date <p-sortIcon field="date"></p-sortIcon>
+            </th>
+            <th pSortableColumn="title">
+                Title <p-sortIcon field="title"></p-sortIcon>
+            </th>
+            <th pSortableColumn="message">
+                Message <p-sortIcon field="message"></p-sortIcon>
+            </th>
+            <th>Route</th>
+            <th pSortableColumn="read">
+                Action
+                <p-sortIcon field="read"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-activityLogging>
+        <tr>
+            <td>
+                <p-tableCheckbox [value]="activityLogging.id"></p-tableCheckbox>
+            </td>
+            <td>
+                <span class="p-column-title">Date</span>
+                {{ activityLogging.created_at | date: "medium" }}
+            </td>
+            <td>
+                <span class="p-column-title">Title</span>
+                {{ activityLogging.title }}
+            </td>
+            <td>
+                <span class="p-column-title">Message</span>
+                {{ activityLogging.message }}
+            </td>
+            <td>
+                <span class="p-column-title">Route</span>
+                <a [href]="activityLogging.route" target="_blank">Link</a>
+            </td>
+            <td class="p-column-title">
+                <button
+                    type="button"
+                    *ngIf="!activityLogging.read; else read"
+                    (click)="markAsRead(activityLogging.id)"
+                >
+                    Mark As Read
+                </button>
+                <ng-template #read>Read</ng-template>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

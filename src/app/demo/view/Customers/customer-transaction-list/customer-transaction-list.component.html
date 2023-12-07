@@ -1,0 +1,81 @@
+
+
+<p-table #dt [value]="transaction" dataKey="id" styleClass="p-datatable-gridlines" [rowHover]="true" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+columnResizeMode="expand" [totalRecords]="totalRecords" [rows]="10" [lazy]="true" (onLazyLoad)="loadCustomerTransactionList($event)" autoLayout="true" stateStorage="local" stateKey="lstCustomersTrans-local">
+
+<ng-template pTemplate="header">
+    <tr>
+        <th pSortableColumn="serial_No">ID
+            <p-sortIcon field="serial_No"></p-sortIcon>
+        </th>
+        <th pSortableColumn="createdAt">Date
+            <p-sortIcon field="createdAt"></p-sortIcon>
+        </th>
+        <th pSortableColumn="mode_Title">Mode
+            <p-sortIcon field="mode_Title"></p-sortIcon>
+        </th>
+        <th pSortableColumn="category_Title">Category
+            <p-sortIcon field="category_Title"></p-sortIcon>
+        </th>
+        <th>
+            Credit
+        </th>
+        <th>
+            Debit
+        </th>
+    </tr>
+</ng-template>
+
+<ng-template pTemplate="body" let-transaction>
+    <tr>
+        <td> <span class="p-column-title">ID</span>
+            {{transaction.serial_No }}
+        </td>
+
+        <td> <span class="p-column-title">Date</span>
+            {{transaction.createdAt | date:'medium'}}
+        </td>
+        <td> <span class="p-column-title">Mode</span>
+            {{transaction.transactionModes.title}}
+        </td>
+        <td> <span class="p-column-title">Category</span>
+            {{transaction.transactionCategories.title}}
+        </td>
+
+         <td><span class="p-column-title">Credit</span>
+            <div *ngIf="transaction.transactionTypes.number == 1">
+                {{transaction.amount | number : '1.2-2'}}
+            </div>
+            <div *ngIf="transaction.transactionTypes.number == 2">
+                0.00
+            </div>
+        </td>
+        <td><span class="p-column-title">Debit</span>
+            <div *ngIf="transaction.transactionTypes.number == 2">
+                {{transaction.amount | number : '1.2-2'}}
+            </div>
+            <div *ngIf="transaction.transactionTypes.number == 1">
+                0.00
+            </div>
+        </td>
+    </tr>
+</ng-template>
+<ng-template pTemplate="footer">
+    <tr>
+        <td colspan="4"></td>
+        <td class="text-center">
+            {{this.total_credit | number : '1.2-2' }}
+        </td>
+        <td class="text-center">
+            {{this.total_debit | number : '1.2-2' }}
+        </td>
+    </tr>
+</ng-template>
+<ng-template pTemplate="emptymessage">
+    <tr>
+        <td colspan="7">
+            <p class="empty-list">No Customer Transaction found.</p>
+        </td>
+    </tr>
+</ng-template>
+</p-table>

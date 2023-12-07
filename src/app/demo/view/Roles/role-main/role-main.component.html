@@ -1,0 +1,13 @@
+<div class="col-12">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <div class="card component-main-card">
+                <app-role-add (eventChange)="onChange($event)"></app-role-add>
+                <app-role-edit [details]="role" (eventChange)="onChange($event)"></app-role-edit>
+                <app-role-listing></app-role-listing>
+                <app-role-details [details]="role" (eventChange)="onChange($event)"></app-role-details>
+            </div>
+        </div>
+    </div>
+    
+</div>

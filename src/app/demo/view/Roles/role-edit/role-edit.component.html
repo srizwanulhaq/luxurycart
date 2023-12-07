@@ -1,0 +1,22 @@
+<p-toast></p-toast>
+
+<form [formGroup]="roleEditForm" (ngSubmit)="onSubmitForm()">
+    <p-dialog id="updat-role-model" class="Update-Form" header="Role Details" [(visible)]="main.editPanelActive" [style]="{width: '650px'}" [baseZIndex]="10000" class="p-fluid" [modal]="true">
+        <ng-template pTemplate="content">
+            <input type="hidden" formControlName="id" />
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="name">Name</label>
+                    <input type="text" pInputText id="name" formControlName="name" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted">Name is required.</small>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Update" [disabled]="!roleEditForm.valid" class="p-button-text theme-btn">
+                <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}" styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+            </button>
+        </ng-template>
+    </p-dialog>
+</form>

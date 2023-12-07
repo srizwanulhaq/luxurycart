@@ -1,0 +1,267 @@
+<p-toast></p-toast>
+<div class="lodi">
+    <div *ngIf="loading" class="lodi-child">
+        <div class="custom-loader"></div>
+    </div>
+    <p-table id="rides-table" var="customer" #dt [columns]="cols" [value]="adminCustomerListDAO"
+        selectionMode="multiple" [(selection)]="selectedCustomers" [lazy]="true"
+        (onLazyLoad)="loadCustomersLazy($event)" [paginator]="true" [showCurrentPageReport]="true" [rowHover]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="rowsPerPageOptions" columnResizeMode="expand" [totalRecords]="totalRecords" [rows]="10"
+        stateStorage="local" stateKey="adminCustomerListDAO-local">
+        <ng-template pTemplate="caption">
+            <!-- <shared-date-range [startDate]="startDate" [endDate]="endDate" [loading]="loading"
+            (onRangeChange)="onRangeChange($event)" (onDateChange)="onDateChange($event)"></shared-date-range> -->
+            <div class="grid">
+                <div class="md:col-5 sm:col-12 col-12">
+                    <span class="">
+                        <span>
+                            <p-tabView (onChange)="statusChanged($event)" id="status-tab">
+                                <p-tabPanel header="All">
+                                </p-tabPanel>
+                                <p-tabPanel header="Block">
+                                </p-tabPanel>
+                                <p-tabPanel header="Unblock">
+                                </p-tabPanel>
+                                <p-tabPanel header="With Debt">
+                                </p-tabPanel>
+
+                            </p-tabView>
+                        </span>
+                    </span>
+                </div>
+                <div class="text-right md:col-7 sm:col-12 col-12">
+                    <div class="three-btn-box" style="display: flex; justify-content: end;">
+                        <span class="cut-list-send-btn">
+                            <button pButton pRipple label="Send Alert" class="p-button-success mr-2 alert-btn"
+                                (click)="showCustomersAlertForm()"></button>
+                        </span>
+                        <span class="cut-list-exp-btn">
+
+
+                            <div class="dropdown">
+                                <button onclick="myFunction1()" class="dropbtn1 spec-expo">Export <i
+                                        class="pi pi-chevron-up"></i></button>
+                                <div id="myDropdown1" class="dropdown-content1">
+                                    <div class="grid">
+                                        <div class="md:col-4 col-4">
+                                            <div class="export-item">
+                                                <img src="../../../../../assets/layout/images/excel-icon.png" alt=""
+                                                    width="20">
+                                                <p>Excel</p>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-4 col-4">
+                                            <div class="export-item">
+                                                <img src="../../../../../assets/layout/images/pdf-icon.png" alt=""
+                                                    width="20">
+                                                <p>Pdf</p>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-4 col-4">
+                                            <div class="export-item">
+                                                <img src="../../../../../assets/layout/images/icons8-export-csv-80.png"
+                                                    alt="" width="20">
+                                                <p>Csv</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </span>
+                        <div class="">
+                            <div class="dropdown">
+                                <button onclick="myFunction()" class="dropbtn" title="Filter"
+                                    style="margin-top: 7px;margin-left: 8px;background: #99ca3c;">
+                                    <img src="../../../assets/layout/images/filter-16.png" alt="">
+                                </button>
+                                <div id="myDropdown" class="dropdown-content" style="margin-top: 0;">
+                                    <i onclick="myFunction()" class="fa fa-times close-bt-show-mb"></i>
+                                    <!-- <i onclick="myFunction()" class="fa fa-times close-bt"></i> -->
+
+                                    <div class="calender-box">
+                                        <shared-date-range [startDate]="startDate" [endDate]="endDate"
+                                            [loading]="loading" (onRangeChange)="onRangeChange($event)"
+                                            (onDateChange)="onDateChange($event)"></shared-date-range>
+                                    </div>
+                                    <!-- <div class="btun-box">
+                                       <ul class="left-list">
+                                           <li> <button>Today</button> </li>
+                                           <li> <button>Yesterday</button> </li>
+                                           <li> <button>Monthly</button> </li>
+                                           <li> <button>Total</button> </li>
+                                        </ul>
+                                   </div> -->
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div id="serch-ani">
+                        <div class="it-box" style="margin-top: 8px;">
+                            <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                                (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                                style="background: #99ca3c;" />
+                            <span class="search" style="background: #99ca3c;">
+                                <i class="pi pi-search search-icon"></i>
+                            </span>
+                            <i class="pi pi-times close-icon" (click)="resetDataTable(dt)"></i>
+                        </div>
+                    </div> -->
+                        <!-- <div class="search-wrapper mt-2">
+                        <div class="input-holder">
+                            <input type="text" class="search-input" placeholder="Type to search" [(ngModel)]="filterGlobalValue" (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')"/>
+                            <button class="search-icon" onclick="searchToggle(this, event);" (click)="dt.filterGlobal(filterGlobalValue, 'contains')"><span></span></button>
+                        </div>
+                        <span class="close" onclick="searchToggle(this, event);" (click)="resetDataTable(dt)"></span>
+                    </div> -->
+                        <div class="custom-in-box transaction-filter mt-2">
+                            <i title="Reset Filter" class="pi pi-times" (click)="resetDataTable(dt)"></i>
+                            <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                                (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                                class="search-input p-0 tran-search" />
+                            <span (click)="dt.filterGlobal(filterGlobalValue, 'contains')">Search
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th [pSortableColumn]="'code'" pResizableColumn>
+                    Id
+                    <p-sortIcon [field]="'code'"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'full_Name'" pResizableColumn>
+                    Name
+                    <p-sortIcon [field]="'full_Name'"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'phone'" pResizableColumn>
+                    Phone
+                    <p-sortIcon [field]="'phone'"></p-sortIcon>
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>Details</th>
+
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-customer>
+            <tr>
+                <td style="width: 3rem">
+                    <p-tableCheckbox [value]="customer"></p-tableCheckbox>
+                </td>
+
+                <td>
+                    <span class="p-column-title">Code</span>
+
+                    {{ customer.code }}
+                </td>
+                <td>
+                    <span class="p-column-title">Name</span>
+                    {{ customer.full_Name }}
+                </td>
+                <td>
+                    <span class="p-column-title">Phone</span>
+                    {{ customer.phone }}
+                </td>
+                <td>
+                    <span class="p-column-title">Status</span>
+                    {{customer.customer_Status.title }}
+                </td>
+                <td class="sm-jus-end">
+                    <button title="More Details" pButton pRipple
+                        class="p-button-rounded p-button-success theme-btn ac-btn" href="#"
+                        (click)="main.onBottomPanelButtonClick($event, customer)">
+
+                        <img src="../../../../../assets/layout/images/more-detail.png" alt="" width="18">
+
+
+                    </button>
+                </td>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="19">
+                    <p class="empty-list">
+                        Record not found! <br /> Please Search customer by Phone Number.
+                    </p>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog id="alert-send" class="Add-New-Form" header="Send Customers Alert" [(visible)]="sendNewCustomerAlertshow"
+    [style]="{ width: '576px' }" [baseZIndex]="10000" [modal]="true" [dismissableMask]="true">
+    <form #f="ngForm" (ngSubmit)="onSubmitCustomersAlertForm()" [formGroup]="sendCustomerAlertForm">
+        <div class="grid">
+            <div class="form-group col-12">
+                <div class="field">
+                    <label>Customers <span class="star-sign">*</span></label>
+                    <div class="p-inputgroup w-100">
+                        <p-multiSelect id="txtCustomers" name="customers" formControlName="customers"
+                            [options]="itemCustomersAlert" scrollHeight="100px" [virtualScroll]="true" [itemSize]="30"
+                            [(ngModel)]="selectedCustomersAlert" defaultLabel="--Select--" optionLabel="name"
+                            display="chip">
+                        </p-multiSelect>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group md:col-12 col-12">
+                <div class="field">
+                    <label for="">Title <span class="star-sign">*</span></label>
+                    <input class="w-100" type="text" name="title" formControlName="title" pInputText
+                        placeholder="Title" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <small style="color:red;" class="ng-dirty ng-invalid"
+                            *ngIf="sendCustomerAlertForm.controls.title.errors?.required">Please required Title
+                            !</small>
+                    </div>
+
+                </div>
+                <div class="field">
+                    <label for="">Message <span class="star-sign">*</span></label>
+                    <textarea id="txteng_Message" maxlength="100" name="eng_Message" formControlName="eng_Message"
+                        class="body form-control w-100" pInputText [rows]="4" [cols]="30"></textarea>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <small style="color:red;" class="ng-dirty ng-invalid"
+                            *ngIf="sendCustomerAlertForm.controls.eng_Message.errors?.required">Please required Message
+                            !</small>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="form-group md:col-6 col-12">
+                <div class="field">
+                    <label for="">Arabic Message <span class="star-sign">*</span></label>
+                    <textarea id="txtarabic_Message" maxlength="100" name="arabic_Message"
+                        formControlName="arabic_Message" class="body form-control w-100" pInputText placeholder=""
+                        [rows]="4" [cols]="30"></textarea>
+                </div>
+            </div> -->
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <br />
+                <div class="button-footer text-right">
+                    <button type="submit" class="btn btn-primary theme-btn">
+                        <span *ngIf="btnloading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Send
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</p-dialog>

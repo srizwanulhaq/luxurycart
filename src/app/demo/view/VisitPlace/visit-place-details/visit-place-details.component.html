@@ -1,0 +1,144 @@
+<p-toast></p-toast>
+<p-confirmDialog #cd id="cutomer-confrim-model" [style]="{ width: '30vw', top: '-190px' }">
+    <ng-template pTemplate="footer">
+        <button type="button" pButton class="cofirm-model-cancel-btn" label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton label="Yes" (click)="cd.accept()"></button>
+    </ng-template>
+
+</p-confirmDialog>
+<p-sidebar *ngIf="details" [(visible)]="main.bottomPanelActive" position="bottom" [baseZIndex]="10000">
+    <h3 class="text-center" style="color:#6E6E6E;font-weight: 600;font-family: primaryFontBold;"><span style="border-bottom: 3px solid #99ca3c;padding-bottom: 3px;">Visit Place Info</span></h3>
+
+
+    <!-- <h3 class="text-center" style="color:#6E6E6E;font-weight: 600;font-family: primaryFontBold;"><span style="border-bottom: 3px solid #99ca3c;padding-bottom: 3px;">Code Info</span></h3> -->
+        <div class="action-row ">
+          <div class="action-left">
+            <h6>
+                Zones : 
+            </h6>
+
+            <div *ngFor="let zone of zones;let i=index">
+                <p>{{zone.title }}</p>
+            </div>
+          </div>
+          <div class="action-right">
+            
+            <div class="action-btn ">
+                <div (click)="main.onEditPanelButtonClick($event,details) ">
+                    <h6>Edit</h6>
+                </div>
+                
+            </div>
+            <div class="action-btn">
+                <div>
+                    <a style="color: white;" target="_blank" [href]="'https://www.google.com/maps/search/?api=1&query='+details.latitude+','+details.longitude"
+                    *ngIf="details.latitude>0;else invalidData">
+                    Location</a>
+                </div>
+            </div>
+            <div style="padding-left: 9px;text-align: center;">
+                <h6 class="m-0">Active/Deactive</h6>
+                <p-inputSwitch (onChange)="onStatus($event,details.id)" [(ngModel)]="details.active"></p-inputSwitch>
+            </div>
+          </div>
+        </div>
+
+            <div class="submenu-content settings ">
+                <div class="main-row ">
+                    <!-- <div class="history-settings card-main ">
+                        <h6><span>Default Image</span></h6>
+                        <img src="assets/layout/images/imei.png " alt=" " width="40 ">
+                        <img [src]="details.default_Image" width="200px" />
+                    </div> -->
+                    <div class="history-settings card-main ">
+                        <h6><span>Title</span></h6>
+                        <img src="assets/layout/images/imei.png " alt=" " width="40 ">
+                        <h6>{{details.title}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Arabic Title</span></h6>
+                        <img src="assets/layout/images/model.png " alt=" " width="40 ">
+                        <h6>{{details.arTitle}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Sub Title</span></h6>
+                        <img src="assets/layout/images/imei.png " alt=" " width="40 ">
+                        <h6>{{details.sub_Title}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Sub Arabic Title</span></h6>
+                        <img src="assets/layout/images/model.png " alt=" " width="40 ">
+                        <h6>{{details.sub_ArTitle}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Rating</span></h6>
+                        <img src="assets/layout/images/imei.png " alt=" " width="40 ">
+                        <p-rating [(ngModel)]="details.rating" [readonly]="true"
+                        [cancel]="false"></p-rating>
+                        <p>{{details.rating}}</p>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Address</span></h6>
+                        <img src="assets/layout/images/model.png " alt=" " width="40 ">
+                        <h6>{{details.address}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Short Description</span></h6>
+                        <img src="assets/layout/images/battery.png " alt=" " width="40 ">
+                        <h6>{{details.short_Description}}</h6>
+                    </div>
+                    <!-- <div class="history-settings card-main ">
+                        <h6><span>Long Description</span></h6>
+                        <img src="assets/layout/images/model.png " alt=" " width="40 ">
+                        <h6>{{details.long_Description}}</h6>
+                    </div> -->
+                    <div class="history-settings card-main ">
+                        <h6><span>Create at</span></h6>
+                        <img src="assets/layout/images/model.png " alt=" " width="40 ">
+                        <h6>{{details.created_at | date: "medium"}}</h6>
+                    </div>
+                    
+                    <!-- <div class="history-settings card-main ">
+                        <h6><span>Cover Images</span></h6>
+                        <div class="preview-wrapper">
+                            <div class="img-preview" *ngFor="let url of images;let i=index">
+                              <img [src]="url" width="200px" />
+                              </div>
+                            </div>
+                    </div> -->
+                    <!-- <div class="history-settings card-main ">
+                        <h6><span>Zones</span></h6>
+                        <div class="">
+                            <div class="" *ngFor="let zone of zones;let i=index">
+                                <h6>{{zone.title }}</h6>
+                              </div>
+                            </div>
+                    </div> -->
+
+                </div>
+                <div class="main-right">
+                    <div class="grid">
+                        <div class="col">
+                            <h6>Small Images</h6>
+                            <div class="preview-wrapper">
+                            <img class="img-preview-item" [src]="details.default_Image" width="200px" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h6>Cover Image</h6>
+                            <div class="preview-wrapper">
+                            <div class="img-preview-item" *ngFor="let url of images;let i=index">
+                                <img [src]="url" width="200px" />
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col">
+                            <h6>Long Description</h6>
+                        <p>{{details.long_Description}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</p-sidebar>

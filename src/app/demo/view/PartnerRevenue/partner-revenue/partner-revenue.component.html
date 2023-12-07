@@ -1,0 +1,125 @@
+<div class="card component-main-card">
+<div class="bread-container">
+    <div class="left-box">
+        <h4>
+            <span>
+                Manage Revenue
+            </span>
+        </h4>
+    </div>
+</div>
+
+<div class="grid">
+   <div class="md:col-3 col-6">
+    <label>Partner Name<span style="color: red">*</span></label>
+    <p-dropdown id="type" [options]="partnerNames" name="type" [(ngModel)]="partner_Id"
+    placeholder="Select Partner" optionLabel="label" scrollHeight="100px" filter="true" (onChange)="onSelect($event)">
+</p-dropdown>
+   </div>
+   <div class="md:col-3 col-6">
+    <label>Parking Zone<span style="color: red">*</span></label>
+        <p-dropdown id="type" [options]="partnerZones" [(ngModel)]="zone_Id" filter="true" name="type" 
+        placeholder="Select Zone" optionLabel="label" scrollHeight="100px">
+    </p-dropdown>
+   </div>
+  
+</div>
+<div class="grid mt-3">
+    <div class="md:col-3 col-6">
+        <label>Start Date<span style="color: red">*</span></label> <br>
+        <p-calendar id="part-rev-calend" [(ngModel)]="setStartDate" [showButtonBar]="true"></p-calendar>
+    
+       </div>
+       <div class="md:col-3 col-6">
+     
+            <label>End Date<span style="color: red">*</span></label> <br>
+            <p-calendar id="part-rev-calend" [(ngModel)]="setEndDate" [showButtonBar]="true"></p-calendar>
+    
+       </div>
+       <div class="md:col-3 col-12">
+        <label>Select Period<span style="color: red">*</span></label> <br>
+       <p-dropdown  class="state-dr" #period  [options]="dropDownPeriods"
+       (onChange)="changePeriod(period)" [filter]="true">
+       </p-dropdown>
+
+       <div *ngIf="showYears == true">
+        <p-dropdown class="state-dr" id="year" [options]="years"  [filter]="true"
+        (onChange)="changeYear($event)" placeholder="Select a year">
+        </p-dropdown>
+       </div>
+      
+       </div>
+  
+       <div class="md:col-3 col-12">
+       
+        <div class="grid">
+            <div class="md:col-5 col-6">
+                <button pButton pRipple label="Search" class="p-button-success theme-btn mt-2"  (click)="onSearch()"></button>
+            </div>
+            <div class="md:col-7 col-6 ">
+                <button  pButton pRipple label="Reset Filter" class="p-button-success theme-btn mt-2" (click)="Reset()" ></button>
+            </div>
+        </div>
+       </div>
+
+</div>
+
+<div class="report-main">
+    <div class="bread-container">
+        <div class="left-box">
+            <h4>
+                <span>
+                    Report
+                </span>
+            </h4>
+        </div>
+        <div class="right-box">
+            <button pButton pRipple label="Download Now" [disabled]="!partnerRevenue"  class="p-button-success theme-btn" (click)="exportExcel()"></button>
+        </div>
+    </div>
+    
+    
+    <table class="rev-table" [cellSpacing]="0">
+        <tr>
+            <th>Total</th>
+            <th>Amount ofter VAT</th>
+            <th>Partner Share</th>
+            <th>Partner Amount</th>
+            <th>Period</th>
+        </tr>
+    
+        <tr>
+            <td>{{total}}</td>
+            <td>{{ amountVat }} </td>
+            <td>{{partnerShare}} </td>
+            <td>{{partnerAmount}}</td>
+            <td>{{setPeriodStart | date  }} - {{setPeriodEnd | date  }} </td>
+        </tr>
+    </table>
+</div>
+<div *ngIf="revenueData != null">
+  <div class="grid" style="justify-content: center;margin-top: 20px;">
+    <div class="md:col-6 col-12">
+        <div class="ride-main-card chart-card-bg">
+            <div class="grid">
+                <div class="md:col-1 col-1">
+                    <ul>
+                        <li>
+                            Partner Revenue
+                        </li>
+                    </ul>
+                </div>
+                <div class="md:col-11 col-11">
+                   
+                    <p-chart type="bar"  [data]="revenueData" [options]="basicOptions"></p-chart>
+                    <h5 class="text-center"> Time Period  </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+</div>

@@ -1,0 +1,174 @@
+<p-toast></p-toast>
+<div class="bread-container">
+    <div class="left-box">
+        <h4>
+            <span>
+                Manage Visit Place
+            </span>
+        </h4>
+    </div>
+    <div class="right-box">
+        <button pButton pRipple label="Add Visit Place" class="p-button-success mr-2 theme-btn"
+            (click)="newVisitPlace()"></button>
+    </div>
+</div>
+<form [formGroup]="visitPlaceForm" (ngSubmit)="onSubmitForm()">
+    <p-dialog id="new-place" [(visible)]="visitPlaceDialog" [style]="{width: '700px'}" header="Visit Place Details"
+        [modal]="true" class="p-fluid" [dismissableMask]="true">
+        <ng-template pTemplate="content">
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="name">Title <span class="star-sign">*</span></label>
+                    <input type="text" pInputText id="number" formControlName="title" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <small style="color:red;" class="ng-dirty ng-invalid"
+                            *ngIf="visitPlaceForm.controls.title.errors?.required">Please required Title!</small>
+                    </div>
+                </div>
+                <div class="field col">
+                    <label for="name">ArTitle<span class="star-sign">*</span></label>
+                    <input type="text" pInputText id="name" formControlName="arTitle" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <small style="color:red;" class="ng-dirty ng-invalid"
+                            *ngIf="visitPlaceForm.controls.arTitle.errors?.required">Please required arTitle!</small>
+                    </div>
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="name">Sub Title <span class="star-sign">*</span></label>
+                    <input type="text" pInputText id="number" formControlName="sub_title" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <small style="color:red;" class="ng-dirty ng-invalid"
+                            *ngIf="visitPlaceForm.controls.sub_title.errors?.required">Please required sub
+                            title!</small>
+                    </div>
+                </div>
+                <div class="field col">
+                    <label for="name">Sub ArTitle<span class="star-sign">*</span></label>
+                    <input type="text" pInputText id="name" formControlName="sub_arTitle" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <small style="color:red;" class="ng-dirty ng-invalid"
+                            *ngIf="visitPlaceForm.controls.sub_arTitle.errors?.required">Please required sub
+                            arTitle!</small>
+                    </div>
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="name">Rating <span class="star-sign">*</span></label>
+                    <input type="number" pInputText id="number" formControlName="rating" max="5" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <small style="color:red;" class="ng-dirty ng-invalid"
+                            *ngIf="visitPlaceForm.controls.rating.errors?.required">Please required Rating!</small>
+                    </div>
+                </div>
+                <div class="field col">
+                    <label for="name">Address<span class="star-sign">*</span></label>
+                    <input type="text" pInputText id="name" formControlName="address" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <small style="color:red;" class="ng-dirty ng-invalid"
+                            *ngIf="visitPlaceForm.controls.address.errors?.required">Please required Address!</small>
+                    </div>
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="name">Short Description <span class="star-sign">*</span></label>
+                    <textarea style="border: 1px solid #ced4da;border-radius: 2px;height: 120px;" class="w-100"
+                        name="message" id="message" formControlName="short_Description" pInputTextarea
+                        maxlength="20"></textarea>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <small style="color:red;" class="ng-dirty ng-invalid block"
+                            *ngIf="!!visitPlaceForm.controls.short_Description.errors?.maxlength">maximum 20 characters
+                            allowed</small>
+                    </div>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <small style="color:red;" class="ng-dirty ng-invalid block"
+                            *ngIf="!!visitPlaceForm.controls.short_Description.errors?.required">Please required short
+                            description</small>
+                    </div>
+
+                </div>
+                <div class="field col">
+                    <label for="name">Long Description <span class="star-sign">*</span></label>
+                    <textarea style="border: 1px solid #ced4da;border-radius: 2px;height: 120px;" class="w-100"
+                        name="message" id="message" [ngClass]="{'ng-invalid ng-dirty ' : formsubmitted}"
+                        formControlName="long_Description" pInputTextarea maxlength="100"></textarea>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <small style="color:red;" class="ng-dirty ng-invalid block"
+                            *ngIf="!!visitPlaceForm.controls.long_Description.errors?.maxlength">maximum 50 characters
+                            allowed</small>
+                    </div>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <small style="color:red;" class="ng-dirty ng-invalid block"
+                            *ngIf="!!visitPlaceForm.controls.long_Description.errors?.required">Please required short
+                            description</small>
+                    </div>
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="name">Latitude <span class="star-sign">*</span></label>
+                    <input type="number" pInputText id="number" formControlName="latitude" [(ngModel)]="currentlat" />
+                </div>
+                <div class="field col">
+                    <label for="name">longitude <span class="star-sign">*</span></label>
+                    <input type="number" pInputText id="number" formControlName="longitude" [(ngModel)]="currentlng" />
+                </div>
+            </div>
+
+            <div class="formgrid grid">
+                <div class="field col">
+
+                </div>
+               
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label>Parking Zone<span style="color: red">*</span></label>
+                    <p-multiSelect [options]="parkingZone" optionLabel="title" formControlName="zoneIds" display="chip"
+                        scrollHeight="100px" defaultLabel="Select a Zone"></p-multiSelect>
+                </div>
+
+            </div>
+
+            <div class="grid mt-2">
+                <div class="field col">
+                    <label for="file">Cover Images</label>
+                    <div>
+                        <input formControlName="file" id="file" type="file" class="form-control-file" multiple=""
+                            accept="image/png, image/gif, image/jpeg" (change)="onFileChange($event)" />
+                    </div>
+                    
+
+                </div>
+
+                <div class="field col">
+                    <label for="file">Small Image</label>
+                    <input formControlName="file" id="file" type="file" class="form-control-file"
+                        accept="image/png, image/gif, image/jpeg" (change)="onFileSelected($event)" />
+                </div>
+
+            </div>
+            <div class="preview-wrapper">
+                        
+                <div class="img-preview-item" *ngFor="let url of images;let i=index">
+                   
+                    <img [src]="url" width="200px" />
+                    <button type="button" class="btn btn-danger btn-sm" (click)="removeImage(url,i)">
+                        x
+                    </button>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text theme-btn mt-2">
+                <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}"
+                    styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"
+                    animationDuration=".5s"></p-progressSpinner>
+            </button>
+        </ng-template>
+    </p-dialog>
+</form>

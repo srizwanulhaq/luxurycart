@@ -1,0 +1,64 @@
+
+
+<p-table #dt [value]="rides" dataKey="id" styleClass="p-datatable-gridlines" [rowHover]="true" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+columnResizeMode="expand" [totalRecords]="totalRecords" [rows]="10" [lazy]="true" (onLazyLoad)="loadCustomerRideList($event)" autoLayout="true" stateStorage="local" stateKey="lstCustomersRide-local">
+
+<ng-template pTemplate="header">
+    <tr>
+        <th pSortableColumn="tripId">Ride Id
+            <p-sortIcon field="tripId"></p-sortIcon>
+        </th>
+        <th pSortableColumn="rideTimings.rideStartTime">Start Time
+            <p-sortIcon field="rideTimings.rideStartTime">
+            </p-sortIcon>
+        </th>
+        <th pSortableColumn="rideTimings.rideEndTime">End Time
+            <p-sortIcon field="rideTimings.rideEndTime">
+            </p-sortIcon>
+        </th>
+        <th pSortableColumn="rideFare.totalcost">Ride Cost
+            <p-sortIcon field="rideFare.totalcost">
+            </p-sortIcon>
+        </th>
+        <th pSortableColumn="vehicle.number">Vehicle Number
+            <p-sortIcon field="vehicle.Number"></p-sortIcon>
+        </th>
+        <th pSortableColumn="parkingZones.title">Zone Name
+            <p-sortIcon field="parkingZones.title"></p-sortIcon>
+        </th>
+    </tr>
+</ng-template>
+<ng-template pTemplate="body" let-ride let-rowIndex="rowIndex">
+    <tr class="p-selectable-row">
+        <td> <span class="p-column-title">Ride Id</span>
+            {{ride.tripId}}
+        </td>
+        <td> <span class="p-column-title">Start Time</span>
+            {{ride.rideTimings.rideStartTime}}
+        </td>
+        <td>
+            <span class="p-column-title">End Time</span>
+            {{ride.rideFare != null ? ride.rideTimings.rideEndTime : '-'}}
+        </td>
+        <td>
+            <span class="p-column-title">Ride Cost</span>
+            {{ride.rideFare != null ? ride.rideFare.totalCost: '-'}}
+        </td>
+        <td>
+            <span class="p-column-title">Vehicle Number</span>
+          {{ride.vehicle.number}}
+        </td>
+        <td>
+            <span class="p-column-title">Zone Name</span>
+            {{ride.parking_Zones.title}}
+        </td>
+    </tr>
+</ng-template>
+<ng-template pTemplate="emptymessage">
+    <tr>
+        <td colspan="4">
+            <p class="empty-list">No Customer Ride found.</p>
+        </td>
+    </tr>
+</ng-template>
+</p-table>

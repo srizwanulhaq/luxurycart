@@ -1,0 +1,33 @@
+<p-sidebar [(visible)]="mapActive" position="bottom" [baseZIndex]="10000" (onHide)="onMapPanelClose()">
+    <h3 class="text-center" style="color:#6E6E6E;font-weight: 600;font-family: primaryFontBold;"><span
+            style="border-bottom: 3px solid #99ca3c;padding-bottom: 3px; margin-top: 1rem;">User Tracking Map</span>
+    </h3>
+    <div class="grid">
+        <div class="col-12">
+            <div class="custom-in-box transaction-filter">
+                <i title="Reset Filter" class="pi pi-times" (click)="loadUserTrackingMap(true)"></i>
+                <input pInputText type="text" [(ngModel)]="searchValue" placeholder="Search user"
+                    class="search-input tran-search p-0" />
+                <span (click)="loadUserTrackingMap()" [hidden]="searchValue.trim().length<3">Search
+                </span>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="agm-container">
+                <agm-map [zoom]="14" [latitude]="latitude" [longitude]="longitude" [mapTypeControl]="true"
+                    [draggable]="false">
+                    <agm-marker *ngFor="let userTrack of userTracks; let i = index" [latitude]="userTrack.latitude"
+                        [longitude]="userTrack.longitude" [label]="(i+1).toString()" [markerClickable]="true">
+                        <agm-info-window>
+                            <p><strong>User:</strong> {{ userTrack.userName }}</p>
+                            <p><strong>Zone:</strong> {{ userTrack.zoneTitle }}</p>
+                            <p><strong>Near To Zone:</strong> {{ userTrack.is_Within_Zone ? 'True':'False' }}</p>
+                            <p><strong>Logged In:</strong> {{ userTrack.log_Status ? 'True':'False' }}</p>
+                            <button type="button" (click)="getDetails(userTrack.userId)">View Detail</button>
+                        </agm-info-window>
+                    </agm-marker>
+                </agm-map>
+            </div>
+        </div>
+    </div>
+</p-sidebar>

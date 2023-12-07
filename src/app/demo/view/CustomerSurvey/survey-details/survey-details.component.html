@@ -1,0 +1,95 @@
+<p-sidebar *ngIf="!!customerSurvey" [(visible)]="customerSurveyModal" position="bottom" [baseZIndex]="10000"
+    (onHide)="onToggleCustomerSurvey()">
+    <h3 class="text-center" style="color:#6E6E6E;font-weight: 600;font-family: primaryFontBold;"><span
+            style="border-bottom: 3px solid #99ca3c;padding-bottom: 3px;">User Info</span></h3>
+    <div class="submenu-content settings">
+        <div class="main-row">
+            <div class="sales-settings card-main">
+                <h5> Vehicle Type</h5>
+                <h6>{{ customerSurvey.vehicle_type }}</h6>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> User</h5>
+                <a routerLink="/users/user-main" [queryParams]="{ customdata: customerSurvey.user_id }">
+                    <h6>{{ customerSurvey.user_id }}</h6>
+                </a>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> Nationality</h5>
+                <h6>{{ customerSurvey.nationality }}</h6>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> Age Bracket</h5>
+                <h6>{{ customerSurvey.age_bracket }}</h6>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> Gender</h5>
+                <h6>{{ customerSurvey.gender }}</h6>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> Ride Direction</h5>
+                <h6>{{ customerSurvey.ride_direction }}</h6>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> Quality Of Departure Zone</h5>
+                <h6>{{ customerSurvey.quality_of_departure_zone }}</h6>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> Quality Of Pickup Zone</h5>
+                <h6>{{ customerSurvey.quality_of_pickup_zone }}</h6>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> Quality Of Track Floor</h5>
+                <h6>{{ customerSurvey.quality_of_track_floor }}</h6>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> Quality Of Lighting</h5>
+                <h6>{{ customerSurvey.quality_of_lighting }}</h6>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> Quality Of Scooter Condition</h5>
+                <h6>{{ customerSurvey.quality_of_scooter_condition }}</h6>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> Sustainability Of Scooter Speed</h5>
+                <h6>{{ customerSurvey.sustainability_of_scooter_speed }}</h6>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> Scooter Pickup Process</h5>
+                <h6>{{ customerSurvey.scooter_pickup_process }}</h6>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> Scooter Drop Off Process</h5>
+                <h6>{{ customerSurvey.scooter_drop_off_process }}</h6>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> Satisfied Experince</h5>
+                <h6>{{ customerSurvey.satisfied_experince }}</h6>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> Support Provision Of Scooter</h5>
+                <h6>{{ customerSurvey.support_provision_of_scooter? "Yes":"No" }}</h6>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> Is Wearing Glasses</h5>
+                <h6>{{ customerSurvey.is_wearing_glasses? "Yes":"No" }}</h6>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> Have Scooter Knowledge</h5>
+                <h6>{{ customerSurvey.have_scooter_knowledge? "Yes":"No" }}</h6>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> Is Service Already Used</h5>
+                <h6>{{ customerSurvey.is_service_already_used ? "Yes":"No" }}</h6>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> Active</h5>
+                <h6>{{ customerSurvey.active ? "Active":"Deactive" }}</h6>
+            </div>
+            <div class="sales-settings card-main">
+                <h5> Created At</h5>
+                <h6>{{ customerSurvey.created_at | date: "medium" }}</h6>
+            </div>
+        </div>
+    </div>
+</p-sidebar>

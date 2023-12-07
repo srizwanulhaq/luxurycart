@@ -1,0 +1,757 @@
+<p-toast></p-toast>
+<form [formGroup]="zoneEditForm" (ngSubmit)="onSubmitForm()">
+    <p-dialog id="new-zone-model" [(visible)]="main.editPanelActive" [style]="{width: '1200px'}" header="Zone Details"
+        [modal]="true" class="p-fluid" [dismissableMask]="true" (onHide)="modalClose()">
+        <p-steps id="add-zone-step" [model]="items" [(activeIndex)]="activeIndex"></p-steps>
+        <ng-template pTemplate="content">
+            <div *ngIf="activeIndex == 0">
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Country<span class="star-sign">*</span></label>
+                        <p-dropdown id="txtcountryId" [options]="lstCountries" name="country_Id"
+                            formControlName="country_Id" (onChange)="onSelect($event)" placeholder="Select Country">
+                        </p-dropdown>
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <small style="color:red;" class="ng-dirty ng-invalid"
+                                *ngIf="zoneEditForm.controls.country_Id.errors?.required">Please required
+                                Country!</small>
+                        </div>
+                    </div>
+                    <div class="field col">
+                        <label>City<span class="star-sign">*</span></label>
+                        <p-dropdown id="txtcityId" filter="true" [options]="getlstCities" name="city_Id"
+                            formControlName="city_Id" placeholder="Select City">
+                        </p-dropdown>
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <small style="color:red;" class="ng-dirty ng-invalid"
+                                *ngIf="zoneEditForm.controls.city_Id.errors?.required">Please required City!</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="formgrid grid mt-4">
+                    <div class="field col">
+                        <label for="name">Title <span class="star-sign">*</span></label>
+                        <input type="text" pInputText id="title" formControlName="title" />
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <small style="color:red;" class="ng-dirty ng-invalid"
+                                *ngIf="zoneEditForm.controls.title.errors?.required">Please required Title!</small>
+                        </div>
+                    </div>
+                    <div class="field col">
+                        <label for="name">Ar Title<span class="star-sign">*</span></label>
+                        <input type="text" pInputText id="arTitle" formControlName="arTitle" />
+                        <!-- <div *ngIf="submitted" class="invalid-feedback">
+                        <small style="color:red;" class="ng-dirty ng-invalid" *ngIf="zoneEditForm.controls.arTitle.errors?.required">Please required Ar Title!</small>
+                    </div> -->
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label for="price">Zone Type<span class="star-sign">*</span></label>
+                        <p-dropdown id="company" [options]="lstZoneTypes" name="zone_Type_Id"
+                            formControlName="zone_Type_Id" [disabled]="zonetype" placeholder="Select Zone">
+                        </p-dropdown>
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <small style="color:red;" class="ng-dirty ng-invalid"
+                                *ngIf="zoneEditForm.controls.zone_Type_Id.errors?.required">Please required Zone
+                                Type!</small>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="field col">
+                        <label for="price">Wallet Package <span class="star-sign">*</span></label>
+                            <p-multiSelect id="zone-mul" [options]="lstWalletPackages" [(ngModel)]="selectedLstPackages"  optionLabel="name"  formControlName="walletPackagesIds" defaultLabel="Select Wallet Package" selectedItemsLabel="{0} items selected" ></p-multiSelect>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="activeIndex == 1">
+                <!-- <div class="formgrid grid mt-4">
+                    <div class="field col">
+                        <label>Select start time<span class="star-sign">*</span></label>
+                        <p-calendar id="cal" formControlName="zone_Start_Time" [(ngModel)]="select_zone_Start_Time"
+                            hourFormat="12" showSeconds="true" showTime="true" [timeOnly]="true" class="timer">
+                        </p-calendar>
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <small style="color:red;" class="ng-dirty ng-invalid"
+                                *ngIf="zoneEditForm.controls.zone_Start_Time.errors?.required">Please required start
+                                time !</small>
+                        </div>
+                    </div>
+                    <div class="field col">
+                        <label>Select end time<span class="star-sign">*</span></label>
+                        <p-calendar id="cal" formControlName="zone_End_Time" [(ngModel)]="select_zone_End_Time"
+                            hourFormat="12" showSeconds="true" showTime="true" [timeOnly]="true" class="timer">
+                        </p-calendar>
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <small style="color:red;" class="ng-dirty ng-invalid"
+                                *ngIf="zoneEditForm.controls.zone_End_Time.errors?.required">Please required end time
+                                !</small>
+                        </div>
+                    </div>
+                </div> -->
+
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="name">Default Speed <small>KM</small> <span class="star-sign">*</span></label>
+                    <!-- <input type="number" pInputText id="default_Speed" formControlName="default_Speed" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <small style="color:red;" class="ng-dirty ng-invalid" *ngIf="zoneEditForm.controls.default_Speed.errors?.required">Please required Default Speed!</small>
+                       </div> -->
+                       <p-dropdown id="txtsubAccount" placeholder="Select a default Speed" formControlName="default_Speed" [options]="itemsSpeedMode" 
+                       (onChange)="speedMode($event)">
+                       </p-dropdown>
+                </div>
+                <div class="field col">
+                    <label for="name">Min Wallet Balance <span class="star-sign">*</span></label>
+                    <input type="number" pInputText id="min_Wallet_Balance" min="0" formControlName="min_Wallet_Balance" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <small style="color:red;" class="ng-dirty ng-invalid" *ngIf="zoneEditForm.controls.min_Wallet_Balance.errors?.required">Please required Min Wallet Balance!</small>
+                       </div>
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="name">RideEnd With in Zone </label> <br>
+                    <p-inputSwitch  formControlName="rideEnd_WithIn_Zone"   ></p-inputSwitch>
+                </div>
+                <div class="field col">
+                    <label for="name">Nearby RedZone</label> <br>
+                    <p-inputSwitch  formControlName="nearby_RedZone"    ></p-inputSwitch>
+                </div>
+               
+            </div>
+            <div class="grid">
+                <div class="field col">
+                    <label for="name">Segway throttle command</label> <br>
+                    <p-inputSwitch  formControlName="segway_Throttle_Command"     ></p-inputSwitch>
+                </div>
+            </div>
+        </div>  
+            <div *ngIf="activeIndex == 2">
+                <div class="md:col-2 col-12">
+                    <p-button class="theme-btn1" label="Remove polygon" (click)="onRemovePolygon()">
+                    </p-button>
+                </div>
+                <div class="agm-container mt-4 mb-4">
+                    <agm-map [zoom]="10" [latitude]="currentlat" [longitude]="currentlng" [mapTypeControl]="true"
+                        (mapReady)="onMapReady($event)" [draggable]="false">
+                        <agm-polygon #polygon [paths]="zoneCordinates" [strokeColor]="blue" [visible]="true"
+                            (polyDragEnd)="
+            addEdge($event, zoneCordinates, edgeCount)
+          " (polyMouseUp)="
+            addEdge($event, zoneCordinates, edgeCount)
+          " (polyClick)="onPolyClick($event, polygon)" [draggable]="true" [polyDraggable]="false" [editable]="true">
+                        </agm-polygon>
+                    </agm-map>
+                </div>
+            </div>
+            <div *ngIf="activeIndex == 3">
+                <div style="    height: 60vh;overflow-y: scroll;">
+                <table id="add-zone-detail-table" class="table mb-4" formArrayName="ride_fare_setting">
+                    <tbody *ngFor="let fare of ride_fare_setting().controls ; let i=index" [formGroupName]="i">
+                        <tr>
+                            <div class="formgrid grid mt-4" style="margin-right: 0;margin-left: 0;">
+                                <div class="field col">
+                                    <label for=""> Ride Type <span class="star-sign">*</span></label>
+                                    <p-dropdown #rideType id="rideType" [options]="lstRideTypes" name="rideType"
+                                        formControlName="rideTypeId" placeholder="Select Ride Type"
+                                        (onChange)="rideTypeName(rideType)">
+                                    </p-dropdown>
+                                    <div *ngIf="submitted" class="invalid-feedback">
+                                        <small style="color:red;" class="ng-dirty ng-invalid"
+                                            *ngIf="fare.value.rideTypeId == '' ">Please required Ride Type !</small>
+                                    </div>
+                                </div>
+                                <div class="field col">
+                                    <label for="">Vehicle Company <span class="star-sign">*</span></label>
+
+                                    <p-dropdown #company id="company" [options]="lstCompanies" name="company"
+                                        formControlName="vehicleCompanyId" placeholder="Select Company"
+                                        (onChange)="companyName(company)">
+                                    </p-dropdown>
+                                    <div *ngIf="submitted" class="invalid-feedback">
+                                        <small style="color:red;" class="ng-dirty ng-invalid"
+                                            *ngIf="fare.value.vehicleCompanyId == '' ">Please required Vehicle
+                                            Company!</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="formgrid grid" style="margin: 0;">
+                                <div class="field col">
+                                    <label for=""> Fixed Start Price <span class="star-sign">*</span></label>
+                                    <input id="txtfixed_Start_Price" max="100" pInputText name="fixed_Start_Price"
+                                        formControlName="fixed_Start_Price" type="number" class="form-control mb-2"
+                                        placeholder="0">
+                                    <div *ngIf="submitted" class="invalid-feedback">
+                                        <small style="color:red;" class="ng-dirty ng-invalid"
+                                            *ngIf="fare.value.fixed_Start_Price == '' ">Please required Fixed Start
+                                            Price!</small>
+                                        <small style="color:red;" class="ng-dirty ng-invalid"
+                                            *ngIf="fare.value.fixed_Start_Price > 100">Please fixed start price value
+                                            between 0 and 100!</small>
+                                    </div>
+                                </div>
+                                <div class="field col">
+                                    <label for=""> Time Price <span class="star-sign">*</span></label>
+                                    <input id="txttime_Price" max="100" pInputText name="time_Price"
+                                        formControlName="time_Price" type="number" class="form-control mb-2"
+                                        placeholder="0">
+                                    <div *ngIf="submitted" class="invalid-feedback">
+                                        <small style="color:red;" class="ng-dirty ng-invalid"
+                                            *ngIf="fare.value.time_Price == '' ">Please required Time Price!</small>
+                                        <small style="color:red;" class="ng-dirty ng-invalid"
+                                            *ngIf="fare.value.time_Price > 100">Please time price value between 0 and
+                                            100!</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="formgrid grid" style="margin: 0;">
+                                <div class="field col">
+                                    <label for=""> Price Per Kilometer <span class="star-sign">*</span></label>
+                                    <input id="txtprice_Per_Kilometer" max="100" pInputText name="price_Per_Kilometer"
+                                        formControlName="price_Per_Kilometer" type="number" class="form-control mb-2"
+                                        placeholder="0">
+                                    <div *ngIf="submitted" class="invalid-feedback">
+                                        <small style="color:red;" class="ng-dirty ng-invalid"
+                                            *ngIf="fare.value.price_Per_Kilometer == '' ">Please required Price Per
+                                            Kilometer!</small>
+                                        <small style="color:red;" class="ng-dirty ng-invalid"
+                                            *ngIf="fare.value.price_Per_Kilometer > 100">Please price per kilometer
+                                            value between 0 and 100!</small>
+                                    </div>
+                                </div>
+                                <div class="field col">
+
+                                </div>
+                                <!-- <div class="field col">
+                                    Paused Time Price :
+                                    <input id="txtpaused_Time_Price"  pInputText name="paused_Time_Price" formControlName="paused_Time_Price" type="number" class="form-control mb-2" placeholder="0">
+                            </div> -->
+                            </div>
+
+                        </tr>
+                        <!-- <tr class="text-right">
+                                <button class="theme-btn" label="Add" (click)="addfare(i,fare)">
+                                    Add
+                                </button>
+                            </tr> -->
+                        <tr class="text-right">
+                            <p-button id="add-zone-detail-btn" class="theme-btn" style="background: #99ca3c !important;" label="Add" (click)="addfare(i,fare)">
+                            </p-button>
+                        </tr>
+                </tbody>
+              </table> 
+                   <p-table [value]="zoneFare">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>S:No</th>
+                        <th>Ride Type</th>
+                        <th>Vehicle Company</th>
+                        <th>Time Price</th>
+                        <th>Fixed Start Price</th>
+                        <th>Km Price</th>
+                        <!-- <th>Pasue Time Price</th> -->
+                        <th>Action</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body"  let-fare let-rowIndex="rowIndex">
+                    <tr>
+                        <td>{{ rowIndex + 1 }}</td>
+                        <td>{{fare.rideType.title}}</td>
+                        <td>{{fare.vehicleCompany.name}}</td>
+                        <td>{{fare.time_Price}}</td>
+                        <td>{{fare.fixed_Start_Price}}</td>
+                        <td>{{fare.price_Per_Kilometer}}</td>                
+                        <!-- <td>{{fare.paused_Time_Price}}</td> -->
+                        <td class="text-right">
+                            <button (click)="removefare(rowIndex)" class="table-addZOne-cross-btn" icon="pi pi-times">X</button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        </div>
+            <div *ngIf="activeIndex == 4">
+                <div style="    height: 60vh;overflow-y: scroll;">
+                <table id="add-setting-detail-table" class="table mb-3 w-100" formArrayName="ride_scrutiny_setting">
+                    <tbody *ngFor="let setting of ride_scrutiny_setting().controls ; let i=index" [formGroupName]="i">
+                        <tr>
+                            <div class="formgrid grid">
+                                <div class="field md:col-3">
+                                    <label for="">Select Template <span class="star-sign">*</span></label>
+                                    <p-dropdown #scrutinyTemplate (onChange)="scrutinyTemplateName(scrutinyTemplate)"
+                                        [(ngModel)]="templateId" id="templateId" [options]="lstTemplates"
+                                        name="lstTemplate" formControlName="templateId" placeholder="Select Template">
+                                    </p-dropdown>
+                                    <div *ngIf="submitted" class="invalid-feedback">
+                                        <small style="color:red;" class="ng-dirty ng-invalid"
+                                            *ngIf="setting.value.templateId == '' ">Please required Template !</small>
+                                    </div>
+                                </div>
+                                <div class="field md:col-3">
+                                    <label for="">Minutes Before Send <span class="star-sign">*</span></label>
+                                    <input id="minuteId" max="100" pInputText name="totalLeftMinutes"
+                                        formControlName="totalLeftMinutes" [(ngModel)]="getTotalLeftMinutes"
+                                        type="number" class="form-control mb-2" placeholder="0">
+                                    <div *ngIf="submitted" class="invalid-feedback">
+                                        <small style="color:red;" class="ng-dirty ng-invalid"
+                                            *ngIf="setting.value.totalLeftMinutes == '' ">Please required minutes before
+                                            send !</small>
+                                    </div>
+                                </div>
+                                <div class="field md:col-3">
+                                    <label>Start time <span class="star-sign">*</span></label>
+                                    <p-calendar id="startTime" formControlName="startTime" hourFormat="12"
+                                        showSeconds="true" showTime="true" [timeOnly]="true" class="timer">
+                                    </p-calendar>
+                                    <div *ngIf="submitted" class="invalid-feedback">
+                                        <small style="color:red;" class="ng-dirty ng-invalid"
+                                            *ngIf="setting.value.startTime == '' ">Please required startTime !</small>
+                                    </div>
+                                </div>
+                                <div class="field md:col-3">
+                                    <label>End time <span class="star-sign">*</span></label>
+                                    <p-calendar id="endTime" formControlName="endTime" hourFormat="12"
+                                        showSeconds="true" showTime="true" [timeOnly]="true" class="timer">
+                                    </p-calendar>
+                                    <div *ngIf="submitted" class="invalid-feedback">
+                                        <small style="color:red;" class="ng-dirty ng-invalid"
+                                            *ngIf="setting.value.endTime == '' ">Please required endTime !</small>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="field col">
+                                <label>Applied Days <span class="star-sign">*</span></label>
+                                <p-checkbox value="1"  (onChange) ="myModelChanged($event,1)" ></p-checkbox>Mon
+                                <p-checkbox value="2" (onChange) ="myModelChanged($event,2)"></p-checkbox>Tue
+                                <p-checkbox value="3"  (onChange) ="myModelChanged($event,3)" ></p-checkbox>Wed
+                                <p-checkbox value="4"  (onChange) ="myModelChanged($event,4)"></p-checkbox>Thr
+                                <p-checkbox value="5" (onChange) ="myModelChanged($event,5)"></p-checkbox>Fri
+                                <p-checkbox value="6" (onChange) ="myModelChanged($event,6)"></p-checkbox>Sat
+                                <p-checkbox value="7" (onChange) ="myModelChanged($event,7)"></p-checkbox>Sun
+                            </div> -->
+                            </div>
+                            <div class="grid">
+                                <div class="field md:col-4">
+                                    <label>Applied Days <span class="star-sign">*</span></label> <br>
+                                    <div class="grid">
+                                        <div class="md:col-3 text-center">
+                                            Monday <br>
+                                            <input type="checkbox" (change)="myModelChanged($event,1)"
+                                                [checked]="!!appliedDays[1]" />
+                                        </div>
+                                        <div class="md:col-3 text-center">
+                                            Tuesday <br>
+                                            <input type="checkbox" (change)="myModelChanged($event,2)"
+                                                [checked]="!!appliedDays[2]" />
+                                        </div>
+                                        <div class="md:col-3 text-center">
+                                            Wednesday <br>
+                                            <input type="checkbox" (change)="myModelChanged($event,3)"
+                                                [checked]="!!appliedDays[3]" />
+                                        </div>
+                                        <div class="md:col-3 text-center">
+                                            Thursday <br>
+                                            <input type="checkbox" (change)="myModelChanged($event,4)"
+                                                [checked]="!!appliedDays[4]" />
+                                        </div>
+                                        <div class="md:col-3 text-center">
+                                            Friday <br>
+                                            <input type="checkbox" (change)="myModelChanged($event,5)"
+                                                [checked]="!!appliedDays[5]" />
+                                        </div>
+                                        <div class="md:col-3 text-center">
+                                            Saturday <br>
+                                            <input type="checkbox" (change)="myModelChanged($event,6)"
+                                                [checked]="!!appliedDays[6]" />
+                                        </div>
+                                        <div class="md:col-3 text-center">
+                                            Sunday <br>
+                                            <input type="checkbox" (change)="myModelChanged($event,7)"
+                                                [checked]="!!appliedDays[7]" />
+                                        </div>
+                                        <div *ngIf="submitted" class="invalid-feedback">
+                                            <small style="color:red;" class="ng-dirty ng-invalid" 
+                                            *ngIf = "setting.value.appliedDays == '0000000' ">Please required at lest one day selected !</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="md:col-8">
+                                    <div class="grid">
+                                        <div class="md:col-4">
+                                            <div class="grid">
+                                                <div class="md:col-12">
+                                                    <label for="name">Enable 24 Hours</label>
+                                                </div>
+                                                <div class="md:col-12">
+                                                    <p-inputSwitch (onChange)="change($event)"
+                                                        formControlName="enable24Hours"
+                                                        [(ngModel)]="enable24Hours"></p-inputSwitch>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="md:col-4">
+                                            <div class="grid">
+                                                <div class="md:col-12">
+                                                    <label for="name">Enable Admin Notification</label>
+                                                </div>
+                                                <div class="md:col-12">
+                                                    <p-inputSwitch formControlName="sendAdminNotification"
+                                                        [(ngModel)]="sendAdminNotification"></p-inputSwitch>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="md:col-4">
+                                            <div class="grid">
+                                                <div class="md:col-12">
+                                                    <label for="name">Turn Speed Low</label>
+                                                </div>
+                                                <div class="md:col-12">
+                                                    <p-inputSwitch formControlName="turnSpeedLow"
+                                                        [(ngModel)]="turnSpeedLow"></p-inputSwitch>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="md:col-4">
+                                            <div class="grid">
+                                                <div class="md:col-12">
+                                                    <label for="name">Enable Customer Notification</label>
+                                                </div>
+                                                <div class="md:col-12">
+                                                    <p-inputSwitch formControlName="sendCustomerNotification"
+                                                        [(ngModel)]="sendCustomerNotification"></p-inputSwitch>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="md:col-4">
+                                            <div class="grid">
+                                                <div class="md:col-12">
+                                                    <label for="name">Allow Ride End</label>
+                                                </div>
+                                                <div class="md:col-12">
+                                                    <p-inputSwitch formControlName="allowRideEnd"
+                                                        [(ngModel)]="allowRideEnd"></p-inputSwitch>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="md:col-4">
+                                            <div class="grid">
+                                                <div class="md:col-12">
+                                                    <label for="name">Turn Throttle Off</label>
+                                                </div>
+                                                <div class="md:col-12">
+                                                    <p-inputSwitch formControlName="turnThrottleOff"
+                                                        [(ngModel)]="turnThrottleOff"></p-inputSwitch>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="formgrid grid">
+                            <div class="field col">
+                                <label for="name">Enable 24 Hours</label> <br>
+                                <p-inputSwitch  formControlName="enable24Hours"  [(ngModel)]="enable24Hours" ></p-inputSwitch>
+                            </div>
+
+                        </div>
+                        <div class="formgrid grid">
+                            <div class="field col">
+                                <label for="name">Enable Customer Notification</label> <br>
+                                <p-inputSwitch  formControlName="sendCustomerNotification"  [(ngModel)]="sendCustomerNotification" ></p-inputSwitch>
+                            </div>
+                            <div class="field col">
+                                <label for="name">Enable Admin Notification</label> <br>
+                                <p-inputSwitch  formControlName="sendAdminNotification"  [(ngModel)]="sendAdminNotification" ></p-inputSwitch>
+                            </div>
+                            <div class="field col">
+                                <label for="name">Allow Ride End</label> <br>
+                                <p-inputSwitch  formControlName="allowRideEnd"  [(ngModel)]="allowRideEnd" ></p-inputSwitch>
+                            </div>
+                        </div>
+                        <div class="formgrid grid">
+                            <div class="field col">
+                                <label for="name">Turn Speed Low</label> <br>
+                                <p-inputSwitch  formControlName="turnSpeedLow"  [(ngModel)]="turnSpeedLow" ></p-inputSwitch>
+                            </div>
+                            <div class="field col">
+                                <label for="name">Turn Throttle Off</label> <br>
+                                <p-inputSwitch  formControlName="turnThrottleOff"  [(ngModel)]="turnThrottleOff" ></p-inputSwitch>
+                            </div>
+                            <div class="field col">
+
+                            </div>
+                        </div>   -->
+                    </tr>
+                    <p-steps id="add-zone-step" [readonly]="false" [model]="ridesItems" [(activeIndex)]="activeRideIndex" ></p-steps>
+                    <tr class="text-right">
+                        <p-button id="add-zone-detail-btn" class="theme-btn" style="background: #99ca3c !important;" label="{{buttonLable}}" (click)="addSetting(i,setting,activeRideIndex)">
+                        </p-button>
+                    </tr>
+                </tbody>
+            </table>  
+            <div *ngIf="activeRideIndex == 0">
+                <p-table class="mb-3" [value]="lstScrutinySettings1" [tableStyle]="{'min-width': '100%'}">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Sequence</th>
+                            <th>Selected Template</th>
+                            <th>Min Before Send</th>
+                            <th>Enable 24 Hours</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Applied Days</th>
+                            <th>Send Customer Notification</th>
+                            <th>Send Admin Notification</th>
+                            <th>Allow Ride End</th>
+                            <th>Turn Speed Low</th>
+                            <th>Turn Throttle Off</th>
+                            <th>Action</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-setting let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{ rowIndex + 1 }}</td>
+                            <!-- <td>{{setting.sequence }}</td> -->
+                            <td>{{setting.ride_Scrutiny_Templates.title}}</td>
+                            <td>{{setting.totalLeftMinutes}}</td>
+                            <td>{{setting.enable24Hours}}</td>
+                            <td>{{setting.startTime }}</td>
+                            <td>{{setting.endTime }}</td>
+                            <td>{{setWeekDays(setting.appliedDays)}}</td>
+                            <td>{{setting.sendCustomerNotification}}</td>
+                            <td>{{setting.sendAdminNotification}}</td>
+                            <td>{{setting.allowRideEnd}}</td>
+                            <td>{{setting.turnSpeedLow}}</td>
+                            <td>{{setting.turnThrottleOff}}</td>
+                            <td class="text-right">
+                                <p-button (click)="editSetting(rowIndex ,setting,'Update' ,activeRideIndex)"
+                                    icon="pi pi-pencil"></p-button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div *ngIf="activeRideIndex == 1">
+                <p-table class="mb-3" [value]="lstScrutinySettings2" [tableStyle]="{'min-width': '100%'}">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Sequence</th>
+                            <th>Selected Template</th>
+                            <th>Min Before Send</th>
+                            <th>Enable 24 Hours</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Applied Days</th>
+                            <th>Send Customer Notification</th>
+                            <th>Send Admin Notification</th>
+                            <th>Allow Ride End</th>
+                            <th>Turn Speed Low</th>
+                            <th>Turn Throttle Off</th>
+                            <th>Action</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-setting let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{ rowIndex + 1 }}</td>
+                            <!-- <td>{{setting.sequence }}</td> -->
+                            <td>{{setting.ride_Scrutiny_Templates.title}}</td>
+                            <td>{{setting.totalLeftMinutes}}</td>
+                            <td>{{setting.enable24Hours}}</td>
+                            <td>{{setting.startTime }}</td>
+                            <td>{{setting.endTime }}</td>
+                            <td>{{setWeekDays(setting.appliedDays)}}</td>
+                            <td>{{setting.sendCustomerNotification}}</td>
+                            <td>{{setting.sendAdminNotification}}</td>
+                            <td>{{setting.allowRideEnd}}</td>
+                            <td>{{setting.turnSpeedLow}}</td>
+                            <td>{{setting.turnThrottleOff}}</td>
+                            <td class="text-right">
+                                <p-button (click)="editSetting(rowIndex ,setting,'Update',activeRideIndex)"
+                                    icon="pi pi-pencil"></p-button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div *ngIf="activeRideIndex == 2">
+                <p-table class="mb-3" [value]="lstScrutinySettings3" [tableStyle]="{'min-width': '100%'}">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Sequence</th>
+                            <th>Selected Template</th>
+                            <th>Min Before Send</th>
+                            <th>Enable 24 Hours</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Applied Days</th>
+                            <th>Send Customer Notification</th>
+                            <th>Send Admin Notification</th>
+                            <th>Allow Ride End</th>
+                            <th>Turn Speed Low</th>
+                            <th>Turn Throttle Off</th>
+                            <th>Action</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-setting let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{ rowIndex + 1 }}</td>
+                            <!-- <td>{{setting.sequence }}</td> -->
+                            <td>{{setting.ride_Scrutiny_Templates.title}}</td>
+                            <td>{{setting.totalLeftMinutes}}</td>
+                            <td>{{setting.enable24Hours}}</td>
+                            <td>{{setting.startTime }}</td>
+                            <td>{{setting.endTime }}</td>
+                            <td>{{setWeekDays(setting.appliedDays)}}</td>
+                            <td>{{setting.sendCustomerNotification}}</td>
+                            <td>{{setting.sendAdminNotification}}</td>
+                            <td>{{setting.allowRideEnd}}</td>
+                            <td>{{setting.turnSpeedLow}}</td>
+                            <td>{{setting.turnThrottleOff}}</td>
+                            <td class="text-right">
+                                <p-button (click)="editSetting(rowIndex ,setting,'Update',activeRideIndex)"
+                                    icon="pi pi-pencil"></p-button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div *ngIf="activeRideIndex == 3">
+                <p-table class="mb-3" [value]="lstScrutinySettings4" [tableStyle]="{'min-width': '100%'}">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Sequence</th>
+                            <th>Selected Template</th>
+                            <th>Min Before Send</th>
+                            <th>Enable 24 Hours</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Applied Days</th>
+                            <th>Send Customer Notification</th>
+                            <th>Send Admin Notification</th>
+                            <th>Allow Ride End</th>
+                            <th>Turn Speed Low</th>
+                            <th>Turn Throttle Off</th>
+                            <th>Action</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-setting let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{ rowIndex + 1 }}</td>
+                            <!-- <td>{{setting.sequence }}</td> -->
+                            <td>{{setting.ride_Scrutiny_Templates.title}}</td>
+                            <td>{{setting.totalLeftMinutes}}</td>
+                            <td>{{setting.enable24Hours}}</td>
+                            <td>{{setting.startTime }}</td>
+                            <td>{{setting.endTime }}</td>
+                            <td>{{setWeekDays(setting.appliedDays)}}</td>
+                            <td>{{setting.sendCustomerNotification}}</td>
+                            <td>{{setting.sendAdminNotification}}</td>
+                            <td>{{setting.allowRideEnd}}</td>
+                            <td>{{setting.turnSpeedLow}}</td>
+                            <td>{{setting.turnThrottleOff}}</td>
+                            <td class="text-right">
+                                <p-button (click)="editSetting(rowIndex ,setting,'Update',activeRideIndex)"
+                                    icon="pi pi-pencil"></p-button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div *ngIf="activeRideIndex == 4">
+                <p-table class="mb-3" [value]="lstScrutinySettings5" [tableStyle]="{'min-width': '100%'}">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Sequence</th>
+                            <th>Selected Template</th>
+                            <th>Min Before Send</th>
+                            <th>Enable 24 Hours</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Applied Days</th>
+                            <th>Send Customer Notification</th>
+                            <th>Send Admin Notification</th>
+                            <th>Allow Ride End</th>
+                            <th>Turn Speed Low</th>
+                            <th>Turn Throttle Off</th>
+                            <th>Action</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-setting let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{ rowIndex + 1 }}</td>
+                            <!-- <td>{{setting.sequence }}</td> -->
+                            <td>{{setting.ride_Scrutiny_Templates.title}}</td>
+                            <td>{{setting.totalLeftMinutes}}</td>
+                            <td>{{setting.enable24Hours}}</td>
+                            <td>{{setting.startTime }}</td>
+                            <td>{{setting.endTime }}</td>
+                            <td>{{setWeekDays(setting.appliedDays)}}</td>
+                            <td>{{setting.sendCustomerNotification}}</td>
+                            <td>{{setting.sendAdminNotification}}</td>
+                            <td>{{setting.allowRideEnd}}</td>
+                            <td>{{setting.turnSpeedLow}}</td>
+                            <td>{{setting.turnThrottleOff}}</td>
+                            <td class="text-right">
+                                <p-button (click)="editSetting(rowIndex ,setting,'Update',activeRideIndex)"
+                                    icon="pi pi-pencil"></p-button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+              </div>
+            </div>
+
+            <!-- <div class="grid grid-nogutter justify-content-end">
+            <button label="Back" *ngIf="activeIndex != 0" (click)="prevPage($event)" icon="pi pi-angle-left"
+            class="theme-btn mt-3">
+            Back
+        </button>
+            <button label="Next"  *ngIf="activeIndex != 3" (click)="nextPage($event)"  icon="pi pi-angle-right" iconPos="right" class="theme-btn mt-3 ml-1">
+                Next
+            </button>
+            <button pRipple label="Submit" *ngIf="activeIndex == 3" [disabled]="!zoneForm.valid"   icon="pi pi-check" class="theme-btn mt-3 ml-1">
+                <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}" styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+                Submit
+            </button>
+     </div> -->
+
+            <div class="grid grid-nogutter justify-content-end mt-3">
+
+                <p-button id="step-btn" class="theme-btn" style="background: #99ca3c !important;" label="Back"
+                    *ngIf="activeIndex != 0" (click)="prevPage(redzone)"></p-button>
+                <!-- <p-button id="step-btn" class="theme-btn ml-1-" style="background: #99ca3c !important;" label="Next"  *ngIf="activeIndex != 2 || redzone != 3 " (click)="nextPage(redzone)" iconPos="right"></p-button> -->
+                <p-button id="step-btn" [ngClass]="{'dnone': buttonDisable}" class="theme-btn ml-1-"
+                    style="background: #99ca3c !important;" label="Next" *ngIf="activeIndex != 4"
+                    (click)="nextPage(redzone)" iconPos="right"></p-button>
+                <button pRipple label="Submit" *ngIf="activeIndex == 2 && redzone == 3" icon="pi pi-check"
+                    class="theme-btn ml-1">
+                    <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}"
+                        styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"
+                        animationDuration=".5s"></p-progressSpinner>
+                    Submit
+                </button>
+
+                <button pRipple label="Submit" *ngIf="activeIndex == 4" icon="pi pi-check" class="theme-btn ml-1">
+                    <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}"
+                        styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"
+                        animationDuration=".5s"></p-progressSpinner>
+                    Submit
+                </button>
+            </div>
+        </ng-template>
+    </p-dialog>
+</form>

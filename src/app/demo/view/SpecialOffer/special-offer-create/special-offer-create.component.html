@@ -1,0 +1,84 @@
+<p-toast></p-toast>
+
+<div class="bread-container offer-bread">
+    <div class="left-box">
+        <h4>
+            <span>
+                Manage Special Offer
+            </span>
+        </h4>
+    </div>
+    <div class="right-box">
+        <button pButton pRipple label="Add Special Offer" class="p-button-success mr-2 theme-btn"
+            (click)="openForm()"></button>
+    </div>
+</div>
+<form [formGroup]="SpecialOfferSaveForm" (ngSubmit)="onSubmitForm()">
+    <p-dialog id="offer-model" header="Special Offer Details" [(visible)]="offerDialog" [style]="{width: '650px'}"
+        [baseZIndex]="10000" class="p-fluid" [modal]="true" [dismissableMask]="true">
+        <ng-template pTemplate="content">
+            <input type="hidden" formControlName="id" />
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="name">Title</label>
+                    <input type="text" pInputText id="title" formControlName="title" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                    <!-- <small style="color:red;" class="ng-dirty ng-invalid" *ngIf="vehicleEditForm.controls.number.errors?.pattern">Enter number like: 0011</small> -->
+                </div>
+                <div class="field col">
+                    <label for="name">Amount</label>
+                    <input type="number" pInputText id="amount" min="0" formControlName="amount" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                    <!-- <small style="color:red;" class="ng-dirty ng-invalid" *ngIf="vehicleEditForm.controls.number.errors?.pattern">Enter number like: 0011</small> -->
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="price">Parking Zone</label>
+                    <p-dropdown id="parkingZoneId" [options]="lstZones" name="parkingZoneId"
+                        formControlName="parkingZoneId" placeholder="Select Zone">
+                    </p-dropdown>
+                </div>
+                <div class="field col">
+                    <label for="quantity">Total Free Rides</label>
+                    <input type="number" pInputText id="total_Free_Rides" min="0" formControlName="total_Free_Rides"
+                        required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="price">Total Ride Minutes</label>
+                    <input type="number" pInputText id="total_Ride_Minutes" min="0" formControlName="total_Ride_Minutes"
+                        required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                </div>
+                <div class="field col">
+                    <label for="quantity">Valid Days</label>
+                    <input type="number" pInputText id="valid_Days" min="0" formControlName="valid_Days" required
+                        autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="price">Purchase Limit</label>
+                    <input type="number" pInputText id="offer_Purchase_Limit" min="0"
+                        formControlName="offer_Purchase_Limit" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                </div>
+                <div class="field col">
+                    <label for="quantity">Expiry Date</label>
+                    <input type="date" pInputText id="expiry_Date" formControlName="expiry_Date" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Add" [disabled]="!SpecialOfferSaveForm.valid"
+                class="p-button-text theme-btn">
+                <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}"
+                    styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s">
+                </p-progressSpinner>
+            </button>
+        </ng-template>
+    </p-dialog>
+</form>

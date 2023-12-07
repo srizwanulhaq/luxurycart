@@ -1,0 +1,12 @@
+<div class="col-12">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <div class="card component-main-card">
+                <app-survey-details [customerSurvey]="customerSurvey" [customerSurveyModal]="customerSurveyModal"
+                    (toggleCustomerSurvey)="toggleCustomerSurvey($event)"></app-survey-details>
+                <app-survey-create (eventChange)="onChange($event)"></app-survey-create>
+                <app-survey-list [event]="event"
+                    (toggleCustomerSurvey)="toggleCustomerSurvey($event)"></app-survey-list>
+            </div>
+        </div>
+    </div>

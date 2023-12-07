@@ -1,0 +1,423 @@
+<div class="lodi">
+    <br>
+    <div *ngIf="loading" class="lodi-child">
+        <div class="custom-loader"></div>
+    </div>
+    <div *ngIf="vehicleInfo != null">
+        <div class="grid Current-main" *ngIf="vehicleInfo.omni != null">
+            <div class="md:col-7" *ngIf="vehicleInfo.omni.result[0].telemetry != null">
+                <h5 class="" style="font-size: 22px;font-weight: 700;text-align: center;
+                        margin: 17px 0px;margin-top: 4px;"><span style="border-bottom: 3px solid #99ca3c;">Omni</span>
+                </h5>
+                <div class="grid">
+                    <div class="md:col-4 col-6">
+                        <h6>ID : {{ vehicleInfo.omni.result[0].telemetry.deviceid.value}}</h6>
+                    </div>
+                    <div class="md:col-4 col-6">
+                        <h6>Battery Charging Status : {{
+                            vehicleInfo.omni.result[0].telemetry.batterychargingstatus.value}}</h6>
+                    </div>
+                    <div class="md:col-4 col-6">
+                        <h6>Battery Level : {{ vehicleInfo.omni.result[0].telemetry.batterylevel.value}}</h6>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="md:col-4 col-6">
+                        <h6>Battery Low Alarm : {{ vehicleInfo.omni.result[0].telemetry.batterylowalarm.value}}</h6>
+                    </div>
+                    <div class="md:col-4 col-6">
+                        <h6>Battery Voltage : {{ vehicleInfo.omni.result[0].telemetry.batteryvoltage.value}}</h6>
+                    </div>
+                    <div class="md:col-4 col-6">
+                        <h6>Channel Id : {{ vehicleInfo.omni.result[0].telemetry.channelid.value}}</h6>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="md:col-4 col-6">
+                        <h6>Device Id : {{ vehicleInfo.omni.result[0].telemetry.deviceid.value}}</h6>
+                    </div>
+                    <div class="md:col-4 col-6">
+                        <h6>Device Type Id : {{ vehicleInfo.omni.result[0].telemetry.devicetypeid.value}}</h6>
+                    </div>
+                    <div class="md:col-4 col-6">
+                        <h6>disassemble alarm status : {{
+                            vehicleInfo.omni.result[0].telemetry.disassemblealarmstatus.value}}</h6>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="md:col-4 col-6">
+                        <h6>Ecuerror code : {{ vehicleInfo.omni.result[0].telemetry.ecuerrorcode.value}}</h6>
+                    </div>
+                    <div class="md:col-4 col-6">
+                        <h6>Event enum : {{ vehicleInfo.omni.result[0].telemetry.eventenum.value}}</h6>
+                    </div>
+                    <div class="md:col-4 col-6">
+                        <h6>fall alarm status : {{ vehicleInfo.omni.result[0].telemetry.fallalarmstatus != null ?
+                            vehicleInfo.omni.result[0].telemetry.fallalarmstatus.value : '-'}}</h6>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="md:col-4 col-6">
+                        <h6>GSM Signal level : {{ vehicleInfo.omni.result[0].telemetry.gsmsignallevel.value}}</h6>
+                    </div>
+                    <div class="md:col-4 col-6">
+                        <h6>Ident ts : {{ vehicleInfo.omni.result[0].telemetry.ident.value}}</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="md:col-5 right-side col-12" *ngIf="vehicleInfo.omni.result[0].telemetry != null">
+                <h5 style="font-size: 22px;font-weight: 700;text-align: center;margin: 17px 0px;margin-top: 4px;"><span
+                        style="border-bottom: 3px solid #99ca3c;">Location</span> </h5>
+                <div class="grid">
+                    <div class="md:col-4">
+                        <p>Latitude : {{ vehicleInfo.omni.result[0].telemetry.position.value.latitude}}</p>
+                    </div>
+                    <div class="md:col-4">
+                        <p>Longitude : {{ vehicleInfo.omni.result[0].telemetry.position.value.longitude}}</p>
+                    </div>
+                    <div class="md:col-4">
+                        <p>Satellite Number : {{ vehicleInfo.omni.result[0].telemetry.position.value.satellites}}</p>
+                    </div>
+                </div>
+
+                <div class="grid">
+
+                    <div class="md:col-12 col-12">
+                        <a class=" link-btt"
+                            href="https://www.google.com/maps/search/?api=1&amp;query={{vehicleInfo.omni.result[0].telemetry.position.value.latitude}},{{vehicleInfo.omni.result[0].telemetry.position.value.longitude}}"
+                            target="_blank">
+                            <img src="assets/layout/images/available.png" alt="" width="40"> Show On Map</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="grid Current-main" *ngIf="vehicleInfo.segwayStatus != null">
+            <div class="md:col-7">
+                <h5 class="" style="font-size: 22px;font-weight: 700;text-align: center;
+                        margin: 17px 0px;margin-top: 4px;"><span
+                        style="border-bottom: 3px solid #99ca3c;">Segway</span> </h5>
+                <div class="grid">
+
+                    <div class="md:col-4">
+                        <h6>Iot Code : {{vehicleInfo.segwayStatus.data.iotCode}}</h6>
+                    </div>
+                    <div class="md:col-4">
+
+                    </div>
+                    <div class="md:col-4">
+                        <h6>Status : {{vehicleInfo.segwayStatus.data.online == true ? "Online" : "Offline"}}</h6>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="md:col-4">
+                        <h6>Locked : {{vehicleInfo.segwayStatus.data.locked == true ? "Yes" : "No"}}</h6>
+                    </div>
+                    <div class="md:col-4">
+                        <h6>Lock Voltage : {{vehicleInfo.segwayStatus.data.lockVoltage}}</h6>
+                    </div>
+                    <div class="md:col-4">
+                        <h6>Network Signal : {{ vehicleInfo.segwayStatus.data.networkSignal}}</h6>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="md:col-4">
+                        <h6>Charging : {{vehicleInfo.segwayStatus.data.charging == true ? "Yes" : "No"}}</h6>
+                    </div>
+                    <div class="md:col-4">
+                        <h6>Power Percent : {{vehicleInfo.segwayStatus.data.powerPercent}}</h6>
+                    </div>
+                    <div class="md:col-4">
+                        <h6>speed Mode : {{vehicleInfo.segwayStatus.data.speedMode}}</h6>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="md:col-4">
+                        <h6>speed : {{vehicleInfo.segwayStatus.data.speed}}</h6>
+                    </div>
+                    <div class="md:col-4">
+                        <h6>Odo meter : {{vehicleInfo.segwayStatus.data.odometer}}</h6>
+                    </div>
+                    <div class="md:col-4">
+                        <h6>Remaining Range : {{vehicleInfo.segwayStatus.data.remainingRange}}</h6>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="md:col-4">
+                        <h6>Ident ts : {{vehicleInfo.segwayStatus.data.totalRidingSecs}}</h6>
+                    </div>
+                    <div class="md:col-8">
+                        <h6>Status UTC Time : {{vehicleInfo.segwayStatus.data.statusKSATime | date:'medium' }}</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="md:col-5 right-side">
+                <h5 class=""
+                    style="font-size: 22px;font-weight: 700;text-align: center;margin: 17px 0px;margin-top: 4px;"><span
+                        style="border-bottom: 3px solid #99ca3c;">Location</span> </h5>
+                <div class="grid">
+                    <div class="md:col-4">
+                        <p>Latitude : {{vehicleInfo.segwayLocation.data.latitude}}</p>
+                    </div>
+                    <div class="md:col-4">
+                        <p>Longitude : {{vehicleInfo.segwayLocation.data.longitude}}</p>
+                    </div>
+                    <div class="md:col-4">
+                        <p>Satellite Number : {{vehicleInfo.segwayLocation.data.satelliteNumber}}</p>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="md:col-12">
+                        <a class=" link-btt"
+                            href="https://www.google.com/maps/search/?api=1&amp;query={{vehicleInfo.segwayLocation.data.latitude}},{{vehicleInfo.segwayLocation.data.longitude}}"
+                            target="_blank">
+                            <img src="assets/layout/images/available.png" alt="" width="40"> Show On Map</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="submenu-content settings">
+    <div class="main-row" style="width: 100%;">
+        <div *ngIf="vehicleInfo != null">
+            <div *ngIf="vehicleInfo.segwayStatus != null">
+           
+                <div class="top-header">
+                    <h6 class="left-hd" style="  font-size: 22px;
+                    font-weight: 700;text-align: center;margin: 17px 0px;margin-top: 4px;"><span style="border-bottom: 3px solid #99ca3c;">Segway</span> </h6>
+
+                    <h6 class="right-hd" style="  font-size: 22px;
+                    font-weight: 700;text-align: center;margin: 17px 0px;margin-top: 4px;"><span style="border-bottom: 3px solid #99ca3c;">Location</span>
+                        <a class=" link-btt"
+                            href="https://www.google.com/maps/search/?api=1&amp;query={{vehicleInfo.segwayLocation.data.latitude}},{{vehicleInfo.segwayLocation.data.longitude}}">
+                            <img src="assets/layout/images/available.png" alt="" width="40"> Show On Map</a>
+                    </h6>
+
+
+                </div>
+
+
+
+                <div class="sales-settings card-main" style="width: 19%;">
+                    <h6><span>Iot Code</span> </h6>
+                    <img src="assets/layout/images/end.png" alt="" width="40">
+                    <h6> {{vehicleInfo.segwayStatus.data.iotCode}}</h6>
+                </div>
+
+                <div class="sales-settings card-main" style="width: 19%;">
+                    <h6><span>Status UTC Time </span> </h6>
+                    <img src="assets/layout/images/end.png" alt="" width="40">
+                    <h6> {{vehicleInfo.segwayStatus.data.statusKSATime | date:'medium' }}</h6>
+                </div>
+                <div class="sales-settings card-main" style="width: 19%;">
+                    <h6><span>Status </span> </h6>
+                    <img src="assets/layout/images/locate-green.png" alt="" width="40">
+                    <h6> {{vehicleInfo.segwayStatus.data.online == true ? "Online" : "Offline"}}</h6>
+                </div>
+
+
+                <div class="sales-settings card-main" style="width: 19%;">
+                    <h6><span>Locked</span> </h6>
+                    <img src="assets/layout/images/start-time.png" alt="" width="40">
+                    <h6> {{vehicleInfo.segwayStatus.data.locked == true ? "Yes" : "No"}}</h6>
+                </div>
+                <div class="sales-settings card-main" style="width: 19%;">
+                    <h6><span>Latitude </span> </h6>
+                    <img src="assets/layout/images/low-battery.png" alt="" width="40">
+                    <h6> {{vehicleInfo.segwayLocation.data.latitude}}</h6>
+                </div>
+
+                <div class="sales-settings card-main" style="width: 19%;">
+                    <h6><span>Lock Voltage </span> </h6>
+                    <img src="assets/layout/images/battery.png" alt="" width="40">
+                    <h6> {{vehicleInfo.segwayStatus.data.lockVoltage}}</h6>
+                </div>
+                <div class="sales-settings card-main" style="width: 19%;">
+                    <h6><span>Network Signal </span> </h6>
+                    <img src="assets/layout/images/available.png" alt="" width="40">
+                    <h6> {{ vehicleInfo.segwayStatus.data.networkSignal}}</h6>
+                </div>
+                <div class="sales-settings card-main" style="width: 19%;">
+                    <h6><span>Charging </span> </h6>
+                    <img src="assets/layout/images/low-battery.png" alt="" width="40">
+                    <h6> {{vehicleInfo.segwayStatus.data.charging == true ? "Yes" : "No"}}</h6>
+                </div>
+                <div class="sales-settings card-main" style="width: 19%;">
+                    <h6><span>Power Percent</span> </h6>
+                    <img src="assets/layout/images/battery.png" alt="" width="40">
+                    <h6> {{vehicleInfo.segwayStatus.data.powerPercent}}</h6>
+                </div>
+                <div class="sales-settings card-main" style="width: 19%;">
+                    <h6><span>Longitude </span> </h6>
+                    <img src="assets/layout/images/low-battery.png" alt="" width="40">
+                    <h6> {{vehicleInfo.segwayLocation.data.longitude}}</h6>
+                </div>
+
+                <div class="sales-settings card-main" style="width: 19%;">
+                    <h6><span>speed Mode</span> </h6>
+                    <img src="assets/layout/images/model.png" alt="" width="40">
+                    <h6> {{vehicleInfo.segwayStatus.data.speedMode}}</h6>
+                </div>
+                <div class="sales-settings card-main" style="width: 19%;">
+                    <h6><span>speed</span> </h6>
+                    <img src="assets/layout/images/model.png" alt="" width="40">
+                    <h6> {{vehicleInfo.segwayStatus.data.speed}}</h6>
+                </div>
+                <div class="sales-settings card-main" style="width: 19%;">
+                    <h6><span>Odo meter</span> </h6>
+                    <img src="assets/layout/images/battery.png" alt="" width="40">
+                    <h6> {{vehicleInfo.segwayStatus.data.odometer}}</h6>
+                </div>
+                <div class="sales-settings card-main" style="width: 19%;">
+                    <h6><span>Remaining Range</span> </h6>
+                    <img src="assets/layout/images/model.png" alt="" width="40">
+                    <h6> {{vehicleInfo.segwayStatus.data.remainingRange}}</h6>
+                </div>
+
+                <div class="sales-settings card-main link-btn-card" style="width: 19%;">
+
+                </div>
+
+                <div class="sales-settings card-main" style="width: 19%;">
+                    <h6><span>Total Riding Secs</span> </h6>
+                    <img src="assets/layout/images/scooti-icon.png" alt="" width="40">
+                    <h6> {{vehicleInfo.segwayStatus.data.totalRidingSecs}}</h6>
+                </div>
+
+
+                <div class="sales-settings card-main" style="width: 19%;">
+                    <h6><span>Satellite Number</span> </h6>
+                    <img src="assets/layout/images/iot-num.png" alt="" width="40">
+                    <h6> {{vehicleInfo.segwayLocation.data.satelliteNumber}}</h6>
+                </div>
+            </div>
+            <div *ngIf="vehicleInfo.omni != null">
+                <div *ngIf="vehicleInfo.omni.result[0].telemetry != null">
+                 
+
+                    <div class="top-header">
+                        <h6 class="left-hd" style="fo-size: 22px;
+                        font-weight: 700;text-align: center;margin: 17px 0px;margin-top: 4px;"><span style="border-bottom: 3px solid #99ca3c;">Omni</span> </h6>
+
+                        <h6 class="right-hd" style="ft-size: 22px;
+                        font-weight: 700;text-align: center;margin: 17px 0px;margin-top: 4px;"><span style="border-bottom: 3px solid #99ca3c;">Location</span>
+
+
+                        </h6>
+                        <a class=" link-btt"
+                            href="https://www.google.com/maps/search/?api=1&amp;query={{vehicleInfo.omni.result[0].telemetry.position.value.latitude}},{{vehicleInfo.omni.result[0].telemetry.position.value.longitude}}">
+                            <img src="assets/layout/images/available.png" alt="" width="40"> Show On Map</a>
+                    </div>
+
+
+
+                    <div class="sales-settings card-main" style="width: 19%;">
+                        <h6><span>Id</span> </h6>
+                        <img src="assets/layout/images/id.png" alt="" width="40">
+                        <h6> {{ vehicleInfo.omni.result[0].telemetry.deviceid.value}}</h6>
+                    </div>
+                    <div class="sales-settings card-main" style="width: 19%;">
+                        <h6><span>Battery Charging Status</span> </h6>
+                        <img src="assets/layout/images/discharge.png" alt="" width="40">
+                        <h6> {{ vehicleInfo.omni.result[0].telemetry.batterychargingstatus.value}}</h6>
+                    </div>
+                    <div class="sales-settings card-main" style="width: 19%;">
+                        <h6><span>Battery Level</span> </h6>
+                        <img src="assets/layout/images/low-battery.png" alt="" width="40">
+                        <h6> {{ vehicleInfo.omni.result[0].telemetry.batterylevel.value}}</h6>
+                    </div>
+                    <div class="sales-settings card-main" style="width: 19%;">
+                        <h6><span>Battery Low Alarm</span> </h6>
+                        <img src="assets/layout/images/low-battery.png" alt="" width="40">
+                        <h6> {{ vehicleInfo.omni.result[0].telemetry.batterylowalarm != null ? vehicleInfo.omni.result[0].telemetry.batterylowalarm.value : '-' }}</h6>
+                    </div>
+                    <div class="sales-settings card-main" style="width: 19%;">
+                        <h6><span>Latitude</span> </h6>
+                        <img src="assets/layout/images/low-battery.png" alt="" width="40">
+                        <h6> {{ vehicleInfo.omni.result[0].telemetry.position.value.latitude}}</h6>
+                    </div>
+
+                    <div class="sales-settings card-main" style="width: 19%;">
+                        <h6><span>Battery Voltage</span> </h6>
+                        <img src="assets/layout/images/battery.png" alt="" width="40">
+                        <h6> {{ vehicleInfo.omni.result[0].telemetry.batteryvoltage != null ? vehicleInfo.omni.result[0].telemetry.batteryvoltage.value : '-'}}</h6>
+                    </div>
+                    <div class="sales-settings card-main" style="width: 19%;">
+                        <h6><span>Channel Id</span> </h6>
+                        <img src="assets/layout/images/battery.png" alt="" width="40">
+                        <h6> {{ vehicleInfo.omni.result[0].telemetry.channelid != null ? vehicleInfo.omni.result[0].telemetry.channelid.value : '-'}}</h6>
+                    </div>
+                    <div class="sales-settings card-main" style="width: 19%;">
+                        <h6><span>Device Id</span> </h6>
+                        <img src="assets/layout/images/battery.png" alt="" width="40">
+                        <h6> {{ vehicleInfo.omni.result[0].telemetry.deviceid != null ? vehicleInfo.omni.result[0].telemetry.deviceid.value : '-'}}</h6>
+                    </div>
+                    <div class="sales-settings card-main" style="width: 19%;">
+                        <h6><span>Device Type Id</span> </h6>
+                        <img src="assets/layout/images/battery.png" alt="" width="40">
+                        <h6> {{ vehicleInfo.omni.result[0].telemetry.devicetypeid != null ?  vehicleInfo.omni.result[0].telemetry.devicetypeid.value : '-'}}</h6>
+                    </div>
+
+                    <div class="sales-settings card-main" style="width: 19%;">
+                        <h6><span>Longitude</span> </h6>
+                        <img src="assets/layout/images/low-battery.png" alt="" width="40">
+                        <h6> {{ vehicleInfo.omni.result[0].telemetry.position.value.longitude}}</h6>
+                    </div>
+
+
+                    <div class="sales-settings card-main" style="width: 19%;">
+                        <h6><span>disassemble alarm status</span> </h6>
+                        <img src="assets/layout/images/battery.png" alt="" width="40">
+                        <h6> {{ vehicleInfo.omni.result[0].telemetry.disassemblealarmstatus != null ? vehicleInfo.omni.result[0].telemetry.disassemblealarmstatus.value : '-' }}</h6>
+                    </div>
+                    <div class="sales-settings card-main" style="width: 19%;">
+                        <h6><span>Ecuerror code</span> </h6>
+                        <img src="assets/layout/images/battery.png" alt="" width="40">
+                        <h6> {{ vehicleInfo.omni.result[0].telemetry.ecuerrorcode  !=  null ? vehicleInfo.omni.result[0].telemetry.ecuerrorcode.value : '-' }}</h6>
+                    </div>
+                    <div class="sales-settings card-main" style="width: 19%;">
+                        <h6><span>Event enum</span> </h6>
+                        <img src="assets/layout/images/battery.png" alt="" width="40">
+                        <h6> {{ vehicleInfo.omni.result[0].telemetry.eventenum != null ?  vehicleInfo.omni.result[0].telemetry.eventenum.value : '-'}}</h6>
+                    </div>
+
+
+                    <div class="sales-settings card-main" style="width: 19%;">
+                        <h6><span>fall alarm status</span> </h6>
+                        <img src="assets/layout/images/battery.png" alt="" width="40">
+                        <h6> {{ vehicleInfo.omni.result[0].telemetry.fallalarmstatus != null ?
+                            vehicleInfo.omni.result[0].telemetry.fallalarmstatus.value : '-'}}</h6>
+                    </div>
+
+                    <div class="sales-settings card-main" style="width: 19%;">
+                        <h6><span>Satellites</span> </h6>
+                        <img src="assets/layout/images/low-battery.png" alt="" width="40">
+                        <h6> {{ vehicleInfo.omni.result[0].telemetry.position.value.satellites}}</h6>
+                    </div>
+
+
+                    <div class="sales-settings card-main" style="width: 19%;">
+                        <h6><span>GSM Signal level</span> </h6>
+                        <img src="assets/layout/images/available.png" alt="" width="40">
+                        <h6> {{ vehicleInfo.omni.result[0].telemetry.gsmsignallevel.value}}</h6>
+                    </div>
+                    <div class="sales-settings card-main" style="width: 19%;">
+                        <h6><span>Ident ts</span> </h6>
+                        <img src="assets/layout/images/available.png" alt="" width="40">
+                        <h6> {{ vehicleInfo.omni.result[0].telemetry.ident.value}}</h6>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+            <div *ngIf="vehicleInfo.omni == null && vehicleInfo.segwayLocation == null && vehicleInfo.segwayStatus == null  ">
+            <p> Data Not Found</p>
+          </div>
+
+    </div>
+</div> -->

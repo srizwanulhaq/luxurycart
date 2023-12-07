@@ -1,0 +1,30 @@
+.field-checkbox, .field-radiobutton{
+    margin: 0;
+}
+// #new-survey-model .grid{
+//     gap: 10px;
+//     flex-wrap: nowrap;
+// }
+#new-survey-model .grid{
+    border-bottom: 1px solid #80808038;
+}
+#new-survey-model .field{
+    margin-bottom: 0 !important;
+}
+#new-survey-model .item {
+    border-radius: 10px;
+    margin-bottom: 0px;
+    height: 100%;
+    padding: 6px;
+    
+}
+#new-survey-model .item label{
+    display: inline-block;
+    position: relative;
+    padding-right: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    span{
+        right: 1px;
+    }
+}

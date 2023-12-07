@@ -1,0 +1,246 @@
+<p-toast></p-toast>
+
+<div class="bread-container">
+    <div class="left-box">
+        <h4>
+            <span>
+                Promotions
+            </span>
+            <!-- <span style="border-bottom: 0;background: red;color: white;margin-left: 20px;
+            padding: 5px 8px;border-radius: 8px;"> <i class="fa fa-exclamation" style="    color: white;
+    border: 1px solid white;
+    padding-top: 2px;
+    border-radius: 3px;"></i> Under Devlopment </span> -->
+        </h4>
+    </div>
+    <div class="right-box">
+        <button pButton pRipple label="Add {{type | titlecase}}" class="p-button-success mr-2 theme-btn"
+            (click)="showPromoCodeRegForm()"></button>
+    </div>
+</div>
+<p-dialog id="new-ride-model" class="p-fluid" header="Add new {{type}}" [(visible)]="addNewpromocodeShow" [style]="{ width: '35vw' }"
+    [baseZIndex]="10000" [dismissableMask]="true" [modal]="true">
+    <form #f="ngForm" (ngSubmit)="onSubmitPromoCodeReg()" [formGroup]="codeForm" *ngIf="addNewpromocodeShow">
+        <div class="form-row" *ngIf="type=='promo'">
+            <div class="form-group col-md-12">
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Country<span class="star-sign">*</span></label>
+                        <p-dropdown id="txtcountryId" [options]="lstCountries" name="country_Id"
+                            formControlName="country_Id" (onChange)="onSelect($event)" placeholder="Select Country">
+                        </p-dropdown>
+                    </div>
+
+                </div>
+                <div class="grid">
+                    <div class="field col">
+                        <label>City<span class="star-sign">*</span></label>
+                        <p-multiSelect [options]="getlstCities" optionLabel="name" formControlName="cityIds"
+                            defaultLabel="Select a City" selectedItemsLabel="{0} items selected"></p-multiSelect>
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Code <span class="star-sign">*</span></label>
+                        <input type="text" id="txtcode" name="code" formControlName="code" pInputText
+                            placeholder="Code" />
+                    </div>
+                    <div class="field col">
+                        <label>Quantity<span class="star-sign">*</span></label>
+                        <input type="number" id="txtquantity" name="quantity" formControlName="quantity" pInputText
+                            placeholder="Quantity" />
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Per_Usage<span class="star-sign">*</span></label>
+                        <input type="number" id="txtperusage" name="per_Usage" formControlName="per_Usage" pInputText
+                            placeholder="Per_Usage" />
+                    </div>
+                    <div class="field col">
+                        <label>Credits<span class="star-sign">*</span></label>
+                        <input type="number" id="txtcredits" name="credits" formControlName="credits" pInputText
+                            placeholder="Credits" />
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Start Date<span class="star-sign">*</span></label>
+                        <input type="date" id="txtstartdate" name="start_Date" formControlName="start_Date" pInputText
+                            placeholder="start Date" />
+                    </div>
+                    <div class="field col">
+                        <label>End Date<span class="star-sign">*</span></label>
+                        <input type="date" id="txtenddate" name="end_Date" formControlName="end_Date" pInputText
+                            placeholder="End Date" />
+                    </div>
+                </div>
+                <div class="field col">
+                    <label>Is New User<span class="star-sign">*</span></label>
+                    <p-checkbox formControlName="is_New_User" [binary]="true" [trueValue]="true" [falseValue]="false"
+                        [value]="false"></p-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="form-row" *ngIf="type=='coupon'">
+            <div class="form-group col-md-12">
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Country<span class="star-sign">*</span></label>
+                        <p-dropdown id="txtcountryId" [options]="lstCountries" name="country_Id"
+                            formControlName="country_Id" (onChange)="onSelect($event)" placeholder="Select Country">
+                        </p-dropdown>
+                    </div>
+                    <div class="field col">
+                        <label>City<span class="star-sign">*</span></label>
+                        <p-multiSelect [options]="getlstCities" optionLabel="name" formControlName="cityIds"
+                            defaultLabel="Select a City" selectedItemsLabel="{0} items selected"></p-multiSelect>
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Title<span class="star-sign">*</span></label>
+                        <p-dropdown id="txtpackageId" [options]="_itempackages" name="package_Id"
+                            formControlName="package_Id" placeholder="Select Packages">
+                        </p-dropdown>
+                    </div>
+                    <div class="field col">
+                        <label>Code<span class="star-sign">*</span></label>
+                        <input type="text" id="txtcode" name="code" formControlName="code" pInputText
+                            placeholder="Code" />
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Amount<span class="star-sign">*</span></label>
+                        <input type="number" id="txtamount" name="amount" formControlName="amount" pInputText
+                            placeholder="Amount" />
+                    </div>
+                    <div class="field col">
+                        <label>Expiry<span class="star-sign">*</span></label><br>
+                        <input type="date" id="txtexpiry" name="expiry" formControlName="expiry" pInputText
+                            placeholder="Expiry" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row" *ngIf="type=='discount'">
+            <div class="form-group col-md-12">
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Country<span class="star-sign">*</span></label>
+                        <p-dropdown id="txtcountryId" [options]="lstCountries" name="country_Id"
+                            formControlName="country_Id" (onChange)="onSelect($event)" placeholder="Select Country">
+                        </p-dropdown>
+                    </div>
+                    <div class="field col">
+                        <label>City<span class="star-sign">*</span></label>
+                        <p-multiSelect [options]="getlstCities" optionLabel="name" formControlName="cityIds"
+                            defaultLabel="Select a City" selectedItemsLabel="{0} items selected"></p-multiSelect>
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Title<span class="star-sign">*</span></label>
+                        <p-dropdown id="txtparkingzonesId" [options]="_itemparkingzones" name="Parking_Zone_Id"
+                            formControlName="Parking_Zone_Id" placeholder="Select Parking Zones">
+                        </p-dropdown>
+                    </div>
+                    <div class="field col">
+                        <label>Code<span class="star-sign">*</span></label>
+                        <input type="text" id="txtcode" name="code" formControlName="code" pInputText
+                            placeholder="Code" />
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Percentage Discount<span class="star-sign">*</span></label>
+                        <input type="number" id="txtpercentagediscount" name="percentage_Discount"
+                            formControlName="percentage_Discount" pInputText placeholder="Percentage Discount" />
+                    </div>
+                    <div class="field col">
+                        <label>Discount_Upto<span class="star-sign">*</span></label>
+                        <input type="number" id="txtdiscountupto" name="discount_Upto" formControlName="discount_Upto"
+                            pInputText placeholder="Discount Upto" />
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>No Of Rides<span class="star-sign">*</span></label>
+                        <input type="number" id="txtnumberofrides" name="no_Of_Rides" formControlName="no_Of_Rides"
+                            pInputText placeholder="No of Rides" />
+                    </div>
+                    <div class="field col">
+                        <label>Expiry<span class="star-sign">*</span></label><br>
+                        <input type="datetime-local" id="txtexpiry" name="expiry" formControlName="expiry" pInputText
+                            placeholder="Expiry" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row" *ngIf="type=='package'">
+            <div class="form-group col-md-12">
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Country<span class="star-sign">*</span></label>
+                        <p-dropdown id="txtcountryId" [options]="lstCountries" name="country_Id"
+                            formControlName="country_Id" (onChange)="onSelect($event)" placeholder="Select Country">
+                        </p-dropdown>
+                    </div>
+                    <div class="field col">
+                        <label>City<span class="star-sign">*</span></label>
+                        <p-multiSelect [options]="getlstCities" optionLabel="name" formControlName="cityIds"
+                            defaultLabel="Select a City" selectedItemsLabel="{0} items selected"></p-multiSelect>
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Title<span class="star-sign">*</span></label>
+                        <p-dropdown id="txtparkingzonesId" [options]="_itemparkingzones" name="Parking_Zone_Id"
+                            formControlName="Parking_Zone_Id" placeholder="Select Parking Zones">
+                        </p-dropdown>
+                    </div>
+                    <div class="field col">
+                        <label>Code<span class="star-sign">*</span></label>
+                        <input type="text" id="txtcode" name="code" formControlName="code" pInputText
+                            placeholder="Code" />
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Percentage Discount<span class="star-sign">*</span></label>
+                        <input type="number" id="txtpercentagediscount" name="percentage_Discount"
+                            formControlName="percentage_Discount" pInputText placeholder="Percentage Discount" />
+                    </div>
+                    <div class="field col">
+                        <label>Maximum Purchase<span class="star-sign">*</span></label>
+                        <input type="number" id="txtmaxpurchase" name="max_Purchase" formControlName="max_Purchase"
+                            pInputText placeholder="Maximum Purchase" />
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Expiry<span class="star-sign">*</span></label>
+                        <input type="date" id="txtexpiry" name="expiry" formControlName="expiry" pInputText
+                            placeholder="Expiry" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="button-footer text-right">
+                <!-- <p-button icon="pi pi-cancel" (click)="displayCustomerCharge = false" label="Cancel" styleClass="p-button-text" class="p-element danger-btn mr-2 cancel-custom p-button p-component">
+                    </p-button> -->
+                <button class="cancel-custom mr-2" style="width: auto;" (click)="addNewpromocodeShow = false"
+                    label="Cancel" pButton>
+                </button>
+                <button type="submit" class="add-new-btn theme-btn" [disabled]="!codeForm.valid">
+                    <span *ngIf="btnloading"></span>
+                    Add
+                </button>
+            </div>
+        </div>
+
+    </form>
+</p-dialog>
+<!-- //---------------------Add new PromoCode form end----- -->

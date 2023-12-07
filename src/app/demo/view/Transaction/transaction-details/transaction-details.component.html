@@ -1,0 +1,222 @@
+<p-sidebar *ngIf="details" [(visible)]="main.bottomPanelActive" position="bottom" [baseZIndex]="10000">
+    <p-tabView id="detail-tabbing">
+        <div class="head-row">
+            <h6 class="panel-parent-heading"><span><img src="assets/layout/images/id.png" alt="" width="20"> {{details.serial_No}}</span></h6>
+            <div class="btn-right-box">
+                <h6 class="">Date Time : {{details.createdAt | date:'medium'}}</h6>
+            </div>
+        </div>
+        <p-tabPanel header="Transaction">
+            <div class="main-row">
+                <div class="sales-settings card-main">
+                    <h6><span>Mode </span> </h6>
+                    <img src="assets/layout/images/model.png" alt="" width="40">
+                    <h6> {{details.transactionModes.title}}</h6>
+                </div>
+                <div class="sales-settings card-main">
+                    <h6><span>Category</span> </h6>
+                    <img src="assets/layout/images/zone.png" alt="" width="40">
+                    <h6> {{details.transactionCategories.title}}</h6>
+                </div>
+                <div class="sales-settings card-main">
+                    <h6><span>Debit </span> </h6>
+                    <img src="assets/layout/images/refund.png" alt="" width="40">
+                    <h6 *ngIf="details.transactionTypes.number == 2"> {{details.amount }}
+                        <span>{{countryCurrency}}</span>
+                    </h6>
+                    <h6 *ngIf="details.transactionTypes.number == 1"> 0.00
+                        <span>{{countryCurrency}}</span>
+                    </h6>
+                </div>
+                <div class="sales-settings card-main">
+                    <h6><span>Credit</span> </h6>
+                    <img src="assets/layout/images/topup.png" alt="" width="40">
+                    <h6 *ngIf="details.transactionTypes.number == 1"> {{details.amount }}
+                        <span>{{countryCurrency}}</span>
+                    </h6>
+                    <h6 *ngIf="details.transactionTypes.number == 2">0.00
+                        <span>{{countryCurrency}}</span>
+                    </h6>
+                </div>
+                <div class="sales-settings card-main">
+                    <h6><span>User Name</span> </h6>
+                    <img src="assets/layout/images/zone.png" alt="" width="40">
+                    <h6> {{details.userId != null ? details.userId  : '-' }}</h6>
+                </div>
+            </div>
+
+            <div class="sec-row" *ngIf="details.transactionCategories.number == 13 ">
+                <h5>Ride Info</h5>
+
+                <div class="grid">
+                    <div class="md:col-3 col-12">
+                       <div class="item">
+                        <h6 class="one">Ride ID</h6>
+                        <p>{{transDetails.trip_Id}}</p>
+                       </div>
+                    </div>
+                    <div class="md:col-3 col-12">
+                        <div class="item">
+                            <h6 class="two">Ride Start Time</h6>
+                            <p>{{transDetails.ride_Start_Time}}</p>
+                        </div>
+                     </div>
+                     <div class="md:col-3 col-12">
+                        <div class="item">
+                            <h6 class="three">Ride End Time</h6>
+                            <p>{{transDetails.ride_End_Time}}</p>
+                        </div>
+                     </div>
+                     <div class="md:col-3 col-12">
+                        <div class="item">
+                            <h6 class="four">Zone Name</h6>
+                            <p>{{transDetails.zone_Name}}</p>
+                        </div>
+                     </div>
+                 
+                </div>
+            </div>
+            <!-- <div class="submenu-content settings">
+                <div class="fare-card">
+
+                    <div class="order-settings fare-card-item">
+
+                        <h6>
+                            <span>
+                            </span>
+                            <span> Mood </span>
+                        </h6>
+                        <h5>{{details.mode_Title}}</h5>
+                    </div>
+                    <div class="sales-settings fare-card-item">
+
+                        <h6>
+                            <span>
+                            </span>
+                            <span> Category </span>
+                        </h6>
+                        <h5>{{details.category_Title}}</h5>
+                    </div>
+                    <div class="shipment-settings fare-card-item">
+
+                        <h6>
+                            <span>
+                            </span>
+                            <span> Debit </span>
+                        </h6>
+                        <h5 *ngIf="details.type_Number == 2"> {{transDetails.amount }}
+                            <span>{{countryNumber == 1 ? 'SAR': 'BHD'}}</span>
+                        </h5>
+                        <h5 *ngIf="details.type_Number == 1"> 0.00
+                            <span>{{countryNumber == 1 ? 'SAR': 'BHD'}}</span>
+                        </h5>
+
+                    </div>
+                    <div class="history-settings fare-card-item last">
+
+                        <h6>
+                            <span>
+                            </span>
+                            <span>Credit</span>
+                        </h6>
+                        <h5 *ngIf="details.type_Number == 1"> {{transDetails.amount }}
+                            <span>{{countryNumber == 1 ? 'SAR': 'BHD'}}</span>
+                        </h5>
+                        <h5 *ngIf="details.type_Number == 2">0.00
+                            <span>{{countryNumber == 1 ? 'SAR': 'BHD'}}</span>
+                        </h5>
+                    </div>
+                </div>
+            </div> -->
+
+        </p-tabPanel>
+
+        <p-tabPanel header="Customer Info">
+            <div class="cus1-main">
+                <div class="us-main">
+                    <div class="background">
+                    </div>
+                    <div class="profile-card">
+                        <div class="cover">
+                        </div>
+                        <div class="profile">
+                            <div class="pic">
+                            </div>
+                            <div class="above-fold">
+                                <div class="name"> <i style="color: #646464 !important;" class="fa fa-user"></i>
+                                    {{details.customers.fullName}}</div>
+                                <div class="role"> <i style="color: #646464 !important;" class="fa fa-envelope"></i>
+                                    {{details.customers.email}}</div>
+                                <div class="location">
+                                    <i style="color: #646464 !important;" class="fa fa-phone"></i>{{details.customers.phoneNumber}}
+                                </div>
+                                <div class="role"><i style="color: #646464 !important;"
+                                        class="fa fa-calendar"></i>{{details.customers.createdAt | date:'MM-dd-yyyy' }}
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="us-det" *ngIf="transDetails != null">
+                    <table [cellSpacing]="0">
+                        <tr>
+                            <th>Total rides</th>
+                            <th>Current wallet amount</th>
+                            <th>Current debt</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{transDetails.ridesCount}}
+                            </td>
+                            <td>
+                                {{transDetails.currentWallet | number: '1.2-2' }} <span>{{countryCurrency}}</span>
+                            </td>
+                            <td>
+                                {{transDetails.currentDebit | number: '1.2-2' }} <span>{{countryCurrency}}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+
+            </div>
+
+        </p-tabPanel>
+
+
+        <!-- <p-tabPanel header="Ride info" *ngIf="details.category_Number==13 ">
+            <br>
+            <div class="submenu-content settings ">
+                <div class="main-row ">
+                    <div class="history-settings card-main ">
+                        <h6><span>Ride ID</span></h6>
+                        <img src="assets/layout/images/scooti-icon.png" alt=" " width="40 ">
+                        <h6>{{details.trip_Id}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Ride Start Time</span></h6>
+                        <img src="assets/layout/images/start.png " alt=" " width="40 ">
+                        <h6>{{details.ride_Start_Time}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Ride End Time</span></h6>
+                        <img src="assets/layout/images/end.png " alt=" " width="40 ">
+                        <h6>{{details.ride_End_Time}}</h6>
+                    </div>
+
+                    <div class="history-settings card-main ">
+                        <h6><span>Zone Name</span></h6>
+                        <img src="assets/layout/images/zone.png " alt=" " width="40 ">
+                        <h6>{{details.zone_Name}}</h6>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel> -->
+
+    </p-tabView>
+</p-sidebar>

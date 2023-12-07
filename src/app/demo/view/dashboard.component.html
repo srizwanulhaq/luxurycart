@@ -1,0 +1,1347 @@
+<div class="lodi">
+    <div *ngIf="loading" class="lodi-child">
+        <div class="custom-loader"></div>
+    </div>
+    <div class="col-12">
+        <div class="grid">
+            <div class="col-12 p-0">
+                <div id="dashb-main" class="card component-main-card">
+
+                    <div class="dashboard">
+
+                        <div class="dash-b-bread-container">
+                            <div class="left-box" style="width: 40%;">
+                                <h4 style="margin-top: 10px;font-size: 1.75rem;">
+                                    <span>
+                                        Dashboard
+                                    </span>
+                                </h4>
+                            </div>
+                            <div class="right-box select-box-mobile" style="width: 60%;" *ngIf="!showHeaders">
+                                <p-tabView id="dash-top-tab" styleClass="tabview-custom" [activeIndex]="selectedStep"
+                                    (onChange)="changeStep($event)">
+                                    <p-tabPanel>
+                                        <ng-template pTemplate="header">
+                                            <i class="pi pi-home"></i>
+                                        </ng-template>
+
+                                    </p-tabPanel>
+                                    <p-tabPanel header="Header II">
+                                        <ng-template pTemplate="header">
+                                            <i class="pi pi-chart-line"></i>
+                                        </ng-template>
+                                    </p-tabPanel>
+                                </p-tabView>
+
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="md:col-4 col-8 pl-0 filter-show-on-mobile">
+                                <div class="select-box-mobile" *ngIf="!showHeaders">
+                                    <h6 class="dashboard-zone-selected-title" *ngIf="!!selectedZone"
+                                        style="font-size: 16px;margin: 0;margin-bottom: 4px;font-weight: 700;"> Select
+                                        Zone
+
+                                    </h6>
+                                    <p-dropdown id="dash-drop-id" [style]="{'width':'100%'}" [options]="zones"
+                                        (onChange)="changeZone($event)" optionLabel="title" optionValue="id"
+                                        [filter]="true"></p-dropdown>
+                                </div>
+                            </div>
+                            <div class="md:col-1 col-4 filter-show-on-mobile">
+
+                                <div class="dropdown2">
+                                    <button onclick="myFunction2()" class="dropbtn" title="Filter">
+                                        <img src="../../../assets/layout/images/filter-16.png" alt="">
+                                    </button>
+                                    <div id="myDropdown2" class="dropdown-content2">
+
+                                        <div class="grid calender-grid">
+                                            <div class="calender-box">
+                                                <div class="grid">
+                                                    <div class="md:col-6 col-12">
+                                                        <p-calendar id="dashboard-pic" [(ngModel)]="_startDate"
+                                                            [inline]="true" [readonlyInput]="true"
+                                                            (onSelect)="onDateSelect($event,'start')"></p-calendar>
+
+                                                    </div>
+                                                    <div class="md:col-6 col-12">
+                                                        <p-calendar id="dashboard-pic" [(ngModel)]="_endDate"
+                                                            [inline]="true" [readonlyInput]="true"
+                                                            (onSelect)="onDateSelect($event,'end')"
+                                                            [disabled]="!_startDate"></p-calendar>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="btun-box">
+                                                <ul class="left-list">
+                                                    <li> <button (click)="dashboardReset()">Reset</button> </li>
+                                                    <li> <button (click)="dashboardFilter(0)">Today</button> </li>
+                                                    <li> <button (click)="dashboardFilter(1)">Yesterday</button> </li>
+                                                    <li> <button (click)="dashboardFilter(2)">Monthly</button> </li>
+                                                    <li> <button (click)="dashboardFilter(4)">Total</button> </li>
+
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="grid" *ngIf="selectedStep === 0">
+                            <div class="md:col-4 col-12 pr-0 pl-0">
+                                <div class="user-card">
+                                    <div class="user-card-header">
+                                        <div class="grid">
+                                            <div class="md:col-7 col-7">
+                                                <h6>Welcome Back !</h6>
+                                                <p>Wayz Dashboard</p>
+                                            </div>
+                                            <div class="md:col-5 col-5">
+                                                <img src="../.././../assets/layout/images/animated-chart.gif" alt=""
+                                                    width="30">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="user-card-body">
+                                        <div class="grid">
+                                            <div class="md:col-8 col-8">
+                                                <div class="avatar-md profile-user-wid mb-2">
+                                                    <img src="../../../assets/layout/images/p-pic.png" alt=""
+                                                        class="img-thumbnail rounded-circle">
+                                                </div>
+                                                <h5 class="font-size-15 text-truncate">{{currentUserName }}</h5>
+                                                <p class="text-muted mb-0 text-truncate">{{currentRoleName}}</p>
+
+                                            </div>
+                                            <div class="md:col-4 col-4">
+                                                <div class="grid">
+                                                    <div class="md:col-12">
+                                                        <a [routerLink]="[ '/users/user-main']"
+                                                            [queryParams]="{ customdata: currentUserName }">
+                                                            <!-- <i class="fa fa-user"></i>  -->
+                                                            <img src="../../../assets/layout/images/navi-2.png" alt="">
+                                                        </a> 
+                                                    </div>
+                                                </div>
+
+                                                <div class="grid">
+                                                    <div class="md:col-12">
+                                                        <p style="overflow: unset;" class="text-muted mb-0 text-truncate"> <a  [routerLink]="[ '/zones/zone-main']" style="margin-top: 0; background: unset; float: unset; margin: auto;" href="">Zone :
+                                                                {{zoneCount}}</a> </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid foot">
+                                            <div class="md:col-12 col-12 p-0">
+                                                <div class="pt-2">
+                                                    <div class="grid">
+                                                        <div class="col-6">
+                                                            <!-- <h5 class="font-size-15"></h5> -->
+                                                            <h4 class="text-muted mb-0  mt-0">User Stats</h4>
+                                                            <!-- <div class="progress-section" data-aos="fade-left"
+                                                                data-aos-once="true">
+                                                                <div class="task-progress">
+                                                                    <p>Frontend
+                                                                        <span>80%</span>
+                                                                    </p>
+                                                                    <progress class="progress progress1" max="100"
+                                                                        value="80"></progress>
+                                                                </div>
+        
+        
+                                                            </div> -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="grid" *ngIf="ridesDetails != null">
+                                                        <div class="md:col-4 col-6">
+                                                            <h5 class="font-size-15">
+                                                                {{ ridesDetails.bonus != undefined ? ridesDetails.bonus
+                                                                :
+                                                                0 }}
+                                                            </h5>
+                                                            <p class="text-muted mb-0">Bonus</p>
+                                                        </div>
+                                                        <div class="md:col-4 col-6">
+                                                            <h5 class="font-size-15">{{ridesDetails.total_wallet !=
+                                                                undefined ?
+                                                                ridesDetails.total_wallet: 0 }}</h5>
+                                                            <p class="text-muted mb-0">Wallet</p>
+
+
+                                                        </div>
+
+                                                        <div class="md:col-4 col-6">
+                                                            <h5 class="font-size-15">{{ridesDetails.bank_Transfer !=
+                                                                undefined ?
+                                                                ridesDetails.bank_Transfer: 0 }}</h5>
+                                                            <p class="text-muted mb-0">Bank Transfer</p>
+
+                                                        </div>
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="md:col-12 p-0 col-12">
+                                                <div class="pt-2">
+                                                    <div class="grid" *ngIf="ridesDetails != null">
+                                                        <div class="md:col-4 col-6">
+                                                            <h5 class="font-size-15">{{ridesDetails.cash != undefined ?
+                                                                ridesDetails.cash: 0 }}</h5>
+                                                            <p class="text-muted mb-0">Cash</p>
+
+                                                        </div>
+                                                        <div class="md:col-4 col-6">
+                                                            <h5 class="font-size-15">{{ridesDetails.apple_Pay !=
+                                                                undefined ?
+                                                                ridesDetails.apple_Pay: 0 }}</h5>
+                                                            <p class="text-muted mb-0">Apple Pay</p>
+
+                                                        </div>
+                                                        <div class="md:col-4 col-6">
+                                                            <h5 class="font-size-15">{{ridesDetails.pos != undefined ?
+                                                                ridesDetails.pos: 0 }}</h5>
+                                                            <p class="text-muted mb-0">POS</p>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="md:col-8">
+                                <div class="grid" style="justify-content: end;" *ngIf="ridesDetails != null">
+                                    <div class="md:col-4 filter-d-none-on-mobile">
+                                        <div class="select-box-mobile" *ngIf="!showHeaders">
+                                            <h6 class="dashboard-zone-selected-title" *ngIf="!!selectedZone"
+                                                style="font-size: 16px;margin: 0;margin-bottom: 4px;font-weight: 700;">
+                                                Select
+                                                Zone
+
+                                            </h6>
+                                            <p-dropdown id="dash-drop-id" [style]="{'width':'100%'}" [options]="zones"
+                                                (onChange)="changeZone($event)" optionLabel="title" optionValue="id"
+                                                [filter]="true"></p-dropdown>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-1 filter-d-none-on-mobile">
+
+                                        <div class="dropdown">
+                                            <button onclick="myFunction()" class="dropbtn" title="Filter">
+                                                <img src="../../../assets/layout/images/filter-16.png" alt="">
+                                            </button>
+                                            <div id="myDropdown" class="dropdown-content">
+                                                <!-- <i onclick="myFunction()" class="fa fa-times close-bt"></i> -->
+                                                <div class="grid">
+                                                    <div class="calender-box">
+                                                        <div class="grid">
+                                                            <div class="md:col-6">
+                                                                <p-calendar id="dashboard-pic" [(ngModel)]="_startDate"
+                                                                    [inline]="true" [readonlyInput]="true"
+                                                                    (onSelect)="onDateSelect($event,'start')"></p-calendar>
+
+                                                            </div>
+                                                            <div class="md:col-6">
+                                                                <p-calendar id="dashboard-pic" [(ngModel)]="_endDate"
+                                                                    [inline]="true" [readonlyInput]="true"
+                                                                    (onSelect)="onDateSelect($event,'end')"
+                                                                    [disabled]="!_startDate"></p-calendar>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="btun-box">
+                                                        <ul class="left-list">
+                                                            <li> <button (click)="dashboardReset()">Reset</button> </li>
+                                                            <li> <button (click)="dashboardFilter(0)">Today</button>
+                                                            </li>
+                                                            <li> <button (click)="dashboardFilter(1)">Yesterday</button>
+                                                            </li>
+                                                            <li> <button (click)="dashboardFilter(2)">Monthly</button>
+                                                            </li>
+                                                            <li> <button (click)="dashboardFilter(4)">Total</button>
+                                                            </li>
+                                                            <!-- <li> <button  (click)="previousWeekData()">Cutome Range</button> </li> -->
+                                                        </ul>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="grid progress">
+                                        <div class="md:col-6 col-6">
+                                            <h6>Active Rides</h6>
+                                            <!-- <p-progressBar id="active-progress" [value]="50"></p-progressBar> -->
+                                            <div class="progres-custom">
+                                                <p>{{ridesDetails.totalActiveRides}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-6 col-6">
+                                            <h6 class="finish-title">Finished Rides</h6>
+                                            <!-- <p-progressBar id="finish-progress" [value]="30"></p-progressBar> -->
+
+                                            <div class="progres-custom-finish">
+                                                <p>{{ridesDetails.totalRides}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="ride-main-card mt-3" *hasPermission="['Permission.ViewRevenue']">
+                                        <h3 class="rev-head"> Rides Revenue</h3>
+                                        <div class="grid just-center grid-center-on-mob">
+                                            <div class=" md:col-4 col-12 ">
+                                                <div class="top-up-single ">
+                                                    <p>SAR : {{ridesDetails.totalRidesSar}}</p>
+                                                    <p>Rides Total SAR</p>
+                                                    <div class="icon-box">
+                                                        <!-- <img src="../../../assets/layout/images/icons8-dashboard-48.png" alt=""> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="md:col-4 col-12 ">
+                                                <div class="top-up-single ">
+                                                    <p>SAR : {{ridesDetails.totalDebitAmount}}
+                                                    </p>
+                                                    <p>Total Debit</p>
+                                                    <div class="icon-box">
+                                                        <!-- <img src="../../../assets/layout/images/icons8-dashboard-48.png" alt=""> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="md:col-4 col-12 ">
+                                                <div class="top-up-single ">
+                                                    <p>SAR : {{ridesDetails.totalTopUp}}</p>
+                                                    <p>Total Top Up</p>
+                                                    <div class="icon-box">
+                                                        <!-- <img src="../../../assets/layout/images/icons8-dashboard-48.png" alt=""> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="md:col-4 col-12 ">
+                                                <div class="top-up-single ">
+                                                    <p>SAR : {{ridesDetails.totalWalletRevenue}}</p>
+                                                    <p>Total Wallet Revenue</p>
+                                                    <div class="icon-box">
+                                                        <!-- <img src="../../../assets/layout/images/icons8-dashboard-48.png" alt=""> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="md:col-4 col-12 ">
+                                                <div class="top-up-single ">
+                                                    <p>SAR : {{ridesDetails.totalBonusRevenue}}</p>
+                                                    <p>Total Bonus Revenue</p>
+                                                    <div class="icon-box">
+                                                        <!-- <img src="../../../assets/layout/images/icons8-dashboard-48.png" alt=""> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="md:col-4 col-12 ">
+                                                <div class="top-up-single ">
+                                                    <p>SAR : {{ridesDetails.avgRevPerScooter}}</p>
+                                                    <p>Average Per Scooter</p>
+                                                    <div class="icon-box">
+                                                        <!-- <img src="../../../assets/layout/images/icons8-dashboard-48.png" alt=""> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="md:col-12 col-12">
+                                <div class="grid">
+                                    <div class="md:col-7 col-12">
+                                        <div class="ride-main-card mt-1">
+
+
+                                            <div class="grid ">
+                                                <div class="md:col-12 col-12 ">
+                                                    <h3>Vehicles Status</h3>
+                                                    <div class="grid">
+                                                        <div class="md:col-4 col-12 ">
+                                                            <div class="vehicle-item ">
+                                                                <div class="grid ">
+                                                                    <div class="col-12">
+                                                                        <h4>
+                                                                            Vehicle in Use
+                                                                        </h4>
+                                                                        <p *ngIf="ridesDetails !=null">
+                                                                            <a routerLink="/vehicles/vehicle-main"
+                                                                                [queryParams]="setVehicleRouteParams('Currentlyinuse')">
+                                                                                {{ridesDetails.vehiclesInUse}}
+                                                                            </a>
+                                                                        </p>
+                                                                    </div>
+                                                                    <img class="icon "
+                                                                        src="../../../assets/layout/images/use.png "
+                                                                        alt=" ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="md:col-4 col-12">
+                                                            <div class="vehicle-item ">
+                                                                <div class="grid ">
+                                                                    <div class="col-12">
+                                                                        <h4>
+                                                                            Discharge Vehicles
+                                                                        </h4>
+                                                                        <p *ngIf="ridesDetails !=null ">
+                                                                            <a routerLink="/vehicles/vehicle-main"
+                                                                                [queryParams]="setVehicleRouteParams('Discharged')">
+                                                                                {{ridesDetails.totalDischargedVehiclesVal}}
+                                                                            </a>
+                                                                        </p>
+                                                                    </div>
+                                                                    <img class="icon "
+                                                                        src="../../../assets/layout/images/discharge.png "
+                                                                        alt=" ">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="md:col-4 col-12">
+                                                            <div class="vehicle-item ">
+                                                                <div class="grid ">
+                                                                    <div class="col-12">
+                                                                        <h4>
+                                                                            Active Should Be On Map
+                                                                        </h4>
+                                                                        <p *ngIf="ridesDetails !=null ">
+                                                                            <a routerLink="/vehicles/vehicle-main"
+                                                                                [queryParams]="setVehicleRouteParams('Activeshouldbeonmap')">
+                                                                                {{ridesDetails.activeShouldBeOnMapVehicles}}
+                                                                            </a>
+                                                                        </p>
+                                                                    </div>
+                                                                    <img class="icon "
+                                                                        src="../../../assets/layout/images/current.png "
+                                                                        alt=" ">
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="md:col-4 col-12">
+                                                            <div class="vehicle-item ">
+                                                                <div class="grid ">
+                                                                    <div class="col-12">
+                                                                        <h4>
+                                                                            Need Investigation
+                                                                        </h4>
+                                                                        <p *ngIf="ridesDetails !=null ">
+                                                                            <a routerLink="/vehicles/vehicle-main"
+                                                                                [queryParams]="setVehicleRouteParams('NeedInvestigation')">
+                                                                                {{ridesDetails.needInvestigation}}
+                                                                            </a>
+                                                                        </p>
+                                                                    </div>
+                                                                    <img class="icon "
+                                                                        src="../../../assets/layout/images/sub.png "
+                                                                        alt=" ">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="md:col-4 col-12">
+                                                            <div class="vehicle-item ">
+                                                                <div class="grid ">
+                                                                    <div class="col-12">
+                                                                        <h4>
+                                                                            Out Of Service
+                                                                        </h4>
+                                                                        <p *ngIf="ridesDetails !=null ">
+                                                                            <a routerLink="/vehicles/vehicle-main"
+                                                                                [queryParams]="setVehicleRouteParams('Outofservice')">
+                                                                                {{ridesDetails.outofservice}}
+                                                                            </a>
+                                                                        </p>
+                                                                    </div>
+                                                                    <img class="icon "
+                                                                        src="../../../assets/layout/images/offline.png "
+                                                                        alt=" ">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="md:col-4 col-12">
+                                                            <div class="vehicle-item ">
+                                                                <div class="grid ">
+                                                                    <div class="col-12">
+                                                                        <h4>
+                                                                            Charging
+                                                                        </h4>
+                                                                        <p *ngIf="ridesDetails !=null ">
+                                                                            <a routerLink="/vehicles/vehicle-main"
+                                                                                [queryParams]="setVehicleRouteParams('Charging')">
+                                                                                {{ridesDetails.charging}}
+                                                                            </a>
+                                                                        </p>
+                                                                    </div>
+                                                                    <img class="icon "
+                                                                        src="../../../assets/layout/images/battery.png "
+                                                                        alt=" ">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-5 col-12">
+                                        <div class="ride-main-card mt-1">
+
+
+                                            <div class="grid ">
+
+                                                <div class="md:col-12">
+                                                    <h3>Vehicles States</h3>
+
+                                                    <div class="grid ">
+
+
+                                                        <div class="md:col-6 col-12">
+                                                            <div class="vehicle-item ">
+                                                                <div class="grid ">
+                                                                    <div class="col-12">
+                                                                        <h4>
+                                                                            Vehicles Low Battery
+                                                                        </h4>
+                                                                        <p *ngIf="ridesDetails !=null ">
+                                                                            <a routerLink="/vehicles/vehicle-main"
+                                                                                [queryParams]="setVehicleRouteParams('VehiclesLowBattery')">
+                                                                                {{ridesDetails.vehiclesLowBattery}}
+                                                                            </a>
+                                                                        </p>
+                                                                    </div>
+                                                                    <!-- <div class="col-3 ">
+                                                                    <img class="icon "
+                                                                        src="../../../assets/layout/images/low-battery.png "
+                                                                        alt=" ">
+                                                                </div> -->
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="md:col-6 col-12">
+                                                            <div class="vehicle-item ">
+                                                                <div class="grid ">
+                                                                    <div class="col-12">
+                                                                        <h4>
+                                                                            Out Of The Zone In Use
+                                                                        </h4>
+                                                                        <p *ngIf="ridesDetails !=null ">
+                                                                            <a routerLink="/vehicles/vehicle-main"
+                                                                                [queryParams]="setVehicleRouteParams('OutOfTheZoneInUse')">
+                                                                                {{ridesDetails.totalOutOfTheZoneInUseVal}}
+                                                                            </a>
+                                                                        </p>
+                                                                    </div>
+                                                                    <!-- <div class="col-3 ">
+                                                                    <img class="icon"
+                                                                        src="../../../assets/layout/images/locate-red.png "
+                                                                        alt=" ">
+                                                                </div> -->
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="md:col-12 col-12">
+                                                            <div class="vehicle-item ">
+                                                                <div class="grid ">
+                                                                    <div class="col-12 ">
+                                                                        <h4>
+                                                                            Out Of The Zone Not In Use
+                                                                        </h4>
+                                                                        <p *ngIf="ridesDetails !=null ">
+                                                                            <a routerLink="/vehicles/vehicle-main"
+                                                                                [queryParams]="setVehicleRouteParams('OutOfTheZoneNotInUse')">
+                                                                                {{ridesDetails.totalOutOfTheZoneNotInUseVal}}
+                                                                            </a>
+                                                                        </p>
+                                                                    </div>
+                                                                    <!-- <div class="col-3 ">
+                                                                    <img class="icon "
+                                                                        src="../../../assets/layout/images/icon-mark.png "
+                                                                        alt=" ">
+                                                                </div> -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="table-box">
+        
+                                                        <table [cellSpacing]="0">
+                                                            <tr>
+                                                                <td>Vehicles Low Battery</td>
+                                                                <td>0</td>
+                                                            </tr>
+        
+                                                            <tr>
+                                                                <td>Out Of The Zone In Use</td>
+                                                                <td>0</td>
+                                                            </tr>
+        
+                                                            <tr>
+                                                                <td>Vehicles Low Battery</td>
+                                                                <td>0</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="grid" *ngIf="selectedStep === 1">
+                            <div class="md:col-12">
+                                <div class="grid" style="justify-content: end;" *ngIf="ridesDetails != null">
+
+                                    <div class="md:col-12 filter-d-none-on-mobile">
+
+                                        <div class="dropdown">
+                                            <button onclick="myFunction()" class="dropbtn" title="Filter">
+                                                <img src="../../../assets/layout/images/filter-16.png" alt="">
+                                            </button>
+                                            <div id="myDropdown" class="dropdown-content">
+                                                <!-- <i onclick="myFunction()" class="fa fa-times close-bt"></i> -->
+                                                <div class="grid">
+                                                    <div class="calender-box">
+                                                        <div class="grid">
+                                                            <div class="md:col-6">
+                                                                <p-calendar id="dashboard-pic" [(ngModel)]="_startDate"
+                                                                    [inline]="true" [readonlyInput]="true"
+                                                                    (onSelect)="onDateSelect($event,'start')"></p-calendar>
+
+                                                            </div>
+                                                            <div class="md:col-6">
+                                                                <p-calendar id="dashboard-pic" [(ngModel)]="_endDate"
+                                                                    [inline]="true" [readonlyInput]="true"
+                                                                    (onSelect)="onDateSelect($event,'end')"
+                                                                    [disabled]="!_startDate"></p-calendar>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="btun-box">
+                                                        <ul class="left-list">
+                                                            <li> <button (click)="dashboardReset()">Reset</button> </li>
+                                                            <li> <button (click)="dashboardFilter(0)">Today</button>
+                                                            </li>
+                                                            <li> <button (click)="dashboardFilter(1)">Yesterday</button>
+                                                            </li>
+                                                            <li> <button (click)="dashboardFilter(2)">Monthly</button>
+                                                            </li>
+                                                            <li> <button (click)="dashboardFilter(4)">Total</button>
+                                                            </li>
+                                                            <!-- <li> <button  (click)="previousWeekData()">Cutome Range</button> </li> -->
+                                                        </ul>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+                            <div class="grid" style="justify-content: center;margin :0px;">
+                                <div class="md:col-6 col-12" *hasPermission="['Permission.ViewTop5BusyZones']">
+                                    <div class="ride-main-card chart-card-bg">
+                                        <div class="grid">
+                                            <div class="md:col-1 col-1">
+                                                <ul>
+                                                    <li>N</li>
+                                                    <li>o</li>
+                                                    <br>
+                                                    <li>o</li>
+                                                    <li>f</li>
+                                                    <br>
+                                                    <li>R</li>
+                                                    <li>i</li>
+                                                    <li>d</li>
+                                                    <li>e</li>
+                                                    <li>s</li>
+                                                </ul>
+                                            </div>
+                                            <div class="md:col-11 col-11">
+                                                <h6 class="chart-title">Top 5 Busy Zones</h6>
+                                                <p-chart height="200px" width="100%" type="bar" [data]="graphs[4].data"
+                                                    [options]="graphOpts"></p-chart>
+                                                <h5 class="text-center"> Zones </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="md:col-6 col-12" *hasPermission="['Permission.TopTrendingPackages']">
+                                    <div class="ride-main-card chart-card-bg">
+                                        <div class="grid">
+                                            <div class="md:col-1 col-1">
+                                                <ul>
+                                                    <li>N</li>
+                                                    <li>o</li>
+                                                    <br>
+                                                    <li>o</li>
+                                                    <li>f</li>
+                                                    <br>
+                                                    <li>P</li>
+                                                    <li>u</li>
+                                                    <li>c</li>
+                                                    <li>h</li>
+                                                    <li>a</li>
+                                                    <li>s</li>
+                                                    <li>e</li>
+                                                </ul>
+                                            </div>
+                                            <div class="md:col-11 col-11">
+                                                <h6 class="chart-title">Top Trending Packages</h6>
+                                                <p-chart height="200px" width="100%" type="line" [data]="graphs[5].data"
+                                                    [options]="graphOpts"></p-chart>
+                                                <h5 class="text-center"> Packages </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="md:col-6 col-12" *hasPermission="['Permission.PeakHours']">
+                                    <div class="ride-main-card chart-card-bg">
+                                        <div class="grid">
+                                            <div class="md:col-1 col-1">
+                                                <ul>
+                                                    <li>N</li>
+                                                    <li>o</li>
+                                                    <br>
+                                                    <li>o</li>
+                                                    <li>f</li>
+                                                    <br>
+                                                    <li>R</li>
+                                                    <li>i</li>
+                                                    <li>d</li>
+                                                    <li>e</li>
+                                                    <li>s</li>
+                                                </ul>
+                                            </div>
+                                            <div class="md:col-11 col-11">
+                                                <h6 class="chart-title">Peak Hours</h6>
+                                                <p-chart height="200px" width="100%" type="doughnut"
+                                                    [options]="graphOpts" [data]="graphs[0].data"></p-chart>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="md:col-6 col-12" *hasPermission="['Permission.TopTrendingVehiclesType']">
+                                    <div class="ride-main-card chart-card-bg">
+                                        <h6 class="chart-title">Top Trending Vehicles Type</h6>
+                                        <p-chart height="200px" width="100%" type="bar" [data]="graphs[3].data"
+                                            [options]="graphOpts"></p-chart>
+                                    </div>
+                                </div>
+                                <div class="md:col-6 col-12" *hasPermission="['Permission.TopTrendingVehicleCompany']">
+                                    <div class="ride-main-card chart-card-bg">
+                                        <h6 class="chart-title">Top Trending Vehicle Company</h6>
+                                        <p-chart height="200px" width="100%" type="bar" [data]="graphs[2].data"
+                                            [options]="graphOpts"></p-chart>
+                                    </div>
+                                </div>
+                                <div class="md:col-6 col-12" *hasPermission="['Permission.Top5ZoneRevenueWise']">
+                                    <div class="ride-main-card chart-card-bg">
+                                        <h6 class="chart-title">Top 5 Zone Revenue Wise</h6>
+                                        <p-chart height="200px" width="100%" type="bar"
+                                            [data]="graphs[1].data"></p-chart>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="grid " *ngIf="!loading ">
+                                <div class="col-12 md:col-12 lg:col-4 " *ngFor="let rd of ridesDetial | keyvalue ">
+                                    <div [class]=" 'overview-box ' + rd.value.color ">
+                                        <div class="overview-title ">
+                                            {{ rd.key }}
+                                        </div>
+                                        <div class="overview-numbers ">
+                                            <strong>{{ rd.value.value }}</strong> {{ rd.value.extra }}
+                                        </div>
+                                        <img src="assets/layout/images/icon-views.png " alt="california-layout " />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--******************************** old dashboard work ********************************************************* -->
+                    <!-- <p-tabView id="dashboard-tab3" [activeIndex]="selectedStep" (onChange)="changeStep($event)">
+                            <p-tabPanel header="Ride and Revenue">
+                            </p-tabPanel>
+                            <p-tabPanel header="User Stats">
+                            </p-tabPanel>
+                            <p-tabPanel header="Trending Stats" id="last-tab">
+                            </p-tabPanel>
+                        </p-tabView>
+                        <div *ngIf="showHeaders">
+                            <div class="col-12 d-inline" *ngIf="showHeaders">
+                                <h3 class="mb-0">Head Count: 0</h3>
+                            </div>
+                        </div>
+        
+                        <div *ngIf="!showHeaders">
+                            <div class="grid" *ngIf="!!ridesDetails">
+        
+        
+                                <div class="md:col-3 select-box-mobile" *ngIf="!showHeaders">
+                                    <h6 class="dashboard-zone-selected-title" *ngIf="!!selectedZone"
+                                        style="font-size: 16px;margin: 0;margin-bottom: 4px;font-weight: 700;"> Select Zone 
+                            
+                                    </h6>
+                                    <p-dropdown id="dash-drop-id" [style]="{'width':'100%'}" [options]="zones"
+                                        (onChange)="changeZone($event)" optionLabel="title" optionValue="id"
+                                        [filter]="true"></p-dropdown>
+                                </div>
+        
+        
+                                <div class="col-9">
+                                    <p-tabView id="dashboard-tab4" [activeIndex]="selectedFilter"
+                                        (onChange)="changeFilter($event)" (click)="openNew()">
+                                        <p-tabPanel header="Today">
+                                        </p-tabPanel>
+                                        <p-tabPanel header="Yesterday">
+                                        </p-tabPanel>
+                                        <p-tabPanel header="Month">
+                                        </p-tabPanel>
+                                        
+                                        <p-tabPanel header="Total">
+                                        </p-tabPanel>
+                                        <p-tabPanel  header="Custom Range">
+                                        </p-tabPanel>
+                                    </p-tabView>
+                                </div>
+        
+        
+        
+        
+        
+                                <p-dialog *ngIf="selectedFilter==4" id="new-ride-model" [(visible)]="rideDialog" [style]="{width: '650px'}"
+                                    header="Select Date" [modal]="true" class="p-fluid" [dismissableMask]="true">
+        
+                                    <div class="col-12" *ngIf="selectedFilter==4">
+                                        <shared-date-range [startDate]="startDate" [endDate]="endDate" [loading]="loading"
+                                            (onRangeChange)="onRangeChange($event)"
+                                            (onDateChange)="onDateChange($event)"></shared-date-range>
+                                    </div>
+        
+                                </p-dialog>
+        
+        
+        
+        
+                              
+        
+                                <div class="grid" *ngIf="selectedStep === 0">
+                                    <div *hasPermission="['Permission.ViewRideStats']" class="md:col-4 col-12">
+                                        <div class="ride-main-card">
+                                            <div class="grid ui-grid-responsive">
+                                                <div class=" col-12">
+                                                    <h3>Rides</h3>
+                                                </div>
+                                            </div>
+                                            <div class="ride-single">
+                                                <h4>Finished</h4>
+                                                <p>
+                                                    <a routerLink="/rides/ride-main"
+                                                        [queryParams]="setRouteParams(ridesDetails.finishedRideStatus)">{{ridesDetails.totalRides}}</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+        
+                                    <div *hasPermission="['Permission.ViewRevenue']" class="md:col-8 col-12">
+                                        <div class="ride-main-card">
+                                            <h3 class="rev-head">Revenue</h3>
+                                            <div class="grid just-center grid-center-on-mob">
+                                                <div class=" md:col-4 col-12 ">
+                                                    <div class="top-up-single ">
+                                                        <h4>SAR : {{ridesDetails.totalRidesSar}}</h4>
+                                                        <p>Rides Total SAR</p>
+                                                    </div>
+                                                </div>
+        
+                                                <div class="md:col-4 col-12 ">
+                                                    <div class="top-up-single ">
+                                                        <h4>SAR : {{ridesDetails.totalDebitAmount}}
+                                                        </h4>
+                                                        <p>Total Debit</p>
+                                                    </div>
+                                                </div>
+                                                <div class="md:col-4 col-12 ">
+                                                    <div class="top-up-single ">
+                                                        <h4>SAR : {{ridesDetails.totalTopUp}}</h4>
+                                                        <p>Total Top Up</p>
+                                                    </div>
+                                                </div>
+                                                <div class="md:col-4 col-12 ">
+                                                    <div class="top-up-single ">
+                                                        <h4>SAR : {{ridesDetails.totalWalletRevenue}}</h4>
+                                                        <p>Total Wallet Revenue</p>
+                                                    </div>
+                                                </div>
+                                                <div class="md:col-4 col-12 ">
+                                                    <div class="top-up-single ">
+                                                        <h4>SAR : {{ridesDetails.totalBonusRevenue}}</h4>
+                                                        <p>Total Bonus Revenue</p>
+                                                    </div>
+                                                </div>
+                                                <div class="md:col-4 col-12 ">
+                                                    <div class="top-up-single ">
+                                                        <h4>SAR : {{ridesDetails.avgRevPerScooter}}</h4>
+                                                        <p>Average Per Scooter</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-12 col-12">
+                                        <div class="grid">
+                                            <div class="md:col-8 col-12">
+                                                <div class="ride-main-card mt-1">
+        
+        
+                                                    <div class="grid ">
+                                                        <div class="md:col-12 col-12 ">
+                                                            <h3>Vehicles Status</h3>
+                                                            <div class="grid">
+                                                                <div class="md:col-6 col-12 ">
+                                                                    <div class="vehicle-item ">
+                                                                        <div class="grid ">
+                                                                            <div class="col-9 ">
+                                                                                <h4>
+                                                                                    Vehicle in Use
+                                                                                </h4>
+                                                                                <p *ngIf="ridesDetails !=null">
+                                                                                    <a routerLink="/vehicles/vehicle-main"
+                                                                                        [queryParams]="setVehicleRouteParams('Currentlyinuse')">
+                                                                                        {{ridesDetails.vehiclesInUse}}
+                                                                                    </a>
+                                                                                </p>
+                                                                            </div>
+                                                                            <div class="col-3 ">
+                                                                                <img class="icon "
+                                                                                    src="../../../assets/layout/images/use.png "
+                                                                                    alt=" ">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="md:col-6 col-12">
+                                                                    <div class="vehicle-item ">
+                                                                        <div class="grid ">
+                                                                            <div class="col-9 ">
+                                                                                <h4>
+                                                                                    Discharge Vehicles
+                                                                                </h4>
+                                                                                <p *ngIf="ridesDetails !=null ">
+                                                                                    <a routerLink="/vehicles/vehicle-main"
+                                                                                        [queryParams]="setVehicleRouteParams('Discharged')">
+                                                                                        {{ridesDetails.totalDischargedVehiclesVal}}
+                                                                                    </a>
+                                                                                </p>
+                                                                            </div>
+                                                                            <div class="col-3 ">
+                                                                                <img class="icon "
+                                                                                    src="../../../assets/layout/images/discharge.png "
+                                                                                    alt=" ">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="md:col-6 col-12">
+                                                                    <div class="vehicle-item ">
+                                                                        <div class="grid ">
+                                                                            <div class="col-9 ">
+                                                                                <h4>
+                                                                                    Active Should Be On Map
+                                                                                </h4>
+                                                                                <p *ngIf="ridesDetails !=null ">
+                                                                                    <a routerLink="/vehicles/vehicle-main"
+                                                                                        [queryParams]="setVehicleRouteParams('Activeshouldbeonmap')">
+                                                                                        {{ridesDetails.activeShouldBeOnMapVehicles}}
+                                                                                    </a>
+                                                                                </p>
+                                                                            </div>
+                                                                            <div class="col-3 ">
+                                                                                <img class="icon "
+                                                                                    src="../../../assets/layout/images/current.png "
+                                                                                    alt=" ">
+                                                                            </div>
+                                                                        </div>
+        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="md:col-6 col-12">
+                                                                    <div class="vehicle-item ">
+                                                                        <div class="grid ">
+                                                                            <div class="col-9 ">
+                                                                                <h4>
+                                                                                    Need Investigation
+                                                                                </h4>
+                                                                                <p *ngIf="ridesDetails !=null ">
+                                                                                    <a routerLink="/vehicles/vehicle-main"
+                                                                                        [queryParams]="setVehicleRouteParams('NeedInvestigation')">
+                                                                                        {{ridesDetails.needInvestigation}}
+                                                                                    </a>
+                                                                                </p>
+                                                                            </div>
+                                                                            <div class="col-3 ">
+                                                                                <img class="icon "
+                                                                                    src="../../../assets/layout/images/sub.png "
+                                                                                    alt=" ">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="md:col-6 col-12">
+                                                                    <div class="vehicle-item ">
+                                                                        <div class="grid ">
+                                                                            <div class="col-9 ">
+                                                                                <h4>
+                                                                                    Out Of Service
+                                                                                </h4>
+                                                                                <p *ngIf="ridesDetails !=null ">
+                                                                                    <a routerLink="/vehicles/vehicle-main"
+                                                                                        [queryParams]="setVehicleRouteParams('Outofservice')">
+                                                                                        {{ridesDetails.outofservice}}
+                                                                                    </a>
+                                                                                </p>
+                                                                            </div>
+                                                                            <div class="col-3 ">
+                                                                                <img class="icon "
+                                                                                    src="../../../assets/layout/images/offline.png "
+                                                                                    alt=" ">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="md:col-6 col-12">
+                                                                    <div class="vehicle-item ">
+                                                                        <div class="grid ">
+                                                                            <div class="col-9 ">
+                                                                                <h4>
+                                                                                    Charging
+                                                                                </h4>
+                                                                                <p *ngIf="ridesDetails !=null ">
+                                                                                    <a routerLink="/vehicles/vehicle-main"
+                                                                                        [queryParams]="setVehicleRouteParams('Charging')">
+                                                                                        {{ridesDetails.charging}}
+                                                                                    </a>
+                                                                                </p>
+                                                                            </div>
+                                                                            <div class="col-3 ">
+                                                                                <img class="icon "
+                                                                                    src="../../../assets/layout/images/battery.png "
+                                                                                    alt=" ">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="md:col-4 col-12">
+                                                <div class="ride-main-card mt-1">
+        
+        
+                                                    <div class="grid ">
+        
+                                                        <div class="md:col-12">
+                                                            <h3>Vehicles States</h3>
+        
+                                                            <div class="grid ">
+        
+        
+                                                                <div class="md:col-12 col-12">
+                                                                    <div class="vehicle-item ">
+                                                                        <div class="grid ">
+                                                                            <div class="col-9 ">
+                                                                                <h4>
+                                                                                    Vehicles Low Battery
+                                                                                </h4>
+                                                                                <p *ngIf="ridesDetails !=null ">
+                                                                                    <a routerLink="/vehicles/vehicle-main"
+                                                                                        [queryParams]="setVehicleRouteParams('VehiclesLowBattery')">
+                                                                                        {{ridesDetails.vehiclesLowBattery}}
+                                                                                    </a>
+                                                                                </p>
+                                                                            </div>
+                                                                            <div class="col-3 ">
+                                                                                <img class="icon "
+                                                                                    src="../../../assets/layout/images/low-battery.png "
+                                                                                    alt=" ">
+                                                                            </div>
+                                                                        </div>
+        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="md:col-12 col-12">
+                                                                    <div class="vehicle-item ">
+                                                                        <div class="grid ">
+                                                                            <div class="col-9 ">
+                                                                                <h4>
+                                                                                    Out Of The Zone In Use
+                                                                                </h4>
+                                                                                <p *ngIf="ridesDetails !=null ">
+                                                                                    <a routerLink="/vehicles/vehicle-main"
+                                                                                        [queryParams]="setVehicleRouteParams('OutOfTheZoneInUse')">
+                                                                                        {{ridesDetails.totalOutOfTheZoneInUseVal}}
+                                                                                    </a>
+                                                                                </p>
+                                                                            </div>
+                                                                            <div class="col-3 ">
+                                                                                <img class="icon"
+                                                                                    src="../../../assets/layout/images/locate-red.png "
+                                                                                    alt=" ">
+                                                                            </div>
+                                                                        </div>
+        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="md:col-12 col-12">
+                                                                    <div class="vehicle-item ">
+                                                                        <div class="grid ">
+                                                                            <div class="col-9 ">
+                                                                                <h4>
+                                                                                    Out Of The Zone Not In Use
+                                                                                </h4>
+                                                                                <p *ngIf="ridesDetails !=null ">
+                                                                                    <a routerLink="/vehicles/vehicle-main"
+                                                                                        [queryParams]="setVehicleRouteParams('OutOfTheZoneNotInUse')">
+                                                                                        {{ridesDetails.totalOutOfTheZoneNotInUseVal}}
+                                                                                    </a>
+                                                                                </p>
+                                                                            </div>
+                                                                            <div class="col-3 ">
+                                                                                <img class="icon "
+                                                                                    src="../../../assets/layout/images/icon-mark.png "
+                                                                                    alt=" ">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                </div>
+        
+        
+        
+                                <div class="" style="width: 100%;" *ngIf="selectedStep === 1">
+                                    <div class="md:col-12 col-12">
+                                        <div class="ride-main-card user-st-main">
+        
+                                            <h3>User Stats</h3>
+                                            <div class="grid">
+        
+                                                <div class="md:col-4 col-12">
+                                                    <div class="user-it-main">
+                                                        <div class="user-it">
+                                                            <h4>Bonus</h4>
+                                                            <p> SAR : {{ ridesDetails.bonus != undefined ? ridesDetails.bonus :
+                                                                0 }}</p>
+                                                        </div>
+                                                    </div>
+        
+                                                </div>
+                                                <div class="md:col-8 col-12">
+                                                    <div class="user-it-main">
+                                                        <h3>Total Wallet : SAR {{ ridesDetails.total_wallet != undefined ?
+                                                            ridesDetails.total_wallet : 0 }}</h3>
+                                                        <div class="user-it-main-row">
+                                                            <div class="user-it">
+                                                                <h4>Cash</h4>
+                                                                <p>SAR : {{ ridesDetails.cash != undefined ? ridesDetails.cash :
+                                                                    0}}</p>
+                                                            </div>
+                                                            <div class="user-it">
+                                                                <h4>POS</h4>
+                                                                <p>SAR : {{ ridesDetails.pos != undefined ? ridesDetails.pos :
+                                                                    0}}</p>
+                                                            </div>
+                                                            <div class="user-it">
+                                                                <h4>Bank Transfer</h4>
+                                                                <p>SAR : {{ ridesDetails.bank_Transfer != undefined ?
+                                                                    ridesDetails.bank_Transfer : 0}}</p>
+                                                            </div>
+                                                            <div class="user-it">
+                                                                <h4>Apple Pay</h4>
+                                                                <p>SAR : {{ ridesDetails.apple_Pay != undefined ?
+                                                                    ridesDetails.apple_Pay : 0 }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+        
+        
+                                <div *ngIf="selectedStep === 2">
+        
+        
+                                    <div class="grid" style="justify-content: center;margin :0px;">
+                                        <div class="md:col-6 col-12">
+                                            <div class="ride-main-card chart-card-bg">
+                                                <div class="grid">
+                                                    <div class="md:col-1 col-1">
+                                                        <ul>
+                                                            <li>N</li>
+                                                            <li>o</li>
+                                                            <br>
+                                                            <li>o</li>
+                                                            <li>f</li>
+                                                            <br>
+                                                            <li>R</li>
+                                                            <li>i</li>
+                                                            <li>d</li>
+                                                            <li>e</li>
+                                                            <li>s</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="md:col-11 col-11">
+                                                        <h6 class="chart-title">Top 5 Busy Zones</h6>
+                                                        <p-chart height="200px" width="100%" type="bar" [data]="graphs[0].data"
+                                                            [options]="graphOpts"></p-chart>
+                                                        <h5 class="text-center"> Zones </h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-6 col-12">
+                                            <div class="ride-main-card chart-card-bg">
+                                                <div class="grid">
+                                                    <div class="md:col-1 col-1">
+                                                        <ul>
+                                                            <li>N</li>
+                                                            <li>o</li>
+                                                            <br>
+                                                            <li>o</li>
+                                                            <li>f</li>
+                                                            <br>
+                                                            <li>P</li>
+                                                            <li>u</li>
+                                                            <li>c</li>
+                                                            <li>h</li>
+                                                            <li>a</li>
+                                                            <li>s</li>
+                                                            <li>e</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="md:col-11 col-11">
+                                                        <h6 class="chart-title">Top Trending Packages</h6>
+                                                        <p-chart height="200px" width="100%" type="line" [data]="graphs[2].data"
+                                                            [options]="graphOpts"></p-chart>
+                                                        <h5 class="text-center"> Packages </h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-6 col-12">
+                                            <div class="ride-main-card chart-card-bg">
+                                                <div class="grid">
+                                                    <div class="md:col-1 col-1">
+                                                        <ul>
+                                                            <li>N</li>
+                                                            <li>o</li>
+                                                            <br>
+                                                            <li>o</li>
+                                                            <li>f</li>
+                                                            <br>
+                                                            <li>R</li>
+                                                            <li>i</li>
+                                                            <li>d</li>
+                                                            <li>e</li>
+                                                            <li>s</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="md:col-11 col-11">
+                                                        <h6 class="chart-title">Peak Hours</h6>
+                                                        <p-chart height="200px" width="100%" type="doughnut"
+                                                            [options]="graphOpts" [data]="graphs[3].data"></p-chart>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-6 col-12">
+                                            <div class="ride-main-card chart-card-bg">
+                                                <h6 class="chart-title">Top Trending Vehicles Type</h6>
+                                                <p-chart height="200px" width="100%" type="bar" [data]="graphs[4].data"
+                                                    [options]="graphOpts"></p-chart>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-6 col-12">
+                                            <div class="ride-main-card chart-card-bg">
+                                                <h6 class="chart-title">Top Trending Vehicle Company</h6>
+                                                <p-chart height="200px" width="100%" type="bar" [data]="graphs[1].data"
+                                                    [options]="graphOpts"></p-chart>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-6 col-12" *ngIf="currentUserName  !== 'med@boostsaudi.com'">
+                                            <div class="ride-main-card chart-card-bg">
+                                                <h6 class="chart-title">Top 5 Zone Revenue Wise</h6>
+                                                <p-chart height="200px" width="100%" type="bar"
+                                                    [data]="graphs[5].data"></p-chart>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+        
+                                    <div class="grid " *ngIf="!loading ">
+                                        <div class="col-12 md:col-12 lg:col-4 " *ngFor="let rd of ridesDetial | keyvalue ">
+                                            <div [class]=" 'overview-box ' + rd.value.color ">
+                                                <div class="overview-title ">
+                                                    {{ rd.key }}
+                                                </div>
+                                                <div class="overview-numbers ">
+                                                    <strong>{{ rd.value.value }}</strong> {{ rd.value.extra }}
+                                                </div>
+                                                <img src="assets/layout/images/icon-views.png " alt="california-layout " />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,82 @@
+<p-toast></p-toast>
+<div class="bread-container wallet-p-row-mob">
+    <div class="left-box">
+        <h4>
+            <span>
+                Manage Wallet Packages
+            </span>
+        </h4>
+    </div>
+    <div class="right-box">
+        <button pButton pRipple label="Add New Wallet Package" class="p-button-success mr-2 theme-btn" (click)="showWPStoreForm()"></button>
+    </div>
+</div>
+
+<p-dialog
+    class="Add-New-Form"
+    header="Add new package"
+    [(visible)]="modalShow"
+    [style]="{ width: '550px' }"
+    [baseZIndex]="10000"
+    [modal]="true"
+    [dismissableMask]="true"
+    id="new-wallet"
+>
+    <form #f="ngForm" (ngSubmit)="onStoreWP()" [formGroup]="wpForm">
+        <div class="grid">
+            <div class="col-12 field">
+                <label>Title</label> <br>
+                <input
+                pInputText
+                    type="text"
+                    formControlName="title"
+                    name="title"
+                    placeholder="Title"
+                    class="w-100"
+                />
+            </div>
+            <div class="col-12">
+                <label>Top Up Amount</label> <br>
+                <input
+                pInputText
+                    type="number"
+                    formControlName="top_Up_Amount"
+                    class="w-100"
+                    name="top_Up_Amount"
+                    min="0"
+                />
+            </div>
+            <div class="col-12">
+                <label>Bonus Amount</label> <br>
+                <input
+                pInputText
+                    type="number"
+                    formControlName="bonus_Amount"
+                    class="w-100"
+                    name="bonus_Amount"
+                    min="0"
+                />
+            </div>
+        </div>
+        <div class="col">
+            <div class="button-footer text-right">
+                <button
+                    class="danger-btn mr-2 cancel-custom"
+                    (click)="modalShow = false"
+                    label="Cancel"
+                    styleClass="ui-button-warning"
+                    pButton
+                >
+                </button>
+                <button
+                    type="submit"
+                    class="add-new-btn theme-btn"
+                    [disabled]="!wpForm.valid"
+                >
+                    <span *ngIf="btnloading"></span>
+                    Add
+                </button>
+            </div>
+        </div>
+    </form>
+</p-dialog>

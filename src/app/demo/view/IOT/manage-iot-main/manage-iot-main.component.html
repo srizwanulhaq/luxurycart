@@ -1,0 +1,12 @@
+<app-manage-iot-details [details]="Iot" (eventChange)="onChange($event)"></app-manage-iot-details>
+<div class="col-12">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <div class="card component-main-card">
+                <app-manage-iot-create (eventChange)="onChange($event)"></app-manage-iot-create>
+                <app-manage-iot-list [event]="event"></app-manage-iot-list>
+                <app-manage-iot-edit (resetEditIotData)="resetEditIot()" [editIotData]="EditIotData" (eventChange)="onChange($event)"></app-manage-iot-edit>
+            </div>
+        </div>
+    </div>
+</div>

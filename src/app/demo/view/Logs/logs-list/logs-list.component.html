@@ -1,0 +1,235 @@
+<p-toast></p-toast>
+<div class="bread-container">
+    <div class="left-box">
+        <h4>
+            <span>
+                System Logs
+            </span>
+        </h4>
+    </div>
+    
+</div>
+<div  class="lodi">
+    <div *ngIf="loading" class="lodi-child">
+        <div class="custom-loader"></div>
+    </div>
+<p-table id="rides-table" var="currencies" #dt [value]="logsservice" selectionMode="multiple" [lazy]="true"
+    (onLazyLoad)="loadDatalogs($event)" autoLayout="true" [paginator]="true" [showCurrentPageReport]="true"
+    [rowHover]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="rowsPerPageOptions" columnResizeMode="expand" [totalRecords]="totalRecords" [rows]="10"
+    dataKey="id" stateStorage="local" stateKey="logs-local">
+    <ng-template pTemplate="caption">
+        <!-- <shared-date-range [startDate]="startDate" [endDate]="endDate" [loading]="loading"
+            (onRangeChange)="onRangeChange($event)" (onDateChange)="onDateChange($event)"></shared-date-range> -->
+            <div class="grid">
+                <!-- <div class="md:col-4 col-12 show-mob">
+                    <span class="tab-parent-box">
+                        <span>
+                            <p-tabView (onChange)="statusChanged($event)" id="ride-status-tab-mobile">
+                                <ng-container *ngFor="let status of statuses;">
+                                    <span class="active-count-span"
+                                        *ngIf="status.label=='Active'">{{activeRidecount}}</span>
+                                    <p-tabPanel [header]="status.label" [selected]="selectedStatus==status.value">
+                                    </p-tabPanel>
+                                </ng-container>
+                            </p-tabView>
+                        </span>
+                    </span>
+                </div> -->
+                <div class="md:col-4 col-12 show-desktop" style="position: relative;">
+                    <span class="">
+                        <span>
+                            <p-tabView (onChange)="statusChanged($event)" id="status-tab">
+                                <ng-container *ngFor="let status of statuses;">
+                                    <span class="active-count-span"
+                                        *ngIf="status.label=='Active'">{{activeRidecount}}</span>
+                                    <p-tabPanel [header]="status.label.replace('_',' ')"
+                                        [selected]="selectedStatus==status.value">
+                                    </p-tabPanel>
+                                </ng-container>
+                            </p-tabView>
+                        </span>
+                    </span>
+                </div>
+                <div class="md:col-8 text-right col-12">
+                    <!-- <h5 class="m-0">Manage Rides</h5> -->
+    
+                    <div style="display: flex; justify-content: end;" class="ride-search-b">
+                       
+                        <span class="btn-left-box">
+                            <div class="dropdown">
+                                <button onclick="myFunction1()" class="dropbtn1">Export <i
+                                        class="pi pi-chevron-up"></i></button>
+                                <div id="myDropdown1" class="dropdown-content1">
+                                    <div class="grid">
+                                        <div class="md:col-4 col-4">
+                                            <div class="export-item">
+                                                <img src="../../../../../assets/layout/images/excel-icon.png" alt=""
+                                                    width="20">
+                                                <p>Excel</p>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-4 col-4">
+                                            <div class="export-item">
+                                                <img src="../../../../../assets/layout/images/pdf-icon.png" alt=""
+                                                    width="20">
+                                                <p>Pdf</p>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-4 col-4">
+                                            <div class="export-item">
+                                                <img src="../../../../../assets/layout/images/icons8-export-csv-80.png"
+                                                    alt="" width="20">
+                                                <p>Csv</p>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                </div>
+                            </div>
+                        </span>
+                        <div style="padding: 7px;padding-right: 0;padding-bottom: 0;">
+                            <div class="dropdown" >
+                                <button onclick="myFunction()" class="dropbtn" title="Filter" style="margin-top: 0; background: #99ca3c;">
+                                   <img src="../../../assets/layout/images/filter-16.png" alt="">
+                               </button>
+                                  <div id="myDropdown" class="dropdown-content" style="margin-top: 0;">
+                                   <!-- <i onclick="myFunction()" class="fa fa-times close-bt"></i> -->
+                                   <i onclick="myFunction()" class="fa fa-times close-bt-show-mb"></i>
+                                       <div class="calender-box">
+                                            <shared-date-range [startDate]="startDate" [endDate]="endDate" [loading]="loading"
+                                            (onRangeChange)="onRangeChange($event)" (onDateChange)="onDateChange($event)"></shared-date-range>
+                                       </div>
+                                       <!-- <div class="btun-box">
+                                           <ul class="left-list">
+                                               <li> <button>Today</button> </li>
+                                               <li> <button>Yesterday</button> </li>
+                                               <li> <button>Monthly</button> </li>
+                                               <li> <button>Total</button> </li>
+                                            </ul>
+                                       </div> -->
+                                   
+                                  </div>
+                                </div>
+                        </div>
+                        <!-- <div class="search-wrapper mt-2">
+                            <div class="input-holder">
+                                <input type="text" class="search-input" placeholder="Type to search" [(ngModel)]="filterGlobalValue" (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')"/>
+                                <button class="search-icon" onclick="searchToggle(this, event);" (click)="dt.filterGlobal(filterGlobalValue, 'contains')"><span></span></button>
+                            </div>
+                            <span class="close" onclick="searchToggle(this, event);" (click)="resetDataTable(dt)"></span>
+                        </div> -->
+                        <div class="custom-in-box transaction-filter mt-2">
+                            <i title="Reset Filter" class="pi pi-times" (click)="resetDataTable(dt)"></i>
+                            <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                                (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                                class="search-input p-0 tran-search" />
+                            <span (click)="dt.filterGlobal(filterGlobalValue, 'contains')">Search
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+    </ng-template>
+
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th>
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th [pSortableColumn]="'headers'" pResizableColumn>
+                Headers
+                <p-sortIcon [field]="'headers'"></p-sortIcon>
+            </th>
+            <th [pSortableColumn]="'method'" pResizableColumn>
+                Method
+                <p-sortIcon [field]="'method'"></p-sortIcon>
+            </th>
+             <th [pSortableColumn]="'request_Path'" pResizableColumn>
+                Request_Path
+                <p-sortIcon [field]="'request_Path'"></p-sortIcon>
+            </th>
+            <!-- <th [pSortableColumn]="'query_String'" pResizableColumn>
+                query_String
+                <p-sortIcon [field]="'query_String'"></p-sortIcon>
+            </th> -->
+           
+            <!-- <th [pSortableColumn]="'platform'" pResizableColumn>
+                Platform
+                <p-sortIcon [field]="'platform'"></p-sortIcon>
+            </th> -->
+             <th [pSortableColumn]="'response_Status_Code'" pResizableColumn>
+                response_Status_Code
+                <p-sortIcon [field]="'response_Status_Code'"></p-sortIcon>
+            </th>
+            <th [pSortableColumn]="'timestamp'" pResizableColumn>
+                Create On
+                <p-sortIcon [field]="'timestamp'"></p-sortIcon>
+            </th>
+            <th>
+                Detail
+            </th>
+        </tr>
+    </ng-template>
+    
+    <ng-template pTemplate="body" let-logsservice let-rowIndex="rowIndex">
+        <tr>
+
+            <td>
+                <p-tableCheckbox [value]="logsservice"></p-tableCheckbox>
+            </td>
+            <td>
+                <span class="p-column-title">headers</span>
+
+                {{ logsservice.headers }}
+            </td>
+            <td>
+                <span class="p-column-title">method</span>
+
+                {{ logsservice.method }}
+
+            </td>
+            <td>
+                <span class="p-column-title">request_Path</span>
+                <p style="width: 200px;     white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;"> {{ logsservice.request_Path}}</p>
+            </td>
+            <!-- <td>
+                <span class="p-column-title">query_String</span>
+                {{ logsservice.query_String}}
+            </td> -->
+          
+            <!-- <td>
+                <span class="p-column-title">platform</span>
+                {{ logsservice.platform}}
+            </td> -->
+            <td>
+                <span class="p-column-title">response_Status_Code</span>
+                {{ logsservice.response_Status_Code}}
+            </td>
+            <td>
+                <span class="p-column-title">Create On</span>
+             {{logsservice.timestamp | date:'medium'}}
+            </td>
+            <td class="sm-jus-end">
+                <button title="More Details" pButton pRipple class="p-button-rounded p-button-success theme-btn ac-btn "
+                    href="# " (click)="main.onBottomPanelButtonClick($event, logsservice) ">
+                    <img src="../../../../../assets/layout/images/more-detail.png " alt=" " width="18 ">
+                </button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="6">
+                <p class="empty-list text-center">
+                    Record not found! <br />
+                    Please Search by another query.
+                </p>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>

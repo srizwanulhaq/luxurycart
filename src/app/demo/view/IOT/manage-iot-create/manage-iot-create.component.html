@@ -1,0 +1,75 @@
+<p-toast></p-toast>
+
+<div class="bread-container">
+    <div class="left-box">
+        <h4>
+            <span>
+                Manage IOT
+            </span>
+        </h4>
+    </div>
+    <div class="right-box">
+        <button pButton pRipple label="Add New Iot" icon="pi pi-plus" class="p-button-success mr-2 theme-btn" (click)="openNew()"></button>
+    </div>
+</div>
+
+<form [formGroup]="saveManageIotForm" (ngSubmit)="onSubmitManageIotForm()">
+    <p-dialog id="new-iot-model" class="Add-New-Form" header="Add New Iot" [(visible)]="iotDialog" [style]="{width: '650px'}" [baseZIndex]="10000" class="p-fluid" [modal]="true" [dismissableMask]="true">
+        <ng-template pTemplate="content">
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label>IMEI <span class="star-sign">*</span></label>
+                    <input type="text" id="txtimei" name="imei" formControlName="imei" pInputText placeholder="IMEI" [(ngModel)]="imeiVal" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted }" />
+                    <small style="color:red;" class="ng-dirty ng-invalid" *ngIf="saveManageIotForm.controls.imei.errors?.pattern">Please IMEI must have 15 numbers .</small>
+                </div>
+                <div class="field col">
+                    <div class="field col">
+                        <label>Battery %<span class="star-sign">*</span></label>
+                        <input type="number" id="txtbattery" min="0" name="battery" formControlName="battery" pInputText required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                        <small style="color:red;" class="ng-dirty ng-invalid" *ngIf="saveManageIotForm.controls.battery.errors?.max">Please  battery value between 0 and 100</small>
+                    </div>
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label>Sub Account <span class="star-sign">*</span></label>
+                    <p-dropdown id="txtsubAccount" [options]="lstAccounts" name="subAccount" formControlName="subAccount" placeholder="Select Sub Account">
+                    </p-dropdown>
+                </div>
+                <div class="field col">
+                    <label>IOT model <span class="star-sign">*</span></label>
+                    <p-dropdown id="model" [options]="lstModels" name="model" formControlName="iotModel" placeholder="Select Model" (onChange)="changeModel($event)" >
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="formgrid grid" *ngIf="showPasswaord">
+                <div class="field col">
+                    <div class="field col">
+                        <label for="password">Password <span class="star-sign">*</span></label>
+                       
+                        <p-password formControlName="password" id="password" name="password" placeholder="**********" [toggleMask]="true"></p-password>
+                        <!-- <small class="ng-dirty ng-invalid" *ngIf="submitted">Password is required.</small> -->
+                    </div>
+                </div>
+                <div class="field col">
+                  
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label>Device Id <span class="star-sign"></span></label>
+                    <input type="number" id="txtbattery"  name="device_Id" formControlName="device_Id" pInputText />
+                </div>
+                <div class="field col">
+            
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Save"  icon="pi pi-check" class="p-button-text theme-btn">
+                <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}" styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+            </button>
+        </ng-template>
+    </p-dialog>
+</form>

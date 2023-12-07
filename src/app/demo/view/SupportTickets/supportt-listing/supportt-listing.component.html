@@ -1,0 +1,213 @@
+<p-toast></p-toast>
+<div class="bread-container">
+    <div class="left-box">
+        <h4>
+            <span>
+                Support Ticket
+            </span>
+        </h4>
+    </div>
+</div>
+<p-table
+    var="supportTicket"
+    #dt
+    [columns]="cols"
+    [value]="supportTickets"
+    selectionMode="multiple"
+    [(selection)]="selectedSupportTickets"
+    [lazy]="true"
+    (onLazyLoad)="loadSupportTickets($event)"
+    autoLayout="true"
+    [paginator]="true"
+    [showCurrentPageReport]="true"
+    [rowHover]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="rowsPerPageOptions"
+    columnResizeMode="expand"
+    [totalRecords]="totalRecords"
+    [rows]="10"
+    stateStorage="local" stateKey="SupportTicketListDao-local"
+>
+    <ng-template pTemplate="caption">
+        <div class="grid">
+            <div class="md:col-4 col-12">
+                <span class="">
+                    <!-- <p-dropdown [options]="statuses" [(ngModel)]="selectedStatus" placeholder="--Select--"
+                        [filter]="false" (ngModelChange)="filterByRideStatus(selectedStatus);">
+                    </p-dropdown> -->
+                    <span>
+                        <p-tabView (onChange)="statusChanged($event)" id="status-tab">
+                            <p-tabPanel header="All">
+                            </p-tabPanel>
+                            <p-tabPanel header="Open">
+                            </p-tabPanel>
+                            <p-tabPanel header="Close">
+                            </p-tabPanel>
+
+                        </p-tabView>
+                    </span>
+                </span>
+            </div>
+            <div class="md:col-8 text-right col-12 centent-sm-center">
+                <!-- <h5 class="m-0">Manage Rides</h5> -->
+
+                <div style="display: flex; justify-content: end;">
+                    <span>
+
+
+                        <div class="dropdown">
+                            <button onclick="myFunction1()" class="dropbtn1">Dropdown <i
+                                    class="pi pi-chevron-up"></i></button>
+                            <div id="myDropdown1" class="dropdown-content1">
+                                <div class="grid">
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/excel-icon.png" alt=""
+                                                width="20">
+                                            <p>Excel</p>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/pdf-icon.png" alt=""
+                                                width="20">
+                                            <p>Pdf</p>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/icons8-export-csv-80.png"
+                                                alt="" width="20">
+                                            <p>Csv</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                   
+                    </span>
+                    <div class="custom-in-box">
+                        <i title="Reset Filter" class="pi pi-times" (click)="resetDataTable(dt)"></i>
+                        <input pInputText type="text"   [(ngModel)]="filterGlobalValue" (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')"
+                            placeholder="Type here" class="search-input p-0" />
+                            <span (click)="dt.filterGlobal(filterGlobalValue, 'contains')">Search
+                           </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th [pSortableColumn]="'date'" pResizableColumn>
+                Date
+                <p-sortIcon [field]="'date'"></p-sortIcon>
+            </th>
+            <th [pSortableColumn]="'ticketNumber'" pResizableColumn>
+                Ticket Number
+                <p-sortIcon [field]="'ticketNumber'"></p-sortIcon>
+            </th>
+            <!-- <th
+                [pSortableColumn]="'customer'"
+                pResizableColumn
+            >
+                Customer
+                <p-sortIcon
+                    [field]="'customer'"
+                ></p-sortIcon>
+            </th>
+            <th
+                [pSortableColumn]="'phone'"
+                pResizableColumn
+            >
+                Phone
+                <p-sortIcon
+                    [field]="'phone'"
+                ></p-sortIcon>
+            </th> -->
+            <th [pSortableColumn]="'scooter_nr'" pResizableColumn>
+                Scooter No
+                <p-sortIcon [field]="'scooter_nr'"></p-sortIcon>
+            </th>
+            <th [pSortableColumn]="'issue_type'" pResizableColumn>
+                Issue Type
+                <p-sortIcon [field]="'issue_type'"></p-sortIcon>
+            </th>
+            <th
+                [pSortableColumn]="'support_ticket.title'"
+                pResizableColumn
+            >
+                Ticket Status
+                <p-sortIcon
+                    [field]="'support_ticket.title'"
+                ></p-sortIcon>
+            </th>
+            <th>Action</th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-supportTicket let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="supportTicket" [pSelectableRowIndex]="rowIndex">
+            <td style="width: 3rem">
+                <p-tableCheckbox [value]="supportTicket"></p-tableCheckbox>
+            </td>
+            <td>
+                <span class="p-column-title">Date</span>
+                {{ supportTicket.created_at | date: "medium" }}</td>
+            <td>
+                <span class="p-column-title">Ticket Num</span>
+                
+                {{ supportTicket.ticket_Number }}</td>
+            <!-- <td>
+                <span class="p-column-title">Customer</span>
+                
+                {{ supportTicket.customer.applicationUser.userName }}</td>
+            <td>
+                <span class="p-column-title">Phone</span>
+                {{ supportTicket.customer.applicationUser.phoneNumber || "-" }}
+            </td> -->
+            <td>
+                <span class="p-column-title">Scooter No</span>
+
+               
+                {{ supportTicket.vehicle.number }}</td>
+
+            <td>
+                <span class="p-column-title">ISsue Type</span>
+                 
+                {{ supportTicket.ticket_Issue_Type.title }}</td>
+            <td>
+                <span class="p-column-title">Scooter Status</span>
+
+                {{ supportTicket.support_Ticket_Status.title }}</td>
+            <td class="sm-jus-end">
+                <div class="flex">
+                    <button title="More Details" pButton pRipple class="p-button-rounded p-button-success theme-btn ac-btn" href="#"
+                    (click)="main.onDetailClick($event, supportTicket)">
+
+                        <img src="../../../../../assets/layout/images/more-detail.png" alt="" width="18">
+
+
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="19">
+                <p class="empty-list text-center">
+                    Record not found! <br />
+                    Please Search by another query.
+                </p>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

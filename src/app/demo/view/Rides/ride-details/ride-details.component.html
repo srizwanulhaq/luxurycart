@@ -1,0 +1,232 @@
+<p-toast></p-toast>
+<p-sidebar *ngIf="details" [(visible)]="main.bottomPanelActive" position="bottom" [baseZIndex]="10000">
+    <p-tabView id="detail-tabbing">
+        <div *ngIf="details.rideStatus != null">
+            <div class="action-row ">
+                    <div class="action-btn " *ngIf="details.rideStatus.number ==1">
+                        <div (click)="endRideAction(details.id, details.customer.id,'top')">
+                            <h6>End Ride</h6>
+                        </div>
+                    </div>
+        
+                <div class="action-btn ">
+                    <h6>Refund</h6>
+                </div>
+            </div>
+        </div>
+        <div class="head-row">
+            <h6 class="panel-parent-heading"><span><img src="assets/layout/images/id.png" alt="" width="20">
+                    {{details.tripId}}</span></h6>
+            <div class="btn-right-box">
+
+                <div class="child">
+                    <img src="assets/layout/images/locate-green.png" alt="" width="20">
+                    <a href="https://www.google.com/maps/search/?api=1&amp;query={{
+                            details.vehicle.vehicle_Location != null
+                    ? details.vehicle.vehicle_Location.latitude
+                    : 0
+                }},{{
+                  details.vehicle.vehicle_Location != null
+                    ? details.vehicle.vehicle_Location.longitude
+                    : 0
+                }}" class="navigation-marker" target="_blank">
+                        Current location of scooter
+                    </a>
+                </div>
+
+                <div class="last-child" *ngIf="details.is_Active_Ride == false">
+                    <img src="assets/layout/images/locate-red.png" alt="" width="20">
+                    <a href="https://www.google.com/maps/search/?api=1&amp;query={{details.destinationLatitude}},{{details.destinationLongitude}}"
+                        class="navigation-marker" target="_blank">
+                        <span class="last-text">End location of ride</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <p-tabPanel header="Ride Info">
+            <div class="submenu-content settings">
+                <div class="main-row">
+                    <div class="sales-settings card-main">
+                        <h6><span>vehicle number </span> </h6>
+                        <img src="assets/layout/images/scooti-icon.png" alt="" width="40">
+                        <h6> {{details.vehicle?.number}}</h6>
+                    </div>
+                    <div class="shipment-settings card-main">
+                        <h6><span>Zone</span> </h6>
+                        <img src="assets/layout/images/zone.png" alt="" width="40">
+                        <h6> {{details.parking_Zones?.title}}</h6>
+                    </div>
+                    <div class="history-settings card-main">
+                        <h6><span>Status</span></h6>
+                        <img src="assets/layout/images/status.png" alt="" width="40">
+                        <h6> {{details.rideStatus.title}}</h6>
+                    </div>
+                    <div class="visitors-settings card-main" *ngIf="details.is_Active_Ride == false">
+                        <h6><span>Start Platform</span></h6>
+                        <img src="assets/layout/images/start.png" alt="" width="40">
+                        <h6>
+                            {{details.platform === 1 ? "IOS": details.platform === 2 ? "ANDROID": details.platform === 3
+                            ? "ADMIN" : "Operation"}}
+                        </h6>
+                    </div>
+                    <div class="leads-settings card-main" *ngIf="details.is_Active_Ride == false">
+                        <h6><span>End Platform</span></h6>
+                        <img src="assets/layout/images/end.png" alt="" width="40">
+                        <h6>
+                            {{ details.rideStatus == null ? "-" : details.rideStatus.number != 2 ? "-":
+                            details.end_Platform === 3 ? "ADMIN": details.end_Platform === 1 ? "IOS":
+                            details.end_Platform === 2 ? "ANDROID": details.end_Platform === 4 ? "Operation" : "-"}}
+                        </h6>
+                    </div>
+
+                    <div class="leads-settings card-main" *ngIf="details.is_Active_Ride == false">
+                        <h6><span>Start Time</span></h6>
+                        <img src="assets/layout/images/calender.png" alt="" width="40">
+                        <h6>
+                            {{details.rideTimings.rideStartTime | date:'medium'}}
+                        </h6>
+                    </div>
+                    <div class="leads-settings card-main"
+                        *ngIf="details.is_Active_Ride == false && !!details.rideTimings.rideEndTime">
+                        <h6><span>End Time</span></h6>
+                        <img src="assets/layout/images/calender.png" alt="" width="40">
+                        <h6>
+                            {{details.rideTimings.rideEndTime | date:'medium'}}
+                        </h6>
+                    </div>
+                    <div class="leads-settings card-main" *ngIf="details.is_Active_Ride == false">
+                        <h6><span>Who Ended Ride</span></h6>
+                        <img src="assets/layout/images/calender.png" alt="" width="40">
+                        <h6>
+                            {{ details.referenceJson != null ? details.referenceJson.reason : "-"}}
+                        </h6>
+                    </div>
+                    <div class="leads-settings card-main"
+                        *ngIf="details.is_Active_Ride == false && details.rideFeedback != null">
+                        <h6><span>Rating</span></h6>
+                        <img src="assets/layout/images/calender.png" alt="" width="40">
+                        <h6>
+                            <p-rating [(ngModel)]="details.rideFeedback.rating" [readonly]="true"
+                                [cancel]="false"></p-rating>
+                        </h6>
+                    </div>
+                    <div class="history-settings card-main">
+                        <h6><span>Ride Started User Name</span></h6>
+                        <img src="assets/layout/images/status.png" alt="" width="40">
+                        <h6> {{details.rideStartedByUserId != null ? details.rideStartedByUserId : "-"}}</h6>
+                    </div>
+                </div>
+                <div class="sec-row" *ngIf="details.is_Active_Ride == false  && details.rideFare != null ">
+                    <h6>Ride Fare</h6>
+                    <table [cellSpacing]="0" [cellPadding]="0">
+                        <tr>
+                            <td>Km</td>
+                            <td>{{details.rideFare.totalDistance}}</td>
+                        </tr>
+                        <tr>
+                            <td>Time</td>
+                            <td>{{details.rideFare.totalTime}}</td>
+                        </tr>
+                        <tr>
+                            <td>Ride Cost</td>
+                            <td>{{details.rideFare.totalCost}} <span>{{countryCurrency}}</span> </td>
+                        </tr>
+                        <tr>
+                            <td>Paused Time</td>
+                            <td>{{details.rideFare.totalPauseTime}} </td>
+                        </tr>
+                        <tr>
+                            <td>Discount</td>
+                            <td>{{details.rideFare.discountAmount}} <span>{{countryCurrency}}</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </p-tabPanel>
+
+
+        <p-tabPanel header="Location Info " *ngIf="details.is_Active_Ride == false">
+            <div class="grid">
+                <div class="md:col-6 col-12" *ngIf="details.is_Active_Ride == false">
+                    <h6 class="map-h">Ride Path</h6>
+                    <app-ride-path [details]="details"></app-ride-path>
+                </div>
+                <div class="md:col-6 col-12" *ngIf="details.is_Active_Ride == false">
+                    <h6 class="map-h">Current Vehicle Location</h6>
+                    <app-ride-track [details]="details"></app-ride-track>
+                </div>
+
+            </div>
+
+
+        </p-tabPanel>
+
+        <p-tabPanel header="Parking Proof" *ngIf="details.is_Active_Ride == false">
+            <div class="md:col-12 col-12">
+                <!-- <img [src]="rideImage" height="200" width="250"> -->
+                <img [src]="rideImage" height="250" width="100%" style="object-fit: contain;margin: auto;
+                display: block;" />
+
+            </div>
+        </p-tabPanel>
+
+
+
+
+
+
+        <p-tabPanel header="Customer Info ">
+            <div class="cus1-main ">
+                <div class="us-main ">
+                    <div class="background ">
+                    </div>
+                    <div class="profile-card ">
+                        <div class="cover ">
+                        </div>
+                        <div class="profile ">
+                            <div class="pic ">
+                            </div>
+                            <div class="above-fold ">
+                                <div class="name "> <i style="color: #646464 !important; " class="fa fa-user "></i>
+                                    {{details.customer.fullName}}</div>
+                                <div class="role "> <i style="color: #646464 !important; " class="fa fa-envelope "></i>
+                                    {{details.customer.email}}</div>
+                                <div class="location ">
+                                    <i style="color: #646464 !important; "
+                                        class="fa fa-phone "></i>{{details.customer.phoneNumber}}
+                                </div>
+                                <div class="role "><i style="color: #646464 !important; "
+                                        class="fa fa-calendar "></i>{{details.customer.createdAt | date:'MM-dd-yyyy'}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="us-det ">
+                    <table [cellSpacing]="0 ">
+                        <tr>
+                            <th>Total rides</th>
+                            <th>Current wallet amount</th>
+                            <th>Current debt</th>
+                        </tr>
+                        <tr *ngIf="rideDetails">
+                            <td>
+                                {{rideDetails.totalRides}}
+                            </td>
+                            <td>
+                                {{rideDetails.currentWallet}} <span>{{countryCurrency}}</span>
+                            </td>
+                            <td>
+                                {{rideDetails.currentDebit}} <span>{{countryCurrency}}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</p-sidebar>
+<p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000"
+    rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>

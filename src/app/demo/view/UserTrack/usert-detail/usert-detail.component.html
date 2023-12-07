@@ -1,0 +1,122 @@
+<p-sidebar *ngIf="!!userTrackDetail" [(visible)]="bottomPanelActive" position="bottom" [baseZIndex]="10000"
+    (onHide)="onDetailPanelClose()">
+    <h3 class="text-center" style="color:#6E6E6E;font-weight: 600;font-family: primaryFontBold;"><span
+            style="border-bottom: 3px solid #99ca3c;padding-bottom: 3px;">User Info</span></h3>
+            <div class="grid">
+                <div class="md:col-12 col-12 text-right">
+                    <div class="">
+                        <div class="dropdown">
+                            <button onclick="myFunction()" class="dropbtn" title="Filter"
+                                style="margin-top: 7px;margin-left: 8px;background: #99ca3c;">
+                                <img src="../../../assets/layout/images/filter-16.png" alt="">
+                            </button>
+                            <div id="myDropdown" class="dropdown-content" style="margin-top: 0;">
+                                <!-- <i onclick="myFunction()" class="fa fa-times close-bt"></i> -->
+
+                                <div class="calender-box">
+                                    <shared-date-range [startDate]="startDate" [endDate]="endDate" [loading]="loading"
+                                        (onRangeChange)="onRangeChange($event)"
+                                        (onDateChange)="onDateChange($event)"></shared-date-range>
+                                </div>
+                                <!-- <div class="btun-box">
+                                       <ul class="left-list">
+                                           <li> <button>Today</button> </li>
+                                           <li> <button>Yesterday</button> </li>
+                                           <li> <button>Monthly</button> </li>
+                                           <li> <button>Total</button> </li>
+                                        </ul>
+                                   </div> -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <div class="grid">
+        <div class="md:col-3 col-12">
+            <div class="item">
+                <h5>Username</h5>
+                <h6>{{ userTrackDetail.userName }}</h6>
+            </div>
+
+        </div>
+        <div class="md:col-3 col-12">
+            <div class="item">
+                <h5>Total Online Mins Within Zone</h5>
+                <h6>{{ userTrackDetail.totalOnlineMinsWithinZone }}</h6>
+            </div>
+
+        </div>
+        <div class="md:col-3 col-12">
+            <div class="item">
+                <h5>Total Online Mins Out Of Zone</h5>
+                <h6>{{ userTrackDetail.totalOnlineMinsOutOfZone }}</h6>
+            </div>
+        </div>
+        <div class="md:col-3 col-12">
+            <div class="item">
+                <h5>Total Online Mins</h5>
+                <h6>{{ userTrackDetail.totalOnlineMins }}</h6>
+            </div>
+        </div>
+        <div class="col-12">
+            <p-table #dt [value]="userTrackDetail.userTrackingList.results" [columns]="cols" [lazy]="true"
+                (onLazyLoad)="loadUserTracksByUserId($event)" [totalRecords]="totalRecords" [rows]="10"
+                [paginator]="true" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple"
+                [rowHover]="true" dataKey="id" stateStorage="local" stateKey="userTrackHistoryDao-local"
+                [responsive]="true" [lazyLoadOnInit]="false">
+             
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="zoneTitle">Nearest Zone
+                            <p-sortIcon field="zoneTitle"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="is_Within_Zone">In Zone
+                            <p-sortIcon field="is_Within_Zone"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="log_Status">Login Status
+                            <p-sortIcon field="log_Status"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="log_DateTime">Login Datetime
+                            <p-sortIcon field="log_DateTime"></p-sortIcon>
+                        </th>
+                        <th>Location</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-userTrack let-rowIndex="rowIndex">
+                    <tr [pSelectableRow]="userTrack" [pSelectableRowIndex]="rowIndex">
+                        <td>
+                            <p-tableCheckbox [value]="userTrack"></p-tableCheckbox>
+                        </td>
+                        <td><span class="p-column-title">Nearest Zone</span> {{userTrack.parkingZone.title}}</td>
+                        <td><span class="p-column-title">In Zone</span> {{userTrack.is_Within_Zone?'Yes':'No'}}</td>
+                        <td><span class="p-column-title">Login Status</span>
+                            {{userTrack.log_Status==1?'Online':'Offline'}}</td>
+                        <td><span class="p-column-title">Login Datetime</span> {{userTrack.log_DateTime| date:
+                            "medium"}}</td>
+                        <td><span class="p-column-title">Location</span>
+                            <a class="p-button-rounded p-button-success theme-btn ac-btn " style="padding: 2px 6px;"
+                                [href]="'http://maps.google.com/maps?q='+userTrack.latitude+','+userTrack.longitude"
+                                target="_blank">
+                                <i class="pi pi-map lot-btn" style="font-size: 12px;"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr *ngIf="totalRecords == 0">
+                        <td colspan="7" class="text-center">
+                            <div>
+                                No user tracking history right now
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</p-sidebar>

@@ -1,0 +1,83 @@
+<p-toast></p-toast>
+<form #f="ngForm" (ngSubmit)="onSubmitUpdate()" [formGroup]="EditPromoCodeForm">
+    <p-dialog id="add-new-promo" [modal]="true" class="p-fluid" [dismissableMask]="true" header="Edit Promo Code"
+        [(visible)]="main.editPromoCodeActive" [style]="{ width: '35vw' }" [baseZIndex]="10000">
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Country<span style="color: red">*</span></label>
+                        <p-dropdown id="txtcountryId" [options]="lstCountries" name="country_Id"
+                            formControlName="country_Id" (onChange)="onSelect($event)" placeholder="Select Country">
+                        </p-dropdown>
+                    </div>
+
+                </div>
+                <div class="grid">
+                    <div class="field col">
+                        <label>City<span style="color: red">*</span></label>
+                        <p-multiSelect [options]="getlstCities" optionLabel="name" name="selectlstCitiess"
+              [(ngModel)]="selectlstCities"
+                            formControlName="selectlstCitiess" defaultLabel="Select a City" selectedItemsLabel="{0} items selected"></p-multiSelect>
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Code <span style="color: red">*</span></label>
+                        <input type="text" id="txtcode" name="code" formControlName="code" pInputText
+                            placeholder="Code" />
+                    </div>
+                    <div class="field col">
+                        <label>Quantity<span style="color: hsl(0, 100%, 50%)">*</span></label>
+                        <input type="number" id="txtquantity" name="quantity" formControlName="quantity" pInputText
+                            placeholder="Quantity" />
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Per_Usage<span style="color: red">*</span></label>
+                        <input type="number" id="txtperusage" name="per_Usage" formControlName="per_Usage" pInputText
+                            placeholder="Per_Usage" />
+                    </div>
+                    <div class="field col">
+                        <label>Credits Amount<span style="color: red">*</span></label>
+                        <input type="number" id="txtcredits" name="credits" formControlName="credits" pInputText
+                            placeholder="Credits" />
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label>Start Date<span style="color: red">*</span></label>
+                        <input type="date" id="txtstartdate" name="start_Date" formControlName="start_Date" pInputText
+                            placeholder="start Date" />
+                    </div>
+                    <div class="field col">
+                        <label>Expiry Date<span style="color: red">*</span></label>
+                        <input type="date" id="txtenddate" name="end_Date" formControlName="end_Date" pInputText
+                            placeholder="End Date" />
+                    </div>
+                </div>
+                <div class="field col">
+                    <label>Is New User<span style="color: red">*</span></label>
+                    <p-checkbox formControlName="is_New_User" [binary]="true" [trueValue]="true" [falseValue]="false"
+                        [value]="false"></p-checkbox>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="button-footer text-right">
+                <button class="cancel-custom mr-2" style="width: auto;" (click)="main.editPromoCodeActive = false"
+                    label="Cancel" pButton>
+                </button>
+                <button type="submit" class="add-new-btn theme-btn" [disabled]="!EditPromoCodeForm.valid">
+                    <span *ngIf="btnloading"></span>
+                    Update
+                </button>
+            </div>
+        </div>
+
+
+    </p-dialog>
+</form>

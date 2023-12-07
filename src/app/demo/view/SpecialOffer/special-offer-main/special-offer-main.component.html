@@ -1,0 +1,14 @@
+<div class="col-12">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <div class="card component-main-card">
+                <app-special-offer-create (eventChange)="onChange($event)"></app-special-offer-create>
+                <app-special-offer-edit [editSpecialOfferData]="editSpecialData"
+                    (eventChange)="onChange($event)"></app-special-offer-edit>
+                <app-special-offer-details [details]="offer"
+                    (eventChange)="onChange($event)"></app-special-offer-details>
+                <app-special-offer-list [event]="event"></app-special-offer-list>
+            </div>
+        </div>
+    </div>
+</div>

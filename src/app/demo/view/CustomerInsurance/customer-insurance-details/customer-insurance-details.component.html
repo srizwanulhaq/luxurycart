@@ -1,0 +1,94 @@
+
+<!-- <p-confirmDialog #cd id="cutomer-confrim-model" [style]=" {width: '35vw', top: '-190px'} " [baseZIndex]="10000 ">
+    <ng-template pTemplate="footer">
+        <button type="button" pButton class="cofirm-model-cancel-btn"  label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton  label="Yes" (click)="cd.accept()"></button>
+        </ng-template>
+</p-confirmDialog> -->
+<p-toast></p-toast>
+
+<p-sidebar
+    *ngIf="details"
+    [(visible)]="main.bottomPanelActive"
+    position="bottom"
+    [baseZIndex]="10000"
+>
+<h3 class="text-center" style="color:#6E6E6E;font-weight: 600;font-family: primaryFontBold;"><span style="border-bottom: 3px solid #99ca3c;padding-bottom: 3px;">Customer Insurance Info</span></h3>
+
+<app-customer-insurance-refund [details]="details"></app-customer-insurance-refund>
+<div class="head-row">
+    <div class="btn-right-box">
+
+        <div class="child">
+    <p-button [hidden]="details.is_Refund || !details.isPaid" (click)="main.onRefundDialogButtonClick(event,details)" icon="pi pi-refresh" label="Refund"></p-button>
+    </div>
+    <div class="child">
+        <p-button [hidden]="!details.is_Refund" (click)="ShowRefundStatus(details.id)" label="Status"></p-button>
+        </div>
+    <div class="last-child">
+        <h5 style="color: white;">Date Created: <span>{{details.created_at | date:'medium'}}</span></h5>
+    </div>
+    </div>
+</div>
+    <div class="submenu-content settings">
+        <div class="main-row">
+
+            <div class="shipment-settings card-main">
+                <h6><span>Full Name</span> </h6>
+                <img src="assets/layout/images/am.png" alt="" width="40">
+                <h6>{{ details.customers.applicationUser.full_Name }} </h6>
+            </div>
+            <div class="history-settings card-main">
+                <h6><span>Insurance</span></h6>
+                <img src="assets/layout/images/ba.png" alt="" width="40">
+                <h6>{{ details.insurance.title }}</h6>
+            </div>
+            <div class="history-settings card-main">
+                <h6><span>Arabic Title</span></h6>
+                <img src="assets/layout/images/ba.png" alt="" width="40">
+                <h6>{{ details.insurance.arTitle }}</h6>
+            </div>
+            <div class="visitors-settings card-main">
+                <h6><span>Final Amount</span></h6>
+                <img src="assets/layout/images/ba.png" alt="" width="40">
+                <h6>
+                    <b>SAR</b> {{ details.final_Amount }}
+                </h6>
+            </div>
+            <div class="visitors-settings card-main">
+                <h6><span>Refund Amount</span></h6>
+                <img src="assets/layout/images/ba.png" alt="" width="40">
+                <h6>
+                    <b>SAR</b> {{ details.refund_Amount }}
+                </h6>
+            </div>
+            <div class="visitors-settings card-main">
+                <h6><span>Active</span></h6>
+                <img src="assets/layout/images/ba.png" alt="" width="40">
+                <h6>
+                    {{ details.active?'Yes':'No' }}
+                </h6>
+            </div>
+            <div class="visitors-settings card-main">
+                <h6><span>Paid</span></h6>
+                <img src="assets/layout/images/ba.png" alt="" width="40">
+                <h6>
+                    {{ details.isPaid?'Yes':'No' }}
+                </h6>
+            </div>
+            <div class="visitors-settings card-main">
+                <h6><span>Is Refund</span></h6>
+                <img src="assets/layout/images/ba.png" alt="" width="40">
+                <h6>
+                    {{ details.is_Refund?'Yes':'No' }}
+                </h6>
+            </div>
+        </div>
+    </div>
+
+            
+
+            
+     
+
+</p-sidebar>

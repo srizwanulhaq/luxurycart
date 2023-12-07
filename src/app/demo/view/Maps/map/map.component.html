@@ -1,0 +1,190 @@
+<p-toast></p-toast>
+<div class="bread-container">
+    <div class="left-box">
+        <h4>
+            <span>
+                Maps
+            </span>
+        </h4>
+    </div>
+    <div class="right-box">
+        <div class="dropdown" *ngIf="showFilter">
+            <button style="background: #99ca3c; margin-top: 0;" onclick="myFunction()" class="dropbtn" title="Filter">
+                <img src="../../../assets/layout/images/filter-16.png" alt="">
+            </button>
+            <div id="myDropdown" class="dropdown-content">
+                <i onclick="myFunction()" class="fa fa-times close-bt-show-mb"></i>
+                <div class="grid">
+                    <div class="calender-box">
+                        <div class="grid">
+                            <div class="md:col-6">
+                                <p-calendar id="dashboard-pic" [inline]="true" [readonlyInput]="true"
+                                    (onSelect)="onDateSelect($event,'start')" [(ngModel)]="_startDate"></p-calendar>
+
+                            </div>
+                            <div class="md:col-6">
+                                <p-calendar id="dashboard-pic" [inline]="true" [readonlyInput]="true"
+                                    (onSelect)="onDateSelect($event,'end')" [(ngModel)]="_endDate"
+                                    [disabled]="!_startDate"></p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btun-box">
+                        <ul class="left-list" style="justify-content: flex-start;">
+                            <li style="background: unset; width: 100%; padding: 0;"> <button (click)="mapReset()">Reset</button>
+                            </li>
+                            <li style="background: unset; width: 100%; padding: 0;"> <button (click)="mapFilter(0)">Today</button>
+                            </li>
+                            <li style="background: unset; width: 100%; padding: 0;"> <button
+                                    (click)="mapFilter(1)">Yesterday</button> </li>
+                            <li style="background: unset; width: 100%; padding: 0;"> <button (click)="mapFilter(2)">Monthly</button>
+                            </li>
+                            <li style="background: unset; width: 100%; padding: 0;"> <button (click)="mapFilter(4)">Total</button>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section id="main-maps">
+    <div class="container">
+        <div class="">
+            <div class="p-fluid">
+                <div class="grid">
+
+                    <div class="md:col-6 col-12">
+                        <div class="color-info">
+                            <ul class="list-inline">
+
+                                <li class="list-inline-item">
+                                    <img [src]="markerGreen" alt="#" width="20" height="30"> <br> Active
+                                </li>
+
+                                <li class="list-inline-item"><img [src]="markerBlue" alt="#" width="20" height="30">
+                                    <br> Currently in use</li>
+
+                                <li class="list-inline-item"> <img [src]="markerPurple" alt="#" width="20" height="30">
+                                    <br> Discharged</li>
+
+
+                                <li class="list-inline-item"> <img [src]="markerBrown" alt="#" width="20" height="30">
+                                    <br> Need Investigation</li>
+
+
+                                <li class="list-inline-item"> <img [src]="markerYellow" alt="#" width="20" height="30">
+                                    <br> Out of Service</li>
+
+
+                                <li class="list-inline-item"><img [src]="markerOrange" alt="#" width="20" height="30">
+                                    <br> Charging</li>
+
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="md:col-6 col-12" *ngIf="showFilter">
+
+                        <div class="zone-detail" *ngIf="zoneStats != null">
+                            <p>
+                                <img src="../../../../../assets/layout/images/zone.png" alt="">
+                                Zone: {{ mapName }}
+                            </p>
+                            <p>
+                                <img src="../../../../../assets/layout/images/scooti-icon.png" alt="">
+                                Rides: {{totalRides}}
+                            </p>
+                            <p>
+                                <img src="../../../../../assets/layout/images/debt.png" alt="">
+                                Revenue: {{revenue}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="col-12" *ngIf="selectedFilter==3">
+                <shared-date-range [startDate]="startDate" [endDate]="endDate" [loading]="loading"
+                    (onRangeChange)="onRangeChange($event)"
+                    (onDateChange)="onDateChange($event)"></shared-date-range>
+            </div> -->
+        <div class="lodi">
+            <div *ngIf="progressSpinner" class="lodi-child">
+                <div class="custom-loader"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="map-main">
+                        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false"
+                            [zoomControl]="true">
+
+                            <div *ngFor="let zone of parkingZone; let i = index">
+
+                                <agm-polygon #polygon [paths]="zone.zone_Coordinates"
+                                    [strokeColor]="zone.zone_Type.number == 1  ? greenStrokeColor : redStrokeColor"
+                                    [visible]="true" [draggable]="false" [polyDraggable]="false" [editable]="false"
+                                    (polyClick)="mapClicked(zone.id,parkingZone,i)">
+
+                                </agm-polygon>
+
+                            </div>
+
+                            <agm-marker *ngFor="let veh of vehicles; let i = index" (markerClick)="clickedMarker(veh)"
+                                [latitude]="veh.vehicle_Location.latitude" [longitude]="veh.vehicle_Location.longitude"
+                                [markerDraggable]="veh.draggable" [iconUrl]="veh.vehicle_Status.iconUrl"
+                                (dragEnd)="markerDragEnd(veh, $event)">
+
+
+                                <agm-info-window>
+
+                                    <p class="map-det">No. {{veh.number}} Battery. {{veh.vehicle_Battery}}%</p>
+                                    <p class="map-det">Status: {{vehicleOnline}} Signal Strength {{signalStrength}}</p>
+
+
+                                </agm-info-window>
+
+                            </agm-marker>
+
+                            <!-- <agm-marker *ngFor="let veh of vehicles; let i = index" (markerClick)="onMarkerClick(infoWindow)" [latitude]="veh.vehicle_Location.latitude" [longitude]="veh.vehicle_Location.longitude" [markerDraggable]="veh.draggable" [iconUrl]="veh.vehicle_Status.iconUrl"
+                                    (dragEnd)="markerDragEnd(veh, $event)">
+
+                                             <agm-info-window #infoWindow (infoWindowClose)="onInfoWindowClose()">
+                                     <strong>No. {{veh.number}} Battery. {{veh.vehicle_Battery}}%</strong>
+                                    </agm-info-window>
+                                </agm-marker> -->
+                        </agm-map>
+                    </div>
+
+
+                    <!-- <div *ngIf="currentUserName == 'Operator_Hajj@spiders.sa'" >
+                    <div class="map-main">
+                        <agm-map [latitude]="21.4186189" [longitude]="39.823301" [zoom]="13" [disableDefaultUI]="false" [zoomControl]="true">
+    
+                            <div *ngFor="let pzone of parkingZone; let i = index">
+                                <agm-polygon #polygon [paths]="pzone.zone_Coordinates" [strokeColor]="black" [visible]="true" [draggable]="false" [polyDraggable]="false" [editable]="false">
+                                </agm-polygon>
+                            </div>
+    
+                            <agm-marker *ngFor="let veh of vehicles; let i = index" (markerClick)="clickedMarker(veh, i)" [latitude]="veh.vehicle_Location.latitude" [longitude]="veh.vehicle_Location.longitude" [markerDraggable]="veh.draggable" [iconUrl]="veh.vehicle_Status.iconUrl"
+                                (dragEnd)="markerDragEnd(veh, $event)">
+    
+                                <agm-info-window>
+                                    <strong>No. {{veh.number}} Battery. {{veh.vehicle_Battery}}%</strong>
+                                </agm-info-window>
+    
+                            </agm-marker>
+    
+                        </agm-map>
+                    </div>
+                </div> -->
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>

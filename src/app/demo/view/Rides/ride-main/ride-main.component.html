@@ -1,0 +1,14 @@
+<!-- *ngIf="isLoading | async" -->
+<div class="col-12">
+    <app-ride-details [details]="ride" (eventChange)="onChange($event)"></app-ride-details>
+<div class="grid">
+    <div class="col-12 p-0">
+        <div class="card component-main-card">
+            <app-ride-create (eventChange)="onChange($event)"></app-ride-create>
+            <app-ride-listing [event]="event"></app-ride-listing>
+        </div>
+    </div>
+</div>
+</div>
+
+

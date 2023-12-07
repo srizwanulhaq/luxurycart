@@ -1,0 +1,84 @@
+
+<div class="col-12">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <div class="card component-main-card">
+                <div class="bread-container">
+                    <div class="left-box" style="width: 100%;">
+                        <h4>
+                            <span>
+                              Add Customer Ride
+                            </span>
+                        </h4>
+                    </div>
+                    
+                </div>
+                
+
+                <form (ngSubmit)="onSubmitCustomerReg()" [formGroup]="customerRideForm">
+
+                    <div class="formgrid grid">
+                        <div class="field md:col-4 col-12">
+                            <label>Full Name </label><br />
+                            <input type="text" name="fullName" id="fullName" class="form-control"
+                                formControlName="fullName" pInputText placeholder="Full Name" required autofocus
+                                [ngClass]="{'ng-invalid ng-dirty' : regsubmitted}" />
+                        </div>
+                        <div class="field md:col-4 col-12">
+                            <label>Email </label><br />
+                            <input type="email" formControlName="email" id="email" class="form-control" name="email"
+                                pInputText placeholder="Email" required autofocus
+                                [ngClass]="{'ng-invalid ng-dirty' : regsubmitted}" />
+                        </div>
+                        <div class="field md:col-4 col-12">
+                            <label>Phone Number <span class="star-sign">*</span></label><br />
+                            <ngx-intl-tel-input [cssClass]="'custom'" [preferredCountries]="preferredCountries"
+                                [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                                [searchCountryField]="[
+                              SearchCountryField.Iso2,
+                              SearchCountryField.Name
+                            ]" [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.SaudiArabia"
+                                [maxLength]="15" [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                                [numberFormat]="PhoneNumberFormat.National" name="phoneNumber"
+                                formControlName="phoneNumber">
+                            </ngx-intl-tel-input>
+                        </div>
+                    </div>
+                    <div class="formgrid grid">
+                        <div class="field md:col-4 col-12">
+                            <label for="price">Wallet Package <span class="star-sign">*</span></label><br />
+                            <p-dropdown id="type" [filter]="true" [options]="list_wallet_package" name="walletPackageId"
+                                formControlName="walletPackageId" placeholder="Select Package">
+                            </p-dropdown>
+                        </div>
+                        <div class="field md:col-4 col-12">
+                            <label for="vehicleId">Vehicle <span class="star-sign">*</span></label>
+                            <p-dropdown id="type" [options]="list_vehicle" name="vehicle" formControlName="vehicleId"
+                                placeholder="Select Vehicle">
+                            </p-dropdown>
+                        </div>
+                        <div class="field md:col-4 col-12">
+                            <label for="payment_mode">Transaction Mode <span class="star-sign">*</span></label>
+                            <p-dropdown id="type" [options]="list_transaction_mode" name="payment_mode"
+                                formControlName="transactionModeId" placeholder="Select Payment Mode">
+                            </p-dropdown>
+                        </div>
+                    </div>
+
+                    <div class="grid">
+
+                        <div class="md:col-12 col-12 text-right">
+                            <br>
+                            <button pButton pRipple label="Save & Start Ride" icon="pi pi-check"
+                                class="p-button-text theme-btn">
+                                <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}"
+                                    styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"
+                                    animationDuration=".5s"></p-progressSpinner>
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>

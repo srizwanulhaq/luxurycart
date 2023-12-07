@@ -1,0 +1,12 @@
+<div class="col-12">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <div class="card component-main-card">
+                <app-booth-details [details]="booth"></app-booth-details>
+                <app-booth-edit [editBoothData]="booth" (eventChange)="onChange($event)"></app-booth-edit>
+                <app-booth-create (eventChange)="onChange($event)"></app-booth-create>
+                <app-booth-list [event] = "event"></app-booth-list>
+            </div>
+        </div>
+    </div>
+    

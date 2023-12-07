@@ -1,0 +1,11 @@
+<div class="col-12">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <div class="card component-main-card">
+                <app-vtype-form [vehicleType]="vehicleType" [showModal]="showModal" (eventChange)="onChange($event)"
+                    (closeForm)="onCloseForm()"></app-vtype-form>
+                <app-vtype-listing [event]="event" (formCall)="onFormCall($event)"></app-vtype-listing>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+<p-sidebar *ngIf="details" [(visible)]="main.bottomPanelActive" position="bottom" [baseZIndex]="10000">
+    <p-tabView id="detail-tabbing">
+    <!-- <h3 class="text-center" style="color:#6E6E6E;font-weight: 600;font-family: primaryFontBold;"><span style="border-bottom: 3px solid #99ca3c;padding-bottom: 3px;">Code Info</span></h3> -->
+        <div class="action-row ">
+            <div class="action-btn ">
+                <div (click)="main.onEditPromCodeButtonClick($event,details) ">
+                    <h6>Edit</h6>
+                </div>
+            </div>
+            <div style="padding-left: 9px;text-align: center;">
+                <h6 class="m-0">Active And Deactive Toggle</h6>
+                <p-inputSwitch (onChange)="onChangePromoCode($event,details.id)" [(ngModel)]="details.active"></p-inputSwitch>
+            </div>
+        </div>
+
+            <div class="head-row">
+                <h6 class="panel-parent-heading"><span>ID : {{details.number}}</span></h6>
+                <div class="btn-right-box" *ngIf="details.lstCityPromoCodes != null">
+                    <ol>
+                        <li *ngFor="let item of details.lstCityPromoCodes">
+                            {{item.city.name}}
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <p-tabPanel header="Code Info">
+            <div class="submenu-content settings ">
+                <div class="main-row ">
+                    <div class="history-settings card-main ">
+                        <h6><span>Code</span></h6>
+                        <img src="assets/layout/images/imei.png " alt=" " width="40 ">
+                        <h6>{{details.code}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Credit Amount</span></h6>
+                        <img src="assets/layout/images/model.png " alt=" " width="40 ">
+                        <h6>{{details.credits}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Total Quantity</span></h6>
+                        <img src="assets/layout/images/battery.png " alt=" " width="40 ">
+                        <h6>{{details.quantity}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Per Usage</span></h6>
+                        <img src="assets/layout/images/model.png " alt=" " width="40 ">
+                        <h6>{{details.per_Usage}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Available for New User</span></h6>
+                        <img src="assets/layout/images/model.png " alt=" " width="40 ">
+                        <h6>{{details.is_New_User == true ? "Yes":"NO"}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Start Date</span></h6>
+                        <img src="assets/layout/images/model.png " alt=" " width="40 ">
+                        <h6>{{details.start_Date | date:"medium"}}</h6>
+                    </div>
+                    <div class="history-settings card-main ">
+                        <h6><span>Expiry Date</span></h6>
+                        <img src="assets/layout/images/model.png " alt=" " width="40 ">
+                        <h6>{{details.end_Date | date: "medium"}}</h6>
+                    </div>
+                </div>
+            </div>
+            </p-tabPanel>
+        <!-- <p-tabPanel header="Action ">
+            <div class="top-action">
+                <h6>Actice And Deactive Toggle</h6>
+                <p-inputSwitch (onChange)="onChangePromoCode($event,details.id)"
+                    [(ngModel)]="details.active"></p-inputSwitch>
+            </div>
+            <div class="action-row ">
+                <div class="action-btn" (click)="main.onEditPromCodeButtonClick($event,details) ">
+                    <h6>Edit</h6>
+                </div>
+            </div>
+        </p-tabPanel> -->
+        <p-tabPanel header="Uses">
+        <app-code-uses-listing type="promo" [code_id]="details.id" [code]="details.code"></app-code-uses-listing>
+    </p-tabPanel>
+        </p-tabView>
+</p-sidebar>

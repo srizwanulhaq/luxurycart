@@ -1,0 +1,33 @@
+<p-toast></p-toast>
+<p-dialog id="new-wallet" header="Add Charge" [(visible)]="main.ValuePanelActive" [style]="{ width: '25vw' }" [baseZIndex]="10000" modal="true">
+    <form [formGroup]="customerChargeForm" (ngSubmit)="onSubmitCustomerCharge()" class="customer-charge-form" novalidate>
+        <div class="form-row">
+            <div class="col-md-12 col-md-4">
+                <div class="field">
+                <label for=""> Type Charge Amount <span class="star-sign">*</span></label>
+                <input type="hidden" [(ngModel)]="details.id" formControlName="id" pInputText id="id" name="id" />
+                <div class="p-inputgroup">
+                    <input type="text" id="txtchargeAmount" name="chargeAmount" formControlName="chargeAmount" pInputText placeholder="" [(ngModel)]="chargeAmountVal" />
+                </div>
+                <small style="color:red;" class="ng-dirty ng-invalid" *ngIf="customerChargeForm.controls.chargeAmount.errors?.pattern">Please valid charge amount!</small>
+            </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="button-footer text-right">
+                    <button class="danger-btn mr-2 cancel-custom" (click)="main.ValuePanelActive = false" label="Cancel" styleClass="ui-button-warning" pButton>
+                </button>
+                    <button type="submit" class="add-new-btn theme-btn" [disabled]="!customerChargeForm.valid">
+                      <span
+                        *ngIf="btnloading"
+                        class="spinner-border spinner-border-sm mr-1"
+                      ></span>
+                      Charge
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</p-dialog>

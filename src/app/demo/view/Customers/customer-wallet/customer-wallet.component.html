@@ -1,0 +1,74 @@
+<p-toast></p-toast>
+<p-dialog id="new-wallet" header="Add wallet" [(visible)]="main.ValuePanelActive" [style]="{ width: '35vw' }"
+    [baseZIndex]="10000" modal="true">
+    <form [formGroup]="customerAddWalletForm" (ngSubmit)="onSubmitCustomerAddWallet()" class="customer-charge-form"
+        novalidate>
+        <div class="form-row">
+            <p-tabView (onChange)="formChanged($event)" id="status-tab">
+                <p-tabPanel header="Sellect Package">
+                </p-tabPanel>
+                <p-tabPanel header="Add Amount">
+                </p-tabPanel>
+
+            </p-tabView>
+            <div class="md:col-12 mt-2">
+                <input type="hidden" [(ngModel)]="details.id" formControlName="id" pInputText id="id" name="id" />
+                <div class="field">
+                    <label for="">Transaction Mode <span class="star-sign">*</span></label>
+                    <p-dropdown id="transactionModeId" name="transactionModeId" formControlName="transactionModeId"
+                        [options]="transactionModeOptions" filter="true" filterBy="label" placeholder="--Select--"
+                        [virtualScroll]="true" [itemSize]="4">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div *ngIf="formNo == 1">
+                <div class="md:col-12">
+                    <div class="field">
+                        <label for="">Wallet Package <span class="star-sign">*</span></label> <br>
+                        <p-dropdown class="w-100" id="walletPackageId" name="walletPackageId"
+                            formControlName="walletPackageId" [options]="walletPackageOptions" filter="true"
+                            filterBy="label" placeholder="--Select--" [virtualScroll]="true" [itemSize]="4">
+                        </p-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="formNo == 2">
+                <div class="md:col-12">
+                    <div class="field">
+                        <label for="">Type Wallet Amount <span class="star-sign">*</span></label>
+                        <div class="p-inputgroup">
+                            <input type="text" id="txtwalletAmount" name="walletAmount" formControlName="walletAmount"
+                                pInputText placeholder="Type wallet amount" [(ngModel)]="walletAmountVal" />
+                        </div>
+                        <small style="color:red;" class="ng-dirty ng-invalid"
+                            *ngIf="customerAddWalletForm.controls.walletAmount.errors?.pattern">Please valid wallet
+                            amount!</small>
+
+                    </div>
+                    <div class="field">
+                        <label>Reason <span class="star-sign">*</span></label>
+                        <textarea style="border: 1px solid #ced4da;" id="reason" name="reason" formControlName="reason"
+                            class="form-control w-100" [rows]="6" [cols]="30"></textarea>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="button-footer text-right">
+                    <button class="danger-btn mr-2 cancel-custom" (click)="main.ValuePanelActive = false" label="Cancel"
+                        styleClass="ui-button-warning" pButton>
+                    </button>
+
+                    <button type="submit" class="add-new-btn theme-btn" [disabled]="!customerAddWalletForm.valid">
+                        <span *ngIf="btnloading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Add wallet
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</p-dialog>

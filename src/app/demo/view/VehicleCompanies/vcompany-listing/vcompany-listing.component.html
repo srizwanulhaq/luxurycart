@@ -1,0 +1,175 @@
+<div class="bread-container">
+    <div class="left-box">
+        <h4>
+            <span>
+                Vehicle Companies
+            </span>
+        </h4>
+    </div>
+    <div class="right-box">
+        <button pButton pRipple label="Add Vehicle Company" class="p-button-success mr-2 theme-btn"
+            (click)="formData()"></button>
+    </div>
+</div>
+<div  class="lodi">
+    <div *ngIf="loading" class="lodi-child">
+        <div class="custom-loader"></div>
+    </div>
+<p-table #dt [value]="vehicleCompanies" [columns]="cols" [lazy]="true" (onLazyLoad)="loadList($event)"
+    [totalRecords]="totalRecords" [rows]="10" [paginator]="true" [rowsPerPageOptions]="rowsPerPageOptions"
+    [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    selectionMode="multiple" [rowHover]="true" dataKey="id" stateStorage="local" stateKey="vehicleCompanyDao-local"
+    [responsive]="true">
+    <ng-template pTemplate="caption">
+        <!-- <shared-date-range [startDate]="startDate" [endDate]="endDate" [loading]="loading"
+            (onRangeChange)="onRangeChange($event)" (onDateChange)="onDateChange($event)"></shared-date-range> -->
+        <div class="grid">
+            <div class="col-12 pb-0">
+                
+                <div style="display: flex; justify-content: end;">
+                    <span>
+                        <div class="dropdown">
+                            <button onclick="myFunction1()" class="dropbtn1">Export <i
+                                    class="pi pi-chevron-up"></i></button>
+                            <div id="myDropdown1" class="dropdown-content1">
+                                <div class="grid">
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/excel-icon.png" alt=""
+                                                width="20">
+                                            <p>Excel</p>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/pdf-icon.png" alt=""
+                                                width="20">
+                                            <p>Pdf</p>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/icons8-export-csv-80.png"
+                                                alt="" width="20">
+                                            <p>Csv</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </span>
+                    <!-- <div class="custom-in-box">
+                        <i title="Reset Filter" class="pi pi-times" (click)="resetDataTable(dt)"></i>
+                        <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                            (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                            class="search-input p-0" [(ngModel)]="filterVal" />
+                        <span (click)="dt.filterGlobal(filterGlobalValue, 'contains')">Search
+                        </span>
+                    </div> -->
+                    <div class="">
+                        <div class="dropdown">
+                            <button onclick="myFunction()" class="dropbtn" title="Filter"
+                                style="margin-top: 7px;margin-left: 8px;background: #99ca3c;">
+                                <img src="../../../assets/layout/images/filter-16.png" alt="">
+                            </button>
+                            <div id="myDropdown" class="dropdown-content" style="margin-top: 0;">
+                                <!-- <i onclick="myFunction()" class="fa fa-times close-bt"></i> -->
+                                <i onclick="myFunction()" class="fa fa-times close-bt-show-mb"></i>
+                                <div class="calender-box">
+                                    <shared-date-range [startDate]="startDate" [endDate]="endDate" [loading]="loading"
+                                        (onRangeChange)="onRangeChange($event)"
+                                        (onDateChange)="onDateChange($event)"></shared-date-range>
+                                </div>
+                                <!-- <div class="btun-box">
+                                       <ul class="left-list">
+                                           <li> <button>Today</button> </li>
+                                           <li> <button>Yesterday</button> </li>
+                                           <li> <button>Monthly</button> </li>
+                                           <li> <button>Total</button> </li>
+                                        </ul>
+                                   </div> -->
+    
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="search-wrapper mt-2">
+                        <div class="input-holder">
+                            <input type="text" class="search-input" placeholder="Type to search" [(ngModel)]="filterGlobalValue" (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')"/>
+                            <button class="search-icon" onclick="searchToggle(this, event);" (click)="dt.filterGlobal(filterGlobalValue, 'contains')"><span></span></button>
+                        </div>
+                        <span class="close" onclick="searchToggle(this, event);" (click)="resetDataTable(dt)"></span>
+                    </div> -->
+                    <div class="custom-in-box transaction-filter mt-2">
+                        <i title="Reset Filter" class="pi pi-times" (click)="resetDataTable(dt)"></i>
+                        <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                            (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                            class="search-input p-0 tran-search" />
+                        <span (click)="dt.filterGlobal(filterGlobalValue, 'contains')">Search
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="name">Name
+                <p-sortIcon field="name">
+                </p-sortIcon>
+            </th>
+            <!-- <th pSortableColumn="number">Number
+                <p-sortIcon field="number"></p-sortIcon>
+            </th> -->
+            <th pSortableColumn="standby_time">Standby Time
+                <p-sortIcon field="standby_time"></p-sortIcon>
+            </th>
+            <th pSortableColumn="running_time">Running Time
+                <p-sortIcon field="running_time"></p-sortIcon>
+            </th>
+            <!-- <th pSortableColumn="active">Active
+                <p-sortIcon field="active"></p-sortIcon>
+            </th> -->
+            <th pSortableColumn="created_at">Date
+                <p-sortIcon field="created_at"></p-sortIcon>
+            </th>
+            <th>Action</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-vehicleCompany let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="vehicleCompany" [pSelectableRowIndex]="rowIndex">
+            <td>
+                <p-tableCheckbox [value]="vehicleCompany"></p-tableCheckbox>
+            </td>
+            <td><span class="p-column-title">Name</span> {{vehicleCompany.name}}</td>
+            <!-- <td><span class="p-column-title">Number</span> {{vehicleCompany.number}}</td> -->
+            <td><span class="p-column-title">Standby Time</span> {{vehicleCompany.standby_time}}</td>
+            <td><span class="p-column-title">Running Time</span> {{vehicleCompany.running_time}}</td>
+            <!-- <td><span class="p-column-title">Active</span>
+                <button type="button" [ngClass]="setToggleClass(vehicleCompany.active)"
+                    (click)="toggleItem(vehicleCompany.id)" [disabled]="loading">
+                    {{vehicleCompany.active ? 'Active':'Deactive'}}
+                </button>
+            </td> -->
+            <td><span class="p-column-title">Date</span> {{vehicleCompany.created_at| date: "medium"}}</td>
+            <td style="text-align: center;" class="sm-jus-end">
+                <button type="button" class="btn btn-info edit-btn" (click)="formData(vehicleCompany.id)"> <i class="fa fa-pencil"></i> </button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <tr *ngIf="totalRecords == 0">
+            <td colspan="7" class="text-center">
+                <div>
+                    No vehicle companies right now
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+
+</p-table>
+</div>
+<p-toast></p-toast>

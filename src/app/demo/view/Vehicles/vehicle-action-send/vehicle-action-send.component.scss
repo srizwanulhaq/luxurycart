@@ -1,0 +1,63 @@
+.send-com-right {
+    .cross {
+        color: #3f3f3f;
+        border: 1px solid white;
+        height: 20px;
+        width: 20px;
+        text-align: center;
+        padding-top: 3px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        border-radius: 3px;
+        background: white;
+        cursor: pointer;
+    }
+    .tit {
+        font-weight: 700;
+        span {
+            border-bottom: 2px solid white;
+        }
+    }
+    .tiles-area {
+        // display: flex;
+        // flex-direction: column;
+        .item {
+            button {
+                width: 48%;
+                float: left;
+                font-size: 12px;
+                background: #505050;
+                border: 0;
+                height: 50px;
+                border-radius: 0px;
+                color: white;
+                cursor: pointer;
+                border: 1px solid #ffffff0f;
+                padding: 5px;
+                margin: 3px;
+                transition: 0.5s;
+                border-radius: 3px;
+                &:hover {
+                    background: #767272;
+                    transition: 0.5s;
+                }
+            }
+            .button {
+                width: 48%;
+                float: left;
+                width: 48%;
+                float: left;
+                margin: 0px 3px;
+            }
+        }
+        select {
+            padding: 7px;
+            width: 100%;
+            border-radius: 4px;
+            margin: 8px 0px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+    }
+}

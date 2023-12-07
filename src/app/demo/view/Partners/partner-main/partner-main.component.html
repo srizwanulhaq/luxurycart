@@ -1,0 +1,12 @@
+<div class="col-12">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <div class="card component-main-card">
+                <app-partner-details [details]="partner"></app-partner-details>
+                <app-partner-create (eventChange)="onChange($event)"></app-partner-create>
+                <app-partner-list [event]="event"></app-partner-list>
+
+            </div>
+        </div>
+    </div>
+</div>

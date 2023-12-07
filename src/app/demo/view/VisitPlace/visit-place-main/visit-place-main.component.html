@@ -1,0 +1,11 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card component-main-card">
+            <app-visit-place-create (eventChange)="onChange($event)"></app-visit-place-create>
+            <app-visit-place-list [event]="event"></app-visit-place-list>
+            <app-visit-place-details [details]="place" (eventChange)="onChange($event)"></app-visit-place-details>
+            <app-visit-place-edit  [editPlaceData]="editPlace"
+            (eventChange)="onChange($event)"></app-visit-place-edit>
+        </div>
+    </div>
+</div>

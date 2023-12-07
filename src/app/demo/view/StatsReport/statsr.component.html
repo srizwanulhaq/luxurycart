@@ -1,0 +1,267 @@
+<div class="col-12">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <div class="card component-main-card">
+                <div class="bread-container">
+                    <div class="left-box" style="width: 100%;">
+                        <h4>
+                            <span>
+                                Stats Report {{type=="simple"? "Simple":"Quarterly" }}
+                            </span>
+                        </h4>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="md:col-4 col-12">
+                       
+                    </div>
+       
+                    
+                    <div class="md:col-8 text-right col-12 centent-tab-center">
+                        <div style="display: flex; justify-content: end;margin-top: 9px;">
+                            <span class="btn-left-box">
+                                <div class="dropdown" style="margin-top: 0;">
+                                    <button onclick="myFunction1()" class="dropbtn1" style="margin-top: 0;background: #99ca3c;">Export <i
+                                            class="pi pi-chevron-up"></i></button>
+                                    <div id="myDropdown1" class="dropdown-content1">
+                                        <div class="grid">
+                                            <div class="md:col-4 col-4">
+                                                <div class="export-item">
+                                                    <img src="../../../../../assets/layout/images/excel-icon.png" alt=""
+                                                        width="20">
+                                                    <p>Excel</p>
+                                                </div>
+                                            </div>
+                                            <div class="md:col-4 col-4">
+                                                <div class="export-item">
+                                                    <img src="../../../../../assets/layout/images/pdf-icon.png" alt=""
+                                                        width="20">
+                                                    <p>Pdf</p>
+                                                </div>
+                                            </div>
+                                            <div class="md:col-4 col-4">
+                                                <div class="export-item">
+                                                    <img src="../../../../../assets/layout/images/icons8-export-csv-80.png"
+                                                        alt="" width="20">
+                                                    <p>Csv</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                
+                                    </div>
+                                </div>
+                            </span>
+                          
+                            <div class="">
+                                <div class="dropdown" >
+                                    <button onclick="myFunction()" class="dropbtn" title="Filter" style="margin-top: 0; background: #99ca3c;">
+                                       <img src="../../../assets/layout/images/filter-16.png" alt="">
+                                   </button>
+                                      <div id="myDropdown" class="dropdown-content" style="margin-top: 0;">
+                                       <!-- <i onclick="myFunction()" class="fa fa-times close-bt"></i> -->
+                                      
+                                       <div class="grid">
+                                        <div class="calender-box">
+                                            <div class="grid">
+                                                <div class="md:col-6">
+                                                    <p-calendar id="dashboard-pic"
+                                                        [inline]="true" [readonlyInput]="true" ></p-calendar>
+    
+                                                </div>
+                                                <div class="md:col-6">
+                                                    <p-calendar id="dashboard-pic" 
+                                                        [inline]="true" [readonlyInput]="true"></p-calendar>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="btun-box">
+                                            <ul class="left-list">
+                                                <li> <button>Yesterday</button> </li>
+                                                <li> <button>Month</button> </li>
+                                                <li> <button>Year</button> </li>
+                                                <li> <button>Total</button> </li>
+                                                <!-- <li> <button>Zone</button> </li>
+                                                <li> <button>Transactions</button> </li> -->
+                                                <!-- <li> <button  (click)="previousWeekData()">Cutome Range</button> </li> -->
+                                            </ul>
+                                        </div>
+    
+                                    </div>
+                                           <!-- <div class="btun-box">
+                                               <ul class="left-list">
+                                                   <li> <button>Today</button> </li>
+                                                   <li> <button>Yesterday</button> </li>
+                                                   <li> <button>Monthly</button> </li>
+                                                   <li> <button>Total</button> </li>
+                                                </ul>
+                                           </div> -->
+                                       
+                                      </div>
+                                    </div>
+                            </div>
+                            <!-- <div id="serch-ani">
+                                <div class="it-box" style="margin-top: 0;">
+                                    <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                                    (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here" style="background: #99ca3c;" />
+                                    <span class="search" style="background: #99ca3c;">
+                                        (click)="dt.filterGlobal(filterGlobalValue, 'contains')"
+                                      <i class="pi pi-search search-icon" ></i>
+                                    </span>
+                                    <i class="pi pi-times close-icon" (click)="resetDataTable(dt)"></i>
+                                  </div>
+                            </div> -->
+        
+                            <!-- <div class="search-wrapper">
+                                <div class="input-holder">
+                                    <input type="text" class="search-input" placeholder="Type to search" />
+                                    <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
+                                </div>
+                                <span class="close" onclick="searchToggle(this, event);" ></span>
+                            </div> -->
+        
+                            <!-- <div class="custom-in-box transaction-filter mt-2">
+                                <i title="Reset Filter" class="pi pi-times" (click)="resetDataTable(dt)"></i>
+                                <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                                    (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                                    class="search-input p-0 tran-search" />
+                                <span (click)="dt.filterGlobal(filterGlobalValue, 'contains')">Search
+                                </span>
+                            </div> -->
+        
+                        </div>
+        
+                        <!-- <div style="display: flex; justify-content: end;" class="searc-b ride-search-b">
+                            <button class="end-ride-btn" type="button" (click)="onRidesEndRecentLoc()" *ngIf="showEndBtn" [disabled]="loading">End
+                                Rides</button>
+                            
+                            <div class="custom-in-box">
+                                <i title="Reset Filter" class="pi pi-times" (click)="resetDataTable(dt)"></i>
+                                <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                                    (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                                    class="search-input p-0" />
+                                <span (click)="dt.filterGlobal(filterGlobalValue, 'contains')">Search
+                                </span>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+    
+                <h4 class="next-haeding" *ngIf="selectedTab=='zone'"><span>Select Month/Year to see Zone wise Revenue
+                        (Select Zone With Below
+                        Filter)</span></h4>
+                <div class="col-12 grid" *ngIf="!loading">
+                    <ng-container *ngIf="type=='simple'">
+                        <div class="md:col-4 col-6">
+                            <h6>Year</h6>
+                            <p-dropdown class="state-dr" id="year" [options]="years" [(ngModel)]="year" [filter]="false"
+                                (onChange)="changeRange($event, 'year')" placeholder="Select a year">
+                            </p-dropdown>
+    
+    
+                        </div>
+                        <div class="md:col-4 col-6">
+                            <h6>Month</h6>
+                            <p-dropdown class="state-dr" id="months" [options]="months" [(ngModel)]="month" [filter]="false"
+                                (onChange)="changeRange($event, 'month')" placeholder="Select a Month">
+                            </p-dropdown>
+                            <!-- <div class="month-card"> -->
+    
+                            <!-- <button type="button" [ngClass]="{'active-month': m.value== month}"
+                                    class="btn btn-link px-2" *ngFor="let m of months"
+                                    (click)="changeRange({type:'month',value:m.value})"
+                                    [disabled]="(loading || m.value == month)">{{
+                                    m.label
+                                    }}</button>  -->
+                            <!-- </div> -->
+                        </div>
+                        <div class="md:col-2 col-6 text-right">
+                            <button class="p-button-text theme-btn mt-4 states-btn w-100 rest-btn" type="button"
+                                (click)="resetRange()"
+                                [disabled]="month == currentDate.getMonth() + 1 && year == currentDate.getFullYear()">Reset</button>
+                        </div>
+                        <div class="md:col-2" *ngIf="this.selectedTab == 'zone'">
+                            <button class="p-button-text theme-btn mt-4 states-btn rest-btn w-100" type="button"
+                                (click)="generateReport()" *ngIf="showReportBtn();else note" [disabled]="loading">Generate
+                                Report</button>
+                            <ng-template #note>
+                                <p style="color: red;font-size: 12px;text-align: center;"> <b>Note:</b> Select Month to get
+                                    the monthly revenue sheet or No data available for selected month yet.</p>
+                            </ng-template>
+                        </div>
+                    </ng-container>
+    
+    
+    
+                </div>
+    
+    
+                <p-tabView (onChange)="changeTab($event)">
+                    <div class="md:col-12 col-12">
+                        <h6 class="mt-2">Date Range</h6>
+                        <p-calendar class="state-in" id="date-range" [(ngModel)]="dateRange" selectionMode="range"
+                            [readonlyInput]="true" (ngModelChange)="changeRange($event)" [inline]="true">
+                        </p-calendar>
+                    </div>
+                    <p-tabPanel [header]="splitCapitalize(tab)" *ngFor="let tab of tabs">
+                        <div class="grid" *ngIf="!!reports[tab]">
+                            <div class="col-12" *ngIf="reports[tab]['stats'].length>0">
+                                <div class="grid mt-3 mb-3">
+                                    <div class="md:col-3 col-6" *ngFor="let stat of reports[tab]['stats']">
+                                        <div class="chat-small-card">
+                                            <h5>{{ stat.title }}</h5>
+                                            <ng-container *ngIf="type=='quarterly';else simpleStats">
+                                                <div *ngFor="let subStat of stat.data">
+                                                    <strong>{{ subStat.title }}</strong> {{ subStat.data }}
+                                                </div>
+                                            </ng-container>
+                                            <ng-template #simpleStats>
+                                                <h6>{{ stat.data }}</h6>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12" *ngIf="reports[tab]['graphs'].length>0">
+                                <div class="grid">
+                                    <div class="col-12" *ngFor="let graph of reports[tab]['graphs']">
+                                        <div class="chart-card">
+                                            <canvasjs-chart [options]="graph"></canvasjs-chart>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12" *ngIf="reports[tab]['tables'].length>0">
+                                <div class="grid">
+                                    <div class="col-12" *ngFor="let table of reports[tab]['tables']">
+                                        <div class="chart-card">
+                                            <h5>{{ table.title }}</h5>
+                                            <p-table [value]="table.data" [paginator]="true" [rows]="10"
+                                                [showCurrentPageReport]="true"
+                                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                                [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="table.columns">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                        <th *ngFor="let column of table.columns" [pSortableColumn]="column">
+                                                            {{ splitCapitalize(column) + (column=="age"?" (Days)":"")
+                                                            }}<p-sortIcon [field]="column"></p-sortIcon></th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-data>
+                                                    <tr>
+                                                        <td *ngFor="let column of table.columns">
+                                                            {{setTableBodyData(data[column])}}
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-tabPanel>
+                </p-tabView>
+            </div>
+        </div>
+    </div>
+</div>

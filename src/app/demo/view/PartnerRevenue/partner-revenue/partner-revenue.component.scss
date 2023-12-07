@@ -1,0 +1,35 @@
+.rev-table{
+    width: 100%;
+    /* border: 3px solid #80808030; */
+    border-radius: 8px;
+    box-shadow: 1px 1px 9px 2px #00000030;
+    th{
+        padding: 17px;
+        background: #cdcdcd70;
+        color: black;
+        text-align: center;
+    }
+    td{
+        padding: 17px;
+        text-align: center;
+    }
+}
+.report-main{
+    border-radius: 6px;
+    padding: 30px;
+    box-shadow: inset 0px 0px 8px 1px #00000073;
+    margin-top: 20px;
+    overflow-x: scroll;
+}
+.chart-card-bg ul {
+    position: absolute;
+    transform: rotate(-90deg);
+    left: -42px;
+    top: -13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    li{
+        font-size: 20px;
+    }
+}

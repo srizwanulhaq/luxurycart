@@ -1,0 +1,11 @@
+<div class="col-12">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <div class="card component-main-card">
+                <app-country-create (eventChange)="onChange($event)"></app-country-create>
+                <app-country-list [event]="event"></app-country-list>
+                <app-country-edit [editCountryData]="editCountryData" (eventChange)="onChange($event)"></app-country-edit>
+            </div>
+        </div>
+    </div>    
+</div>

@@ -1,0 +1,533 @@
+.p-dialog-content {
+    overflow-y: initial !important;
+}
+
+
+/* //---------for customers.component.html--start--- */
+
+section#Customers-sections .p-datatable .p-datatable-thead>tr>th {
+    font-weight: 400;
+    font-size: 16px;
+}
+
+:host ::ng-deep section#Customers-sections .p-datatable .p-datatable-tbody>tr>td {
+    font-size: 14px;
+}
+
+:host ::ng-deep section#Customers-sections .p-datatable table {
+    width: 104%;
+}
+
+:host ::ng-deep section#Customers-sections .card {
+    padding: 2%;
+}
+
+:host ::ng-deep section#Customers-sections .p-fluid .p-dropdown .p-dropdown-label {
+    width: 1%;
+    padding: 2%;
+}
+
+:host ::ng-deep section#Customers-sections .ng-tns-c5-2.p-dropdown.p-component {
+    height: 30px;
+}
+
+:host ::ng-deep section#Customers-sections span.p-button-label {
+    font-size: 12px;
+}
+
+:host ::ng-deep section#Customers-sections button.p-button.p-component.p-ripple {
+    padding: 6px;
+    margin-left: 0.4rem;
+}
+
+:host ::ng-deep section#Customers-sections .p-datatable .p-datatable-tbody>tr>td {
+    padding: 0.3rem 1rem;
+}
+
+:host ::ng-deep section#Customers-sections .p-datatable .p-datatable-thead>tr>th {
+    text-align: left;
+    padding: 0.7rem 1rem;
+    font-size: 14px;
+}
+
+
+/* -----for delete pop  css start--- */
+
+:host ::ng-deep .p-dialog .p-dialog-header {
+    // padding: 0.5rem;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header .p-dialog-title {
+    font-weight: 600;
+    // font-size: 1rem;
+}
+
+:host ::ng-deep .p-dialog.p-confirm-dialog .p-confirm-dialog-icon {
+    font-size: 1rem;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-footer {
+    border-top: 0 none;
+    background: #ffffff;
+    color: #495057;
+    padding: 0 0.5rem 0.5rem 1.5rem;
+    text-align: right;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+:host ::ng-deep section#Customers-sections .date-range-style .p-dialog .p-dialog-content {
+    background: #ffffff;
+    color: #495057;
+    padding: 0 1.5rem 1rem 1.5rem;
+    height: 382px;
+}
+
+:host ::ng-deep section#Customers-sections .ng-trigger.ng-trigger-overlayAnimation.ng-tns-c8-5.p-datepicker.p-component.ng-star-inserted {
+    top: -82.5px !important;
+}
+
+:host ::ng-deep section#Customers-sections .date-range-style .ng-tns-c7-4.p-dialog.p-component.p-dialog-draggable.p-dialog-resizable.ng-star-inserted {
+    height: 30rem;
+}
+
+:host ::ng-deep i.ng-tns-c4-2.pi.pi-info-circle.p-confirm-dialog-icon.ng-star-inserted {
+    font-size: 1rem;
+}
+
+:host ::ng-deep form.customer-charge-form input#txtchargeAmount {
+    padding: 12px;
+}
+
+:host ::ng-deep form.customer-charge-form input#txtbonusAmount {
+    padding: 12px;
+}
+
+:host ::ng-deep form.customer-charge-form input#txtwalletAmount {
+    padding: 12px;
+}
+
+
+/* -----for delete pop  css end----- */
+
+:host ::ng-deep section#Customers-sections button.p-button.p-component.p-ripple {
+    padding: 6px;
+    margin-left: 0.4rem;
+}
+
+:host ::ng-deep section#Customers-sections .p-fluid .p-button {
+    width: auto;
+    font-size: 14px;
+    max-height: 30px;
+}
+
+:host ::ng-deep section#Customers-sections .p-fluid .p-button .p-button-icon-left {
+    font-size: 14px;
+}
+
+:host ::ng-deep section#Customers-sections div.action-link {
+    display: flex;
+}
+
+
+/* //---------for customers.component.html--end--- */
+
+
+/* //----------custome css-----------------------//
+// ===Intl tel input css start=====//
+//----------------------------------// */
+
+:host ::ng-deep .dropdown-menu.country-dropdown.show.ng-star-inserted {
+    width: 25.8rem;
+}
+
+button i.fa.fa-eye {
+    /* background-color: black !important; */
+    color: yellow !important;
+    border: 0 !important;
+}
+
+button:hover i.fa.fa-eye {
+    /* background-color: black !important; */
+    color: #000 !important;
+    border: 0 !important;
+}
+
+:host ::ng-deep .iti.iti--allow-dropdown {
+    width: 100%;
+}
+
+
+/* //----------custome css-----------------------//
+// ===Intl tel input css start=====//
+//----------------------------------// */
+
+
+/* // ===Customer Alert css start=====// 
+//----------------------------------// */
+
+:host ::ng-deep textarea#txtarabic_Message,
+:host ::ng-deep textarea#txteng_Message {
+    resize: none;
+}
+
+:host ::ng-deep .p-dropdown.p-component {
+    width: 100%;
+}
+
+:host ::ng-deep input.p-dropdown-filter.p-inputtext.p-component {
+    width: 100%;
+}
+
+:host ::ng-deep .ng-trigger.ng-trigger-overlayAnimation.ng-tns-c7-5.p-multiselect-panel.p-component.ng-star-inserted {
+    width: 100%;
+}
+
+:host ::ng-deep input.p-multiselect-filter.p-inputtext.p-component {
+    width: 100%;
+}
+
+:host ::ng-deep .p-multiselect {
+    min-width: 25.7rem;
+    height: 2rem;
+}
+
+:host ::ng-deep .multiselect-custom-virtual-scroll .p-multiselect {
+    min-width: 20rem;
+}
+
+:host ::ng-deep .p-multiselect {
+    min-width: 38.7rem;
+    height: 2rem;
+}
+
+
+/* // ===Customer Alert css end=======// 
+//----------------------------------// */
+
+
+/* //---------------------QR Scanner task start----- -- */
+
+zxing-scanner {
+    max-width: 100%;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    padding: 10px;
+    background: #333;
+}
+
+header select {
+    --color: #aaa;
+    width: 100%;
+    padding: 15px;
+    border-radius: 5px;
+    background: none;
+    border: 2px solid var(--color);
+    color: var(--color);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+header select option {
+    padding: 10px;
+    line-height: 2;
+    background: #474747;
+    color: #fff;
+}
+
+.results {
+    position: sticky;
+    bottom: 0;
+    padding: 15px;
+    background: #02c3c3;
+    color: #fff;
+}
+
+.results small {
+    font-weight: bolder;
+    display: block;
+    font-size: 60%;
+    margin: -.6em 0 0 0;
+}
+
+footer {
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer .table-scanner-state thead {
+    display: none;
+}
+
+footer .ng-version {
+    color: #ff6687;
+}
+
+.iti.iti--allow-dropdown {
+    width: 100%;
+}
+
+
+/* //---------------------QR Scanner task end------- -- */
+
+
+
+
+
+
+
+
+
+//style
+// custom import dropdown
+// .dropdown {
+//     background: #99ca3c;
+//     color: #ffffff;
+//     cursor: pointer;
+//     height: 42px;
+//     line-height: 42px;
+//     position: relative;
+//     width: max-content;
+//     text-align: center;
+//     text-decoration: none;
+//     z-index: 1;
+//     transform: perspective(100px);
+//     padding: 0px 14px;
+//     border-radius: 6px;
+//     margin-top: 7px;
+//     border: 1px solid #89898938;
+//     .pi-chevron-up {
+//         margin-left: 15px;
+//     }
+// }
+
+.dropdown-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 26px;
+    opacity: 0;
+    text-align: center;
+    top: -100px !important;
+    visibility: hidden;
+    z-index: -99999;
+    transition: 0.5;
+    span {
+        margin: 10px;
+    }
+}
+
+.dropdown-menu li:first-child {
+    cursor: default;
+}
+
+.dropdown-menu a {
+    color: #000;
+    display: inline-block;
+    width: 100%;
+    text-decoration: none;
+    -webkit-transition: all 1s;
+    transition: all 1s;
+}
+
+.dropdown-menu a:hover {
+    background: #99ca3c;
+    color: #fff;
+    border-radius: 6px;
+}
+
+.dropdown:hover .dropdown-menu {
+    background: #99ca3c;
+    opacity: 1;
+    visibility: visible;
+    top: 100%;
+    width: 100%;
+    box-shadow: 0px 0px 4px 2px #0000000d;
+    border-radius: 5px;
+    height: 90px;
+    width: 110px;
+    border-radius: 9%;
+    padding-top: 7px;
+    &::before {
+        content: "";
+        position: absolute;
+        height: 20px;
+        width: 20px;
+        background: #99ca3c;
+        bottom: -5px;
+        transform: rotate(59deg);
+        left: 0;
+        right: 0;
+        margin: auto;
+        transition: all 0.5s, background 2s 0.5s linear;
+    }
+}
+.action-btn {
+    height: 28px;
+    background: white;
+    width: 28px;
+    color: #99ca3c;
+    text-align: center;
+    border-radius: 50%;
+    line-height: 1.6;
+    font-size: 18px;
+    border: 3px solid #99ca3c;
+    cursor: pointer;
+    padding: 3px;
+}
+#Myid {
+    display: none;
+}
+#Myid {
+    position: absolute;
+    top: 35px;
+    height: auto;
+    width: auto;
+    background: white;
+    box-shadow: rgb(0 0 0 / 12%) 0px 0px 11px 2px;
+    padding: 5px 20px;
+    border-radius: 5px;
+    min-width: 130px;
+    right: 0;
+    z-index: 1;
+    padding: 0;
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        border-radius: 12px;
+        li {
+            padding: 15px 17px;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.5s;
+            // border-radius: 12px;
+            color: #99ca3c;
+            font-size: 15px;
+            font-weight: 600;
+            &:hover {
+                background: #99ca3c !important;
+                color: white;
+                transition: 0.5s;
+                border-radius: 6px;
+
+            }
+        }
+    }
+}
+
+//   table dropdown
+
+
+
+// export dropdown
+
+.dropbtn1 {
+    background: #99ca3c;
+    color: #ffffff;
+    cursor: pointer;
+    height: 42px;
+    line-height: 42px;
+    position: relative;
+    width: max-content;
+    text-align: center;
+    text-decoration: none;
+    z-index: 1;
+    transform: perspective(100px);
+    padding: 0px 14px;
+    border-radius: 6px;
+    margin-top: 7px;
+    border: 1px solid #89898938;
+    font-weight: 900;
+    border: 0;
+}
+
+.dropbtn1:hover,
+.dropbtn1:focus {
+    background-color: #99ca3c;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content1 {
+    display: none;
+    position: absolute;
+    background-color: #99ca3c;
+    min-width: 200px;
+    overflow: visible;
+    box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 10%);
+    z-index: 9999;
+    top: -86px;
+    border-radius: 6px;
+    padding: 15px;
+    padding-bottom: 7px;
+
+    &::before {
+        content: "";
+        content: "";
+        position: absolute;
+        height: 16px;
+        width: 20px;
+        background: #99ca3c;
+        bottom: -6px;
+        transform: rotate(52deg);
+        left: 0;
+        right: 0;
+        margin: auto;
+        transition: all 0.5s, background 2s 0.5s linear;
+    }
+    .export-item {
+        text-align: center;
+        border: 1px solid #ffffff61;
+        padding: 5px 0px;
+        border-radius: 4px;
+        cursor: pointer;
+        p {
+            font-size: 11px;
+            color: white;
+        }
+    }
+}
+
+.dropdown-content1 a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {
+    background-color: #ddd;
+}
+
+.show {
+    display: block;
+}
+
+
+.it-box{
+    ::placeholder{
+        color: white;
+    }
+}
+// mobileSize
+@media only screen and (max-width: 480px) and (min-width: 320px) {
+    .custom-in-box{
+        width: 100%;
+        margin-left: 0;
+        margin-top: 16px;
+    }
+}
+/// //////////////////////////  End reponsive ********************
+////////////////////////// ********************
+

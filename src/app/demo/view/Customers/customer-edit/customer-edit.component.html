@@ -1,0 +1,35 @@
+<p-toast></p-toast>
+<form #f="ngForm" (ngSubmit)="onSubmitCustomerReg()" [formGroup]="customerRegisterForm">
+    <p-dialog class="Add-New-Form" header="Update Customer" [(visible)]="main.editPanelActive" [style]="{width: '550px'}" [baseZIndex]="10000" class="p-fluid" [dismissableMask]="true" [modal]="true">
+        <ng-template pTemplate="content">
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label>Full Name <span class="star-sign">*</span></label>
+                    <input type="text" name="fullName" formControlName="fullName" pInputText placeholder="Full Name" required autofocus [ngClass]="{'ng-invalid ng-dirty' : regsubmitted}" />
+                    <small style="color:red;" class="ng-dirty ng-invalid" *ngIf="customerRegisterForm.controls.fullName.errors?.pattern">Please valid fullname!</small>
+                </div>
+                <div class="field col">
+                    <label>Email <span class="star-sign">*</span></label>
+                    <input type="email" formControlName="email" class="form-control" name="email" pInputText placeholder="Email" required autofocus [ngClass]="{'ng-invalid ng-dirty' : regsubmitted}" />
+                    <small style="color:red;" class="ng-dirty ng-invalid" *ngIf="customerRegisterForm.controls.email.errors?.pattern">Please valid email!</small>
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label>Phone Number <span class="star-sign">*</span></label><br />
+                    <ngx-intl-tel-input [cssClass]="'custom'" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true" [searchCountryField]="[
+                              SearchCountryField.Iso2,
+                              SearchCountryField.Name
+                            ]" [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.SaudiArabia" [maxLength]="15" [phoneValidation]="true" [separateDialCode]="separateDialCode" [numberFormat]="PhoneNumberFormat.National" name="phone" formControlName="phone">
+                    </ngx-intl-tel-input>
+                </div>
+
+            </div>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Update" [disabled]="!customerRegisterForm.valid" class="add-new-btn theme-btn">
+                <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}" styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+            </button>
+        </ng-template>
+    </p-dialog>
+</form>

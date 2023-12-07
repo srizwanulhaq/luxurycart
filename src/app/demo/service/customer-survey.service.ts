@@ -1,0 +1,47 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { VehicleTypeDropdown } from '../domain/Dto/CustomerSurvey/vehicle-type-dropdown';
+import { AddCustomerSurvey } from '../domain/Dto/CustomerSurvey/add-customer-survey';
+import { CustomerSurveyListResp } from '../domain/Dao/CustomerSurvey/CustomerSurveyDao';
+
+@Injectable({
+    providedIn: 'root'
+})
+export class CustomerSurveyService {
+
+    constructor(private http: HttpClient) { }
+
+
+    loadVehicleTypes() {
+        return this.http.get(`${environment.apiUrl}/api/v1/AdminCustomerSurvey/dropdowns/Vehcile_types`)
+            .toPromise()
+            .then(res => res as VehicleTypeDropdown)
+            .then(data => data.result);
+    }
+
+    saveVehicle(survey: AddCustomerSurvey) {
+        return this.http.post<any>(`${environment.apiUrl}/api/v1/AdminCustomerSurvey/save`, survey);
+    }
+
+    getSurveys(
+        pageIndex: number,
+        pageSize: number,
+        globalFilter: string,
+        sortField: string,
+        sortOrder: number,
+        dateRangeStr: string
+    ) {
+        sortField = sortField == undefined ? '' : sortField
+        globalFilter = globalFilter == null ? '' : globalFilter
+        return this.http.get<any>(`${environment.apiUrl}/api/v1/AdminCustomerSurvey/surveys/list?pageSize=${pageSize}&PageNumber=${pageIndex}&sortField=${sortField}&sortOrder=${sortOrder}&globalFilter=${globalFilter}${dateRangeStr}`, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            })
+        })
+            .toPromise()
+            .then(res => res as CustomerSurveyListResp)
+            .then(data => data.data);
+    }
+}

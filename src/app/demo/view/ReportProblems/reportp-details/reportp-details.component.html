@@ -1,0 +1,143 @@
+<p-sidebar *ngIf="!!details" [(visible)]="main.rightPanelActive" position="bottom" [baseZIndex]="10000">
+    <p-tabView id="detail-tabbing">
+        <div class="head-row">
+            <h6 class="panel-parent-heading"><span>Customer: {{ details.customers.fullName }}</span></h6>
+            <div class="btn-right-box">
+                <h6>Date : {{ details.created_at | date: "medium" }}</h6>
+                <a target="_blank" [href]="'https://www.google.com/maps/search/?api=1&query='+details.latitude+','+details.longitude"
+                    *ngIf="details.latitude>0;else invalidData">Current
+                    Location</a>
+                <ng-template #invalidData>No data found</ng-template>
+            </div>
+        </div>
+        <p-tabPanel header="Reported Info">
+           
+
+            <div class="grid rep-main">
+                <div class="md:col-4 col-12">
+                    <h6 class="head">Info</h6>
+                    <div class="left-cont">
+                        <h6>Mobile Brand : {{ details.brand }}</h6>
+                        <h6>Model : {{ details.model_Number }}</h6>
+                        <h6>Os Version : {{ details.oS_Version }}</h6>
+                    </div>
+                </div>
+                <div class="md:col-4 col-12">
+                    <h6 class="head">Image</h6>
+                    <img [src]="details.image" alt="" width="50" />
+                </div>
+                <div class="md:col-4 col-12">
+                    <h6 class="head">Description</h6>
+                    <p class="des-p">
+                        {{ details.problem_Desc }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- <div class="submenu-content settings">
+                <div class="grid">
+                    <div class="history-settings col-6">
+                        <i class="pi pi-bell"></i>
+                        <span>Date</span> {{ details.created_at | date: "medium" }}
+                    </div>
+                    <div class="sales-settings col-6">
+                        <i class="pi pi-car"></i>
+                        <span>Description: </span> {{ details.problem_Desc }}
+                    </div>
+                    <div class="shipment-settings col-6">
+                        <i class="pi pi-shield"></i>
+                        <span>Brand</span> {{ details.brand }}
+                    </div>
+                    <div class="shipment-settings col-6">
+                        <i class="pi pi-shield"></i>
+                        <span>Model Number</span> {{ details.model_Number }}
+                    </div>
+                    <div class="shipment-settings col-6">
+                        <i class="pi pi-shield"></i>
+                        <span>OS Version</span> {{ details.oS_Version }}
+                    </div>
+                    <div class="shipment-settings col-6" *ngIf="!!details.image">
+                        <i class="pi pi-shield"></i>
+                        <span>Image</span>
+                        <a href="http://google.com" target="_blank">
+                            <img [src]="details.image" [alt]="details.id" />
+                        </a>
+                    </div>
+                </div>
+            </div> -->
+        </p-tabPanel>
+
+        <p-tabPanel header="Cutomer Info">
+            <!-- <div class="submenu-title">
+                <span>Customer</span>
+            </div> -->
+            <div class="cus1-main">
+                <div class="us-main">
+                    <div class="background">
+                    </div>
+                    <div class="profile-card">
+                        <div class="cover">
+                        </div>
+                        <div class="profile">
+                            <div class="pic">
+                            </div>
+                            <div class="above-fold">
+                                <div class="name"> <i style="color: #646464 !important;" class="fa fa-user"></i>
+                                    {{details.customers.fullName}}</div>
+                                <div class="role"> <i style="color: #646464 !important;" class="fa fa-envelope"></i>
+                                    {{details.email}}</div>
+                                <div class="location">
+                                    <i style="color: #646464 !important;"
+                                        class="fa fa-phone"></i>{{details.phoneNumber}}
+                                </div>
+                                <div class="role"><i style="color: #646464 !important;"
+                                        class="fa fa-calendar"></i>{{details.customers.created_at | date:'medium' }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="us-det">
+                    <table [cellSpacing]="0">
+                        <tr>
+                            <th>Total Problems Reported</th>
+                            <th>Last Problem Reported</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{ details.total_Customer_Problem }}
+                            </td>
+                            <td>
+                                <button type="button" class="view-btn" (click)="main.onLastRp(details.last_Report_Id)">View</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </p-tabPanel>
+        <!-- <p-tabPanel header="Stats">
+            <div class="main-row">
+        
+                <div class="sales-settings card-main">
+                    <h6><span>Total Problems Reported </span> </h6>
+                    <img src="assets/layout/images/status.png" alt="" width="40">
+                    <h6 class="count">221</h6>
+                </div>
+                <div class="shipment-settings card-main">
+                    <h6><span>Zoproblems Reported On Androidne</span> </h6>
+                    <img src="assets/layout/images/and.png" alt="" width="40">
+                    <h6 class="count">154 </h6>
+                </div>
+                <div class="history-settings card-main">
+                    <h6><span>Problems Reported On Apple</span></h6>
+                    <img src="assets/layout/images/ios.png" alt="" width="40">
+                    <h6 class="count">554 </h6>
+                </div>
+
+
+
+            </div>
+        </p-tabPanel> -->
+    </p-tabView>
+</p-sidebar>

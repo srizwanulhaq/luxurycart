@@ -1,0 +1,271 @@
+<div  class="lodi">
+    <div *ngIf="loading" class="lodi-child">
+        <div class="custom-loader"></div>
+    </div>
+<p-table id="rides-table" #dt [value]="rides" [columns]="cols" [(selection)]="selectedRides" [lazy]="true"
+    (onLazyLoad)="loadRides($event)" [totalRecords]="totalRecords" [rows]="10" [paginator]="true"
+    [rowsPerPageOptions]="rowsPerPageOptions" [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple"
+    [rowHover]="true" dataKey="id" stateStorage="local" stateKey="ridesListDAO-local" (onRowSelect)="onToggleEndBtn()"
+    (onRowUnselect)="onToggleEndBtn()" (onHeaderCheckboxToggle)="onToggleEndBtn()">
+    <ng-template pTemplate="caption">
+        
+        <div class="grid">
+            <div class="md:col-4 col-12 show-mob">
+                <span class="tab-parent-box">
+                    <span>
+                        <p-tabView (onChange)="statusChanged($event)" id="ride-status-tab-mobile">
+                            <ng-container *ngFor="let status of statuses;">
+                                <span class="active-count-span"
+                                    *ngIf="status.label=='Active'">{{activeRidecount}}</span>
+                                <p-tabPanel [header]="status.label" [selected]="selectedStatus==status.value">
+                                </p-tabPanel>
+                            </ng-container>
+                        </p-tabView>
+                    </span>
+                </span>
+            </div>
+            <div class="md:col-4 col-12 show-desktop" style="position: relative;">
+                <span class="">
+                    <span>
+                        <p-tabView (onChange)="statusChanged($event)" id="status-tab">
+                            <ng-container *ngFor="let status of statuses;">
+                                <span class="active-count-span"
+                                    *ngIf="status.label=='Active'">{{activeRidecount}}</span>
+                                <p-tabPanel [header]="status.label.replace('_',' ')"
+                                    [selected]="selectedStatus==status.value">
+                                </p-tabPanel>
+                            </ng-container>
+                        </p-tabView>
+                    </span>
+                </span>
+            </div>
+            
+            <div class="md:col-8 text-right col-12 centent-tab-center">
+                
+                <div style="display: flex; justify-content: end;margin-top: 9px;">
+                    <button class="end-ride-btn" type="button" (click)="onRidesEndRecentLoc()" *ngIf="showEndBtn" [disabled]="loading">End
+                        Rides
+                    </button>
+                    <span class="btn-left-box">
+                        <div class="dropdown" style="margin-top: 0;">
+                            <button onclick="myFunction1()" class="dropbtn1" style="margin-top: 0;background: #99ca3c;">Export <i
+                                    class="pi pi-chevron-up"></i></button>
+                            <div id="myDropdown1" class="dropdown-content1">
+                                <div class="grid">
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/excel-icon.png" alt=""
+                                                width="20">
+                                            <p>Excel</p>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/pdf-icon.png" alt=""
+                                                width="20">
+                                            <p>Pdf</p>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-4 col-4">
+                                        <div class="export-item">
+                                            <img src="../../../../../assets/layout/images/icons8-export-csv-80.png"
+                                                alt="" width="20">
+                                            <p>Csv</p>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                            </div>
+                        </div>
+                    </span>
+                  
+                    <div class="">
+                        <div class="dropdown" >
+                            <button onclick="myFunction()" class="dropbtn" title="Filter" style="margin-top: 0; background: #99ca3c;">
+                               <img src="../../../assets/layout/images/filter-16.png" alt="">
+                           </button>
+                              <div id="myDropdown" class="dropdown-content" style="margin-top: 0;">
+                               <i onclick="myFunction()" class="fa fa-times close-bt-show-mb"></i>
+                              
+                                   <div class="calender-box">
+                                        <shared-date-range [startDate]="startDate" [endDate]="endDate" [loading]="loading"
+                                        (onRangeChange)="onRangeChange($event)" (onDateChange)="onDateChange($event)"></shared-date-range>
+                                   </div>
+                                   <!-- <div class="btun-box">
+                                       <ul class="left-list">
+                                           <li> <button>Today</button> </li>
+                                           <li> <button>Yesterday</button> </li>
+                                           <li> <button>Monthly</button> </li>
+                                           <li> <button>Total</button> </li>
+                                        </ul>
+                                   </div> -->
+                               
+                              </div>
+                            </div>
+                    </div>
+                    <!-- <div id="serch-ani">
+                        <div class="it-box" style="margin-top: 0;">
+                            <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                            (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here" style="background: #99ca3c;" />
+                            <span class="search" style="background: #99ca3c;">
+                                (click)="dt.filterGlobal(filterGlobalValue, 'contains')"
+                              <i class="pi pi-search search-icon" ></i>
+                            </span>
+                            <i class="pi pi-times close-icon" (click)="resetDataTable(dt)"></i>
+                          </div>
+                    </div> -->
+
+                    <!-- <div class="search-wrapper">
+                        <div class="input-holder">
+                            <input type="text" class="search-input" placeholder="Type to search" [(ngModel)]="filterGlobalValue" (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')"/>
+                            <button class="search-icon" onclick="searchToggle(this, event);" (click)="dt.filterGlobal(filterGlobalValue, 'contains')"><span></span></button>
+                        </div>
+                        <span class="close" onclick="searchToggle(this, event);" (click)="resetDataTable(dt)"></span>
+                    </div> -->
+                    <div class="custom-in-box transaction-filter">
+                        <i title="Reset Filter" class="pi pi-times" (click)="resetDataTable(dt)"></i>
+                        <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                            (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                            class="search-input p-0 tran-search" />
+                        <span (click)="dt.filterGlobal(filterGlobalValue, 'contains')">Search
+                        </span>
+                    </div>
+                    
+
+                </div>
+
+                <!-- <div style="display: flex; justify-content: end;" class="searc-b ride-search-b">
+                    <button class="end-ride-btn" type="button" (click)="onRidesEndRecentLoc()" *ngIf="showEndBtn" [disabled]="loading">End
+                        Rides</button>
+                    
+                    <div class="custom-in-box">
+                        <i title="Reset Filter" class="pi pi-times" (click)="resetDataTable(dt)"></i>
+                        <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                            (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                            class="search-input p-0" />
+                        <span (click)="dt.filterGlobal(filterGlobalValue, 'contains')">Search
+                        </span>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+
+        
+     
+
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="tripId">Ride Id
+                <p-sortIcon field="tripId"></p-sortIcon>
+            </th>
+            <th pSortableColumn="rideTimings.rideStartTime">Start Date and Time
+                <p-sortIcon field="rideTimings.rideStartTime">
+                </p-sortIcon>
+            </th>
+            <th pSortableColumn="vehicle.number">Vehicle Number
+                <p-sortIcon field="vehicle.number"></p-sortIcon>
+            </th>
+            <th pSortableColumn="customer.fullName">Customer Name
+                <p-sortIcon field="customer.fullName"></p-sortIcon>
+            </th>
+            <th pSortableColumn="customer.phoneNumber">Phone Number
+                <p-sortIcon field="customer.phoneNumber"></p-sortIcon>
+            </th>
+            <th pSortableColumn="parkingZones.zone">Zone Name
+                <p-sortIcon field="parkingZones.zone"></p-sortIcon>
+            </th>
+            <th>Details</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-ride>
+        <!-- 'bg-purple':!ride.tripId -->
+        <tr [ngClass]="{'bg-red':ride.rideOnDebt, 'bg-purple':checkLastUpdate(ride.vehicle.last_Updated_Time,ride.rideTimings.rideStartTime,ride.is_Active_Ride)}">
+            <td>
+                <p-tableCheckbox [value]="ride"></p-tableCheckbox>
+            </td>
+            <td><span class="p-column-title">Trip</span> {{ride.tripId}}
+            </td>
+            <td><span class="p-column-title">Start Date and Time</span> {{ride.rideTimings.rideStartTime}}
+            </td>
+            <td>
+                <span class="p-column-title">Vehicle</span>
+                <a *ngIf="ride.vehicle != null" [routerLink]="[ '/vehicles/vehicle-main'] "
+                    [queryParams]="{ customdata: ride.vehicle.number } " class="clickable-v-btn ">
+
+                    <p *ngIf="ride.vehicle != null">
+                        {{ride.vehicle.number}}
+                    </p>
+
+                </a>
+                <p *ngIf="ride.vehicle == null">
+                    -
+                </p>
+            </td>
+            <td><span class="p-column-title">Customer</span>
+                    {{ride.customer.fullName}}
+              
+            </td>
+            <td>
+                <a [routerLink]="[ '/customers/customer-main'] " [queryParams]="{ customdata: ride.customer.phoneNumber } "
+                class="clickable-v-btn ">
+                {{ride.customer.phoneNumber}}
+            </a>
+                   
+            </td>
+            <td>
+                <span class="p-column-title">Zone</span>
+                <a *ngIf="ride.parking_Zones != null" [routerLink]="[ '/zones/zone-main'] "
+                    [queryParams]="{ customdata: ride.parking_Zones.title } " class="clickable-v-btn ">
+                    {{ride.parking_Zones == null ? "-" : ride.parking_Zones.title }}
+                </a>
+                <p *ngIf="ride.parking_Zones == null">
+                    -
+                </p>
+            </td>
+            <td class="sm-jus-end">
+                <div class="flex" style="position: relative;justify-content: center;">
+                    <button title="More Details" pButton pRipple
+                        class="p-button-rounded p-button-success theme-btn ac-btn" href="#"
+                        (click)="main.onBottomPanelButtonClick($event, ride)">
+                        <img src="../../../../../assets/layout/images/more-detail.png" alt="" width="18">
+                    </button>
+
+                </div>
+
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <tr *ngIf="totalRecords == 0 && selectedStatus == 1 ">
+            <td colspan="8" class="text-center">
+                <div>
+                    No Active ride right now
+                </div>
+            </td>
+        </tr>
+        <tr *ngIf="totalRecords == 0 && selectedStatus == 5 ">
+            <td colspan="8" class="text-center">
+                <div>
+                    No Paused ride right now
+                </div>
+            </td>
+        </tr>
+
+    </ng-template>
+
+</p-table>
+
+<p-confirmDialog #cd id="cutomer-confrim-model" [style]="{ width: '30vw', top: '-190px' }" key="positionDialog"
+    [position]="position" [baseZIndex]="10000" rejectButtonStyleClass="p-button-outlined">
+    <ng-template pTemplate="footer">
+        <button type="button" pButton class="cofirm-model-cancel-btn" label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton label="Yes" (click)="cd.accept()"></button>
+    </ng-template>
+</p-confirmDialog>
+<p-toast></p-toast>
+</div>

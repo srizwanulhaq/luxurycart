@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Wayz | Admin Panel</title>
+  <base href="/">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+  <link rel="icon" href="../../assets/layout/images/wayz-fav.png">
+  <link id="theme-css" rel="stylesheet" type="text/css" href="assets/theme/theme-noir.css">
+  <link id="layout-css" rel="stylesheet" type="text/css" href="assets/layout/css/layout-noir.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <app-root>
+    <!-- <div class="loader-main" id="onPageLoad">
+            <div class="u-loading">
+              <div class="u-loading__symbol">
+                <img src="../../assets/layout/images/favicon.png" alt="">
+              </div>
+            </div>
+          </div> -->
+
+    <!-- <div class="wrapper-load" id="onPageLoad">
+      <div class="item-load">
+        <div class="item-inner-load">
+          <a href="#" class="swoop"></a>
+        </div>
+      </div>
+      <h6 class="tilr">Loading.....</h6>
+
+    </div> -->
+
+  </app-root>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+    function searchToggle(obj, evt) {
+      var container = $(obj).closest('.search-wrapper');
+      if (!container.hasClass('active')) {
+        container.addClass('active');
+        evt.preventDefault();
+      }
+      else if (container.hasClass('active') && $(obj).closest('.input-holder').length == 0) {
+        container.removeClass('active');
+        // clear input
+        container.find('.search-input').val('');
+      }
+    }
+
+  </script>
+
+  <script>
+
+
+
+    /* When the user clicks on the button, 
+      toggle between hiding and showing the dropdown content */
+    function myFunction2() {
+      document.getElementById("myDropdown2").classList.toggle("show2");
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function (event) {
+      if (!event.target.matches('.dropbtn2')) {
+
+        var dropdowns = document.getElementsByClassName("dropdown-content2");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show2')) {
+            openDropdown.classList.remove('show2');
+          }
+        }
+      }
+    }
+  </script>
+  <script>
+    // user Dropdown 
+    function myFunction() {
+      document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function (event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+
+    function myFunction1() {
+      document.getElementById("myDropdown1").classList.toggle("show");
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function (event) {
+      if (!event.target.matches('.dropbtn1')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content1");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

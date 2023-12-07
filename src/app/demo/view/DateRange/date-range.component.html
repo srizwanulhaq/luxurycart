@@ -1,0 +1,19 @@
+<!-- <h5 class="label">Date Range</h5> -->
+<div class="grid">
+    <div class="md:col-5 col-12">
+        <p-calendar [inline]="true" class="state-in" id="start-date" [(ngModel)]="_startDate" [readonlyInput]="true"
+            (onSelect)="onDateSelect($event,'start')"  placeholder="Start Date">
+        </p-calendar>
+    </div>
+    <div class="md:col-5 col-12">
+        <p-calendar [inline]="true" class="state-in" id="end-date" [(ngModel)]="_endDate" [readonlyInput]="true"
+            (onSelect)="onDateSelect($event,'end')" placeholder="End Date"
+            [minDate]="startDate" [disabled]="!startDate">
+        </p-calendar>
+    </div>
+    <div class="md:col-2 col-12 text-left">
+        <button type="button" class="btn btn-sm btn-link range-btn" (click)="onResetRange()"
+            [disabled]="!startDate || !endDate">Reset
+            Range</button>
+    </div>
+</div>

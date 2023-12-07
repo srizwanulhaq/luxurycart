@@ -1,0 +1,59 @@
+<p-toast></p-toast>
+<div class="bread-container">
+    <div class="left-box">
+        <h4>
+            <span>
+                Manage Customer
+            </span>
+        </h4>
+    </div>
+    <div class="right-box">
+        <!-- <button pButton pRipple label="Add Vehicle" icon="pi pi-plus" class="p-button-success mr-2 theme-btn" (click)="openNew()"></button> -->
+        <button pButton pRipple label="Add Customer" class="p-button-success mr-2 theme-btn" (click)="main.showCustomerRegForm()"></button>
+    </div>
+</div>
+<!-- <p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="left">
+        <div class="my-2">
+            <button pButton pRipple label="Add Customer" icon="pi pi-plus" class="p-button-success mr-2" (click)="main.showCustomerRegForm()"></button>
+        </div>
+    </ng-template>
+</p-toolbar> -->
+
+<!-- //---------------------Add new Customers form end----- -->
+<form #f="ngForm" (ngSubmit)="onSubmitCustomerReg()" [formGroup]="customerRegisterForm">
+    <p-dialog id="new-customer-model" class="Add-New-Form" header="Add new customer" [(visible)]="main.addPanelActive" [style]="{width: '550px'}" class="p-fluid" [modal]="true" [dismissableMask]="true">
+        <ng-template pTemplate="content">
+
+            <div class="formgrid grid">
+                <div class="field md:col-6 col-12">
+                    <label>Full Name <span class="star-sign">*</span></label>
+                    <input type="text" name="fullName" formControlName="fullName" pInputText placeholder="Full Name" required autofocus [ngClass]="{'ng-invalid ng-dirty' : regsubmitted}" />
+                    <small style="color:red;" class="ng-dirty ng-invalid" *ngIf="customerRegisterForm.controls.fullName.errors?.pattern">Please valid fullname!</small>
+                </div>
+                <div class="field md:col-6 col-12">
+                    <label>Email <span class="star-sign">*</span></label>
+                    <input type="email" formControlName="email" class="form-control" name="email" pInputText placeholder="Email" required autofocus [ngClass]="{'ng-invalid ng-dirty' : regsubmitted}" />
+                    <small style="color:red;" class="ng-dirty ng-invalid" *ngIf="customerRegisterForm.controls.email.errors?.pattern">Please valid email!</small>
+                </div>
+
+            </div>
+            <div class="formgrid grid">
+                <div class="field col-12">
+                    <label>Phone Number <span class="star-sign">*</span></label><br />
+                    <ngx-intl-tel-input [cssClass]="'custom'" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true" [searchCountryField]="[
+                              SearchCountryField.Iso2,
+                              SearchCountryField.Name
+                            ]" [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.SaudiArabia" [maxLength]="15" [phoneValidation]="true" [separateDialCode]="separateDialCode" [numberFormat]="PhoneNumberFormat.National" name="phone" formControlName="phone">
+                    </ngx-intl-tel-input>
+                </div>
+
+            </div>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text theme-btn">
+                <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}" styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+            </button>
+        </ng-template>
+    </p-dialog>
+</form>

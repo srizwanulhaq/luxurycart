@@ -1,0 +1,17 @@
+<div class="row1">
+    <div class="col-md-12">
+      <div class="map-main">
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="true">
+
+          <agm-marker *ngFor="let m of markers; let i = index" [latitude]="m.lat" [longitude]="m.lng"
+             [markerDraggable]="m.draggable" (dragEnd)="markerDragEnd(m, $event)">
+
+             <agm-info-window>
+                <strong>No. {{m.number}} </strong>
+              </agm-info-window>
+
+          </agm-marker>
+        </agm-map>
+      </div>
+    </div>
+  </div>

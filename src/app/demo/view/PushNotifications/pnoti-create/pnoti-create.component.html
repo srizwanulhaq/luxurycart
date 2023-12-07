@@ -1,0 +1,141 @@
+<p-toast></p-toast>
+<div class="bread-container">
+    <div class="left-box p-not-head">
+        <h4>
+            <span>
+                Send Push Notifications
+            </span>
+        </h4>
+    </div>
+    <div class="right-box">
+        <!-- <button pButton pRipple label="Add New Ride" class="p-button-success mr-2 theme-btn" (click)="openNew()"></button> -->
+    </div>
+</div>
+
+<!-- <div class="ride-main-card mt-1"> -->
+<form #f="ngForm" (ngSubmit)="onSendPushNotification()" [formGroup]="pushNotificationForm">
+    <div class="grid1">
+        <div class="col-121" *ngIf="!loading">
+            <div class="grid1">
+                <div class="col-121">
+                   <div class="field">
+                    <p-tabView id="push-not-tab">
+                        <p-tabPanel header="Zone">
+                          <div class="grid">
+                            <div class="md:col-4 col-12">
+                                <div class="field">
+                                    <label style="font-weight: 900;    font-size: 15px;" for="account">Select Countries <span class="star-sign">*</span></label> <br>
+                                    <p-multiSelect id="noti-dr" [options]="countries" formControlName="selectedCountries"
+                                        defaultLabel="Select Countries" scrollHeight="250px" display="chip" optionLabel="name"
+                                        optionValue="id" (onChange)="setCitiesList()"></p-multiSelect>
+                                </div>
+                            </div>
+                            <div class="md:col-4 col-12">
+                                <div class="field">
+                                    <label style="font-weight: 900;    font-size: 15px;" for="account">Select Zones <span class="star-sign">*</span></label> <br>
+                                    <p-multiSelect id="noti-multi" [options]="cities" [group]="true"
+                                        formControlName="selectedZones" defaultLabel="Select Zones" scrollHeight="250px"
+                                      optionGroupLabel="name" optionLabel="title" optionValue="id"
+                                        optionGroupChildren="zones" optionDisabled="isDisable" emptyMessage="No cities" selectedItemsLabel="{0} items selected">
+                                        <ng-template let-group pTemplate="group">
+                                            <div class="p-d-flex p-ai-center">
+                                                <span>{{group.name}}</span>
+                                            </div>
+                                            <a routerLink="/zones/zone-main" *ngIf="group.zones.length<1">Add Zones</a>
+                                        </ng-template>
+                                    </p-multiSelect>
+                                    <small style="color:red;" class="ng-dirty ng-invalid block"
+                                        *ngIf="pushNotificationForm.controls.selectedZones.errors?.min">Please select
+                                        atleast one zone</small>
+                                </div>
+                            </div>
+                            <div class="md:col-4 col-12">
+                                <div class="field">
+                                    <label style="font-weight: 900;    font-size: 15px;" for="radius">Radius <span class="star-sign">*</span></label> <br>
+                                    <input class="w-100" type="number" pInputText name="radius" id="radius"
+                                        placeholder="Radius in Km" formControlName="radius"
+                                        [ngClass]="{'ng-invalid ng-dirty' : formsubmitted}" />
+                                    <small style="color:red;" class="ng-dirty ng-invalid block"
+                                        *ngIf="pushNotificationForm.controls.radius.errors?.min">Radius should be
+                                        greater the zero</small>
+                                    <small style="color:red;" class="ng-dirty ng-invalid block"
+                                        *ngIf="pushNotificationForm.controls.radius.errors?.max">Radius should not be
+                                        greater then hundred</small>
+                                </div>
+                            </div>
+                          </div>
+                        </p-tabPanel>
+                        <p-tabPanel header="Customer">
+                            <div class="grid">
+                            <div class="md:col-4 col-12">
+                                <div class="field">
+                                    <label style="font-weight: 900;    font-size: 15px;" for="mobile">Search Customers <span class="star-sign">*</span></label> <br>
+                                    <p-autoComplete id="mobile" formControlName="selectedCustomers" [suggestions]="customers"
+                                        (completeMethod)="searchByMobile($event)" [multiple]="true"
+                                        placeholder="Search Customer By Mobile No." delay="600" field="name" dataKey="code"
+                                        [showEmptyMessage]="true"></p-autoComplete>
+                                    <small style="color:red;" class="ng-dirty ng-invalid block"
+                                        *ngIf="pushNotificationForm.controls.selectedCustomers.errors?.min">Please
+                                        select atleast one customer</small>
+                                </div>
+                            </div>
+                            </div>
+                        </p-tabPanel>
+                       
+                    </p-tabView>
+                    
+                    <!-- <label style="font-weight: 900;    font-size: 15px;" for="selectSendBy">Send By <span class="star-sign">*</span></label><br>
+                    <p-dropdown inputId="selectSendBy" [options]="selectTypes" formControlName="selectSendBy"
+                        (onChange)="changeType()"></p-dropdown> -->
+                   </div>
+                    <br>
+                </div>
+                <!-- <ng-container *ngIf="pushNotificationForm.controls.selectSendBy.value=='zone'; else customer">
+             
+                </ng-container>
+                 -->
+               
+            </div>
+         
+        </div>
+
+        <div class="grid">
+            <div class="md:col-4 col-12">
+                <!-- <h5>Notification</h5> -->
+                <div class="field">
+                    <label style="font-weight: 900;font-size: 15px;">Title <span class="star-sign">*</span></label> <br>
+                    <input class="w-100" type="text" name="title" formControlName="title" pInputText placeholder="Title"
+                        required [ngClass]="{'ng-invalid ng-dirty' : formsubmitted}" />
+                    <small style="color:red;" class="ng-dirty ng-invalid block"
+                        *ngIf="!!pushNotificationForm.controls.title.errors?.maxlength">maximum 50 characters
+                        allowed</small>
+                    <small style="color:red;" class="ng-dirty ng-invalid block"
+                        *ngIf="pushNotificationForm.controls.title.errors?.pattern">Please enter valid title</small>
+                </div>
+            </div>
+            <div class="md:col-8 col-12">
+                <div class="field">
+                    <label style="font-weight: 900;    font-size: 15px;" for="message">Message <span class="star-sign">*</span></label> <br>
+                    <textarea style="border: 1px solid #ced4da;border-radius: 2px;height: 36px;" class="w-100" name="message" id="message" [ngClass]="{'ng-invalid ng-dirty ' : formsubmitted}"
+                        formControlName="message" pInputTextarea maxlength="100"></textarea>
+                    <small style="color:red;" class="ng-dirty ng-invalid block"
+                        *ngIf="!!pushNotificationForm.controls.message.errors?.maxlength">maximum 100 characters
+                        allowed</small>
+                </div>
+            </div>
+        </div>
+
+     
+      
+        <div class="md:col-12 col-12 text-right" *ngIf="!loading">
+         
+            <button pButton pRipple label="Send" [disabled]="!pushNotificationForm.valid" icon="pi pi-check"
+                class="p-button-text theme-btn">
+                <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}"
+                    styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"
+                    animationDuration=".5s"></p-progressSpinner>
+            </button>
+        </div>
+    </div>
+</form>
+<!-- </div> -->

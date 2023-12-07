@@ -1,0 +1,26 @@
+<div class="lodi">
+    <div *ngIf="loading" class="lodi-child">
+        <div class="custom-loader"></div>
+    </div>
+    <div class="row1">
+        <div>
+            <p-dropdown [options]="intervals" [(ngModel)]="selectedVehicleInterval" placeholder="Select Item" [filter]="false" (onChange)="onChange($event)">
+            </p-dropdown>
+        </div>
+    </div>
+    <div class="row1">
+        <div class="col-md-6">
+            <div class="track-map">
+                <agm-map [latitude]="lat" [longitude]="lng" [fullscreenControl]="true" [mapTypeControl]="true" [fitBounds]="true">
+                    <agm-marker *ngFor="let coordinate of start_end_mark; let i = index" [latitude]="coordinate.positionLatitude" [longitude]="coordinate.positionLongitude" [agmFitBounds]="true"></agm-marker>
+                    <agm-polyline [visible]="true" [strokeWeight]="3" [strokeColor]="'#07b57a'">
+                        <agm-polyline-point *ngFor="let coordinate of latlng; let i = index" [latitude]="coordinate.positionLatitude" [longitude]="coordinate.positionLongitude">
+                        </agm-polyline-point>
+                    </agm-polyline>
+                </agm-map>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,17 @@
+<app-customer-details [details]="customer" [event]="event" (eventChange)="onChange($event)"></app-customer-details>
+<div class="col-12">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <div class="card component-main-card">
+                <app-add-customer (eventChange)="onChange($event)"></app-add-customer>
+                <app-customer-list [event]="event"></app-customer-list>
+                <app-customer-edit [editCustomerData]="EditCustomerData" (eventChange)="onChange($event)"></app-customer-edit>
+                <app-customer-charge [details]="customerId" *ngIf="FormType == 'chargeForm'" (eventChange)="onChange($event)"></app-customer-charge>
+                <app-customer-bonus [details]="customerId" *ngIf="FormType == 'bonusForm'" (eventChange)="onChange($event)"></app-customer-bonus>
+                <app-customer-wallet [details]="customerId " *ngIf="FormType=='walletForm' " (eventChange)="onChange($event)"></app-customer-wallet>
+                <app-customer-settle-bonus [details]="customerId " *ngIf="FormType=='settleBonusForm' " (eventChange)="onChange($event)"></app-customer-settle-bonus>
+                <app-customer-alerts [details]="customer" (eventChange)="onChange($event)"></app-customer-alerts>
+            </div>
+        </div>
+    </div>
+</div>
