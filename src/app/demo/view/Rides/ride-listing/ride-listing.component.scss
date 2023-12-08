@@ -1,6 +1,6 @@
 // custom import dropdown
 // .dropdown {
-//     background: #99ca3c;
+//     background: #ef591f;
 //     color: #ffffff;
 //     cursor: pointer;
 //     height: 42px;
@@ -51,13 +51,13 @@
 }
 
 .dropdown-menu a:hover {
-    background: #99ca3c;
+    background: #ef591f;
     color: #fff;
     border-radius: 6px;
 }
 
 .dropdown:hover .dropdown-menu {
-    background: #99ca3c;
+    background: #ef591f;
     opacity: 1;
     visibility: visible;
     top: 100%;
@@ -73,7 +73,7 @@
         position: absolute;
         height: 20px;
         width: 20px;
-        background: #99ca3c;
+        background: #ef591f;
         bottom: -5px;
         transform: rotate(59deg);
         left: 0;
@@ -86,12 +86,12 @@
     height: 28px;
     background: white;
     width: 28px;
-    color: #99ca3c;
+    color: #ef591f;
     text-align: center;
     border-radius: 50%;
     line-height: 1.6;
     font-size: 18px;
-    border: 3px solid #99ca3c;
+    border: 3px solid #ef591f;
     cursor: pointer;
     padding: 3px;
 }
@@ -122,11 +122,11 @@
             text-align: center;
             transition: 0.5s;
             // border-radius: 12px;
-            color: #99ca3c;
+            color: #ef591f;
             font-size: 15px;
             font-weight: 600;
             &:hover {
-                background: #99ca3c !important;
+                background: #ef591f !important;
                 color: white;
                 transition: 0.5s;
                 border-radius: 6px;
@@ -140,7 +140,7 @@
 // export dropdown
 
 .dropbtn1 {
-    background: #99ca3c;
+    background: #ef591f;
     color: #ffffff;
     cursor: pointer;
     height: 42px;
@@ -161,7 +161,7 @@
 
 .dropbtn1:hover,
 .dropbtn1:focus {
-    background-color: #99ca3c;
+    background-color: #ef591f;
 }
 
 .dropdown {
@@ -172,7 +172,7 @@
 .dropdown-content1 {
     display: none;
     position: absolute;
-    background-color: #99ca3c;
+    background-color: #ef591f;
     min-width: 200px;
     overflow: visible;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
@@ -189,7 +189,7 @@
         position: absolute;
         height: 16px;
         width: 20px;
-        background: #99ca3c;
+        background: #ef591f;
         bottom: -6px;
         transform: rotate(52deg);
         left: 0;

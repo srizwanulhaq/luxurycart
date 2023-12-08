@@ -1338,7 +1338,7 @@ body a {
   height: 66px;
   line-height: 60px;
   font-size: 30px;
-  color: #99ca3c;
+  color: #ef591f;
   text-align: center;
   -moz-transition: background-color 0.2s;
   -o-transition: background-color 0.2s;
@@ -1772,12 +1772,12 @@ body a {
   border-bottom: 1px solid #b9b9b921;
 }
 .layout-wrapper .layout-sidebar .layout-menu > li.active-menuitem > a {
-  background: #99ca3c;
+  background: #ef591f;
   padding-left: 8px;
   border-radius: 7px;
 }
 .layout-wrapper .layout-sidebar .layout-menu > li.active-menuitem > a i {
-  color: #99ca3c;
+  color: #ef591f;
   background: #ffffff;
   padding: 2px;
   border-radius: 3px;

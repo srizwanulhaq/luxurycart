@@ -145,7 +145,7 @@ a {
         text-align: left;
         margin: 16px 0px;
         margin-top: 0px;
-        color: #99ca3c;
+        color: #ef591f;
       }
       p {
         font-size: 14px;
@@ -209,7 +209,7 @@ a {
       button {
         width: 100%;
         padding: 15px 1rem;
-        background-color: #99ca3c;
+        background-color: #ef591f;
         border: unset;
         border-radius: 5px;
         color: #fff;
@@ -217,13 +217,13 @@ a {
         cursor: pointer;
         margin-top: 10px;
         transition: 0.5s;
-        border: 1px solid #99ca3c;
+        border: 1px solid #ef591f;
         // box-shadow: 0px 0px 8px 2px #59595926;
         position: relative;
         &:hover {
           background-color: white;
           transition: 0.5s;
-          color: #99ca3c;
+          color: #ef591f;
         }
       }
     }

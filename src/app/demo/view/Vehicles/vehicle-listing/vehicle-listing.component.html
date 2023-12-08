@@ -17,7 +17,7 @@
                         <span>
                             <h6
                                 style="margin: 10px 0px;font-weight: bold;font-size: 18px;color: #2a3042;letter-spacing: 0.5px;">
-                                <span style="border-bottom: 3px solid #99ca3c;">Status</span> </h6>
+                                <span style="border-bottom: 3px solid #ef591f;">Status</span> </h6>
                             <p-tabView (onChange)="statusChanged($event)" id="vehicle-status-tab" [scrollable]="true"
                                 *ngIf="statuses.length>0" [(activeIndex)]="defaultIndex">
                                 <p-tabPanel [header]="status.label" *ngFor="let status of statuses"></p-tabPanel>
@@ -29,7 +29,7 @@
                 <div class="md:col-6 col-12">
                     <h6
                         style="margin: 10px 0px;font-weight: bold;font-size: 18px;color: #2a3042;letter-spacing: 0.5px;">
-                        <span style="border-bottom: 3px solid #99ca3c;">States</span></h6>
+                        <span style="border-bottom: 3px solid #ef591f;">States</span></h6>
                     <p-tabView (onChange)="statesChanged($event)" id="vehicle-status-tab" [scrollable]="true"
                         *ngIf="states.length>0" [(activeIndex)]="selectedStats">
                         <p-tabPanel [header]="stats.label" *ngFor="let stats of states"></p-tabPanel>
@@ -86,7 +86,7 @@
                         <span class="btn-left-box mr-2">
                             <div class="dropdown" style="margin-top: 0;">
                                 <button onclick="myFunction1()" class="dropbtn1"
-                                    style="margin-top: 0;background: #99ca3c;">Export <i
+                                    style="margin-top: 0;background: #ef591f;">Export <i
                                         class="pi pi-chevron-up"></i></button>
                                 <div id="myDropdown1" class="dropdown-content1">
                                     <div class="grid">
@@ -120,7 +120,7 @@
                         <div class="">
                             <div class="dropdown">
                                 <button onclick="myFunction()" class="dropbtn" title="Filter"
-                                    style="margin-top: 4px;margin-left: 2px;background: #99ca3c;">
+                                    style="margin-top: 4px;margin-left: 2px;background: #ef591f;">
                                     <img src="../../../assets/layout/images/filter-16.png" alt="">
                                 </button>
                                 <div id="myDropdown" class="dropdown-content" style="margin-top: 0;">
@@ -147,8 +147,8 @@
                         <div class="it-box" style="margin-top: 0;">
                             <input pInputText type="text" [(ngModel)]="filterGlobalValue"
                                 (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
-                                style="background: #99ca3c;" />
-                            <span class="search" style="background: #99ca3c;">
+                                style="background: #ef591f;" />
+                            <span class="search" style="background: #ef591f;">
                                 (click)="dt.filterGlobal(filterGlobalValue, 'contains')"
                                 <i class="pi pi-search search-icon"></i>
                             </span>

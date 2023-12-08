@@ -269,7 +269,7 @@
 
                         </tr>
                         <tr class="text-right">
-                            <p-button id="add-zone-detail-btn" class="theme-btn" style="background: #99ca3c !important;"
+                            <p-button id="add-zone-detail-btn" class="theme-btn" style="background: #ef591f !important;"
                                 label="Add" (click)="addfare(i,fare)">
                             </p-button>
                         </tr>
@@ -486,7 +486,7 @@
                         </tr>
                         <p-steps id="add-zone-step" [readonly]="false" [model]="ridesItems" [(activeIndex)]="activeRideIndex" ></p-steps>
                         <tr class="text-right">
-                            <p-button id="add-zone-detail-btn" class="theme-btn" style="background: #99ca3c !important;"
+                            <p-button id="add-zone-detail-btn" class="theme-btn" style="background: #ef591f !important;"
                                 label="Add" (click)="addSetting(i,setting,activeRideIndex)">
                             </p-button>
                         </tr>
@@ -706,10 +706,10 @@
             </div>
 
             <div class="grid grid-nogutter justify-content-end mt-3">
-                <p-button id="step-btn" class="theme-btn" style="background: #99ca3c !important;" label="Back"
+                <p-button id="step-btn" class="theme-btn" style="background: #ef591f !important;" label="Back"
                     *ngIf="activeIndex != 0" (click)="prevPage(redzone)"></p-button>
                 <p-button id="step-btn" [ngClass]="{'dnone': buttonDisable}" class="theme-btn ml-1-"
-                    style="background: #99ca3c !important;" label="Next" *ngIf="activeIndex != 4"
+                    style="background: #ef591f !important;" label="Next" *ngIf="activeIndex != 4"
                     (click)="nextPage(redzone)" iconPos="right"></p-button>
 
                 <button pRipple label="Submit" *ngIf="activeIndex == 2 && redzone == 3" icon="pi pi-check"

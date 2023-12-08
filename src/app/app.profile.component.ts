@@ -14,8 +14,8 @@ import {trigger, state, transition, style, animate} from '@angular/animations';
             </a> -->
 
             <a class="side-logo" href="/">
-                        <img style="width: 34px;margin: 12px 0px;" src="assets/layout/images/wayz-fav.png"/> <br>
-                        Wayz
+                        <img style="width: 34px;margin: 12px 0px;" src="assets/layout/images/favicon.png"/> <br>
+                        Luxury Cart
                     </a>
 
             <ul id="sidebar-usermenu" class="usermenu" [ngClass]="{'usermenu-active':app.usermenuActive}"

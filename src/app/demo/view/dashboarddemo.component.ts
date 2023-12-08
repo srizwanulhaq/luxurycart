@@ -41,7 +41,7 @@ export class DashboardDemoComponent implements OnInit {
         "zoneRevenue"
     ]
     colors: Array<string> = [
-        "#99ca3c", "#0c30dc", "#91A9A6", "#42A5F5", "#FFA726", "#EC407A"
+        "#ef591f", "#0c30dc", "#91A9A6", "#42A5F5", "#FFA726", "#EC407A"
     ]
     graphOpts = {
         plugins: {

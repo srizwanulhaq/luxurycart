@@ -521,8 +521,8 @@ p-cascadeselect.ng-dirty.ng-invalid > .p-cascadeselect {
   font-size: 14px;
 }
 .p-checkbox .p-checkbox-box.p-highlight {
-  border-color: #99ca3c;
-  background: #99ca3c;
+  border-color: #ef591f;
+  background: #ef591f;
 }
 .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
   border-color: #2196F3;
@@ -3952,7 +3952,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   height: 2rem;
   color: #ffffff;
   border: 0 none;
-  background: #99ca3c;
+  background: #ef591f;
   border-radius: 20%;
   top: 11px;
   right: 26px;
