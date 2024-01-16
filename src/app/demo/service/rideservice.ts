@@ -95,5 +95,8 @@ export class RideService {
     getRideVehicleHistory(rideId: string) {
         return this.http.get<RidesVehicleHistoryResponse>(`${environment.apiUrl}/api/v1/AdminVehicles/RideHistory?rideId=${rideId}`);
     }
+    editheadCount(data:any){
+        return this.http.post<any>(`${environment.apiUrl}/api/v1/AdminRides/update`, data);
+    }
 
 }

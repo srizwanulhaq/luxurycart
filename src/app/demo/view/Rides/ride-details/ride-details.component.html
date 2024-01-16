@@ -8,6 +8,11 @@
                             <h6>End Ride</h6>
                         </div>
                     </div>
+                    <div class="action-btn" *ngIf="details.rideStatus.number == 2 " >  
+                        <div (click)="main.onEditPanelButtonClick($event,details)">
+                          <h6>Update Head Count</h6>
+                        </div> 
+                  </div>
         
                 <div class="action-btn ">
                     <h6>Refund</h6>

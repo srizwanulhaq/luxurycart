@@ -30,6 +30,7 @@ import { environment } from 'src/environments/environment';
 import { RidePathComponent } from '../ride-path/ride-path.component';
 import { DateRangeComponent } from '../../DateRange/date-range.component';
 import { DateRangeComponentModule } from '../../DateRange/date-range.component.module';
+import { RideEditComponent } from '../ride-edit/ride-edit.component';
 @NgModule({
     declarations: [
         RideMainComponent,
@@ -37,7 +38,8 @@ import { DateRangeComponentModule } from '../../DateRange/date-range.component.m
         RideDetailsComponent,
         RideCreateComponent,
         RideTrackComponent,
-        RidePathComponent
+        RidePathComponent,
+        RideEditComponent,
     ],
     imports: [
         CommonModule,

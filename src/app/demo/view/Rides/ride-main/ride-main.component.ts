@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Ridedao } from 'src/app/demo/domain/Dao/Rides/Ridedao';
+import { EditRideDto } from 'src/app/demo/domain/Dto/Rides/EditRideDto';
 @Component({
   selector: 'app-ride-main',
   templateUrl: './ride-main.component.html',
@@ -11,6 +12,8 @@ export class RideMainComponent implements OnInit {
   bottomPanelActive: boolean;
   ride: Ridedao;
   event: Event;
+  editRideData:EditRideDto;
+  editPanelActive:boolean;
   constructor() { }
 
   ngOnInit(): void {
@@ -30,5 +33,12 @@ export class RideMainComponent implements OnInit {
   onChange(event){
     this.event = event;
   }
+
+  onEditPanelButtonClick(event, editRideData: EditRideDto) {
+    this.editRideData = editRideData;
+    this.editPanelActive = !this.editPanelActive;
+    event.preventDefault();
+    this.event = null;
+}
 
 }
