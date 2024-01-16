@@ -107,6 +107,14 @@
                             {{ details.referenceJson != null ? details.referenceJson.reason : "-"}}
                         </h6>
                     </div>
+                    <div class="history-settings card-main">
+                        <h6><span>Head Count</span></h6>
+                        <img src="assets/layout/images/status.png" alt="" width="40">
+                        <h6> {{details.head_Count}}</h6>
+                        <!-- <h6> 
+                            <a href="">See Video</a>
+                        </h6> -->
+                    </div>
                     <div class="leads-settings card-main"
                         *ngIf="details.is_Active_Ride == false && details.rideFeedback != null">
                         <h6><span>Rating</span></h6>

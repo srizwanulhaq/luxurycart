@@ -31,6 +31,7 @@ import { RidePathComponent } from '../ride-path/ride-path.component';
 import { DateRangeComponent } from '../../DateRange/date-range.component';
 import { DateRangeComponentModule } from '../../DateRange/date-range.component.module';
 import { RideEditComponent } from '../ride-edit/ride-edit.component';
+import { InputTextModule } from 'primeng/inputtext';
 @NgModule({
     declarations: [
         RideMainComponent,
@@ -65,7 +66,8 @@ import { RideEditComponent } from '../ride-edit/ride-edit.component';
             apiKey: environment.gooogleApiKey,
             libraries: ['places', 'drawing', 'geometry']
         }),
-        DateRangeComponentModule
+        DateRangeComponentModule,
+        InputTextModule
     ],
     providers: [
         RideService,

@@ -6,6 +6,8 @@
         <div class="card component-main-card">
             <app-ride-create (eventChange)="onChange($event)"></app-ride-create>
             <app-ride-listing [event]="event"></app-ride-listing>
+            <app-ride-edit [editRideData]="editRideData"
+            (eventChange)="onChange($event)"></app-ride-edit>
         </div>
     </div>
 </div>
