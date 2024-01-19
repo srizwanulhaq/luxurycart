@@ -40,7 +40,7 @@
             <div class="formgrid grid">
                 <div class="field col">
                     <label for="account">Select Vehicles <span class="star-sign">*</span></label>
-                    <p-listbox [options]="groupedVehicles" [group]="true"  [(ngModel)]="selectedVehicles" formControlName="selectedVehicles" [metaKeySelection]="false"
+                    <p-listbox [options]="groupedVehicles" [group]="true" formControlName="selectedVehicles" [metaKeySelection]="false"
                         [checkbox]="true" [filter]="true" [multiple]="true" [listStyle]="{'max-height':'170px'}" >
                         <ng-template let-group pTemplate="group">
                             <div class="p-d-flex p-ai-center">
@@ -51,7 +51,7 @@
                 </div>
                 <div class="field col">
                     <label for="account">Select Zones <span class="star-sign">*</span></label>
-                    <p-listbox [options]="groupedZones" [group]="true" [(ngModel)]="selectedZones" formControlName="selectedZones" [metaKeySelection]="false"
+                    <p-listbox [options]="groupedZones" [group]="true" formControlName="selectedZones" [metaKeySelection]="false"
                         [checkbox]="true" [filter]="true" [multiple]="true" [listStyle]="{'max-height':'170px'}" >
                         <ng-template let-group pTemplate="group">
                             <div class="p-d-flex p-ai-center">
@@ -59,6 +59,18 @@
                             </div>
                         </ng-template>
                     </p-listbox>
+                </div>
+                <div class="field col">
+                    <label for="account">Select Project<span class="star-sign">*</span></label>
+                    <p-listbox
+                        [options]="groupedProjects"
+                        formControlName="selectedProjects"
+                        [filter]="true"
+                        [multiple]="true"
+                        [checkbox]="true"
+                        [metaKeySelection]="false"
+                        [listStyle]="{ 'max-height': '150px' }"
+                    ></p-listbox>
                 </div>
             </div>
         </ng-template>

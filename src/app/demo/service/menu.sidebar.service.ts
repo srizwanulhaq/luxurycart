@@ -70,7 +70,9 @@ export class MenuSidebarService {
             { label: 'Booths', icon: 'pi pi-sitemap', routerLink: ['/booths/booth-main'] },
             { label: 'Concierge Request', icon: 'pi pi-clone', routerLink: ['/concierge-request/concierge-request-main'] },
             { label: 'Concierge Package', icon: 'pi pi-sitemap', routerLink: ['/concierge-package/concierge-package-main'] },
+            { label: 'Projects', icon: 'pi pi-sitemap', routerLink: ['/projects/projects-main'] },
            
+            
             // { label: 'Customer Ride', icon: 'fa fa-motorcycle', routerLink: ['/customer-ride/customer-ride-main'] },
             // { label: 'Customer Insurance', icon: 'fa fa-heart', routerLink: ['/customer-insurance/customer-insurance-main'] },
        

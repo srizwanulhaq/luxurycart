@@ -280,7 +280,7 @@ FullCalendarModule.registerPlugins([
         MiscDemoComponent,
         FileDemoComponent,
         BlockViewer,
-        LoaderComponent,
+        LoaderComponent
     ],
     providers: [
         LoaderService,

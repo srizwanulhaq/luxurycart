@@ -38,7 +38,7 @@
         </div>
 
         <div class="grid">
-            <div class="md:col-6" *ngIf="!!details.vehicles">
+            <div class="md:col-4" *ngIf="!!details.vehicles">
                 <div class="vehicle-card-items" >
                     <h6 class=""> Vehicle List</h6>
                     <ol>
@@ -46,11 +46,19 @@
                     </ol>
                 </div>
             </div>
-            <div class="md:col-6" *ngIf="!!details.zones">
+            <div class="md:col-4" *ngIf="!!details.zones">
                 <div class="zone-card-items" >
                     <h6 class=""> Zone List</h6>
                     <ol>
                         <li *ngFor="let zone of details.zones">{{ zone }}</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="md:col-4" *ngIf="!!details.projects">
+                <div class="vehicle-card-items" >
+                    <h6 class=""> Project List</h6>
+                    <ol>
+                        <li *ngFor="let project of details.projects">{{ project }}</li>
                     </ol>
                 </div>
             </div>

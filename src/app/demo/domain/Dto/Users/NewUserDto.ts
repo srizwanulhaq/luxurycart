@@ -8,6 +8,7 @@ export interface NewUserDto
     subAccountId?:string;
     parentId?:string;
     selectedVehicles?:string[];
+    selectedProjects?:string[];
     selectedZones?:string[];
     
 }

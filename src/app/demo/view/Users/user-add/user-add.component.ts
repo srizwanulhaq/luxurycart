@@ -35,7 +35,7 @@ export class UserAddComponent implements OnInit {
 
   groupedVehicles: SelectItemGroup[];
   groupedZones: SelectItemGroup[];
-
+  groupedProjects: SelectItem[];
   selectedVehicles:SelectItem[];
   selectedZones:SelectItem[];
   
@@ -60,6 +60,7 @@ export class UserAddComponent implements OnInit {
       parentId: [""],
       selectedVehicles: [""],
       selectedZones: [""],
+      selectedProjects: [""]
     });
     
   }
@@ -92,7 +93,7 @@ export class UserAddComponent implements OnInit {
           });
             
         }
-        else
+        else if(type.number == DynamicDataEnum.Parking_Zones)
         {
           
           this.groupedZones = [];
@@ -106,6 +107,18 @@ export class UserAddComponent implements OnInit {
             
             this.groupedZones.push({ label: ele.title, value: ele.id, items: lstData});  
 
+          });   
+        }
+        else 
+        {
+          
+          this.groupedProjects = [];
+          
+          type.lstDynamicTypeData.forEach(ele=>{
+            //var lstData : SelectItem[] = [];
+            
+            this.groupedProjects.push({ label: ele.title, value: ele.id });
+            
           });   
         }
       })
@@ -132,7 +145,6 @@ export class UserAddComponent implements OnInit {
       this.btnloading = false;
       return;
     }
-
     this.addNewUser(this.userForm.value);
   }
 
@@ -152,6 +164,7 @@ export class UserAddComponent implements OnInit {
           },
           error: (error) => {
             this.btnloading = false;
+            console.log(error)
             this.messageService.add({severity: 'error', summary: 'Failed', detail: error.error.message, life: 3000});
           },
         });
