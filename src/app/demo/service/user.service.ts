@@ -39,6 +39,7 @@ export class UserService {
     }
 
     saveUser(user: NewUserDto) {
+        console.log(user);
         return this._http.post<any>(`${environment.apiUrl}/api/v2/AdminUsers/save`, user);
     }
 

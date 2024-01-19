@@ -10,7 +10,9 @@ export class UsersDao {
     roles: UserRoleDto;
     subAccount: UserSubAccountDto;
     selectedVehicles: string[];
+    selectedProjects: string[];
     selectedZones: string[];
     vehicles: string[];
     zones: string[];
+    projects:string[];
 }

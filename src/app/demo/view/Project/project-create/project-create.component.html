@@ -1,0 +1,74 @@
+<p-toast></p-toast>
+<div class="bread-container">
+    <div class="left-box">
+        <h4>
+            <span>
+                Manage Projects
+            </span>
+        </h4>
+    </div>
+    <div class="right-box">
+        <button pButton pRipple label="Add Project" class="p-button-success mr-2 theme-btn"
+            (click)="openNew()"></button>
+    </div>
+</div>
+<form [formGroup]="projectForm" (ngSubmit)="onSubmitForm()">
+    <p-dialog id="new-ride-model" [(visible)]="projectDialog" [style]="{width: '550px'}" header="Add Project"
+        [modal]="true" class="p-fluid" [dismissableMask]="true">
+        <ng-template pTemplate="content">
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="name">Title <span class="star-sign">*</span></label>
+                    <input type="text" pInputText id="name" formControlName="title" />
+                   
+                </div>
+                <div class="field col">
+                    <label for="name">Arabic Title <span class="star-sign">*</span></label>
+                    <input type="text" pInputText id="name" formControlName="artitle" />
+                   
+                </div>
+                
+            </div>
+
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="account">Select Zones <span class="star-sign">*</span></label>
+                    <p-listbox [options]="groupedZones" [group]="true" formControlName="lstZone" [metaKeySelection]="false"
+                        [checkbox]="true" [filter]="true" [multiple]="true" [listStyle]="{'max-height':'150px'}">
+                        <ng-template let-group pTemplate="group">
+                            <div class="p-d-flex p-ai-center">
+                            <span>{{group.label}}</span>
+                            </div>
+                        </ng-template>
+                    </p-listbox>
+                </div>
+                <!-- <div class="field col">
+                    <label>Wait Time<span class="star-sign">*</span></label>
+                    <input type="number" pInputText id="name" formControlName="wait_Time" /> 
+                </div>
+                <div class="field col">
+                    <label>Managers<span style="color: red">*</span></label>
+                    <p-multiSelect [options]="lstUsers"  formControlName="mangersIds"
+                        scrollHeight="100px" defaultLabel="Select a Manager" selectedItemsLabel="{0} items selected"></p-multiSelect>
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <small style="color:red;" class="ng-dirty ng-invalid"
+                                *ngIf="boothForm.value.mangersIds  ==  null || partnerForm.value.mangersIds.length == 0 ">Please required Manager!</small>
+                        </div>
+                </div> -->
+            </div>
+
+            
+
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Save" [disabled]="!projectForm.valid" icon="pi pi-check"
+                class="p-button-text theme-btn">
+                <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}"
+                    styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"
+                    animationDuration=".5s"></p-progressSpinner>
+            </button>
+        </ng-template>
+    </p-dialog>
+</form>
+

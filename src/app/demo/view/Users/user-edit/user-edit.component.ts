@@ -35,11 +35,12 @@ export class UserEditComponent implements OnInit {
 
   selectedVehicles = [];
   selectedZones = [];
-  
+  selectedProjects = [];
+
   roleId: string;
   subAccountId:string;
   parentId: string;
-  
+  groupedProjects: SelectItem[];
   @Output() eventChange = new EventEmitter<Event>();
   
   constructor(private _service: UserService, 
@@ -64,6 +65,7 @@ export class UserEditComponent implements OnInit {
       parentId: [""],
       selectedVehicles: [""],
       selectedZones: [""],
+      selectedProjects: [""]
     });
   }
 
@@ -92,7 +94,7 @@ export class UserEditComponent implements OnInit {
             this.groupedVehicles.push({ label: ele.title, value: ele.id, items: lstData});  
           });
         }
-        else
+        else if(type.number == DynamicDataEnum.Parking_Zones)
         {
           
           this.groupedZones = [];
@@ -106,6 +108,18 @@ export class UserEditComponent implements OnInit {
             
             this.groupedZones.push({ label: ele.title, value: ele.id, items: lstData});  
 
+          });   
+        }
+        else 
+        {
+          
+          this.groupedProjects = [];
+          
+          type.lstDynamicTypeData.forEach(ele=>{
+            //var lstData : SelectItem[] = [];
+            
+            this.groupedProjects.push({ label: ele.title, value: ele.id });
+            
           });   
         }
       })
@@ -137,12 +151,19 @@ export class UserEditComponent implements OnInit {
       this.userEditForm.controls.parentId.setValue(this.details.parentId);
       this.selectedVehicles = [];
       this.selectedZones = [];
+      this.selectedProjects = [];
       this.details.selectedVehicles.forEach(element => {
         this.selectedVehicles.push(element);
       });
       this.details.selectedZones.forEach(element => {
         this.selectedZones.push(element);
       });
+      this.details.selectedProjects.forEach(element => {
+        this.selectedProjects.push(element);
+      });
+      this.userEditForm.controls.selectedVehicles.setValue(this.selectedVehicles);
+      this.userEditForm.controls.selectedZones.setValue(this.selectedZones);
+      this.userEditForm.controls.selectedProjects.setValue(this.selectedProjects);
     }
   }
 
