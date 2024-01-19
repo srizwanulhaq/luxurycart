@@ -81,19 +81,19 @@ export class MenuSidebarService {
                 items: [
                     {
                         label: 'Tour Slots',
-                        icon: 'pi pi-chart-line', routerLink: ['/slots/tour_points_slots-main']
+                        icon: 'pi pi-chart-line', routerLink: ['slots/tour_points_slots-main']
                     },
                     {
                         label: 'Tour Points',
-                        icon: 'pi pi-chart-line', routerLink: ['/slots/tour_points_slots-main']
+                        icon: 'pi pi-chart-line', routerLink: ['slots/tour_points_slots-main']
                     },
                     {
                         label: 'Tour Packages',
-                        icon: 'pi pi-chart-line', routerLink: ['/slots/tour_points_slots-main']
+                        icon: 'pi pi-chart-line', routerLink: ['slots/tour_points_slots-main']
                     },
                     {
                         label: 'Tour Point Slots',
-                        icon: 'pi pi-chart-line', routerLink: ['/slots/tour_points_slots-main']
+                        icon: 'pi pi-chart-line', routerLink: ['slots/tour_points_slots-main']
                     },
                   
                 ]
