@@ -60,7 +60,7 @@ export class ProjectEditComponent implements OnInit {
         if(type.number != DynamicDataEnum.Vehicles)
         {
           
-          
+
           type.lstDynamicTypeData.forEach(ele=>{
             var lstData : SelectItem[] = [];
             

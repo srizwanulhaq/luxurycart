@@ -76,5 +76,27 @@ export class MenuSidebarService {
             // { label: 'Customer Ride', icon: 'fa fa-motorcycle', routerLink: ['/customer-ride/customer-ride-main'] },
             // { label: 'Customer Insurance', icon: 'fa fa-heart', routerLink: ['/customer-insurance/customer-insurance-main'] },
        
+              {
+                label: 'Tours', icon: 'pi pi-chart-line',
+                items: [
+                    {
+                        label: 'Tour Slots',
+                        icon: 'pi pi-chart-line', routerLink: ['/slots/tour_points_slots-main']
+                    },
+                    {
+                        label: 'Tour Points',
+                        icon: 'pi pi-chart-line', routerLink: ['/slots/tour_points_slots-main']
+                    },
+                    {
+                        label: 'Tour Packages',
+                        icon: 'pi pi-chart-line', routerLink: ['/slots/tour_points_slots-main']
+                    },
+                    {
+                        label: 'Tour Point Slots',
+                        icon: 'pi pi-chart-line', routerLink: ['/slots/tour_points_slots-main']
+                    },
+                  
+                ]
+            },
         ]
 }
