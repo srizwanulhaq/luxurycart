@@ -1,0 +1,12 @@
+<div class="col-12">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <div class="card component-main-card">
+                 <app-points-details [details]="point"></app-points-details>
+                <app-points-edit [editPointData]="point" (eventChange)="onChange($event)"></app-points-edit>
+                <app-points-create (eventChange)="onChange($event)"></app-points-create>
+                <app-points-listing [event] = "event"></app-points-listing>
+            </div>
+        </div>
+    </div>
+    

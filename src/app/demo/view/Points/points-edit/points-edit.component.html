@@ -1,0 +1,32 @@
+<p-toast></p-toast>
+
+<form [formGroup]="PointUpdateForm" (ngSubmit)="onSubmitForm()">
+    <p-dialog id="Update-Booth" [(visible)]="main.editPanelActive" [style]="{width: '550px'}" header="Update Point"
+        [modal]="true" class="p-fluid" [dismissableMask]="true">
+        <ng-template pTemplate="content">
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="name">Name <span class="star-sign">*</span></label>
+                    <input type="text" pInputText id="name" formControlName="name" />
+                   
+                </div>
+                <div class="field col">
+                    <label for="name">Arabic Name <span class="star-sign">*</span></label>
+                    <input type="text" pInputText id="name_AR" formControlName="name_AR" />
+                   
+                </div>
+                
+            </div>
+
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Save" [disabled]="!PointUpdateForm.valid" icon="pi pi-check"
+                class="p-button-text theme-btn">
+                <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}"
+                    styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"
+                    animationDuration=".5s"></p-progressSpinner>
+            </button>
+        </ng-template>
+    </p-dialog>
+</form>
