@@ -31,10 +31,10 @@ export class ZoneService {
     //   return this.http.get<Parking_ZonesDto[]>(`${environment.apiUrl}/api/v2/AdminParkingZone/get`);
     // }
 
-    getAllZonesMap(pageIndex: number, pageSize: number, globalFilter: string,
+    getAllZonesMap(pageIndex: number, pageSize: number, globalFilter: string, selectedProject:string,
         sortField: string, sortOrder: number, StatusValue: number, dateRangeStr: string) {
 
-  return this.http.get<any>(`${environment.apiUrl}/api/v2/AdminParkingZone/get?pageSize=${pageSize}&PageNumber=${pageIndex}&globalFilter=${globalFilter}&sortField=${sortField}&sortOrder=${sortOrder}&StatusValue=${StatusValue}${dateRangeStr}`)
+  return this.http.get<any>(`${environment.apiUrl}/api/v2/AdminParkingZone/get?pageSize=${pageSize}&PageNumber=${pageIndex}&globalFilter=${globalFilter}&selectedProject=${selectedProject}&sortField=${sortField}&sortOrder=${sortOrder}&StatusValue=${StatusValue}${dateRangeStr}`)
       .toPromise()
       .then(res => res as ParkingZonesResponse)
       .then(data => data.data);

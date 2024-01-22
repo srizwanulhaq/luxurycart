@@ -18,4 +18,6 @@ export class WalletPackageDao {
     active: boolean
     created_at: Date
     updated_at: Date
+    lstValidZoneId:string[];
+    //lstValidZones:ZonePackageDao[];
 }

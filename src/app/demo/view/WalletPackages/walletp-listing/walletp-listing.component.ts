@@ -4,6 +4,8 @@ import { Table } from 'primeng/table';
 import { WalletPackageDao } from 'src/app/demo/domain/Dao/WalletPackages/WalletPackageDao';
 import { WalletPackageService } from 'src/app/demo/service/walletPackageService';
 import { WalletPackageMainComponent } from '../walletp-main/walletp-main.component';
+import { ProjectsService } from 'src/app/demo/service/projects.service';
+import { SimpleProjectDao } from 'src/app/demo/domain/Dao/Projects/projects';
 
 @Component({
     selector: 'app-walletp-listing',
@@ -13,7 +15,8 @@ import { WalletPackageMainComponent } from '../walletp-main/walletp-main.compone
 })
 
 export class WalletPackageListingComponent implements OnInit {
-    
+    selectedProject: SimpleProjectDao;
+    projectlist: SimpleProjectDao[]
     show = false;
     filterVal: string = ''
     selectedWalletPackages: WalletPackageDao[]
@@ -37,12 +40,14 @@ export class WalletPackageListingComponent implements OnInit {
         private wPService: WalletPackageService,
         private messageService: MessageService,
         private confirmationService: ConfirmationService,
-        private cdref: ChangeDetectorRef) { 
+        private cdref: ChangeDetectorRef,
+        public Projectservice:ProjectsService) { 
             localStorage.removeItem("WalletPackageList-local");
 
         }
 
     ngOnInit(): void {
+        this.initialData();
         this.cols = [
             { field: "date", subfield: "date", header: "Date" },
             { field: "title", subfield: "title", header: "Package" },
@@ -52,7 +57,25 @@ export class WalletPackageListingComponent implements OnInit {
             { field: "Action", header: "Action" },
         ];
     }
+    initialData() {
+        this.Projectservice.getProjectDropdowns()
+            .then(res => {
+                this.projectlist
+                this.projectlist = res
+                if (res.length > 0) {
+                    this.projectlist.find(z => z.id == "1001")["id"] = ""
+                    this.selectedProject = res[0]
+                    //this.loadWalletPackages(this.tableEvent)
+                }
+            })
+    }
 
+    changeProject(e) {
+        this.selectedProject= this.projectlist.find(zone => zone.id == e.value)
+        setTimeout(() => {
+            this.loadWalletPackages(this.tableEvent)
+        }, 500)
+    }
     loadWalletPackages(event: LazyLoadEvent) {
         this.loading = true;
         setTimeout(() => {
@@ -60,6 +83,7 @@ export class WalletPackageListingComponent implements OnInit {
                 event.first / event.rows + 1,
                 event.rows,
                 event.globalFilter,
+                this.selectedProject?.id,
                 event.sortField,
                 event.sortOrder
             ).then(walletP => {

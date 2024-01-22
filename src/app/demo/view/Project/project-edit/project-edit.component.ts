@@ -51,7 +51,7 @@ export class ProjectEditComponent implements OnInit {
     
     this.groupedZones = [];
     //get role list
-    this._Userservice.requestDataFromMultipleSources().then(responseList => {
+    this.service.requestDataFromMultipleSources().then(responseList => {
     
       this.lstDynamictype = responseList.dynVal.lstDynamicTypeDto;
       

@@ -44,9 +44,20 @@
             <div class="md:col-8 text-right col-12 centent-tab-center">
                 
                 <div style="display: flex; justify-content: end;margin-top: 9px;">
+                    
                     <button class="end-ride-btn" type="button" (click)="onRidesEndRecentLoc()" *ngIf="showEndBtn" [disabled]="loading">End
                         Rides
                     </button>
+                        <!-- <h6 class="dashboard-zone-selected-title" *ngIf="!!selectedProject"
+                            style="font-size: 16px;margin: 0;margin-bottom: 4px;font-weight: 700;"> 
+                           Select Project 
+                        </h6> -->
+
+                        <p-dropdown id="dash-drop-id" [style]="{'min-width':'max-content', 'margin-top': '0','background': '#ef591f'}" [options]="projectlist"
+                            (onChange)="changeProject($event)" optionLabel="title" optionValue="id"
+                            [filter]="true"></p-dropdown>
+                    
+
                     <span class="btn-left-box">
                         <div class="dropdown" style="margin-top: 0;">
                             <button onclick="myFunction1()" class="dropbtn1" style="margin-top: 0;background: #ef591f;">Export <i

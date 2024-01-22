@@ -25,3 +25,7 @@ export class ProjectListDao {
     firstRowOnPage:number;
     lastRowOnPage:number;
 }
+export class SimpleProjectDao {
+    id: string;
+    title: string;
+}

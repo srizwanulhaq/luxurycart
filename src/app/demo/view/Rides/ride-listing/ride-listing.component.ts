@@ -10,6 +10,8 @@ import { RideMainComponent } from '../ride-main/ride-main.component';
 import { Subject } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { ProjectsService } from 'src/app/demo/service/projects.service';
+import { SimpleProjectDao } from 'src/app/demo/domain/Dao/Projects/projects';
 
 @Component({
     selector: 'app-ride-listing',
@@ -20,6 +22,8 @@ import { DatePipe } from '@angular/common';
 export class RideListingComponent implements OnInit {
     isLoading: Subject<boolean> = this.loaderService.isLoading;
     visibleSidebar4;
+    selectedProject: SimpleProjectDao;
+    projectlist: SimpleProjectDao[]
     rides: Ridedao[];
     selectedRides: Ridedao[] = [];
     endRide: EndRideDto;
@@ -48,7 +52,8 @@ export class RideListingComponent implements OnInit {
         private cdref: ChangeDetectorRef,
         private loaderService: LoaderService,
         private activatedRoute: ActivatedRoute,
-        private router: Router) {
+        private router: Router,
+        public Projectservice:ProjectsService) {
         localStorage.removeItem("ridesListDAO-local");
         activatedRoute.queryParams.subscribe((params: Params) => {
             const customData = params['customdata'];
@@ -69,6 +74,7 @@ export class RideListingComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.initialData();
         this.statuses = [
             { label: "Active", value: 1 },
             { label: "Ended", value: 2 },
@@ -77,7 +83,25 @@ export class RideListingComponent implements OnInit {
         ];
     }
 
-    
+    initialData() {
+        this.Projectservice.getProjectDropdowns()
+            .then(res => {
+                this.projectlist
+                this.projectlist = res
+                if (res.length > 0) {
+                    this.projectlist.find(z => z.id == "1001")["id"] = ""
+                    this.selectedProject = res[0]
+                    this.loadRides(this.tableEvent)
+                }
+            })
+    }
+
+    changeProject(e) {
+        this.selectedProject= this.projectlist.find(zone => zone.id == e.value)
+        setTimeout(() => {
+            this.loadRides(this.tableEvent)
+        }, 500)
+    }
     loadRides(event: LazyLoadEvent) {
         this.loading = true;
         this.event_status = event;
@@ -85,6 +109,7 @@ export class RideListingComponent implements OnInit {
             this.service.get(event.first / event.rows + 1,
                 event.rows,
                 event.globalFilter ?? this.searchValue,
+                this.selectedProject?.id,
                 event.sortField,
                 event.sortOrder,
                 this.selectedStatus,

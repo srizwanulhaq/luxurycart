@@ -5,6 +5,8 @@ import { Table } from 'primeng/table';
 import { Parking_ZonesDto } from 'src/app/demo/domain/Dto/Zone/Parking_ZonesDto';
 import { ZoneService } from 'src/app/demo/service/zone.service';
 import { ZoneMainComponent } from '../zone-main/zone-main.component';
+import { ProjectsService } from 'src/app/demo/service/projects.service';
+import { SimpleProjectDao } from 'src/app/demo/domain/Dao/Projects/projects';
 
 @Component({
     selector: 'app-zone-list',
@@ -12,7 +14,8 @@ import { ZoneMainComponent } from '../zone-main/zone-main.component';
     styleUrls: ['./zone-list.component.scss']
 })
 export class ZoneListComponent implements OnInit {
-
+    selectedProject: SimpleProjectDao;
+    projectlist: SimpleProjectDao[]
     _lstZones: Parking_ZonesDto[];
     zoneModel: Parking_ZonesDto;
     event_status: any;
@@ -30,7 +33,8 @@ export class ZoneListComponent implements OnInit {
     constructor(private service: ZoneService, public main: ZoneMainComponent,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private cdref: ChangeDetectorRef) {
+        private cdref: ChangeDetectorRef,
+        public Projectservice:ProjectsService) {
         localStorage.removeItem("zoneistDAO-local");
 
 
@@ -45,7 +49,7 @@ export class ZoneListComponent implements OnInit {
 
     ngOnInit(): void {
         // this.getAllZonesMap();
-
+        this.initialData();
         this.cardItems = [
             {
                 label: "Options",
@@ -79,7 +83,25 @@ export class ZoneListComponent implements OnInit {
     //   });
 
     // }
+    initialData() {
+        this.Projectservice.getProjectDropdowns()
+            .then(res => {
+                this.projectlist
+                this.projectlist = res
+                if (res.length > 0) {
+                    this.projectlist.find(z => z.id == "1001")["id"] = ""
+                    this.selectedProject = res[0]
+                    this.loadZones(this.tableEvent)
+                }
+            })
+    }
 
+    changeProject(e) {
+        this.selectedProject= this.projectlist.find(zone => zone.id == e.value)
+        setTimeout(() => {
+            this.loadZones(this.tableEvent)
+        }, 500)
+    }
     loadZones(event: LazyLoadEvent) {
         this.loading = true;
         this.event_status = event;
@@ -88,6 +110,7 @@ export class ZoneListComponent implements OnInit {
                 event.first / event.rows + 1,
                 event.rows,
                 event.globalFilter ?? this.filterGlobalValue,
+                this.selectedProject?.id,
                 event.sortField,
                 event.sortOrder,
                 this.selectedStatus,

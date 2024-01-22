@@ -18,11 +18,12 @@ export class RideService {
     get(pageIndex: number,
         pageSize: number,
         globalFilter: string,
+        selectedProject:string,
         sortField: string,
         sortOrder: number,
         selectedStatus: number,
         dateRangeStr: string) {
-        return this.http.get<any>(`${environment.apiUrl}/api/v3/AdminRides/All?pageSize=${pageSize}&PageNumber=${pageIndex}&sortField=${sortField}&sortOrder=${sortOrder}&globalFilter=${globalFilter}&StatusValue=${selectedStatus}${dateRangeStr}`)
+        return this.http.get<any>(`${environment.apiUrl}/api/v3/AdminRides/All?pageSize=${pageSize}&PageNumber=${pageIndex}&sortField=${sortField}&sortOrder=${sortOrder}&globalFilter=${globalFilter}&selectedProject=${selectedProject}&StatusValue=${selectedStatus}${dateRangeStr}`)
             .toPromise()
             .then(res => res as RidesResponse)
             .then(data => data.ridedto);

@@ -26,6 +26,8 @@ import { WalletPackageAddComponent } from '../walletp-add/walletp-add.component'
 import { WalletPackageEditComponent } from '../walletp-edit/walletp-edit.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { DateRangeComponentModule } from '../../DateRange/date-range.component.module';
+import { ListboxModule } from 'primeng/listbox';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
     declarations: [
@@ -40,6 +42,7 @@ import { DateRangeComponentModule } from '../../DateRange/date-range.component.m
         CommonModule,
         TableModule,
         TabViewModule,
+        DropdownModule,
         PanelModule,
         ButtonModule,
         ToolbarModule,

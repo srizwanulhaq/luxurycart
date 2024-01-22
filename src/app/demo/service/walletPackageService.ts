@@ -14,12 +14,13 @@ export class WalletPackageService {
         pageIndex: number,
         pageSize: number,
         globalFilter: string,
+        selectedProject:string,
         sortField: string,
         sortOrder: number
     ) {
         sortField = sortField == undefined ? '' : sortField
         globalFilter = globalFilter == null ? '' : globalFilter
-        return this.http.get<any>(`${environment.apiUrl}/api/v1/AdminWalletPackages/getAllPackagesParams?pageSize=${pageSize}&PageNumber=${pageIndex}&sortField=${sortField}&sortOrder=${sortOrder}&globalFilter=${globalFilter}`, {
+        return this.http.get<any>(`${environment.apiUrl}/api/v1/AdminWalletPackages/getAllPackagesParams?pageSize=${pageSize}&PageNumber=${pageIndex}&sortField=${sortField}&sortOrder=${sortOrder}&globalFilter=${globalFilter}&selectedProject=${selectedProject}`, {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'

@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { ProjectResponse } from '../domain/Dao/Projects/projects';
+import { ProjectResponse, SimpleProjectDao } from '../domain/Dao/Projects/projects';
 import { UserFormDao } from '../domain/Dao/User/UserFormDao';
 
 @Injectable({
@@ -10,12 +10,22 @@ import { UserFormDao } from '../domain/Dao/User/UserFormDao';
 export class ProjectsService {
 
   constructor(private http: HttpClient) { }
-  requestDataFromMultipleSources() {
+  requestDataFromMultipleSources() 
+  {
     return this.http.get(`${environment.apiUrl}/api/v1/AdminProject/dropdowns/load-values`)
         .toPromise()
         .then(res => res as UserFormDao)
         .then(data => data.data);
-}
+  }
+
+  getProjectDropdowns() {
+    return this.http.get<any>(`${environment.apiUrl}/api/v1/AdminProject/project-load`, {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        })
+    }).toPromise().then(data => data.data.result as SimpleProjectDao[]);
+  }
 
   getAllProject(pageIndex: number, pageSize: number, globalFilter: string,
     sortField: string, sortOrder: number, dateRangeStr: string) {
