@@ -10,7 +10,7 @@ const routes: Routes = [{
   children: [
     {
       path: '',
-      redirectTo: 'slots'
+      redirectTo: 'points-slots'
     },
     {
       path: 'tour_points_slots-main',

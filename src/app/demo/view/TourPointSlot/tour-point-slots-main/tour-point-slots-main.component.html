@@ -1,0 +1,12 @@
+<div class="col-12">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <div class="card component-main-card">
+                <app-tour-point-slots-details [details]="pointSlot"></app-tour-point-slots-details>
+                <app-tour-point-slots-create (eventChange)="onChange($event)"></app-tour-point-slots-create>
+                <app-tour-point-slots-list [event]="event"></app-tour-point-slots-list>
+
+            </div>
+        </div>
+    </div>
+</div>
