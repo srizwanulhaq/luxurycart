@@ -48,7 +48,7 @@
                     <h6>{{details.total_Seat}}</h6>
                 </div>
                 <div class="history-settings card-main ">
-                    <h6><span>Leaf Seats</span></h6>
+                    <h6><span>Left Seats</span></h6>
                     <img src="assets/layout/images/imei.png " alt=" " width="40 ">
                     <h6>{{details.left_Seat}}</h6>
                 </div>
@@ -60,7 +60,15 @@
                 <div class="history-settings card-main ">
                     <h6><span>Slot</span></h6>
                     <img src="assets/layout/images/red-z.png " alt=" " width="40 ">
-                    <h6>{{details.tour_Slots.time_slot}}</h6>
+                    <h6>{{details.tour_Slots.time_Slot}}</h6>
+                </div>
+                <div class="history-settings card-main ">
+                    <h6><span>Slot</span></h6>
+                    <img src="assets/layout/images/logo-ultima.png " alt=" " width="40 ">
+                    <span *ngFor="let package of details.lstTourPackage">
+                        <h6>{{package.name}}</h6>
+                    </span>
+                    
                 </div>
                 
             </div>

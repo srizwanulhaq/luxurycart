@@ -52,7 +52,7 @@ export class TourPointSlotsEditComponent implements OnInit {
   
  
   ngOnChanges(change: SimpleChange) {
-    
+    var id=[];
     if (!!change['editPointSlotData'].currentValue) {
       
         const temp = change['editPointSlotData'].currentValue
@@ -62,7 +62,11 @@ export class TourPointSlotsEditComponent implements OnInit {
         group.controls['total_Seat'].setValue(temp.total_Seat || "");
         group.controls['point_Id'].setValue(temp.points.id || "");
         group.controls['tour_Slot_Id'].setValue(temp.tour_Slots.id || "");
-        group.controls['tourPackagesIds'].setValue(temp.tourPackagesIds || "");
+        temp.lstTourPackage.forEach(element=>
+          {
+            id.push(element.id);
+          })
+        group.controls['tourPackagesIds'].setValue(id || "");
         
         
     }
