@@ -77,7 +77,7 @@ import { LoginMainComponent } from './demo/view/Login/login-main/login-main.comp
                     { path: 'customer-ride', loadChildren: () => import('./demo/view/CustomerRide/customer-ride-main/customer-ride-main.module').then(m => m.CustomerRideMainModule),canActivate: [AuthGuard] },
                     { path: 'customer-insurance', loadChildren: () => import('./demo/view/CustomerInsurance/customer-insurance-main/customer-insurance-main.module').then(m => m.CustomerInsuranceMainModule),canActivate: [AuthGuard] },
                     { path: 'projects', loadChildren: () => import('./demo/view/Project/project-main/project-main.module').then(m => m.ProjectMainModule),canActivate: [AuthGuard] },
-                
+                    { path: 'points-slots', loadChildren: () => import('./demo/view/TourPointSlot/tour-point-slots-main/tour-point-slots-main.module').then(m => m.TourPointSlotsMainModule),canActivate: [AuthGuard] },
                 ]
             },
             { path: 'login', loadChildren: () => import('./demo/view/Login/login-main/login-main.module').then(m => m.LoginMainModule) },

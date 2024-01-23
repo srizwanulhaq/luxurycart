@@ -1,0 +1,38 @@
+<p-toast></p-toast>
+<p-confirmDialog #cd id="cutomer-confrim-model" [style]="{ width: '30vw', top: '-190px' }">
+    <ng-template pTemplate="footer">
+        <button type="button" pButton class="cofirm-model-cancel-btn" label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton label="Yes" (click)="cd.accept()"></button>
+    </ng-template>
+
+</p-confirmDialog>
+<p-sidebar *ngIf="details" [(visible)]="main.bottomPanelActive" position="bottom" [baseZIndex]="10000">
+    <h3 class="text-center" style="color:#6E6E6E;font-weight: 600;font-family: primaryFontBold;"><span style="border-bottom: 3px solid #ef591f;padding-bottom: 3px;">Point Slot Info</span></h3>
+        <div class="submenu-content settings ">
+            <div class="main-row ">
+                <div class="history-settings card-main ">
+                    <h6><span>Total Seats</span></h6>
+                    <img src="assets/layout/images/imei.png " alt=" " width="40 ">
+                    <h6>{{details.total_Seat}}</h6>
+                </div>
+                <div class="history-settings card-main ">
+                    <h6><span>Leaf Seats</span></h6>
+                    <img src="assets/layout/images/imei.png " alt=" " width="40 ">
+                    <h6>{{details.left_Seat}}</h6>
+                </div>
+                <div class="history-settings card-main ">
+                    <h6><span>Point</span></h6>
+                    <img src="assets/layout/images/logo-ultima.png " alt=" " width="40 ">
+                    <h6>{{details.points.name}}</h6>
+                </div>
+                <div class="history-settings card-main ">
+                    <h6><span>Slot</span></h6>
+                    <img src="assets/layout/images/red-z.png " alt=" " width="40 ">
+                    <h6>{{details.tour_Slots.time_slot}}</h6>
+                </div>
+                
+            </div>
+       
+        </div>
+         
+</p-sidebar>

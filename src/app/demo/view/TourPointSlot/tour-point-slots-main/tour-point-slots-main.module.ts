@@ -22,15 +22,18 @@ import { DateRangeComponentModule } from '../../DateRange/date-range.component.m
 import { TourPointSlotsCreateComponent } from '../tour-point-slots-create/tour-point-slots-create.component';
 import { TourPointSlotsDetailsComponent } from '../tour-point-slots-details/tour-point-slots-details.component';
 import { TourPointSlotsMainComponent } from './tour-point-slots-main.component';
-import { TourPointSlotsListComponent } from '../tour-point-slots-list/tour-point-slots-list.component';
 import { TourPointSlotsEditComponent } from '../tour-point-slots-edit/tour-point-slots-edit.component';
+import { TourPointSlotsListComponent } from '../tour-point-slots-list/tour-point-slots-list.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+
 @NgModule({
   declarations: [
     TourPointSlotsCreateComponent,
     TourPointSlotsDetailsComponent,
     TourPointSlotsMainComponent,
-    TourPointSlotsListComponent,
-    TourPointSlotsEditComponent],
+    TourPointSlotsEditComponent,
+    TourPointSlotsListComponent
+    ,],
   imports: [
     CommonModule,
     TourPointSlotsMainRoutingModule,
@@ -52,7 +55,8 @@ import { TourPointSlotsEditComponent } from '../tour-point-slots-edit/tour-point
     PanelModule,
     InputTextModule,
     InputSwitchModule,
-    DateRangeComponentModule
+    DateRangeComponentModule,
+    MultiSelectModule
   ]
 })
 export class TourPointSlotsMainModule { }
