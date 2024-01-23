@@ -1,3 +1,4 @@
+
 <p-toast></p-toast>
 <p-confirmDialog #cd id="cutomer-confrim-model" [style]="{ width: '30vw', top: '-190px' }">
     <ng-template pTemplate="footer">
@@ -7,7 +8,38 @@
 
 </p-confirmDialog>
 <p-sidebar *ngIf="details" [(visible)]="main.bottomPanelActive" position="bottom" [baseZIndex]="10000">
-    <h3 class="text-center" style="color:#6E6E6E;font-weight: 600;font-family: primaryFontBold;"><span style="border-bottom: 3px solid #ef591f;padding-bottom: 3px;">Point Slot Info</span></h3>
+    <h3 class="text-center" style="color:#6E6E6E;font-weight: 600;font-family: primaryFontBold;"><span style="border-bottom: 3px solid #ef591f;padding-bottom: 3px;">Point Info</span></h3>
+    <div class="action-row ">
+            
+        <!-- <div style="padding-right: 9px;text-align: center;">
+            <h6 class="m-0">Change Status</h6>
+            <p-inputSwitch actionTitle="Status" (onChange)="onStatus($event,details.id)"
+                [(ngModel)]="details.active">
+            </p-inputSwitch>
+        </div> -->
+        <div class="action-btn">
+            <div  (click)="main.onEditPanelButtonClick($event,details) ">
+                <h6>Update</h6>
+            </div>
+        </div>  
+    </div> 
+
+        <div class="head-row">
+            <!-- <h6 class="panel-parent-heading"><span><img src="assets/layout/images/id.png" alt="" width="20">
+                    {{details.tripId}}</span></h6> -->
+            <div class="btn-right-box">
+
+                <!-- <h6 class="m-0">
+                    Zones :  <span *ngFor="let zone of zones;let i=index"> {{zone.title }} </span>
+                </h6> -->
+                <!-- <img src="assets/layout/images/locate-green.png" alt="" width="20">
+                <a href="https://www.google.com/maps/search/?api=1&amp;query={{details.latitude}},{{details.longitude}}"
+                    class="navigation-marker" target="_blank">
+                    <span class="last-text text-white"><b> Location</b></span>
+                </a> -->
+              
+            </div>
+        </div>
         <div class="submenu-content settings ">
             <div class="main-row ">
                 <div class="history-settings card-main ">
@@ -36,3 +68,5 @@
         </div>
          
 </p-sidebar>
+
+

@@ -14,6 +14,9 @@ export class TourPointSlotService {
   savePointSlot(model:any) {
     return this.http.post<any>(`${environment.apiUrl}/api/v1/AdminSlot/save`, model);
 }
+updatePointSlot(model:any) {
+  return this.http.post<any>(`${environment.apiUrl}/api/v1/AdminSlot/update`, model);
+}
 getAllPointSlots(pageIndex: number, pageSize: number, globalFilter: string,
   sortField: string, sortOrder: number) {
 

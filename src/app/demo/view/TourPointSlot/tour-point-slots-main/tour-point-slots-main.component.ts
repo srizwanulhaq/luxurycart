@@ -12,14 +12,25 @@ export class TourPointSlotsMainComponent implements OnInit {
   bottomPanelActive:boolean;
   pointSlot:PointSlotDto;
 
+  
+  editPanelClick: boolean;
+  editPanelActive: boolean;
   constructor() { }
 
   ngOnInit(): void {
   }
-  onChange(event){
-    this.event = event;
+  onChange(e){
+    this.event = e;
   }
 
+  onEditPanelButtonClick(event, EditPointData: PointSlotDto){
+
+    this.pointSlot = EditPointData
+    this.editPanelClick = true;
+    this.editPanelActive = !this.editPanelActive;
+    event.preventDefault();
+    this.event = null;
+   }
 
   onBottomPanelButtonClick(event,pointSlot:PointSlotDto){
     this.pointSlot = pointSlot;
