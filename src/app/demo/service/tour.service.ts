@@ -15,8 +15,8 @@ export class TourService {
     addTourSlots(model: any) {
         return this._http.post<any>(`${environment.apiUrl}/api/v1/AdminTimeSlots/save`, model);
     }
-    editTourSlots(slots: EditTourDto) {
-        return this._http.post<any>(`${environment.apiUrl}/api/v1/AdminTimeSlots/update`, slots);
+    editTourSlots(slot: EditTourDto) {
+        return this._http.post<any>(`${environment.apiUrl}/api/v1/AdminTimeSlots/update`, slot);
     }
 
     getTourTimes(pageIndex: number, pageSize: number,  globalFilter: string,

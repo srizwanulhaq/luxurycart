@@ -21,7 +21,6 @@ export class TourSlotsMainComponent implements OnInit {
   onEditPanelButtonClick(event, editTourData: EditTourDto) {
     console.log(editTourData)
     this.editTourData = editTourData;
-    
     this.editPanelClick = true;
     this.editPanelActive = !this.editPanelActive;
     event.preventDefault();

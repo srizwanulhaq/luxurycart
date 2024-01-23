@@ -5,6 +5,7 @@ import { TourService } from 'src/app/demo/service/tour.service';
 import { first } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EditTourDto } from 'src/app/demo/domain/Dto/TourSlots/EditTourDto';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-tour-slots-edit',
@@ -14,16 +15,17 @@ import { EditTourDto } from 'src/app/demo/domain/Dto/TourSlots/EditTourDto';
 export class TourSlotsEditComponent implements OnInit {
   @Input() editTourData: EditTourDto;
   slotEditForm;
+  btnloading : false;
   @Output() eventChange = new EventEmitter<Event>();
   constructor(public main: TourSlotsMainComponent,
-     private _tourService: TourService, private _formBuilder : FormBuilder) { }
+     private _tourService: TourService, private _formBuilder : FormBuilder, private messageService : MessageService) { }
 
   ngOnInit() {
     this.loadForm();
   }
   loadForm() {
     this.slotEditForm = this._formBuilder.group({
-      time_Slots: ["", [Validators.required]],
+      time_Slot: ["", [Validators.required]],
       id: ["", [Validators.required]],
     });
   }
@@ -33,15 +35,14 @@ export class TourSlotsEditComponent implements OnInit {
       const temp = change['editTourData'].currentValue;
       const group: FormGroup = this.slotEditForm as FormGroup;
       group.controls['id'].setValue(temp.id || "");
-      group.controls['time_Slots'].setValue(temp.name || "");
+      group.controls['time_Slot'].setValue(temp.time_Slot || "");
     }
   }
 
   
   onSubmitForm() {
-    // this.btnloading = true;
     if (this.slotEditForm.invalid) {
-      // this.btnloading = false;
+      this.btnloading = false;
       return;
     }
 
@@ -56,14 +57,14 @@ export class TourSlotsEditComponent implements OnInit {
           this.main.editPanelActive = false;
           if (response.status) {
             this.eventChange.emit(response.status);
-            // this.messageService.add({ severity: 'success', summary: 'Successful', detail: response.message, life: 3000 });
+            this.messageService.add({ severity: 'success', summary: 'Successful', detail: response.message, life: 3000 });
           } else {
-            // this.messageService.add({ severity: 'warning', summary: 'Failed', detail: response.message, life: 3000 });
+            this.messageService.add({ severity: 'warning', summary: 'Failed', detail: response.message, life: 3000 });
           }
         },
         error: (error) => {
-          // this.btnloading = false;
-          // this.messageService.add({ severity: 'error', summary: 'Failed', detail: error.error.message, life: 3000 });
+          this.btnloading = false;
+          this.messageService.add({ severity: 'error', summary: 'Failed', detail: error.error.message, life: 3000 });
         },
       });
   }

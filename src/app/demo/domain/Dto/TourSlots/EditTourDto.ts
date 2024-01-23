@@ -1,4 +1,4 @@
 export class EditTourDto {
     id:string;
-    time_Slots: string;
+    time_Slot: string;
 }
