@@ -56,7 +56,7 @@ import { LoginMainComponent } from './demo/view/Login/login-main/login-main.comp
                     { path: 'pendingCommand', loadChildren: () => import('./demo/view/PendingCommand/pending-command-main/pending-command-main.module').then(m => m.PendingCommandMainModule), canActivate: [AuthGuard] },
                     { path: 'user-track', loadChildren: () => import('./demo/view/UserTrack/usert-main/usert-main.module').then(m => m.UserTrackMainModule), canActivate: [AuthGuard] },
                     { path: 'maintenance', loadChildren: () => import('./demo/view/Maintenance/maintenance-main/maintenance-main.module').then(m => m.MaintenanceMainModule), canActivate: [AuthGuard] },
-                    { path: 'slots', loadChildren: () => import('./demo/view/Tour/tour-point-slots-main/tour-point-slots-main.module').then(m => m.TourPointSlotsMainModule), canActivate: [AuthGuard] },
+                    { path: 'slots', loadChildren: () => import('./demo/view/ToursSlots/tour-slots-main/tour-slots-main.module').then(m => m.TourPointSlotsMainModule), canActivate: [AuthGuard] },
                     { path: 'currency', loadChildren: () => import('./demo/view/Currencies/currency-main/currency-main.module').then(m => m.CurrencyMainModule), canActivate: [AuthGuard] },
                     { path: 'city', loadChildren: () => import('./demo/view/Cities/city-main/city-main.module').then(m => m.CityMainModule), canActivate: [AuthGuard] },
                     { path: 'country', loadChildren: () => import('./demo/view/Countries/country-main/country-main.module').then(m => m.CountryMainModule), canActivate: [AuthGuard] },

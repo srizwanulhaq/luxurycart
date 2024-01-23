@@ -81,7 +81,7 @@ export class MenuSidebarService {
                 items: [
                     {
                         label: 'Tour Slots',
-                        icon: 'pi pi-chart-line', routerLink: ['slots/tour_points_slots-main']
+                        icon: 'pi pi-chart-line', routerLink: ['slots/tour_slots-main']
                     },
                     {
                         label: 'Tour Points',

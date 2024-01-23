@@ -1,14 +1,14 @@
 
-<!-- <div class="lodi">
-    <div  class="lodi-child">
+<div class="lodi">
+    <div *ngIf="mainloding" class="lodi-child">
         <div class="custom-loader"></div>
-    </div> -->
-    <p-table id="rides-table" var="customer" #dt [columns]="cols" [value]="toursSlots"
+    </div>
+    <p-table id="rides-table" var="slots" #dt [columns]="cols" [value]="toursSlots"
         selectionMode="multiple"  [lazy]="true"
         (onLazyLoad)="loadTourSlots($event)" [paginator]="true" [showCurrentPageReport]="true" [rowHover]="true"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [rowsPerPageOptions]="rowsPerPageOptions" columnResizeMode="expand" [totalRecords]="totalRecords" [rows]="10"
-        stateStorage="local" stateKey="adminCustomerListDAO-local">
+        stateStorage="local" stateKey="adac">
         <ng-template pTemplate="caption">
             <!-- <shared-date-range [startDate]="startDate" [endDate]="endDate" [loading]="loading"
             (onRangeChange)="onRangeChange($event)" (onDateChange)="onDateChange($event)"></shared-date-range> -->
@@ -103,64 +103,43 @@
 
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th style="width: 3rem">
+                <!-- <th style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
+                </th> -->
                 <th [pSortableColumn]="'code'" pResizableColumn>
-                    Id
+                    Time
                     <p-sortIcon [field]="'code'"></p-sortIcon>
                 </th>
-                <th [pSortableColumn]="'full_Name'" pResizableColumn>
-                    Name
-                    <p-sortIcon [field]="'full_Name'"></p-sortIcon>
-                </th>
-                <th [pSortableColumn]="'phone'" pResizableColumn>
-                    Phone
-                    <p-sortIcon [field]="'phone'"></p-sortIcon>
-                </th>
-                <th>
-                    Status
-                </th>
-                <th>Details</th>
+               
+                <th>Action</th>
 
             </tr>
         </ng-template>
 
-        <!-- <ng-template pTemplate="body" let-customer>
+        <ng-template pTemplate="body" let-slots>
             <tr>
-                <td style="width: 3rem">
+                <!-- <td style="width: 3rem">
                     <p-tableCheckbox [value]="customer"></p-tableCheckbox>
-                </td>
+                </td> -->
 
                 <td>
                     <span class="p-column-title">Code</span>
 
-                    {{ customer.code }}
+                    {{ slots.time_Slot }}
                 </td>
-                <td>
-                    <span class="p-column-title">Name</span>
-                    {{ customer.full_Name }}
-                </td>
-                <td>
-                    <span class="p-column-title">Phone</span>
-                    {{ customer.phone }}
-                </td>
-                <td>
-                    <span class="p-column-title">Status</span>
-                    {{customer.customer_Status.title }}
-                </td>
+             
                 <td class="sm-jus-end">
-                    <button title="More Details" pButton pRipple
-                        class="p-button-rounded p-button-success theme-btn ac-btn" href="#"
-                        (click)="main.onBottomPanelButtonClick($event, customer)">
-
-                        <img src="../../../../../assets/layout/images/more-detail.png" alt="" width="18">
-
-
+                    <button style="padding-left: 0;" title="Edit" class="p-button-rounded p-button-success theme-btn ac-btn" (click)="main.onEditPanelButtonClick($event, tour)"
+                    (click)="main.onEditPanelButtonClick($event, slots)"
+                    >
+                        <!-- <img src="../../../../../assets/layout/images/more-detail.png" alt="" width="18"> -->
+                        <i class="pi pi-pencil" style="font-size: 12px;"></i>
+                        <!-- Edit -->
                     </button>
                 </td>
 
             </tr>
-        </ng-template> -->
+        </ng-template>
        
     </p-table>
+</div>

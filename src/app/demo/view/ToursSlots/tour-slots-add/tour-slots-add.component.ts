@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { first } from 'rxjs/operators';
@@ -9,11 +9,13 @@ import { TourService } from 'src/app/demo/service/tour.service';
   templateUrl: './tour-slots-add.component.html',
   styleUrls: ['./tour-slots-add.component.scss']
 })
+
 export class TourSlotsAddComponent implements OnInit {
+  @Output() eventChange = new EventEmitter<Event>();
   addSlotDialog: boolean;
   tourSlotForm: FormGroup;
   submitted = false;
-  eventChange: any;
+  btnloading = false;
   constructor(private _formBuilder: FormBuilder, private _tourService: TourService, private messageService: MessageService) { }
 
   ngOnInit() {
@@ -25,40 +27,35 @@ export class TourSlotsAddComponent implements OnInit {
     this.addSlotDialog = true;
   }
   onSubmitTourTime() {
-    // this.btnloading = true;
-    // if (this.customerRegisterForm.invalid) {
-    //   this.btnloading = false;
-    //   return;
-    // }
-
+    this.btnloading = true;
     var model = {
       time_Slot: this.tourSlotForm.value.time,
-      
+
     };
-    console.log(model);
     this._tourService
-      .addTourTime(model)
+      .addTourSlots(model)
       .pipe(first())
       .subscribe({
         next: (response) => {
+          this.addSlotDialog = false
+          this.resetForm();
           if (response.status) {
             this.eventChange.emit(response.status);
             this.messageService.add({ severity: 'success', summary: 'Successful', detail: response.message, life: 3000 });
-            // this.main.addPanelActive = false;
-            // this.btnloading = false;
-            // this.resetForm();
           } else {
             this.messageService.add({ severity: 'warning', summary: 'Failed', detail: response.message, life: 3000 });
-            // this.main.addPanelActive = true;
-            // this.btnloading = false;
           }
         },
         error: (error) => {
-          // this.main.addPanelActive = true;
-          // this.btnloading = false;
+          this.btnloading = false;
           this.messageService.add({ severity: 'error', summary: 'Failed', detail: error.error.message, life: 3000 });
+
         },
       });
+  }
+  resetForm() {
+    this.tourSlotForm.reset();
+    this.btnloading = false;
   }
 }
 

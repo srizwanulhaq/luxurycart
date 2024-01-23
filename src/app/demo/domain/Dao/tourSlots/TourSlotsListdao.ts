@@ -5,10 +5,10 @@ export class TourSlotResponse {
     result: boolean;
     status: string;
     message: string;
-    data: VehicleListDao;
+    data: TImeSlotslistDao;
 }
 
-export class VehicleListDao {
+export class TImeSlotslistDao {
     results: TourSlots[];
     currentPage:number;
     pageCount:number;
