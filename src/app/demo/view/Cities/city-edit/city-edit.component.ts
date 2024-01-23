@@ -21,7 +21,7 @@ export class CityEditComponent implements OnInit {
   submitted: boolean;
   cityEditForm;
   btnloading: boolean = false;
-  lstCountries:SelectItem[] = [];
+  lstCountries: SelectItem[] = [];
 
   constructor(public main: CityMainComponent,
     private _formBuilder: FormBuilder,
@@ -36,61 +36,61 @@ export class CityEditComponent implements OnInit {
   @Output() eventChange = new EventEmitter<Event>();
   loadForm() {
     this.cityEditForm = this._formBuilder.group({
-        id: ["", [Validators.required]],
-        name: ["", [Validators.required]],
-        arabic_name: ["", [Validators.required]],
-        country_Id: ["", [Validators.required]]
+      id: ["", [Validators.required]],
+      name: ["", [Validators.required]],
+      arabic_name: ["", [Validators.required]],
+      country_Id: ["", [Validators.required]]
     });
- }
- ngOnChanges(change: SimpleChange) {
-  if (!!change['editCityData'].currentValue) {
+  }
+  ngOnChanges(change: SimpleChange) {
+    if (!!change['editCityData'].currentValue) {
       const temp = change['editCityData'].currentValue;
       const group: FormGroup = this.cityEditForm as FormGroup;
       group.controls['id'].setValue(temp.id || "");
       group.controls['name'].setValue(temp.name || "");
       group.controls['arabic_name'].setValue(temp.arabic_name || "");
-      group.controls['country_Id'].setValue(temp.country.id || "" );
+      group.controls['country_Id'].setValue(temp.country.id || "");
+    }
   }
-}
 
- loadDropdownCountry() {
-  //load counties
-  this._PromoCodeService.loadDropDown().subscribe(responseList => {
-    this.lstCountries = responseList.result.lstCountries;
-  });
-}
-  onSubmitForm(){
+  loadDropdownCountry() {
+    //load counties
+    this._PromoCodeService.loadDropDown().subscribe(responseList => {
+      this.lstCountries = responseList.result.lstCountries;
+    });
+  }
+  onSubmitForm() {
     this.btnloading = true;
     if (this.cityEditForm.invalid) {
-        this.btnloading = false;
-        return;
+      this.btnloading = false;
+      return;
     }
 
     this.EditCity(this.cityEditForm.value);
-    }
-    EditCity(city: EditCityDto) {
+  }
+  EditCity(city: EditCityDto) {
 
     this.service.updateCity(city).pipe(first())
       .subscribe({
-          next: (response) => {
-              this.resetForm();
-              this.main.editPanelActive = false;
-              if (response.status) {
-                  this.eventChange.emit(response.status);
-                  this.messageService.add({ severity: 'success', summary: 'Successful', detail: response.message, life: 3000 });
-              } else {
-                  this.messageService.add({ severity: 'warning', summary: 'Failed', detail: response.message, life: 3000 });
-              }
-          },
-          error: (error) => {
-              this.btnloading = false;
-              this.messageService.add({ severity: 'error', summary: 'Failed', detail: error.error.message, life: 3000 });
-          },
+        next: (response) => {
+          this.resetForm();
+          this.main.editPanelActive = false;
+          if (response.status) {
+            this.eventChange.emit(response.status);
+            this.messageService.add({ severity: 'success', summary: 'Successful', detail: response.message, life: 3000 });
+          } else {
+            this.messageService.add({ severity: 'warning', summary: 'Failed', detail: response.message, life: 3000 });
+          }
+        },
+        error: (error) => {
+          this.btnloading = false;
+          this.messageService.add({ severity: 'error', summary: 'Failed', detail: error.error.message, life: 3000 });
+        },
       });
-}
+  }
 
-resetForm() {
-  this.cityEditForm.reset();
-  this.btnloading = false;
-}
+  resetForm() {
+    this.cityEditForm.reset();
+    this.btnloading = false;
+  }
 }

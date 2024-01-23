@@ -1,5 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { TourSlotsMainRoutingModule } from './tour-slots-main-routing.module';
+import { TourSlotsMainComponent } from './tour-slots-main.component';
+import { TourSlotsListComponent } from '../tour-slots-list/tour-slots-list.component';
+import { TourSlotsEditComponent } from '../tour-slots-edit/tour-slots-edit.component';
+import { TourSlotsAddComponent } from '../tour-slots-add/tour-slots-add.component';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { PanelModule } from 'primeng/panel';
@@ -17,24 +23,13 @@ import { SidebarModule } from 'primeng/sidebar';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { DateRangeComponentModule } from '../../DateRange/date-range.component.module';
-import { TourPointSlotsCreateComponent } from '../tour-point-slots-create/tour-point-slots-create.component';
-import { TourPointSlotsDetailsComponent } from '../tour-point-slots-details/tour-point-slots-details.component';
-import { TourPointSlotsMainComponent } from './tour-point-slots-main.component';
-import { TourPointSlotsEditComponent } from '../tour-point-slots-edit/tour-point-slots-edit.component';
-import { TourPointSlotsListComponent } from '../tour-point-slots-list/tour-point-slots-list.component';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { TourPointSlotsMainRoutingModule } from './tour-point-slots-main-routing.module';
 
 @NgModule({
-  declarations: [
-    TourPointSlotsCreateComponent,
-    TourPointSlotsDetailsComponent,
-    TourPointSlotsMainComponent,
-    TourPointSlotsEditComponent,
-    TourPointSlotsListComponent],
+  declarations: [TourSlotsMainComponent,TourSlotsListComponent,TourSlotsEditComponent,
+    TourSlotsAddComponent],
   imports: [
     CommonModule,
-    TourPointSlotsMainRoutingModule,
+    TourSlotsMainRoutingModule,
     TableModule,
     TabViewModule,
     PanelModule,
@@ -54,8 +49,7 @@ import { TourPointSlotsMainRoutingModule } from './tour-point-slots-main-routing
     InputTextModule,
     InputSwitchModule,
     DateRangeComponentModule,
-    MultiSelectModule
-
+ 
   ]
 })
-export class TourPointSlotsMainModule { }
+export class TourSlotsMainModule { }

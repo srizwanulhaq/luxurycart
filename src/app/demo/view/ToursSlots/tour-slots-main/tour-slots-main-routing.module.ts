@@ -1,23 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TourPointSlotsMainComponent } from './tour-point-slots-main.component';
-
+import { TourSlotsMainComponent } from './tour-slots-main.component';
 
 const routes: Routes = [{
   path: '',
   data: {
-    title: 'Tour Point Slots'
+    title: 'Tour Slots'
   },
   children: [
     {
       path: '',
-      redirectTo: 'points-slots'
+      redirectTo: 'slots'
     },
     {
-      path: 'tour_point_slots-main',
-      component: TourPointSlotsMainComponent,
+      path: 'tour_slots-main',
+      component: TourSlotsMainComponent,
       data: {
-        title: 'Tour Point Slots'
+        title: 'Tour Slots'
       }
     },
   ]
@@ -27,4 +26,4 @@ const routes: Routes = [{
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TourPointSlotsMainRoutingModule { }
+export class TourSlotsMainRoutingModule { }

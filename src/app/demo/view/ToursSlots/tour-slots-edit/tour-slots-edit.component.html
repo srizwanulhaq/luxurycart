@@ -1,0 +1,23 @@
+<p-toast></p-toast>
+<form [formGroup]="slotEditForm" (ngSubmit)="onSubmitForm()">
+    <p-dialog id="new-ride-model" [(visible)]="main.editPanelActive" [style]="{width: '550px'}" header="Details"
+        [modal]="true" class="p-fluid" [dismissableMask]="true">
+        <ng-template pTemplate="content">
+            <div class="formgrid grid">
+                <div class="field md:col-6 col-12">
+                    <label for="name">Time Slot <span class="star-sign">*</span></label>
+                    <input type="text" pInputText id="time_Slot" formControlName="time_Slot" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                </div>
+                <div class="field md:col-6 col-12">
+                    <button pButton pRipple label="Update" [disabled]="!slotEditForm.valid"
+                        class="p-button-text theme-btn mt-5">
+                        <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}"
+                            styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"
+                            animationDuration=".5s"></p-progressSpinner>
+                    </button>
+                </div>
+            </div>
+        </ng-template>
+    </p-dialog>
+</form>

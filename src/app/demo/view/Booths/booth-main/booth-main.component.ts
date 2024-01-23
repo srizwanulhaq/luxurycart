@@ -16,12 +16,7 @@ export class BoothMainComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  }
-  onChange(e){
-    this.event = e;
-  }
-
-  onEditPanelButtonClick(event, EditBoothData: BoothDto){
+  }onEditPanelButtonClick(event, EditBoothData: BoothDto){
 
     this.booth = EditBoothData
     this.editPanelClick = true;
@@ -29,6 +24,11 @@ export class BoothMainComponent implements OnInit {
     event.preventDefault();
     this.event = null;
    }
+  onChange(e){
+    this.event = e;
+  }
+
+  
   onBottomPanelButtonClick(event,booth:BoothDto){
     this.booth = booth;
     this.bottomPanelActive = !this.bottomPanelActive;
