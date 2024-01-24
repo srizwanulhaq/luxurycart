@@ -21,7 +21,7 @@
     <div class="formgrid grid">
       <div class="field md:col-6 col-12">
         <label>Enter Time<span class="star-sign">*</span></label>
-        <input type="text" name="time" formControlName="time" pInputText placeholder="1212" required autofocus
+        <input type="text" name="time" formControlName="time" pInputText  required autofocus
           [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
         <small style="color:red;" class="ng-dirty ng-invalid" *ngIf="tourSlotForm.controls.time.errors?.pattern">Please
           valid time!</small>

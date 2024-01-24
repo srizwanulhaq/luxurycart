@@ -14,7 +14,7 @@ const routes: Routes = [{
       redirectTo: 'points-slots'
     },
     {
-      path: 'tour_point_slots-main',
+      path: 'point-slots-main',
       component: TourPointSlotsMainComponent,
       data: {
         title: 'Tour Point Slots'

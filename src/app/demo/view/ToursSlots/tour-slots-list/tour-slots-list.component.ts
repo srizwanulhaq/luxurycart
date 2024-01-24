@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { LazyLoadEvent, MessageService } from 'primeng/api';
 import { TourSlots } from 'src/app/demo/domain/Dao/tourSlots/TourSlots';
 import { TourService } from 'src/app/demo/service/tour.service';
 import { TourSlotsMainComponent } from '../tour-slots-main/tour-slots-main.component';
@@ -8,7 +8,9 @@ import { Table } from 'primeng/table';
 @Component({
   selector: 'app-tour-slots-list',
   templateUrl: './tour-slots-list.component.html',
-  styleUrls: ['./tour-slots-list.component.scss']
+  styleUrls: ['./tour-slots-list.component.scss'],
+  providers:[MessageService]
+  
 })
 export class TourSlotsListComponent implements OnInit {
   mainloding: boolean = true;
@@ -22,6 +24,13 @@ export class TourSlotsListComponent implements OnInit {
   rowsPerPageOptions = [10, 25, 50];
   cols: any[];
   selectedStatus: number = 7
+  @Input()
+  set event(event: Event) {
+    if (event) {
+      this.loadTourSlots(this.tableEvent);
+    }
+  }
+
   @Output() eventChange = new EventEmitter<Event>();
   @ViewChild(Table, { static: false }) tableEvent;
   constructor(private _tourService: TourService, public main: TourSlotsMainComponent,) {
@@ -49,10 +58,4 @@ export class TourSlotsListComponent implements OnInit {
         })
     }, 1000);
 }
-@Input()
-    set event(event: Event) {
-        if (event) {
-            this.loadTourSlots(this.tableEvent);
-        }
-    }
 }

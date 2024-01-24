@@ -23,6 +23,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { DateRangeComponentModule } from '../../DateRange/date-range.component.module';
+import { MessagesModule } from 'primeng/messages';
 
 @NgModule({
   declarations: [TourSlotsMainComponent,TourSlotsListComponent,TourSlotsEditComponent,
@@ -34,6 +35,7 @@ import { DateRangeComponentModule } from '../../DateRange/date-range.component.m
     TabViewModule,
     PanelModule,
     ButtonModule,
+    MessagesModule,
     ToolbarModule,
     DialogModule,
     ToastModule,

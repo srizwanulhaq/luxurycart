@@ -7,7 +7,8 @@ import { TourService } from 'src/app/demo/service/tour.service';
 @Component({
   selector: 'app-tour-slots-add',
   templateUrl: './tour-slots-add.component.html',
-  styleUrls: ['./tour-slots-add.component.scss']
+  styleUrls: ['./tour-slots-add.component.scss'],
+  providers:[MessageService]
 })
 
 export class TourSlotsAddComponent implements OnInit {

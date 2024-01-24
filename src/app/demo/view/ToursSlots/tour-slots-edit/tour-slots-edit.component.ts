@@ -10,7 +10,8 @@ import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-tour-slots-edit',
   templateUrl: './tour-slots-edit.component.html',
-  styleUrls: ['./tour-slots-edit.component.scss']
+  styleUrls: ['./tour-slots-edit.component.scss'],
+  providers:[MessageService]
 })
 export class TourSlotsEditComponent implements OnInit {
   @Input() editTourData: EditTourDto;

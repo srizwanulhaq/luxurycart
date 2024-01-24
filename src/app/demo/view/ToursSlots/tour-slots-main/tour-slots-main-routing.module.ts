@@ -10,10 +10,10 @@ const routes: Routes = [{
   children: [
     {
       path: '',
-      redirectTo: 'slots'
+      redirectTo: 'tour-slots'
     },
     {
-      path: 'tour_slots-main',
+      path: 'tour-slots-main',
       component: TourSlotsMainComponent,
       data: {
         title: 'Tour Slots'
