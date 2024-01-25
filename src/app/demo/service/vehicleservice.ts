@@ -33,10 +33,10 @@ export class VehicleService {
             .then(data => data.lstVhclDto);
     }
 
-    getScooters(pageIndex: number, pageSize: number, globalFilter: string,
+    getScooters(pageIndex: number, pageSize: number, globalFilter: string,selectedProject:string,
         sortField: string, sortOrder: number, vehicleStatusValue: number, dateRangeStr: string) {
 
-        return this.http.get<any>(`${environment.apiUrl}/api/v2/AdminVehicles/get?pageSize=${pageSize}&PageNumber=${pageIndex}&globalFilter=${globalFilter}&sortField=${sortField}&sortOrder=${sortOrder}&StatusValue=${vehicleStatusValue}${dateRangeStr}`)
+        return this.http.get<any>(`${environment.apiUrl}/api/v2/AdminVehicles/get?pageSize=${pageSize}&PageNumber=${pageIndex}&globalFilter=${globalFilter}&selectedProject=${selectedProject}&sortField=${sortField}&sortOrder=${sortOrder}&StatusValue=${vehicleStatusValue}${dateRangeStr}`)
             .toPromise()
             .then(res => res as VehicleResponse)
             .then(data => data.data);

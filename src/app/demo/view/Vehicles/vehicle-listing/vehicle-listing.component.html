@@ -84,6 +84,9 @@
 
                     <div style="display: flex; justify-content: end; align-items: center; height: 100%;">
                         <span class="btn-left-box mr-2">
+                            <p-dropdown id="dash-drop-id" [style]="{'min-width':'max-content', 'margin-top': '0','background': '#ef591f'}" [options]="projectlist"
+                (onChange)="changeProject($event)" optionLabel="title" optionValue="id"
+                [filter]="true"></p-dropdown>
                             <div class="dropdown" style="margin-top: 0;">
                                 <button onclick="myFunction1()" class="dropbtn1"
                                     style="margin-top: 0;background: #ef591f;">Export <i

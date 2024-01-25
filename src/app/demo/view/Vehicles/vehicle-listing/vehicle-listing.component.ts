@@ -5,6 +5,8 @@ import { Table } from 'primeng/table';
 import { Vehicles } from 'src/app/demo/domain/Dao/Vehicle/Vehicles';
 import { VehicleService } from 'src/app/demo/service/vehicleservice';
 import { VehicleMainComponent } from '../vehicle-main/vehicle-main.component';
+import { ProjectsService } from 'src/app/demo/service/projects.service';
+import { SimpleProjectDao } from 'src/app/demo/domain/Dao/Projects/projects';
 @Component({
     selector: 'app-vehicle-listing',
     templateUrl: './vehicle-listing.component.html',
@@ -12,6 +14,8 @@ import { VehicleMainComponent } from '../vehicle-main/vehicle-main.component';
 })
 export class VehicleListingComponent implements OnInit {
     cols: any[];
+    selectedProject: SimpleProjectDao;
+    projectlist: SimpleProjectDao[]
     statuses: SelectItem[] = [];
     states: SelectItem[] = [];
     selectedStatus: number = 7
@@ -35,7 +39,8 @@ export class VehicleListingComponent implements OnInit {
         public main: VehicleMainComponent,
         private cdref: ChangeDetectorRef,
         private activatedRoute: ActivatedRoute,
-        private router: Router) {
+        private router: Router,
+        public Projectservice:ProjectsService) {
       
         localStorage.removeItem("vehiclesListDAO-local");
         activatedRoute.queryParams.subscribe((params: Params) => {
@@ -56,6 +61,8 @@ export class VehicleListingComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        
+        this.initialData();
         this.loadDropdownValues()
     }
 
@@ -87,6 +94,7 @@ export class VehicleListingComponent implements OnInit {
                 event.first / event.rows + 1,
                 event.rows,
                 event.globalFilter ?? this.filterGlobalValue,
+                this.selectedProject?.id,
                 event.sortField,
                 event.sortOrder,
                 this.selectedStatus,
@@ -121,6 +129,26 @@ export class VehicleListingComponent implements OnInit {
                 this.resetSelection()
             }
         }
+    }
+    initialData() {
+        this.Projectservice.getProjectDropdowns()
+            .then(res => {
+                this.projectlist
+                this.projectlist = res
+                if (res.length > 0) {
+                    this.projectlist.find(z => z.id == "1001")["id"] = ""
+                    this.selectedProject = res[0]
+                    //this.loadVehicles(this.tableEvent)
+                }
+            })
+            console.log(this.projectlist)
+    }
+
+    changeProject(e) {
+        this.selectedProject= this.projectlist.find(zone => zone.id == e.value)
+        setTimeout(() => {
+            this.loadVehicles(this.tableEvent)
+        }, 500)
     }
     statusChanged(e) {
         this.selectedStatus = this.statuses[e.index].value;
