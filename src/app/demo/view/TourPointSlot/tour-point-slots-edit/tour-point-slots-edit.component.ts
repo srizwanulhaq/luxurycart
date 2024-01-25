@@ -43,6 +43,7 @@ export class TourPointSlotsEditComponent implements OnInit {
     loadForm() {
       this.PointSlotUpdateForm = this._formBuilder.group({
           total_Seat: [""],
+          left_Seat:[""],
           id:[""],
           point_Id: ["", [Validators.required]],
           tour_Slot_Id: ["", [Validators.required]],
@@ -59,9 +60,13 @@ export class TourPointSlotsEditComponent implements OnInit {
         console.log(temp);
         const group: FormGroup = this.PointSlotUpdateForm as FormGroup;
         group.controls['id'].setValue(temp.id || "");
+        
         group.controls['total_Seat'].setValue(temp.total_Seat || "");
+        group.controls['left_Seat'].setValue(temp.left_Seat || "");
+        
         group.controls['point_Id'].setValue(temp.points.id || "");
         group.controls['tour_Slot_Id'].setValue(temp.tour_Slots.id || "");
+
         temp.lstTourPackage.forEach(element=>
           {
             id.push(element.id);

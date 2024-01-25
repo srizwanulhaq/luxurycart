@@ -27,4 +27,9 @@ export class TourService {
             .then(res => res as TourSlotResponse)
             .then(data => data.data);
     }
+
+    changeStatus(model:any)
+        {
+            return this._http.post<any>(`${environment.apiUrl}/api/v1/AdminTimeSlots/active/deactive`,model);
+    }
 }
