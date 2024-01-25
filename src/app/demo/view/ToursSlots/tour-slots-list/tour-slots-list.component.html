@@ -1,8 +1,17 @@
+<p-toast></p-toast>
+<p-confirmDialog #cd id="cutomer-confrim-model" [style]="{ width: '30vw', top: '-190px' }">
+    <ng-template pTemplate="footer">
+        <button type="button" pButton class="cofirm-model-cancel-btn" label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton label="Yes" (click)="cd.accept()"></button>
+    </ng-template>
+
+</p-confirmDialog>
 
 <div class="lodi">
     <div *ngIf="mainloding" class="lodi-child">
         <div class="custom-loader"></div>
     </div>
+   
     <p-table id="rides-table" var="slots" #dt [columns]="cols" [value]="toursSlots"
         selectionMode="multiple"  [lazy]="true"
         (onLazyLoad)="loadTourSlots($event)" [paginator]="true" [showCurrentPageReport]="true" [rowHover]="true"
@@ -110,7 +119,8 @@
                     Time
                     <p-sortIcon [field]="'code'"></p-sortIcon>
                 </th>
-               
+              
+                <th>Change Status</th>
                 <th>Action</th>
 
             </tr>
@@ -127,7 +137,10 @@
 
                     {{ slots.time_Slot }}
                 </td>
-             
+                <td>    
+                    <p-inputSwitch actionTitle="Status" (onChange)="onStatus($event,slots)"
+                    [(ngModel)]="slots.active">
+                </p-inputSwitch></td>
                 <td class="sm-jus-end">
                     <button style="padding-left: 0;" title="Edit" class="p-button-rounded p-button-success theme-btn ac-btn"
                     (click)="main.onEditPanelButtonClick($event, slots)"
@@ -137,6 +150,7 @@
                         <!-- Edit -->
                     </button>
                 </td>
+              
 
             </tr>
         </ng-template>

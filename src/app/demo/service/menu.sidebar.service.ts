@@ -42,6 +42,31 @@ export class MenuSidebarService {
            
             { label: 'Push Notification', icon: 'pi pi-send', routerLink: ['/push-notifications/push-notification-main'] },
             { label: 'Pending Commands', icon: 'pi pi-sort-alt-slash', routerLink: ['/pendingCommand/pending-command-main'] },
+            { label: 'Projects', icon: 'pi pi-sitemap', routerLink: ['/projects/projects-main'] },
+            {
+                label: 'Tours', icon: 'pi pi-chart-line',
+                items: [
+                    {
+                        label: 'Tour Slots',
+                        icon: 'pi pi-chart-line', routerLink: ['/tour-slots/tour-slots-main']
+                    },
+                    {
+                        
+                        label: 'Tour Points',
+                        icon: 'pi pi-chart-line', routerLink: ['/tour-points/tour-points-main']
+                    },
+                    {
+                        label: 'Tour Packages',
+                        icon: 'pi pi-chart-line', routerLink: ['/tour-packages/tour-packages-main']
+                    },
+                    {
+                        label: 'Tour Point Slots',
+                        icon: 'pi pi-chart-line', routerLink: ['/points-slots/point-slots-main']
+                    },
+                  
+                  
+                ]
+            },
             { label: 'Country', icon: 'pi pi-flag-fill', routerLink: ['/country/country-main'] },
             { label: 'City', icon: 'pi pi-sitemap', routerLink: ['/city/city-main'] },
             { label: 'Currency', icon: 'pi pi-money-bill', routerLink: ['/currency/currency-main'] },
@@ -70,35 +95,12 @@ export class MenuSidebarService {
             { label: 'Booths', icon: 'pi pi-sitemap', routerLink: ['/booths/booth-main'] },
             { label: 'Concierge Request', icon: 'pi pi-clone', routerLink: ['/concierge-request/concierge-request-main'] },
             { label: 'Concierge Package', icon: 'pi pi-sitemap', routerLink: ['/concierge-package/concierge-package-main'] },
-            { label: 'Projects', icon: 'pi pi-sitemap', routerLink: ['/projects/projects-main'] },
+           
            
             
             // { label: 'Customer Ride', icon: 'fa fa-motorcycle', routerLink: ['/customer-ride/customer-ride-main'] },
             // { label: 'Customer Insurance', icon: 'fa fa-heart', routerLink: ['/customer-insurance/customer-insurance-main'] },
        
-              {
-                label: 'Tours', icon: 'pi pi-chart-line',
-                items: [
-                    {
-                        label: 'Tour Slots',
-                        icon: 'pi pi-chart-line', routerLink: ['/tour-slots/tour-slots-main']
-                    },
-                    {
-                        
-                        label: 'Tour Points',
-                        icon: 'pi pi-chart-line', routerLink: ['/tour-points/tour-points-main']
-                    },
-                    {
-                        label: 'Tour Packages',
-                        icon: 'pi pi-chart-line', routerLink: ['/tour-packages/tour-packages-main']
-                    },
-                    {
-                        label: 'Tour Point Slots',
-                        icon: 'pi pi-chart-line', routerLink: ['/points-slots/point-slots-main']
-                    },
-                  
-                  
-                ]
-            },
+             
         ]
 }

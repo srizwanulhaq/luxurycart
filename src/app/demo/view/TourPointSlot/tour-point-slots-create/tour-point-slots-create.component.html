@@ -38,9 +38,23 @@
                         [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
                 </div>
                 <div class="field col">
+                    <label for="name">Left Seats<span class="star-sign">*</span></label>
+                    <input type="number" pInputText id="number" formControlName="left_Seat" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                </div>
+            </div>
+
+
+            <div class="formgrid grid">
+                <div class="field col">
                     <label for="price">Tour Package <span class="star-sign">*</span></label>
                     <p-multiSelect id="zone-mul" [options]="lstTourPackages"  formControlName="tourPackagesIds" defaultLabel="Select Tour Package"   selectedItemsLabel="{0} items selected" ></p-multiSelect>  
+                </div>
+              <div class="field col">
+            
             </div>
+                
+            
             </div>
         </ng-template>
 

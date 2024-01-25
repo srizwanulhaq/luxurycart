@@ -1,15 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { LazyLoadEvent, MessageService } from 'primeng/api';
+import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import { TourSlots } from 'src/app/demo/domain/Dao/tourSlots/TourSlots';
 import { TourService } from 'src/app/demo/service/tour.service';
 import { TourSlotsMainComponent } from '../tour-slots-main/tour-slots-main.component';
 import { Table } from 'primeng/table';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tour-slots-list',
   templateUrl: './tour-slots-list.component.html',
   styleUrls: ['./tour-slots-list.component.scss'],
-  providers:[MessageService]
+  providers:[MessageService,ConfirmationService]
   
 })
 export class TourSlotsListComponent implements OnInit {
@@ -33,7 +34,9 @@ export class TourSlotsListComponent implements OnInit {
 
   @Output() eventChange = new EventEmitter<Event>();
   @ViewChild(Table, { static: false }) tableEvent;
-  constructor(private _tourService: TourService, public main: TourSlotsMainComponent,) {
+  constructor(private _tourService: TourService, public main: TourSlotsMainComponent,
+    private confirmService: ConfirmationService,
+    private messageService: MessageService,) {
     localStorage.removeItem("adac");
    }
 
@@ -57,5 +60,37 @@ export class TourSlotsListComponent implements OnInit {
             this.totalRecords = res.rowCount;
         })
     }, 1000);
+}
+
+  onStatus(e, timeSlot) {
+  var active = e.checked;
+  this.confirmService.confirm({
+    message: "Do you want to change status?",
+    header: "Change Confirmation",
+    icon: "pi pi-info-circle",
+    accept: () => {
+      //-------------------------------------
+      var model = {
+        id: timeSlot.id,
+        active: active,
+      };
+      this._tourService
+        .changeStatus(model)
+        .pipe(first())
+        .subscribe({
+          next: (response) => {
+            this.messageService.add({severity: 'success', summary: 'Successful', detail: response.message, life: 3000});
+            this.loadTourSlots(this.tableEvent);
+          },
+          error: (error) => {
+              this.messageService.add({severity: 'error', summary: 'Failed', detail: error.error.message, life: 3000});
+          },
+        });
+ 
+    },
+    reject: () => {
+      timeSlot.active = !active;
+    },
+  });
 }
 }

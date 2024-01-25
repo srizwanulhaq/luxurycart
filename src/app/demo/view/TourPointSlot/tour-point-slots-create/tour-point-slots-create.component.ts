@@ -35,6 +35,7 @@ export class TourPointSlotsCreateComponent implements OnInit {
   @Output() eventChange = new EventEmitter<Event>();
   
   openNew(){
+    this.main.event = null;
    this.pointSlotDialog = true;
   }
   onSubmitForm(){
@@ -81,6 +82,7 @@ export class TourPointSlotsCreateComponent implements OnInit {
 loadForm() {
   this.pointSlotForm = this._formBuilder.group({
       total_Seat: [""],
+      left_Seat:[""],
       point_Id: ["", [Validators.required]],
       tour_Slot_Id: ["", [Validators.required]],
       tourPackagesIds:[],
