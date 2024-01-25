@@ -25,7 +25,7 @@
                     </span>
                 </span>
             </div>
-            <div class="md:col-4 col-12 show-desktop" style="position: relative;">
+            <div class="md:col-12 col-12 show-desktop" style="position: relative;">
                 <span class="">
                     <span>
                         <p-tabView (onChange)="statusChanged($event)" id="status-tab">
@@ -41,7 +41,7 @@
                 </span>
             </div>
             
-            <div class="md:col-8 text-right col-12 centent-tab-center">
+            <div class="md:col-12 text-right col-12 centent-tab-center">
                 
                 <div style="display: flex; justify-content: end;margin-top: 9px;">
                     
@@ -53,7 +53,7 @@
                            Select Project 
                         </h6> -->
 
-                        <p-dropdown id="dash-drop-id" [style]="{'min-width':'max-content', 'margin-top': '0','background': '#ef591f'}" [options]="projectlist"
+                        <p-dropdown id="dash-drop-id" [style]="{'min-width':'200px','text-align':'left', 'margin-right': '7px','margin-top': '0','background': '#ef591f'}" [options]="projectlist"
                             (onChange)="changeProject($event)" optionLabel="title" optionValue="id"
                             [filter]="true"></p-dropdown>
                     
