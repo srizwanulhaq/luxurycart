@@ -31,4 +31,8 @@ getAllPointSlots(pageIndex: number, pageSize: number, globalFilter: string,
         .then(res => res as PointSlotDropDownResult)
         .then(data => data.result);
 }
+  changeStatus(model:any)
+  {
+    return this.http.post<any>(`${environment.apiUrl}/api/v1/AdminSlot/active/deactive`,model);
+  }
 }
