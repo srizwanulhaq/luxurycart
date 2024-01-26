@@ -141,7 +141,6 @@ export class VehicleListingComponent implements OnInit {
                     //this.loadVehicles(this.tableEvent)
                 }
             })
-            console.log(this.projectlist)
     }
 
     changeProject(e) {

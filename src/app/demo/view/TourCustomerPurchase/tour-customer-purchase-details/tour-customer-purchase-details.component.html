@@ -1,0 +1,94 @@
+<p-toast></p-toast>
+<!-- <p-confirmDialog #cd id="cutomer-confrim-model" [style]="{ width: '30vw', top: '-190px' }">
+    <ng-template pTemplate="footer">
+        <button type="button" pButton class="cofirm-model-cancel-btn" label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton label="Yes" (click)="cd.accept()"></button>
+    </ng-template>
+
+</p-confirmDialog> -->
+<p-sidebar *ngIf="details" [(visible)]="main.bottomPanelActive" position="bottom" [baseZIndex]="10000">
+    <h3 class="text-center" style="color:#6E6E6E;font-weight: 600;font-family: primaryFontBold;"><span style="border-bottom: 3px solid #ef591f;padding-bottom: 3px;">Customer Purchase Info</span></h3>
+    <div class="action-row ">
+            
+        <!-- <div style="padding-right: 9px;text-align: center;">
+            <h6 class="m-0">Change Status</h6>
+            <p-inputSwitch actionTitle="Status" (onChange)="onStatus($event,details.id)"
+                [(ngModel)]="details.active">
+            </p-inputSwitch>
+        </div> -->
+        
+    </div> 
+
+        <div class="head-row">
+            <!-- <h6 class="panel-parent-heading"><span><img src="assets/layout/images/id.png" alt="" width="20">
+                    {{details.tripId}}</span></h6> -->
+            <div class="btn-right-box">
+
+                <!-- <h6 class="m-0">
+                    Zones :  <span *ngFor="let zone of zones;let i=index"> {{zone.title }} </span>
+                </h6> -->
+                <!-- <img src="assets/layout/images/locate-green.png" alt="" width="20">
+                <a href="https://www.google.com/maps/search/?api=1&amp;query={{details.latitude}},{{details.longitude}}"
+                    class="navigation-marker" target="_blank">
+                    <span class="last-text text-white"><b> Location</b></span>
+                </a> -->
+              
+            </div>
+        </div>
+        <div class="submenu-content settings ">
+            <div class="main-row ">
+                <div class="history-settings card-main ">
+                    <h6><span>Date & Time</span></h6>
+                    <img src="assets/layout/images/name.png " alt=" " width="40 ">
+                    <h6>{{details.created_at}}</h6>
+                </div>
+                <div class="history-settings card-main ">
+                    <h6><span>Customer</span></h6>
+                    <img src="assets/layout/images/imei.png " alt=" " width="40 ">
+                    <h6>{{details.customers.fullName}}
+                    <br>
+                    <a *ngIf="details.customers != null" [routerLink]="[ '/customer/customer-main'] "
+                    [queryParams]="{ customdata: details.customers.applicationUser.phoneNumber }" class="clickable-v-btn ">
+
+                    <p *ngIf="details.customers.applicationUser != null">
+                        {{details.customers.applicationUser.phoneNumber}}
+                    </p>
+
+                </a>
+                    </h6>
+                </div>
+                <div class="history-settings card-main ">
+                    <h6><span>Tour Point</span></h6>
+                    <img src="assets/layout/images/locate-green.png " alt=" " width="40 ">
+                    <h6>{{details.tour_Point_Slot.points.name}}</h6>
+                </div>
+                <div class="history-settings card-main ">
+                    <h6><span>Tour Package</span></h6>
+                    <img src="assets/layout/images/locate-green.png " alt=" " width="40 ">
+                    <h6>{{details.tour_Slot_Package.tour_Package.name}}</h6>
+                </div>
+                <div class="history-settings card-main ">
+                    <h6><span>Time Slot</span></h6>
+                    <img src="assets/layout/images/locate-green.png " alt=" " width="40 ">
+                    <h6>{{details.tour_Point_Slot.tour_Slots.time_Slot}}</h6>
+                </div>
+                <div class="history-settings card-main ">
+                    <h6><span>Booked Seats</span></h6>
+                    <img src="assets/layout/images/calender.png " alt=" " width="40 ">
+                    <h6>{{details.qty }}</h6>
+                </div>
+                <div class="history-settings card-main ">
+                    <h6><span>Total Amount</span></h6>
+                    <img src="assets/layout/images/calender.png " alt=" " width="40 ">
+                    <h6>{{details.total_Amount}}</h6>
+                </div>
+                <div class="history-settings card-main ">
+                    <h6><span>Paid</span></h6>
+                    <img src="assets/layout/images/calender.png " alt=" " width="40 ">
+                    <h6>{{details.isPaid==1?"Yes":"No"}}</h6>
+                </div>
+            </div>
+       
+        </div>
+         
+</p-sidebar>

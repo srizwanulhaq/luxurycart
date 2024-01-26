@@ -5,6 +5,7 @@ import { TourService } from 'src/app/demo/service/tour.service';
 import { TourSlotsMainComponent } from '../tour-slots-main/tour-slots-main.component';
 import { Table } from 'primeng/table';
 import { first } from 'rxjs/operators';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-tour-slots-list',
@@ -36,8 +37,17 @@ export class TourSlotsListComponent implements OnInit {
   @ViewChild(Table, { static: false }) tableEvent;
   constructor(private _tourService: TourService, public main: TourSlotsMainComponent,
     private confirmService: ConfirmationService,
-    private messageService: MessageService,) {
-    localStorage.removeItem("adac");
+    private messageService: MessageService,
+    private activatedRoute: ActivatedRoute) {
+      localStorage.removeItem("adac");
+      activatedRoute.queryParams.subscribe((params: Params) => {
+
+          const parameter = params['customdata'];
+          if (parameter !== undefined) {
+              this.filterGlobalValue = parameter.replace(/[+]/g, '');
+          }
+
+      });
    }
 
   ngOnInit() {
