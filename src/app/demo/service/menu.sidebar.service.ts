@@ -63,7 +63,10 @@ export class MenuSidebarService {
                         label: 'Tour Point Slots',
                         icon: 'pi pi-chart-line', routerLink: ['/points-slots/point-slots-main']
                     },
-                  
+                    {
+                        label: 'Tour Customer Purchase',
+                        icon: 'pi pi-money-bill', routerLink: ['/tour-customer-purchase/tour-customer-purchase-main']
+                    },
                   
                 ]
             },

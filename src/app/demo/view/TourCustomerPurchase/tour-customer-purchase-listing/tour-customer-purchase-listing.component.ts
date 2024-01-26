@@ -1,42 +1,32 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
-import { PackagesService } from 'src/app/demo/service/packages.service';
-import { PackagesMainComponent } from '../packages-main/packages-main.component';
-import { Packages } from 'src/app/demo/domain/Dao/Tours/packages';
+import { PointsMainComponent } from '../../Points/points-main/points-main.component';
+import { TourCustomerPurchaseService } from 'src/app/demo/service/tour-customer-purchase.service';
 import { Table } from 'primeng/table';
-import { ActivatedRoute, Params } from '@angular/router';
-
+import { TourCustomerPurchase } from 'src/app/demo/domain/Dao/Tours/tour-customer-purchase';
+import { TourCustomerPurchaseMainComponent } from '../tour-customer-purchase-main/tour-customer-purchase-main.component';
 
 @Component({
-  selector: 'app-packages-listing',
-  templateUrl: './packages-listing.component.html',
-  styleUrls: ['./packages-listing.component.scss']
+  selector: 'app-tour-customer-purchase-listing',
+  templateUrl: './tour-customer-purchase-listing.component.html',
+  styleUrls: ['./tour-customer-purchase-listing.component.scss']
 })
-export class PackagesListingComponent implements OnInit {
+export class TourCustomerPurchaseListingComponent implements OnInit {
 
   loading: boolean = false;
   event_status: any;
   filterGlobalValue: any;
   totalRecords: number;
-  lstPackages: Packages[];
+  lstPurchases: TourCustomerPurchase[];
   rowsPerPageOptions = [10, 25, 50];
   @ViewChild(Table, { static: false }) tableEvent;
   startDate: string = ""
   endDate: string = ""
 
-  constructor(private service: PackagesService,
+  constructor(private service: TourCustomerPurchaseService,
     private cdref: ChangeDetectorRef,
-    public main:PackagesMainComponent,
-    private activatedRoute: ActivatedRoute) { 
-      localStorage.removeItem("PackageListDao-local");
-        activatedRoute.queryParams.subscribe((params: Params) => {
-  
-            const parameter = params['customdata'];
-            if (parameter !== undefined) {
-                this.filterGlobalValue = parameter.replace(/[+]/g, '');
-            }
-  
-        });
+    public main:TourCustomerPurchaseMainComponent) { 
+      localStorage.removeItem("PurchaseListDao-local");
     }
 
   ngOnInit(): void {
@@ -45,15 +35,15 @@ export class PackagesListingComponent implements OnInit {
   @Input()
   set event(event: Event) {
     if (event) {
-      this.loadPackages(this.tableEvent);
+      this.loadTourCustomerPurchase(this.tableEvent);
     }
   }
 
-  loadPackages(event: LazyLoadEvent) {
+  loadTourCustomerPurchase(event: LazyLoadEvent) {
     this.loading = true;
     this.event_status = event;
     setTimeout(() => {
-        this.service.getAllPackages(
+        this.service.getAllPurchases(
             event.first / event.rows + 1,
             event.rows,
             event.globalFilter ?? this.filterGlobalValue,
@@ -62,7 +52,7 @@ export class PackagesListingComponent implements OnInit {
             !!this.startDate ? `&startDate=${this.startDate}&endDate=${this.endDate}` : ""
         ).then(res => {
           console.log(res)
-            this.lstPackages = res.results;
+            this.lstPurchases = res.results;
             this.totalRecords = res.rowCount;
             this.loading = false;
         })
@@ -70,7 +60,7 @@ export class PackagesListingComponent implements OnInit {
 }
   resetDataTable(dt) {
     dt.reset();
-    localStorage.removeItem("PackageListDao-local");
+    localStorage.removeItem("PurchaseListDao-local");
     this.event_status.globalFilter = "";
     this.filterGlobalValue = null;
   }
@@ -85,7 +75,6 @@ onRangeChange(reset) {
   if (reset) {
       this.startDate = ""
       this.endDate = ""
-  } this.loadPackages(this.tableEvent)
+  } this.loadTourCustomerPurchase(this.tableEvent)
 }
-
 }
