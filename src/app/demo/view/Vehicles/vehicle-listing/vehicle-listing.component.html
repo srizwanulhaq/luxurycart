@@ -17,7 +17,8 @@
                         <span>
                             <h6
                                 style="margin: 10px 0px;font-weight: bold;font-size: 18px;color: #2a3042;letter-spacing: 0.5px;">
-                                <span style="border-bottom: 3px solid #ef591f;">Status</span> </h6>
+                                <span style="border-bottom: 3px solid #ef591f;">Status</span>
+                            </h6>
                             <p-tabView (onChange)="statusChanged($event)" id="vehicle-status-tab" [scrollable]="true"
                                 *ngIf="statuses.length>0" [(activeIndex)]="defaultIndex">
                                 <p-tabPanel [header]="status.label" *ngFor="let status of statuses"></p-tabPanel>
@@ -29,7 +30,8 @@
                 <div class="md:col-6 col-12">
                     <h6
                         style="margin: 10px 0px;font-weight: bold;font-size: 18px;color: #2a3042;letter-spacing: 0.5px;">
-                        <span style="border-bottom: 3px solid #ef591f;">States</span></h6>
+                        <span style="border-bottom: 3px solid #ef591f;">States</span>
+                    </h6>
                     <p-tabView (onChange)="statesChanged($event)" id="vehicle-status-tab" [scrollable]="true"
                         *ngIf="states.length>0" [(activeIndex)]="selectedStats">
                         <p-tabPanel [header]="stats.label" *ngFor="let stats of states"></p-tabPanel>
@@ -84,9 +86,10 @@
 
                     <div style="display: flex; justify-content: end; align-items: center; height: 100%;">
                         <span class="btn-left-box mr-2">
-                            <p-dropdown id="dash-drop-id" [style]="{'min-width':'max-content', 'margin-top': '0','background': '#ef591f'}" [options]="projectlist"
-                (onChange)="changeProject($event)" optionLabel="title" optionValue="id"
-                [filter]="true"></p-dropdown>
+                            <p-dropdown id="dash-drop-id"
+                                [style]="{'min-width':'200px','text-align':'left', 'margin-right': '8px', 'margin-top': '8px','background': '#ef591f'}"
+                                [options]="projectlist" (onChange)="changeProject($event)" optionLabel="title"
+                                optionValue="id" [filter]="true"></p-dropdown>
                             <div class="dropdown" style="margin-top: 0;">
                                 <button onclick="myFunction1()" class="dropbtn1"
                                     style="margin-top: 0;background: #ef591f;">Export <i
