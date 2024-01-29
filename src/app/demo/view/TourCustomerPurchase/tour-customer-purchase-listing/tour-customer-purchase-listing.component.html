@@ -122,9 +122,9 @@
             <th pSortableColumn="phone">Phone No
                 <p-sortIcon field="phone"></p-sortIcon>
             </th>
-            <th pSortableColumn="package">Package
+            <!-- <th pSortableColumn="package">Package
                 <p-sortIcon field="package"></p-sortIcon>
-            </th>
+            </th> -->
             <th pSortableColumn="slot">Time Slot
                 <p-sortIcon field="slot"></p-sortIcon>
             </th>
@@ -154,7 +154,7 @@
                 </a>
                 
             </td>
-            <td>
+            <!-- <td>
                 <a *ngIf="purchase.tour_Slot_Package.tour_Package != null" [routerLink]="['/tour-packages/tour-packages-main'] "
                     [queryParams]="{ customdata: purchase.tour_Slot_Package.tour_Package.name } " class="clickable-v-btn ">
 
@@ -163,13 +163,13 @@
                     </p>
 
                 </a>
-            </td>
+            </td> -->
             <td>
-                <a *ngIf="purchase.tour_Slot_Package.tour_Slots != null" [routerLink]="['/tour-slots/tour-slots-main'] "
-                    [queryParams]="{ customdata: purchase.tour_Slot_Package.tour_Slots.time_Slot } " class="clickable-v-btn ">
+                <a *ngIf="purchase.tour_Point_Slot.tour_Slots != null" [routerLink]="['/tour-slots/tour-slots-main'] "
+                    [queryParams]="{ customdata: purchase.tour_Point_Slot.tour_Slots.time_Slot } " class="clickable-v-btn ">
 
-                    <p *ngIf="purchase.tour_Slot_Package.tour_Slots != null">
-                        {{purchase.tour_Slot_Package.tour_Slots.time_Slot}}
+                    <p *ngIf="purchase.tour_Point_Slot.tour_Slots != null">
+                        {{purchase.tour_Point_Slot.tour_Slots.time_Slot}}
                     </p>
 
                 </a>

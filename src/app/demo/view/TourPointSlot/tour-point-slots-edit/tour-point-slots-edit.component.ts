@@ -46,7 +46,7 @@ export class TourPointSlotsEditComponent implements OnInit {
           id:[""],
           point_Id: ["", [Validators.required]],
           tour_Slot_Id: ["", [Validators.required]],
-          tourPackagesIds:[],
+          // tourPackagesIds:[],
       });
     }
   
@@ -65,11 +65,11 @@ export class TourPointSlotsEditComponent implements OnInit {
         group.controls['point_Id'].setValue(temp.points.id || "");
         group.controls['tour_Slot_Id'].setValue(temp.tour_Slots.id || "");
 
-        temp.lstTourPackage.forEach(element=>
-          {
-            id.push(element.id);
-          })
-        group.controls['tourPackagesIds'].setValue(id || "");
+        // temp.lstTourPackage.forEach(element=>
+        //   {
+        //     id.push(element.id);
+        //   })
+        // group.controls['tourPackagesIds'].setValue(id || "");
         
         
     }

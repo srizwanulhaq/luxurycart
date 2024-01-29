@@ -85,7 +85,7 @@ loadForm() {
       // left_Seat:[""],
       point_Id: ["", [Validators.required]],
       tour_Slot_Id: ["", [Validators.required]],
-      tourPackagesIds:[],
+      // tourPackagesIds:[],
   });
 }
 }
