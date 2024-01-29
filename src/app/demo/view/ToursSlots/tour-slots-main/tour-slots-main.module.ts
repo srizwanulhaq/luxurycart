@@ -24,10 +24,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { DateRangeComponentModule } from '../../DateRange/date-range.component.module';
 import { MessagesModule } from 'primeng/messages';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { TourSlotsDetailsComponent } from '../tour-slots-details/tour-slots-details.component';
 
 @NgModule({
   declarations: [TourSlotsMainComponent,TourSlotsListComponent,TourSlotsEditComponent,
-    TourSlotsAddComponent],
+    TourSlotsAddComponent,TourSlotsDetailsComponent],
   imports: [
     CommonModule,
     TourSlotsMainRoutingModule,
@@ -51,6 +53,7 @@ import { MessagesModule } from 'primeng/messages';
     InputTextModule,
     InputSwitchModule,
     DateRangeComponentModule,
+    MultiSelectModule
  
   ]
 })

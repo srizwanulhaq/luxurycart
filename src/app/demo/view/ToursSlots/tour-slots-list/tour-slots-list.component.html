@@ -11,11 +11,10 @@
     <div *ngIf="mainloding" class="lodi-child">
         <div class="custom-loader"></div>
     </div>
-   
-    <p-table id="rides-table" var="slots" #dt [columns]="cols" [value]="toursSlots"
-        selectionMode="multiple"  [lazy]="true"
-        (onLazyLoad)="loadTourSlots($event)" [paginator]="true" [showCurrentPageReport]="true" [rowHover]="true"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+
+    <p-table id="rides-table" var="slots" #dt [columns]="cols" [value]="toursSlots" selectionMode="multiple"
+        [lazy]="true" (onLazyLoad)="loadTourSlots($event)" [paginator]="true" [showCurrentPageReport]="true"
+        [rowHover]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [rowsPerPageOptions]="rowsPerPageOptions" columnResizeMode="expand" [totalRecords]="totalRecords" [rows]="10"
         stateStorage="local" stateKey="adac">
         <ng-template pTemplate="caption">
@@ -119,8 +118,8 @@
                     Time
                     <p-sortIcon [field]="'code'"></p-sortIcon>
                 </th>
-              
-                <th>Change Status</th>
+
+                <th>Date</th>
                 <th>Action</th>
 
             </tr>
@@ -137,23 +136,22 @@
 
                     {{ slots.time_Slot }}
                 </td>
-                <td>    
-                    <p-inputSwitch actionTitle="Status" (onChange)="onStatus($event,slots)"
-                    [(ngModel)]="slots.active">
-                </p-inputSwitch></td>
+                <td>
+                    <!-- <p-inputSwitch actionTitle="Status" (onChange)="onStatus($event,slots)" [(ngModel)]="slots.active">
+                    </p-inputSwitch> -->
+                    {{ slots.created_at | date:'medium'}}
+                </td>
                 <td class="sm-jus-end">
-                    <button style="padding-left: 0;" title="Edit" class="p-button-rounded p-button-success theme-btn ac-btn"
-                    (click)="main.onEditPanelButtonClick($event, slots)"
-                    >
-                        <!-- <img src="../../../../../assets/layout/images/more-detail.png" alt="" width="18"> -->
-                        <i class="pi pi-pencil" style="font-size: 12px;"></i>
-                        <!-- Edit -->
+                    <button style="padding-left: 0;" title="Edit"
+                        class="p-button-rounded p-button-success theme-btn ac-btn"
+                        (click)="main.onBottomPanelButtonClick($event, slots)">
+                        <img src="../../../../../assets/layout/images/more-detail.png" alt="" width="18">
                     </button>
                 </td>
-              
+
 
             </tr>
         </ng-template>
-       
+
     </p-table>
 </div>

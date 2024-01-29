@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PointSlotDto } from 'src/app/demo/domain/Dto/PointSlots/PointSlotDto';
 import { EditTourDto } from 'src/app/demo/domain/Dto/TourSlots/EditTourDto';
 
 @Component({
@@ -11,6 +12,9 @@ export class TourSlotsMainComponent implements OnInit {
   editTourData: EditTourDto;
   editPanelActive: boolean;
   editPanelClick: boolean;
+  bottomPanelActive:boolean;
+  slots:PointSlotDto;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -26,12 +30,10 @@ export class TourSlotsMainComponent implements OnInit {
     event.preventDefault();
     this.event = null;
   }
-  // onEditPanelButtonClick(event, EditBoothData: BoothDto){
-
-  //   this.booth = EditBoothData
-  //   this.editPanelClick = true;
-  //   this.editPanelActive = !this.editPanelActive;
-  //   event.preventDefault();
-  //   this.event = null;
-  //  }
+  onBottomPanelButtonClick(event,slots:PointSlotDto){
+    this.slots = slots;
+    console.log(this.slots);
+    this.bottomPanelActive = !this.bottomPanelActive;
+    event.preventDefault();
+  }
 }

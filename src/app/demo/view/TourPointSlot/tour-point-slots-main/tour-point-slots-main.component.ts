@@ -24,7 +24,6 @@ export class TourPointSlotsMainComponent implements OnInit {
   }
 
   onEditPanelButtonClick(event, EditPointData: PointSlotDto){
-
     this.pointSlot = EditPointData
     this.editPanelClick = true;
     this.editPanelActive = !this.editPanelActive;
