@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { first } from 'rxjs/operators';
 import { TourService } from 'src/app/demo/service/tour.service';
 
@@ -17,12 +17,17 @@ export class TourSlotsAddComponent implements OnInit {
   tourSlotForm: FormGroup;
   submitted = false;
   btnloading = false;
+  lstPoints: SelectItem[] = [];
+  lstTimeSlots: SelectItem[] = [];
+  lstTourPackages: SelectItem[] = [];
   constructor(private _formBuilder: FormBuilder, private _tourService: TourService, private messageService: MessageService) { }
 
   ngOnInit() {
     this.tourSlotForm = this._formBuilder.group({
       time: ["", [Validators.required, Validators.required]],
+      tourPackagesIds:[],
     });
+    this.loadDropdownValues();
   }
   openNew() {
     this.addSlotDialog = true;
@@ -31,6 +36,7 @@ export class TourSlotsAddComponent implements OnInit {
     this.btnloading = true;
     var model = {
       time_Slot: this.tourSlotForm.value.time,
+      tourPackagesIds: this.tourSlotForm.value.tourPackagesIds,
 
     };
     this._tourService
@@ -57,6 +63,14 @@ export class TourSlotsAddComponent implements OnInit {
   resetForm() {
     this.tourSlotForm.reset();
     this.btnloading = false;
+  }
+  loadDropdownValues() {
+    this._tourService.requestDataFromMultipleSources().then(responseList => {
+        this.lstPoints = responseList.lstPoints;
+        this.lstTimeSlots = responseList.lstTimeSlots;
+        this.lstTourPackages = responseList.lstTourPackages;
+        console.log(this.lstTourPackages)
+    });
   }
 }
 
