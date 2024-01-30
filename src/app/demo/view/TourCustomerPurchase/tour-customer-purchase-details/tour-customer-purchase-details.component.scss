@@ -57,7 +57,7 @@
 .card-main {
     background: white;
     padding: 13px;
-    width: 24%;
+    width: 32%;
     margin: 0px;
     box-shadow: 0px 0px 12px -4px #0000001c;
     border-radius: 7px;
@@ -502,6 +502,8 @@ $black: #002d40;
 }
 .settings {
     display: flex;
+    width: 60%;
+    margin-top: 30px;
     .main-right {
         width: 59%;
         border-radius: 8px;
@@ -693,5 +695,41 @@ $black: #002d40;
         font-size: 16px;
         display: flex;
         justify-content: center;
+    }
+}
+.cus1-main {
+    display: flex;
+    width: 100%;
+    margin: auto;
+    gap: 30px;
+    .us-main {
+        width: 40%;
+    }
+    .us-det {
+        width: 60%;
+        margin-top: 70px;
+        margin-left: 30px;
+        table {
+            width: 100%;
+            border-left: 4px solid #c9c9c9;
+            border-right: 4px solid #c9c9c9;
+            tr {
+                th {
+                    text-align: center;
+                    padding: 22px 0px;
+                    border-bottom: 1px solid #dbdbdb;
+                    font-weight: 400;
+                    border-top: 1px solid #dbdbdb;
+                }
+            }
+            tr {
+                td {
+                    text-align: center;
+                    padding: 22px 0px;
+                    border-bottom: 1px solid #dbdbdb;
+                    font-weight: 400;
+                }
+            }
+        }
     }
 }
