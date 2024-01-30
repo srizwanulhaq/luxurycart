@@ -19,8 +19,31 @@
     <ng-template pTemplate="caption">
 
         <div class="grid">
-            <div class="md:col-7 col-12">
-                
+            
+            <div class="md:col-4 col-12 show-mob">
+                <span class="tab-parent-box">
+                    <span>
+                        <p-tabView (onChange)="statusChanged($event)" id="ride-status-tab-mobile">
+                            <ng-container *ngFor="let status of statuses;">
+                                <p-tabPanel [header]="status.label" [selected]="selectedStatus==status.value">
+                                </p-tabPanel>
+                            </ng-container>
+                        </p-tabView>
+                    </span>
+                </span>
+            </div>
+            <div class="md:col-7 col-4 show-desktop" style="position: relative;">
+                <span class="">
+                    <span>
+                        <p-tabView (onChange)="statusChanged($event)" id="status-tab">
+                            <ng-container *ngFor="let status of statuses;">
+                                <p-tabPanel [header]="status.label.replace('_',' ')"
+                                    [selected]="selectedStatus==status.value">
+                                </p-tabPanel>
+                            </ng-container>
+                        </p-tabView>
+                    </span>
+                </span>
             </div>
             <div class="md:col-5 text-right col-12 pb-0">
 
@@ -155,10 +178,10 @@
                 
             </td>
             <td>
-                <a *ngIf="purchase.tour_Slot_Package.tour_Package != null" [routerLink]="['/tour-packages/tour-packages-main'] "
+                <a *ngIf="purchase.tour_Slot_Package?.tour_Package != null" [routerLink]="['/tour-packages/tour-packages-main'] "
                     [queryParams]="{ customdata: purchase.tour_Slot_Package.tour_Package.name } " class="clickable-v-btn ">
 
-                    <p *ngIf="purchase.tour_Slot_Package.tour_Package != null">
+                    <p *ngIf="purchase.tour_Slot_Package?.tour_Package != null">
                         {{purchase.tour_Slot_Package.tour_Package.name}}
                     </p>
 

@@ -12,7 +12,8 @@ import { TourCustomerPurchaseMainComponent } from '../tour-customer-purchase-mai
   styleUrls: ['./tour-customer-purchase-listing.component.scss']
 })
 export class TourCustomerPurchaseListingComponent implements OnInit {
-
+  statuses: any[];
+  selectedStatus: number = 1;
   loading: boolean = false;
   event_status: any;
   filterGlobalValue: any;
@@ -27,6 +28,10 @@ export class TourCustomerPurchaseListingComponent implements OnInit {
     private cdref: ChangeDetectorRef,
     public main:TourCustomerPurchaseMainComponent) { 
       localStorage.removeItem("PurchaseListDao-local");
+      this.statuses = [
+        { label: "Paid", value: 1 },
+        { label: "Unpaid", value: 2 }
+    ];
     }
 
   ngOnInit(): void {
@@ -38,7 +43,13 @@ export class TourCustomerPurchaseListingComponent implements OnInit {
       this.loadTourCustomerPurchase(this.tableEvent);
     }
   }
-
+  statusChanged(e) {
+    if (e.index == 0)
+        this.selectedStatus = e.index + 1;
+    if (e.index == 1)
+        this.selectedStatus = e.index + 1;
+    this.loadTourCustomerPurchase(this.tableEvent);
+}
   loadTourCustomerPurchase(event: LazyLoadEvent) {
     this.loading = true;
     this.event_status = event;
@@ -49,6 +60,7 @@ export class TourCustomerPurchaseListingComponent implements OnInit {
             event.globalFilter ?? this.filterGlobalValue,
             event.sortField,
             event.sortOrder,
+            this.selectedStatus,
             !!this.startDate ? `&startDate=${this.startDate}&endDate=${this.endDate}` : ""
         ).then(res => {
           console.log(res)

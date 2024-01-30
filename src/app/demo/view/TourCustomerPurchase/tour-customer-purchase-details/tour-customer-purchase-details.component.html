@@ -38,9 +38,9 @@
         <div class="submenu-content settings ">
             <div class="main-row ">
                 <div class="history-settings card-main ">
-                    <h6><span>Date & Time</span></h6>
+                    <h6><span>Purchase Date & Time</span></h6>
                     <img src="assets/layout/images/name.png " alt=" " width="40 ">
-                    <h6>{{details.created_at}}</h6>
+                    <h6>{{details.created_at | date:'medium'}}</h6>
                 </div>
                 <div class="history-settings card-main ">
                     <h6><span>Customer</span></h6>

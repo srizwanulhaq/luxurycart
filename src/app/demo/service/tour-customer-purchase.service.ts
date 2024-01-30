@@ -10,9 +10,9 @@ export class TourCustomerPurchaseService {
 
   constructor(private http:HttpClient) { }
   getAllPurchases(pageIndex: number, pageSize: number, globalFilter: string,
-    sortField: string, sortOrder: number, dateRangeStr: string) {
+    sortField: string, sortOrder: number,selectedStatus: number, dateRangeStr: string) {
 
-   return this.http.get<any>(`${environment.apiUrl}/api/v1/AdminCustomerTourPackage/get?pageSize=${pageSize}&PageNumber=${pageIndex}&globalFilter=${globalFilter}&sortField=${sortField}&sortOrder=${sortOrder}&${dateRangeStr}`)
+   return this.http.get<any>(`${environment.apiUrl}/api/v1/AdminCustomerTourPackage/get?pageSize=${pageSize}&PageNumber=${pageIndex}&globalFilter=${globalFilter}&sortField=${sortField}&sortOrder=${sortOrder}&StatusValue=${selectedStatus}&${dateRangeStr}`)
   .toPromise()
   .then(res => res as TourCustomerPurchaseResponse)
   .then(data => data.data);
