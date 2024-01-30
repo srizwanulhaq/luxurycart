@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { TourSlotResponse } from '../domain/Dao/tourSlots/TourSlotsListdao';
 import { EditTourDto } from '../domain/Dto/TourSlots/EditTourDto';
+import { PointSlotDropDownResult } from '../domain/Dao/TourPointSlots/PointSlotDropDowndao';
 
 @Injectable({
     providedIn: 'root'
@@ -31,5 +32,11 @@ export class TourService {
     changeStatus(model:any)
         {
             return this._http.post<any>(`${environment.apiUrl}/api/v1/AdminTimeSlots/active/deactive`,model);
+    }
+    requestDataFromMultipleSources() {
+        return this._http.get(`${environment.apiUrl}/api/v1/AdminSlot/dropdowns/load-values`)
+            .toPromise()
+            .then(res => res as PointSlotDropDownResult)
+            .then(data => data.result);
     }
 }

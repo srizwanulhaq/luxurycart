@@ -11,12 +11,12 @@
     <h3 class="text-center" style="color:#6E6E6E;font-weight: 600;font-family: primaryFontBold;"><span style="border-bottom: 3px solid #ef591f;padding-bottom: 3px;">Tour Info</span></h3>
     <div class="action-row ">
             
-        <!-- <div style="padding-right: 9px;text-align: center;">
+        <div style="padding-right: 9px;text-align: center;">
             <h6 class="m-0">Change Status</h6>
             <p-inputSwitch actionTitle="Status" (onChange)="onStatus($event,details.id)"
                 [(ngModel)]="details.active">
             </p-inputSwitch>
-        </div> -->
+        </div>
         <div class="action-btn">
             <div  (click)="main.onEditPanelButtonClick($event,details) ">
                 <h6>Update</h6>
@@ -62,14 +62,14 @@
                     <img src="assets/layout/images/red-z.png " alt=" " width="40 ">
                     <h6>{{details.tour_Slots.time_Slot}}</h6>
                 </div>
-                <div class="history-settings card-main ">
+                <!-- <div class="history-settings card-main ">
                     <h6><span>Slot</span></h6>
                     <img src="assets/layout/images/logo-ultima.png " alt=" " width="40 ">
                     <span *ngFor="let package of details.lstTourPackage">
                         <h6>{{package.name}}</h6>
                     </span>
                     
-                </div>
+                </div> -->
                 
             </div>
        

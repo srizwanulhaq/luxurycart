@@ -6,6 +6,7 @@ export class PointSlotDto {
     points: TourPointDto;
     tour_slot:TourSlotDto;
     created_at:Date;
+    active:boolean;
 
 }
 export class TourPointDto{

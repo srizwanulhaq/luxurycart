@@ -67,6 +67,8 @@ export class TourSlotsListComponent implements OnInit {
         ).then(res => {
           this.mainloding = false;
             this.toursSlots = res.results;
+            console.log(this.toursSlots,'tour');
+            
             this.totalRecords = res.rowCount;
         })
     }, 1000);

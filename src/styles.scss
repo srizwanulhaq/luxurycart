@@ -3685,5 +3685,10 @@ textarea:focus {
 #txtsubAccount .p-dropdown .p-dropdown-panel{
     top: -106px !important;
 }
+#Update-Boothr{
+    .p-dialog-mask.p-component-overlay{
+        z-index: 10004 !important;
+    }
+}
 /// //////////////////////////  End reponsive ********************
 ////////////////////////// ********************
