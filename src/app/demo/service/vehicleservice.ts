@@ -15,7 +15,7 @@ import { VehicleLocationDto } from '../domain/Dto/Vehicles/VehicleLocationDto';
 import { BatteryHitListResponse } from '../domain/Dao/BatteryHit/BatteryHitDao';
 import { VehicleCompanyListResponse } from '../domain/Dao/Vehicle/VehicleCompanydao';
 import { VehicleCompanyDto, VehicleTypeDto } from '../domain/Dto/Vehicles/VehicleDto';
-import { VehicleTypeListResponse } from '../domain/Dao/Vehicle/VehicleTypedao';
+import { DriveModeDropDown, DriveModeDropDownResponse, VehicleTypeListResponse } from '../domain/Dao/Vehicle/VehicleTypedao';
 import { VehicleHeadCountResponse } from '../domain/Dao/Vehicle/VehicleHeadCountDao';
 import { vehicleHeadCountDto } from '../domain/Dto/Vehicles/vehicleHeadCountDto';
 
@@ -198,6 +198,10 @@ export class VehicleService {
             .then(res => res as VehicleTypeListResponse);
     }
 
+    loadDropDown()
+    {
+      return this.http.get<DriveModeDropDownResponse>(`${environment.apiUrl}/api/v1/admin/vehicles/types/dropdowns/load-values`);
+    }
     toggleVehicleType(id: string) {
         return this.http.post<any>(`${environment.apiUrl}/api/v1/admin/vehicles/types/${id}/toggle`, {
             headers: new HttpHeaders({

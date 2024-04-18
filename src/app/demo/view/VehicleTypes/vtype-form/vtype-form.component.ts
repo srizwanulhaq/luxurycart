@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Input, Output, SimpleChange } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { VehicleTypedao } from 'src/app/demo/domain/Dao/Vehicle/VehicleTypedao';
+import { DriveModeDropDown, VehicleTypedao } from 'src/app/demo/domain/Dao/Vehicle/VehicleTypedao';
 import { VehicleService } from 'src/app/demo/service/vehicleservice';
 
 @Component({
@@ -10,11 +10,12 @@ import { VehicleService } from 'src/app/demo/service/vehicleservice';
     styleUrls: ['./vtype-form.component.scss']
 })
 export class VehicleTypeFormComponent implements OnInit {
-
+    driveModeDropDown:DriveModeDropDown[];
     formMode: string
     @Input("vehicleType") vehicleType: VehicleTypedao
     @Input("showModal") showModal: boolean
     submitted: boolean = false;
+    itemsSpeedMode:any;
     dataForm;
     btnloading: boolean = false;
     @Output() eventChange = new EventEmitter<any>();
@@ -26,20 +27,41 @@ export class VehicleTypeFormComponent implements OnInit {
         private cdref: ChangeDetectorRef) {
         this.loadForm();
     }
-
-    ngOnInit(): void { }
+    
+    ngOnInit(): void {
+        this.itemsSpeedMode = [
+            { label: '10', value: 10 },
+            { label: '15', value: 15 },
+            { label: '25', value: 25 },
+        ];
+        
+        this.loadDropDown();
+     }
 
     ngOnChanges(change: SimpleChange) {
         if (!!change['showModal'].currentValue && !!change['vehicleType']?.currentValue) {
             this.dataForm.setValue({
                 title: this.vehicleType.title,
+                seatingCapacity: this.vehicleType.seatingCapacity,
+                maxSpeed: this.vehicleType.maxSpeed,
+                drive_Mode_Id:this.vehicleType.drive_Mode.id,
             })
         }
     }
-
+    loadDropDown()
+    {
+        this.service.loadDropDown().subscribe(resp => {
+                if (resp.status) {
+                    this.driveModeDropDown = resp.data
+                }
+            })
+    }
     loadForm() {
         this.dataForm = this.formBuilder.group({
-            title: ["", [Validators.required, Validators.min(3), Validators.max(255)]]
+            title: ["", [Validators.required, Validators.min(3), Validators.max(255)]],
+            seatingCapacity: [0, [Validators.required]],
+            maxSpeed: [0, [Validators.required,Validators.max(200),Validators.min(10)]],
+            drive_Mode_Id:["", [Validators.required]],
         });
     }
 
@@ -73,5 +95,8 @@ export class VehicleTypeFormComponent implements OnInit {
             }).finally(() => {
                 this.btnloading = false;
             })
+    }
+    ngAfterContentChecked() {
+        this.cdref.detectChanges();
     }
 }

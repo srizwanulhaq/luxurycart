@@ -9,5 +9,8 @@ export class VehicleCompanyDto {
 
 export class VehicleTypeDto {
     title: string
+    seatingCapacity:number;
+    maxSpeed:number;
+    drive_Mode_Id:string;
     number: number
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { LoaderService } from 'src/app/demo/service/loaderservice';
@@ -28,7 +28,8 @@ export class VehicleTypeListingComponent implements OnInit {
     startDate: string = ""
     endDate: string = ""
 
-    constructor(private service: VehicleService, private messageService: MessageService, private loaderService: LoaderService) {
+    constructor(private service: VehicleService, private messageService: MessageService, 
+        private loaderService: LoaderService, private cdref: ChangeDetectorRef) {
         localStorage.removeItem("vehicleTypeDao-local");
     }
 
@@ -107,5 +108,8 @@ export class VehicleTypeListingComponent implements OnInit {
         this.searchValue = null;
         dt.reset(); // reset the table
         this.filterGlobalValue = null;
+    }
+    ngAfterContentChecked() {
+        this.cdref.detectChanges();
     }
 }
