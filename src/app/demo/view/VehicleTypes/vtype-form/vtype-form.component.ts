@@ -58,8 +58,8 @@ export class VehicleTypeFormComponent implements OnInit {
     }
     loadForm() {
         this.dataForm = this.formBuilder.group({
-            title: ["", [Validators.required, Validators.min(3), Validators.max(255)]],
-            seatingCapacity: [0, [Validators.required]],
+            title: ["", [Validators.required]],
+            seatingCapacity: [0, [Validators.required,Validators.max(100)]],
             maxSpeed: [0, [Validators.required,Validators.max(200),Validators.min(10)]],
             drive_Mode_Id:["", [Validators.required]],
         });
