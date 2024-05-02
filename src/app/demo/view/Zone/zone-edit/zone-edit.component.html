@@ -47,59 +47,26 @@
                 </div>
                 <div class="formgrid grid">
                     <div class="field col">
-                        <label for="price">Zone Type<span class="star-sign">*</span></label>
-                        <p-dropdown id="company" [options]="lstZoneTypes" name="zone_Type_Id"
-                            formControlName="zone_Type_Id" [disabled]="zonetype" placeholder="Select Zone">
+                        <label for="account">Project <span class="star-sign">*</span></label>
+                        <p-dropdown id="project" [options]="project" placeholder="Select Project"  formControlName="projectId">
                         </p-dropdown>
-                        <div *ngIf="submitted" class="invalid-feedback">
-                            <small style="color:red;" class="ng-dirty ng-invalid"
-                                *ngIf="zoneEditForm.controls.zone_Type_Id.errors?.required">Please required Zone
-                                Type!</small>
-                        </div>
                     </div>
-                    <br>
-                    <br>
-                    <br>
+    
                     <div class="field col">
-                        <label for="price">Wallet Package <span class="star-sign">*</span></label>
-                            <p-multiSelect id="zone-mul" [options]="lstWalletPackages" [(ngModel)]="selectedLstPackages"  optionLabel="name"  formControlName="walletPackagesIds" defaultLabel="Select Wallet Package" selectedItemsLabel="{0} items selected" ></p-multiSelect>
+                        <label for="account">Vehicle Types<span class="star-sign">*</span></label>
+                        <p-multiSelect id="vehicletype" [options]="vehicleType" filter="true" formControlName="vehicletypeId" placeholder="Select Vehicle Types">
+                        </p-multiSelect>
                     </div>
                 </div>
             </div>
 
-            <div *ngIf="activeIndex == 1">
-                <!-- <div class="formgrid grid mt-4">
-                    <div class="field col">
-                        <label>Select start time<span class="star-sign">*</span></label>
-                        <p-calendar id="cal" formControlName="zone_Start_Time" [(ngModel)]="select_zone_Start_Time"
-                            hourFormat="12" showSeconds="true" showTime="true" [timeOnly]="true" class="timer">
-                        </p-calendar>
-                        <div *ngIf="submitted" class="invalid-feedback">
-                            <small style="color:red;" class="ng-dirty ng-invalid"
-                                *ngIf="zoneEditForm.controls.zone_Start_Time.errors?.required">Please required start
-                                time !</small>
-                        </div>
-                    </div>
-                    <div class="field col">
-                        <label>Select end time<span class="star-sign">*</span></label>
-                        <p-calendar id="cal" formControlName="zone_End_Time" [(ngModel)]="select_zone_End_Time"
-                            hourFormat="12" showSeconds="true" showTime="true" [timeOnly]="true" class="timer">
-                        </p-calendar>
-                        <div *ngIf="submitted" class="invalid-feedback">
-                            <small style="color:red;" class="ng-dirty ng-invalid"
-                                *ngIf="zoneEditForm.controls.zone_End_Time.errors?.required">Please required end time
-                                !</small>
-                        </div>
-                    </div>
-                </div> -->
+            <!-- <div *ngIf="activeIndex == 1">
+                
 
             <div class="formgrid grid">
                 <div class="field col">
                     <label for="name">Default Speed <small>KM</small> <span class="star-sign">*</span></label>
-                    <!-- <input type="number" pInputText id="default_Speed" formControlName="default_Speed" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
-                    <div *ngIf="submitted" class="invalid-feedback">
-                        <small style="color:red;" class="ng-dirty ng-invalid" *ngIf="zoneEditForm.controls.default_Speed.errors?.required">Please required Default Speed!</small>
-                       </div> -->
+                    
                        <p-dropdown id="txtsubAccount" placeholder="Select a default Speed" formControlName="default_Speed" [options]="itemsSpeedMode" 
                        (onChange)="speedMode($event)">
                        </p-dropdown>
@@ -129,8 +96,8 @@
                     <p-inputSwitch  formControlName="segway_Throttle_Command"     ></p-inputSwitch>
                 </div>
             </div>
-        </div>  
-            <div *ngIf="activeIndex == 2">
+        </div>   -->
+            <div *ngIf="activeIndex == 1">
                 <div class="md:col-2 col-12">
                     <p-button class="theme-btn1" label="Remove polygon" (click)="onRemovePolygon()">
                     </p-button>
@@ -148,7 +115,7 @@
                     </agm-map>
                 </div>
             </div>
-            <div *ngIf="activeIndex == 3">
+            <!-- <div *ngIf="activeIndex == 3">
                 <div style="    height: 60vh;overflow-y: scroll;">
                 <table id="add-zone-detail-table" class="table mb-4" formArrayName="ride_fare_setting">
                     <tbody *ngFor="let fare of ride_fare_setting().controls ; let i=index" [formGroupName]="i">
@@ -226,18 +193,11 @@
                                 <div class="field col">
 
                                 </div>
-                                <!-- <div class="field col">
-                                    Paused Time Price :
-                                    <input id="txtpaused_Time_Price"  pInputText name="paused_Time_Price" formControlName="paused_Time_Price" type="number" class="form-control mb-2" placeholder="0">
-                            </div> -->
+                                
                             </div>
 
                         </tr>
-                        <!-- <tr class="text-right">
-                                <button class="theme-btn" label="Add" (click)="addfare(i,fare)">
-                                    Add
-                                </button>
-                            </tr> -->
+                       
                         <tr class="text-right">
                             <p-button id="add-zone-detail-btn" class="theme-btn" style="background: #ef591f !important;" label="Add" (click)="addfare(i,fare)">
                             </p-button>
@@ -253,7 +213,7 @@
                         <th>Time Price</th>
                         <th>Fixed Start Price</th>
                         <th>Km Price</th>
-                        <!-- <th>Pasue Time Price</th> -->
+                        
                         <th>Action</th>
                     </tr>
                 </ng-template>
@@ -265,7 +225,7 @@
                         <td>{{fare.time_Price}}</td>
                         <td>{{fare.fixed_Start_Price}}</td>
                         <td>{{fare.price_Per_Kilometer}}</td>                
-                        <!-- <td>{{fare.paused_Time_Price}}</td> -->
+                       
                         <td class="text-right">
                             <button (click)="removefare(rowIndex)" class="table-addZOne-cross-btn" icon="pi pi-times">X</button>
                         </td>
@@ -273,8 +233,8 @@
                 </ng-template>
             </p-table>
         </div>
-        </div>
-            <div *ngIf="activeIndex == 4">
+        </div> -->
+            <!-- <div *ngIf="activeIndex == 4">
                 <div style="    height: 60vh;overflow-y: scroll;">
                 <table id="add-setting-detail-table" class="table mb-3 w-100" formArrayName="ride_scrutiny_setting">
                     <tbody *ngFor="let setting of ride_scrutiny_setting().controls ; let i=index" [formGroupName]="i">
@@ -323,16 +283,7 @@
                                     </div>
                                 </div>
 
-                                <!-- <div class="field col">
-                                <label>Applied Days <span class="star-sign">*</span></label>
-                                <p-checkbox value="1"  (onChange) ="myModelChanged($event,1)" ></p-checkbox>Mon
-                                <p-checkbox value="2" (onChange) ="myModelChanged($event,2)"></p-checkbox>Tue
-                                <p-checkbox value="3"  (onChange) ="myModelChanged($event,3)" ></p-checkbox>Wed
-                                <p-checkbox value="4"  (onChange) ="myModelChanged($event,4)"></p-checkbox>Thr
-                                <p-checkbox value="5" (onChange) ="myModelChanged($event,5)"></p-checkbox>Fri
-                                <p-checkbox value="6" (onChange) ="myModelChanged($event,6)"></p-checkbox>Sat
-                                <p-checkbox value="7" (onChange) ="myModelChanged($event,7)"></p-checkbox>Sun
-                            </div> -->
+                                
                             </div>
                             <div class="grid">
                                 <div class="field md:col-4">
@@ -460,40 +411,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="formgrid grid">
-                            <div class="field col">
-                                <label for="name">Enable 24 Hours</label> <br>
-                                <p-inputSwitch  formControlName="enable24Hours"  [(ngModel)]="enable24Hours" ></p-inputSwitch>
-                            </div>
-
-                        </div>
-                        <div class="formgrid grid">
-                            <div class="field col">
-                                <label for="name">Enable Customer Notification</label> <br>
-                                <p-inputSwitch  formControlName="sendCustomerNotification"  [(ngModel)]="sendCustomerNotification" ></p-inputSwitch>
-                            </div>
-                            <div class="field col">
-                                <label for="name">Enable Admin Notification</label> <br>
-                                <p-inputSwitch  formControlName="sendAdminNotification"  [(ngModel)]="sendAdminNotification" ></p-inputSwitch>
-                            </div>
-                            <div class="field col">
-                                <label for="name">Allow Ride End</label> <br>
-                                <p-inputSwitch  formControlName="allowRideEnd"  [(ngModel)]="allowRideEnd" ></p-inputSwitch>
-                            </div>
-                        </div>
-                        <div class="formgrid grid">
-                            <div class="field col">
-                                <label for="name">Turn Speed Low</label> <br>
-                                <p-inputSwitch  formControlName="turnSpeedLow"  [(ngModel)]="turnSpeedLow" ></p-inputSwitch>
-                            </div>
-                            <div class="field col">
-                                <label for="name">Turn Throttle Off</label> <br>
-                                <p-inputSwitch  formControlName="turnThrottleOff"  [(ngModel)]="turnThrottleOff" ></p-inputSwitch>
-                            </div>
-                            <div class="field col">
-
-                            </div>
-                        </div>   -->
+                            
                     </tr>
                     <p-steps id="add-zone-step" [readonly]="false" [model]="ridesItems" [(activeIndex)]="activeRideIndex" ></p-steps>
                     <tr class="text-right">
@@ -524,7 +442,7 @@
                     <ng-template pTemplate="body" let-setting let-rowIndex="rowIndex">
                         <tr>
                             <td>{{ rowIndex + 1 }}</td>
-                            <!-- <td>{{setting.sequence }}</td> -->
+                          
                             <td>{{setting.ride_Scrutiny_Templates.title}}</td>
                             <td>{{setting.totalLeftMinutes}}</td>
                             <td>{{setting.enable24Hours}}</td>
@@ -566,7 +484,7 @@
                     <ng-template pTemplate="body" let-setting let-rowIndex="rowIndex">
                         <tr>
                             <td>{{ rowIndex + 1 }}</td>
-                            <!-- <td>{{setting.sequence }}</td> -->
+                            
                             <td>{{setting.ride_Scrutiny_Templates.title}}</td>
                             <td>{{setting.totalLeftMinutes}}</td>
                             <td>{{setting.enable24Hours}}</td>
@@ -608,7 +526,7 @@
                     <ng-template pTemplate="body" let-setting let-rowIndex="rowIndex">
                         <tr>
                             <td>{{ rowIndex + 1 }}</td>
-                            <!-- <td>{{setting.sequence }}</td> -->
+                            
                             <td>{{setting.ride_Scrutiny_Templates.title}}</td>
                             <td>{{setting.totalLeftMinutes}}</td>
                             <td>{{setting.enable24Hours}}</td>
@@ -650,7 +568,7 @@
                     <ng-template pTemplate="body" let-setting let-rowIndex="rowIndex">
                         <tr>
                             <td>{{ rowIndex + 1 }}</td>
-                            <!-- <td>{{setting.sequence }}</td> -->
+                            
                             <td>{{setting.ride_Scrutiny_Templates.title}}</td>
                             <td>{{setting.totalLeftMinutes}}</td>
                             <td>{{setting.enable24Hours}}</td>
@@ -692,7 +610,7 @@
                     <ng-template pTemplate="body" let-setting let-rowIndex="rowIndex">
                         <tr>
                             <td>{{ rowIndex + 1 }}</td>
-                            <!-- <td>{{setting.sequence }}</td> -->
+                            
                             <td>{{setting.ride_Scrutiny_Templates.title}}</td>
                             <td>{{setting.totalLeftMinutes}}</td>
                             <td>{{setting.enable24Hours}}</td>
@@ -713,7 +631,7 @@
                 </p-table>
             </div>
               </div>
-            </div>
+            </div> -->
 
             <!-- <div class="grid grid-nogutter justify-content-end">
             <button label="Back" *ngIf="activeIndex != 0" (click)="prevPage($event)" icon="pi pi-angle-left"
@@ -731,13 +649,13 @@
 
             <div class="grid grid-nogutter justify-content-end mt-3">
 
-                <p-button id="step-btn" class="theme-btn" style="background: #ef591f !important;" label="Back"
+                <p-button id="step-btn" class="theme-btn"  label="Back"
                     *ngIf="activeIndex != 0" (click)="prevPage(redzone)"></p-button>
                 <!-- <p-button id="step-btn" class="theme-btn ml-1-" style="background: #ef591f !important;" label="Next"  *ngIf="activeIndex != 2 || redzone != 3 " (click)="nextPage(redzone)" iconPos="right"></p-button> -->
                 <p-button id="step-btn" [ngClass]="{'dnone': buttonDisable}" class="theme-btn ml-1-"
-                    style="background: #ef591f !important;" label="Next" *ngIf="activeIndex != 4"
+                     label="Next" *ngIf="activeIndex != 1"
                     (click)="nextPage(redzone)" iconPos="right"></p-button>
-                <button pRipple label="Submit" *ngIf="activeIndex == 2 && redzone == 3" icon="pi pi-check"
+                <button pRipple label="Submit" *ngIf="activeIndex == 1" icon="pi pi-check"
                     class="theme-btn ml-1">
                     <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}"
                         styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"
@@ -745,12 +663,6 @@
                     Submit
                 </button>
 
-                <button pRipple label="Submit" *ngIf="activeIndex == 4" icon="pi pi-check" class="theme-btn ml-1">
-                    <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}"
-                        styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"
-                        animationDuration=".5s"></p-progressSpinner>
-                    Submit
-                </button>
             </div>
         </ng-template>
     </p-dialog>

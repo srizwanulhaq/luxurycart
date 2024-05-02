@@ -1,3 +1,5 @@
+import { IModeldao } from "../IOT/iotdrop-down-dao";
+
 export class AllDropDowndao2
 {
     message:string;
@@ -14,3 +16,9 @@ export class Citydao2{
     value:string;
     country_Id:string;
 }
+
+export class CityCountryDropdown{
+    countrylist: IModeldao[];
+    citylist:Citydao2[];
+}
+

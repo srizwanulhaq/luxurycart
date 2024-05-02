@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { CityDropDownResult } from '../domain/Dao/Promotions/CityDropDowndao';
@@ -7,6 +7,9 @@ import { AllDropDowndao2 } from '../domain/Dao/Zone/AllDropDowndao2';
 import { EditZoneDao } from '../domain/Dao/Zone/EditZoneDao';
 import { NewZoneDao } from '../domain/Dao/Zone/NewZoneDao';
 import { ParkingZonesResponse, Parking_ZonesDto } from '../domain/Dto/Zone/Parking_ZonesDto';
+import { SimpleProjectDao } from '../domain/Dao/Projects/projects';
+import { VehicleTypeDropDown } from '../domain/Dao/Vehicle/VehicleTypedao';
+import { ProjectDropDown } from '../domain/Dto/Project/projectdto';
 
 @Injectable({
     providedIn: 'root'
@@ -24,6 +27,23 @@ export class ZoneService {
     saveZone(zone: NewZoneDao) {
         return this.http.post<any>(`${environment.apiUrl}/api/v2/AdminParkingZone/save`, zone);
     }
+    getProjectDropdowns() {
+        return this.http.get<any>(`${environment.apiUrl}/api/v1/AdminProject/project-dropdown`, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            })
+        }).toPromise().then(data => data.data.result as ProjectDropDown[]);
+      }
+      getVehicleTypeDropdown() {
+        return this.http.get<any>(`${environment.apiUrl}/api/v1/admin/vehicles/types/vehicle-dropdown`, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            })
+        });
+      }
+    
     updateZone(zone: EditZoneDao) {
         return this.http.post<any>(`${environment.apiUrl}/api/v2/AdminParkingZone/update`, zone);
     }

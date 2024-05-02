@@ -6,6 +6,8 @@ import { Vehicles } from 'src/app/demo/domain/Dao/Vehicle/Vehicles';
 import { EditVehicleDto } from 'src/app/demo/domain/Dto/Vehicles/EditVehicleDto';
 import { VehicleService } from 'src/app/demo/service/vehicleservice';
 import { VehicleMainComponent } from '../vehicle-main/vehicle-main.component';
+import { ZoneService } from 'src/app/demo/service/zone.service';
+import { ProjectDropDown } from 'src/app/demo/domain/Dto/Project/projectdto';
 
 @Component({
   selector: 'app-vehicle-edit',
@@ -29,13 +31,14 @@ export class VehicleEditComponent implements OnInit {
   lstModels: SelectItem[] = [];
   lstIOT: SelectItem[] = [];
   lstAccounts: SelectItem[] = [];
-
+  project:ProjectDropDown[];
   @Output() eventChange = new EventEmitter<Event>();
 
   constructor(public main: VehicleMainComponent,
               private _formBuilder: FormBuilder,
               private service: VehicleService,
               private messageService: MessageService,
+              private zoneService:ZoneService
              ) { 
 
                 this.loadForm();
@@ -55,13 +58,15 @@ export class VehicleEditComponent implements OnInit {
         const group: FormGroup = this.vehicleEditForm as FormGroup;
         group.controls['id'].setValue(temp.id || "");
         group.controls['number'].setValue(temp.number || "");
-        group.controls['vehicleStatusId'].setValue(temp.vehicleStatus.id || "");
-        group.controls['vehicleCompanyId'].setValue(temp.vehicleCompany.id || "" );
+        //group.controls['vehicleStatusId'].setValue(temp.vehicleStatus.id || "");
+        //group.controls['vehicleCompanyId'].setValue(temp.vehicleCompany.id || "" );
         group.controls['vehicleTypeId'].setValue(temp.vehicleTypes.id || "" );
-        group.controls['vehicleModelId'].setValue(temp.vehicleModel.id || "" );
+        group.controls['serial_No'].setValue(temp.serial_No || "" );
+        group.controls['project_Id'].setValue(temp.project.id || "" );
+        //group.controls['vehicleModelId'].setValue(temp.vehicleModel.id || "" );
         group.controls['IOT_Id'].setValue(temp.iot.id || "" );
-        group.controls['vehicleBattery'].setValue(temp.vehicleBattery || 0 );
-        group.controls['subAccountId'].setValue(temp.subAccount.id || "" );
+        //group.controls['vehicleBattery'].setValue(temp.vehicleBattery || 0 );
+        //group.controls['subAccountId'].setValue(temp.subAccount.id || "" );
         
         
     }
@@ -84,25 +89,31 @@ export class VehicleEditComponent implements OnInit {
     this.vehicleEditForm = this._formBuilder.group({
       id: ["", [Validators.required]],
       number: ["", [Validators.required , Validators.pattern('[()0-9]+')]],
-      vehicleStatusId: ["", [Validators.required]],
-      vehicleCompanyId: ["", [Validators.required]],
+      //vehicleStatusId: ["", [Validators.required]],
+      //vehicleCompanyId: ["", [Validators.required]],
       vehicleTypeId: ["", [Validators.required]],
-      vehicleModelId: ["", [Validators.required]],
+      //vehicleModelId: ["", [Validators.required]],
       IOT_Id: ["", [Validators.required]],
-      subAccountId: ["", [Validators.required]],
-      vehicleBattery: ["", [Validators.required,Validators.max(100), Validators.min(0)]],
+      //subAccountId: ["", [Validators.required]],
+      //vehicleBattery: ["", [Validators.required,Validators.max(100), Validators.min(0)]],
+      serial_No: ["", [Validators.required, Validators.max(17), Validators.min(15)]],
+      project_Id:[""],
     });
   }
 
   loadDropdownValues() {
     //load company, types, status, models, iot, and sub-accounts
-    
+    this.zoneService.getProjectDropdowns().then(resp => {
+      if (resp) {
+        
+          this.project = resp;
+      }});
     this.service.requestDataFromMultipleSources().then(responseList => {
-      this.lstCompanies = responseList.lstCompanies;
-      this.lstAccounts = responseList.lstAccounts;
+      //this.lstCompanies = responseList.lstCompanies;
+      //this.lstAccounts = responseList.lstAccounts;
       this.lstIOT = responseList.lstIOTs;
-      this.lstModels = responseList.lstModels;
-      this.lstStatuses = responseList.lstStatuses;
+      //this.lstModels = responseList.lstModels;
+      //this.lstStatuses = responseList.lstStatuses;
       this.lstTypes = responseList.lstTypes;
 
       

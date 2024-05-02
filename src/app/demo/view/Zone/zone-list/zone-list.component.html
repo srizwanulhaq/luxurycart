@@ -73,9 +73,9 @@
 
                     <div
                         style="display: flex; justify-content: end; align-items: center; height: 100%;margin-top: 3px;">
-                        <p-dropdown id="dash-drop-id" [style]="{'min-width':'200px','text-align':'left', 'margin-right': '8px', 'margin-top': '0','background': '#ef591f'}" [options]="projectlist"
+                        <!-- <p-dropdown id="dash-drop-id" [style]="{'min-width':'200px','text-align':'left', 'margin-right': '8px', 'margin-top': '0','background': '#ef591f'}" [options]="projectlist"
                             (onChange)="changeProject($event)" optionLabel="title" optionValue="id"
-                            [filter]="true"></p-dropdown>
+                            [filter]="true"></p-dropdown> -->
                     
                         <span class="btn-left-box mr-2">
                             <div class="dropdown" style="margin-top: 0;">
@@ -178,23 +178,24 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="Id">Id
-                    <p-sortIcon field="Id"></p-sortIcon>
+                <th>Project Id
                 </th>
-                <th pSortableColumn="Title">Title
-                    <p-sortIcon field="Title"></p-sortIcon>
+                <th pSortableColumn="zone_id">Zone Id
+                    <p-sortIcon field="zone_id"></p-sortIcon>
                 </th>
-                <th pSortableColumn="Zone_name">Zone Type
-                    <p-sortIcon field="Zone_name"></p-sortIcon>
+                <th pSortableColumn="name">Name
+                    <p-sortIcon field="name"></p-sortIcon>
                 </th>
-                <th pSortableColumn="Country">Country
-                    <p-sortIcon field="Country"></p-sortIcon>
+                <th pSortableColumn="arname">AR Name
+                    <p-sortIcon field="arname"></p-sortIcon>
                 </th>
-                <th pSortableColumn="City">City
-                    <p-sortIcon field="City"></p-sortIcon>
+                <th pSortableColumn="country">Country
+                    <p-sortIcon field="country"></p-sortIcon>
                 </th>
-                <th pSortableColumn="Create_at">Create at
-                    <p-sortIcon field="Create_at"></p-sortIcon>
+                <th pSortableColumn="city">City
+                    <p-sortIcon field="city"></p-sortIcon>
+                </th>
+                <th >Vehicle Type
                 </th>
                 <th>Details</th>
             </tr>
@@ -204,12 +205,13 @@
                 <!-- <td>
             <p-tableCheckbox [value]="vehicle"></p-tableCheckbox>
         </td> -->
-                <td><span class="p-column-title">Id</span> {{zone.number}}
+                <td><span class="p-column-title">Project Id</span> {{zone?.projects?.project_AutoId}}
                 </td>
-                <td><span class="p-column-title">Title</span> {{zone.title}}
+                <td><span class="p-column-title">Zone Id</span> {{zone.zone_AutoId}}
                 </td>
-                <td><span class="p-column-title">Zone Type</span> {{zone.zone_Type != null ? zone.zone_Type.title : '-'
-                    }}
+                <td><span class="p-column-title">Name</span> {{zone.title}}
+                </td>
+                <td><span class="p-column-title">Arabic Title</span> {{zone.arTitle}}
                 </td>
                 <td> <span class="p-column-title">Country</span>
                     {{zone.city != null ? zone.city.country
@@ -218,8 +220,10 @@
                 <td><span class="p-column-title">City</span>
                     {{zone.city != null ? zone.city.name : '-'}}
                 </td>
-                <td><span class="p-column-title">Create at</span>
-                    {{zone.created_at | date:'medium'}}
+                <td><span class="p-column-title">Vehicle Types</span>
+                    <span *ngFor="let item of zone.vehicle_Types">
+                        {{item.title}}, 
+                    </span>
                 </td>
                 <td class="sm-jus-end">
                     <button title="More Details" pButton pRipple

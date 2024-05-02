@@ -1,8 +1,12 @@
+import { Projects } from "../Projects/projects";
 import { VehicleLocationdao } from "./VehicleLocationdao";
 
 export class Vehicledao {
     id: string;
     number: string;
+    serial_No:string;
+    active:boolean;
+    project:Projects;
     vehicleBattery: number;
     lastBatteryReplaced: string
     batterylowStatus: string

@@ -1,5 +1,6 @@
 import { IOTdao } from "../IOT/IOTdao";
 import { ParkingZonedao } from "../ParkingZone/ParkingZonedao";
+import { Projects } from "../Projects/projects";
 import { SubAccountdao } from "../SubAccount/SubAccountdao";
 import { VehicleCompanydao } from "./VehicleCompanydao";
 import { VehicleLocationdao } from "./VehicleLocationdao";
@@ -13,6 +14,8 @@ export class Vehicles {
 
     id: string;
     number: string;
+    serial_No:string;
+    project:Projects;
     vehicleBattery: number;
     lastUpdatedTime: number;
     updateLocation: boolean;
@@ -32,4 +35,5 @@ export class Vehicles {
     runningTime: number;
     update_Parking_Zone:boolean;
     update_Battery:boolean;
+    active:boolean;
 }

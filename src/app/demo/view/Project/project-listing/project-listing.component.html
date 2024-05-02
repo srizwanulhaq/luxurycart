@@ -104,8 +104,8 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th pSortableColumn="date">Date &  Time
-                <p-sortIcon field="date"></p-sortIcon>
+            <th pSortableColumn="id">Project Id
+                <p-sortIcon field="id"></p-sortIcon>
             </th>
             <!-- <th pSortableColumn="manager">Managers
                 <p-sortIcon field="manager"></p-sortIcon>
@@ -116,7 +116,11 @@
             <th pSortableColumn="artitle">Arabic Title
                 <p-sortIcon field="artitle"></p-sortIcon>
             </th>
-            <th>Zone Assigned 
+            <th pSortableColumn="country">Country
+                <p-sortIcon field="country"></p-sortIcon>
+            </th>
+            <th pSortableColumn="city">City
+                <p-sortIcon field="city"></p-sortIcon>
             </th>
             <th>Details</th>
         </tr>
@@ -124,7 +128,7 @@
     <ng-template pTemplate="body" let-project>
         <tr>
             <td>
-                {{project.created_at | date:'medium'}}
+                {{project.project_AutoId}}
             </td>
             <td>
                 {{project.title}}
@@ -132,10 +136,11 @@
             <td>
                 {{project.arTitle}}
             </td>
-            <td *ngIf="project.lstZones!=null else goelse">
-                <span *ngFor="let zone of project.lstZones"> 
-                    {{zone.title }} <br>
-                </span>
+            <td>
+                {{project?.city?.country.name}}
+            </td>
+            <td>
+                {{project?.city.name}}
             </td>
             <td class="sm-jus-end">
                 <button title="More Details" pButton pRipple class="p-button-rounded p-button-success theme-btn ac-btn"

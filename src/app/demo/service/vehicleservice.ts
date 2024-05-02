@@ -224,7 +224,10 @@ export class VehicleService {
     {
       return this.http.post<any>(`${environment.apiUrl}/api/v1/AdminVehicles/active/deactive`,model);
     }
-
+    changeStatus(model:any)
+    {
+      return this.http.post<any>(`${environment.apiUrl}/api/v2/AdminVehicles/changeStatus`,model);
+    }
     updatebattery(model:any)
     {
       return this.http.post<any>(`${environment.apiUrl}/api/v1/AdminVehicles/batteryUpdate`,model);

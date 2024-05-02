@@ -1,3 +1,5 @@
+import { Vehicle_Types } from "../../Dao/Maps/map-dao";
+import { Projects } from "../../Dao/Projects/projects";
 import { Citydao, CityDao } from "../../Dao/Promotions/CityDropDowndao";
 import { RideScrutinySettings } from "../../Dao/Zone/EditZoneDao";
 import { Ridetype, VehicleCompanies, Zone_Coordinates } from "../../Dao/Zone/NewZoneDao";
@@ -5,6 +7,7 @@ import { Ridetype, VehicleCompanies, Zone_Coordinates } from "../../Dao/Zone/New
 
 export class Parking_ZonesDto {
     id?: string;
+    zone_AutoId:string;
     title: string;
     arTitle: string;
     zone_Start_Time: string;
@@ -21,6 +24,8 @@ export class Parking_ZonesDto {
     default_Speed:number;
     segway_Throttle_Command:boolean;
     zone_Coordinates: Zone_Coordinates[];
+    vehicle_Types:Vehicle_Types[];
+    projects:Projects;
     ride_Fare_SettingList: RideFareSettingDto[];
     zone_Type:ZoneTypeDto;
     city:Citydao;

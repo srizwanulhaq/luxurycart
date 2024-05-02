@@ -32,7 +32,7 @@ export class ZoneDetailsComponent implements OnInit {
   set details(value: Parking_ZonesDto) {
     if (value) {
       this._details = value;
-      this._details.ride_Scrutiny_SettingList.sort((a, b) => a.no_Of_Rides > b.no_Of_Rides ? 1 : -1);
+      //this._details.ride_Scrutiny_SettingList.sort((a, b) => a.no_Of_Rides > b.no_Of_Rides ? 1 : -1);
     
     }
   }

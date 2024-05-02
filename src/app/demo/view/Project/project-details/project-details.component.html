@@ -24,20 +24,11 @@
     </div> 
 
         <div class="head-row">
-            <!-- <h6 class="panel-parent-heading"><span><img src="assets/layout/images/id.png" alt="" width="20">
-                    {{details.tripId}}</span></h6> -->
-            <div class="btn-right-box">
-
-                <!-- <h6 class="m-0">
-                    Zones :  <span *ngFor="let zone of zones;let i=index"> {{zone.title }} </span>
-                </h6> -->
-                <!-- <img src="assets/layout/images/locate-green.png" alt="" width="20">
-                <a href="https://www.google.com/maps/search/?api=1&amp;query={{details.latitude}},{{details.longitude}}"
-                    class="navigation-marker" target="_blank">
-                    <span class="last-text text-white"><b> Location</b></span>
-                </a> -->
-              
-            </div>
+            <h6 class="panel-parent-heading">
+                <span>
+                    Project Id: {{details.project_AutoId}}
+                </span></h6>
+           
         </div>
         <div class="submenu-content settings ">
             <div class="main-row ">
@@ -52,11 +43,14 @@
                     <h6>{{details.title}}</h6>
                 </div>
                 <div class="history-settings card-main ">
-                    <h6><span>Zone Assigned</span></h6>
-                    <img src="assets/layout/images/locate-green.png " alt=" " width="40 ">
-                    <span *ngFor="let item of details.lstZones"> 
-                        <h6>{{item.title }},</h6>
-                     </span>
+                    <h6><span>City</span></h6>
+                    <img src="assets/layout/images/imei.png " alt=" " width="40 ">
+                    <h6>{{details.city.name}}</h6>
+                </div>
+                <div class="history-settings card-main ">
+                    <h6><span>Country</span></h6>
+                    <img src="assets/layout/images/imei.png " alt=" " width="40 ">
+                    <h6>{{details.city.country.name}}</h6>
                 </div>
                 <div class="history-settings card-main ">
                     <h6><span>Created at</span></h6>

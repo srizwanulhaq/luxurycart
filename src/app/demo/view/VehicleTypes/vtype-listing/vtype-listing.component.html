@@ -117,6 +117,10 @@
             <th style="width: 3rem">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
+            <th pSortableColumn="id">Vehicle Type Id
+                <p-sortIcon field="id">
+                </p-sortIcon>
+            </th>
             <th pSortableColumn="title">Title
                 <p-sortIcon field="title">
                 </p-sortIcon>
@@ -125,11 +129,7 @@
                 <p-sortIcon field="seatingCapacity">
                 </p-sortIcon>
             </th>
-            <th pSortableColumn="maxSpeed">Max Speed
-                <p-sortIcon field="maxSpeed">
-                </p-sortIcon>
-            </th>
-            <th pSortableColumn="drive_Mode">Drive Mode
+            <th pSortableColumn="drive_Mode">Driving Mode
                 <p-sortIcon field="drive_Mode">
                 </p-sortIcon>
             </th>
@@ -144,10 +144,10 @@
             <td>
                 <p-tableCheckbox [value]="vehicleType"></p-tableCheckbox>
             </td>
+            <td><span class="p-column-title">Vehicle Type Id</span> {{vehicleType.vehicle_Type_AutoId}}</td>
             <td><span class="p-column-title">Title</span> {{vehicleType.title}}</td>
             <td><span class="p-column-title">Seating Capacity</span> {{vehicleType.seatingCapacity}}</td>
-            <td><span class="p-column-title">Max Speed</span> {{vehicleType.maxSpeed}}</td>
-            <td><span class="p-column-title">Drive Mode</span> {{vehicleType?.drive_Mode?.title}}</td>
+            <td><span class="p-column-title">Driving Mode</span> {{vehicleType?.drive_Mode?.title}}</td>
             <!-- <td><span class="p-column-title">Number</span> {{vehicleType.number}}</td>
             <td><span class="p-column-title">Active</span>
                 <button type="button" [ngClass]="setToggleClass(vehicleType.active)"

@@ -5,6 +5,8 @@ import { first } from 'rxjs/operators';
 import { NewVehicleDto } from 'src/app/demo/domain/Dto/Vehicles/NewVehicleDto';
 import { VehicleService } from 'src/app/demo/service/vehicleservice';
 import { VehicleMainComponent } from '../vehicle-main/vehicle-main.component';
+import { ZoneService } from 'src/app/demo/service/zone.service';
+import { ProjectDropDown } from 'src/app/demo/domain/Dto/Project/projectdto';
 
 @Component({
     selector: 'app-vehicle-create',
@@ -34,12 +36,13 @@ export class VehicleCreateComponent implements OnInit {
     vehicleModelId: string;
     subAccountId: string;
     IOT_Id: string;
-
+    project:ProjectDropDown[];
     constructor(private _formBuilder: FormBuilder,
         private service: VehicleService,
         private messageService: MessageService,
         private cdref: ChangeDetectorRef,
-        private main: VehicleMainComponent) { }
+        private main: VehicleMainComponent,
+        private zoneService:ZoneService) { }
 
     ngOnInit(): void {
 
@@ -49,26 +52,32 @@ export class VehicleCreateComponent implements OnInit {
     loadForm() {
         this.vehicleForm = this._formBuilder.group({
             number: ["", [Validators.required, Validators.pattern('[()0-9]+')]],
-            vehicleStatusId: ["", [Validators.required]],
-            vehicleCompanyId: ["", [Validators.required]],
+            //vehicleStatusId: ["", [Validators.required]],
+            //vehicleCompanyId: ["", [Validators.required]],
             vehicleTypeId: ["", [Validators.required]],
-            vehicleModelId: ["", [Validators.required]],
+            
+            //vehicleModelId: ["", [Validators.required]],
             IOT_Id: ["", [Validators.required]],
-            subAccountId: ["", [Validators.required]],
-            vehicleBattery: ["", [Validators.required, Validators.max(100), Validators.min(0)]],
+            //subAccountId: ["", [Validators.required]],
+            //vehicleBattery: ["", [Validators.required, Validators.max(100), Validators.min(0)]],
+            serial_No: ["", [Validators.required, Validators.max(17), Validators.min(15)]],
+            project_Id:[""],
         });
     }
 
     loadDropdownValues() {
         //load company, types, status, models, iot, and sub-accounts
-
+        this.zoneService.getProjectDropdowns().then(resp => {
+            if (resp) {
+                this.project = resp;
+            }});
         this.service.requestDataFromMultipleSources().then(responseList => {
 
-            this.lstCompanies = responseList.lstCompanies;
-            this.lstAccounts = responseList.lstAccounts;
-            this.lstIOT = responseList.lstIOTs;
-            this.lstModels = responseList.lstModels;
-            this.lstStatuses = responseList.lstStatuses;
+            // this.lstCompanies = responseList.lstCompanies;
+            // this.lstAccounts = responseList.lstAccounts;
+             this.lstIOT = responseList.lstIOTs;
+            // this.lstModels = responseList.lstModels;
+            // this.lstStatuses = responseList.lstStatuses;
             this.lstTypes = responseList.lstTypes;
         });
     }
@@ -79,13 +88,13 @@ export class VehicleCreateComponent implements OnInit {
         this.vehicleDialog = true;
         this.main.event = null;
         this.resetForm();
-        this.setDefaultValue();
+        //this.setDefaultValue();
         this.loadDropdownValues();
     }
-    setDefaultValue() {
-        const group: FormGroup = this.vehicleForm as FormGroup;
-        group.controls['vehicleBattery'].setValue(0);
-    }
+    // setDefaultValue() {
+    //     const group: FormGroup = this.vehicleForm as FormGroup;
+    //     group.controls['vehicleBattery'].setValue(0);
+    // }
 
     hideDialog() {
         this.vehicleDialog = false;

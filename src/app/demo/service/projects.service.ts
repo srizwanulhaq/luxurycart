@@ -26,6 +26,14 @@ export class ProjectsService {
         })
     }).toPromise().then(data => data.data.result as SimpleProjectDao[]);
   }
+  getCityCountryDropdown() {
+    return this.http.get<any>(`${environment.apiUrl}/api/v1/AdminProject/country-city-load`, {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        })
+    }).toPromise().then(data => data.data.result as any);
+  }
 
   getAllProject(pageIndex: number, pageSize: number, globalFilter: string,
     sortField: string, sortOrder: number, dateRangeStr: string) {

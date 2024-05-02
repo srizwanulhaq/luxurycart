@@ -42,31 +42,44 @@
                         *ngIf="vehicleForm.controls.number.errors?.pattern">Enter number like: 0011</small>
                 </div>
                 <div class="field col">
+                    <label for="name">Serial No (VIN No)<span class="star-sign">*</span></label>
+                    <input type="text" pInputText id="serial_No" formControlName="serial_No" required
+                        autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
+                    <small style="color:red;" class="ng-dirty ng-invalid"
+                        *ngIf="vehicleForm.controls.serial_No.errors?.max">Serial number should consist of 17 characters</small>
+                </div>
+                <!-- <div class="field col">
                     <label for="name">Battery %<span class="star-sign">*</span></label>
                     <input type="number" pInputText id="name" min="0" formControlName="vehicleBattery" required
                         autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
                     <small style="color:red;" class="ng-dirty ng-invalid"
                         *ngIf="vehicleForm.controls.vehicleBattery.errors?.max">Please battery value between 0 and
                         100</small>
-                </div>
+                </div> -->
             </div>
 
             <div class="formgrid grid">
-                <div class="field col">
-                    <label for="price">Company <span class="star-sign">*</span></label>
-                    <p-dropdown id="company" [filter]="true" [options]="lstCompanies" name="company"
-                        formControlName="vehicleCompanyId" placeholder="Select Company">
-                    </p-dropdown>
-                </div>
+
                 <div class="field col">
                     <label for="quantity">Type <span class="star-sign">*</span></label>
                     <p-dropdown id="type" [options]="lstTypes" name="type" formControlName="vehicleTypeId"
                         placeholder="Select Type">
                     </p-dropdown>
                 </div>
+                <div class="field col">
+                    <label for="project">Project </label>
+                    <p-dropdown id="project" [options]="project" placeholder="Select Project"  formControlName="project_Id">
+                    </p-dropdown>
+                </div>
+                <!-- <div class="field col">
+                    <label for="price">Company <span class="star-sign">*</span></label>
+                    <p-dropdown id="company" [filter]="true" [options]="lstCompanies" name="company"
+                        formControlName="vehicleCompanyId" placeholder="Select Company">
+                    </p-dropdown>
+                </div> -->
             </div>
 
-            <div class="formgrid grid">
+            <!-- <div class="formgrid grid">
                 <div class="field col">
                     <label for="price">Status <span class="star-sign">*</span></label>
                     <p-dropdown id="status" [options]="lstStatuses" name="status" formControlName="vehicleStatusId"
@@ -79,7 +92,7 @@
                         placeholder="Select Model">
                     </p-dropdown>
                 </div>
-            </div>
+            </div> -->
 
             <div class="formgrid grid">
                 <div class="field col-6">
@@ -88,12 +101,12 @@
                         formControlName="IOT_Id" placeholder="Select IOT">
                     </p-dropdown>
                 </div>
-                <div class="field col-6">
+                <!-- <div class="field col-6">
                     <label for="quantity">Sub Account <span class="star-sign">*</span></label>
                     <p-dropdown id="account" [options]="lstAccounts" name="subAccount" formControlName="subAccountId"
                         placeholder="Select Sub Account">
                     </p-dropdown>
-                </div>
+                </div> -->
             </div>
         </ng-template>
 

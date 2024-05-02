@@ -326,20 +326,20 @@ export class VehicleDetailsComponent implements OnInit {
         this.searchValue = ""
     }
 
-    onStatus(e, id) {
+    onChangeStatus(e, id) {
         var active = e.checked;
         this._confirmationService.confirm({
-          message: "Do you want to change update Parking Zone?",
+          message: "Do you want to change the Status?",
           header: "Change Confirmation",
           icon: "pi pi-info-circle",
           accept: () => {
             //-------------------------------------
             var model = {
               id: id,
-              update_Parking_Zone: active,
+              active: active,
             };
             this.service
-              .updateParkingZone(model)
+              .changeStatus(model)
               .pipe(first())
               .subscribe({
                 next: (response) => {
@@ -355,7 +355,7 @@ export class VehicleDetailsComponent implements OnInit {
        
           },
           reject: () => {
-            this.details.update_Parking_Zone = !active;
+            this.details.active = !active;
           },
         });
     }

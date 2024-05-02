@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuItem, MessageService, SelectItem } from 'primeng/api';
 import { Dropdown } from 'primeng/dropdown';
@@ -10,6 +10,10 @@ import { DefaultRideFareSetting, DefaultRideScrutinySettingsDto, NewZoneDao, Rid
 import { PackagediscountService } from 'src/app/demo/service/packagediscount.service';
 import { ZoneService } from 'src/app/demo/service/zone.service';
 import { ZoneMainComponent } from '../zone-main/zone-main.component';
+import { VehicleTypeDropDown } from 'src/app/demo/domain/Dao/Vehicle/VehicleTypedao';
+import { SimpleProjectDao } from 'src/app/demo/domain/Dao/Projects/projects';
+import { ProjectsService } from 'src/app/demo/service/projects.service';
+import { ProjectDropDown } from 'src/app/demo/domain/Dto/Project/projectdto';
 declare var google: any;
 
 @Component({
@@ -82,11 +86,8 @@ export class ZoneAddComponent implements OnInit {
     "Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"
   ]
   validatedays:string;
-  defaultPackages: string[] = [
-    "47d52594-5f9d-11eb-a38d-3863bb70fb03",
-    "549a01e2-5f9d-11eb-a38d-3863bb70fb03",
-    "5d1e41db-5f9d-11eb-a38d-3863bb70fb03",
-  ]
+  vehicleType:VehicleTypeDropDown[];
+  project:ProjectDropDown[];
   lstWalletPackageIds:string[];
   markers: marker[] = [
     {
@@ -96,6 +97,7 @@ export class ZoneAddComponent implements OnInit {
       draggable: true,
     },
   ];
+
   setcurrentlat:number;
   setcurrentlong:number;
   ridesItems:MenuItem[];
@@ -110,22 +112,23 @@ export class ZoneAddComponent implements OnInit {
 
   constructor(public main: ZoneMainComponent, private service: ZoneService,
     private _formBuilder: FormBuilder, private messageService: MessageService,
-    private _PromoCodeService: PackagediscountService,) { }
+    private _PromoCodeService: PackagediscountService,private projectService:ProjectsService, 
+    private cdref:ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    //this.setCurrentPosition();
+    this.setCurrentPosition();
     this.loadForm();
     this.loadDropdownCountry();
-    this.setDefaultSpeed()
+    //this.setDefaultSpeed()
   }
   @Output() eventChange = new EventEmitter<Event>();
-  setDefaultSpeed(){
-    this.itemsSpeedMode = [
-      { label: '10', value: 10 },
-      { label: '15', value: 15 },
-      { label: '25', value: 25 },
-  ];
-  }
+  // setDefaultSpeed(){
+  //   this.itemsSpeedMode = [
+  //     { label: '10', value: 10 },
+  //     { label: '15', value: 15 },
+  //     { label: '25', value: 25 },
+  // ];
+  // }
   newZone() {
     this.activeIndex = 0;
     this.submitted = false;
@@ -137,79 +140,56 @@ export class ZoneAddComponent implements OnInit {
     this.setOption();
     this.loadDropdownValues();
     this.setCurrentPosition();
-    this.setOptionForRides();
+    //this.setOptionForRides();
 
   }
   setOption() {
     this.items = [{
-      label: 'Basic Details',
-    },
-    {
-      label: 'Basic Setting',
+      label: 'Zone Information',
     },
     {
       label: 'Draw Zone',
-    },
-    {
-      label: 'Zone Fare',
-    },
-    {
-      label: 'Ride Scrutiny (optional) ',
     }
     ];
 
   }
   
-  setOptionForRides() {
-    this.ridesItems = [{
-      label: 'ride 1',
-    },
-    {
-      label: 'ride 2',
-    },
-    {
-      label: 'ride 3',
-    },
-    {
-      label: 'ride 4',
-    },
-    {
-      label: 'ride 5',
-    },
-    ];
-
-  }
-  ChangeZoneType(e) {
-    if (e.value == '92914c73-f2f6-11ec-bcc3-065837c3e1de') {
-      this.redzone = 3;
-      this.items = [{
-        label: 'Basic Details',
-      },
-      {
-        label: 'Draw Zone',
-      },
-      ];
-    }
-    else {
-      this.parkingzone = 1;
-      this.redzone = null;
-      this.setOption();
-    }
-  }
+ 
+  // ChangeZoneType(e) {
+  //   if (e.value == '92914c73-f2f6-11ec-bcc3-065837c3e1de') {
+  //     this.redzone = 3;
+  //     this.items = [{
+  //       label: 'Basic Details',
+  //     },
+  //     {
+  //       label: 'Draw Zone',
+  //     },
+  //     ];
+  //   }
+  //   else {
+  //     this.parkingzone = 1;
+  //     this.redzone = null;
+  //     this.setOption();
+  //   }
+  // }
   nextPage(e) {
     this.submitted = true;
-    if (this.zoneForm.value.title  &&
-      this.zoneForm.value.zone_Type_Id && this.zoneForm.value.city_Id && this.zoneForm.value.country_Id) {
-
-      switch (e) {
-        case 3:
-          this.skipSteps();
-          break;
-        default:
-          this.handleActiveIndex();
-          break;
-      }
+    if(this.zoneForm.controls.title.value && this.zoneForm.controls.projectId && this.zoneForm.controls.vehicletypeId)
+    {
+      this.handleActiveIndex();
     }
+    // if (this.zoneForm.value.title  &&
+    //   this.zoneForm.value.zone_Type_Id && this.zoneForm.value.city_Id && this.zoneForm.value.country_Id) {
+
+    //   switch (e) {
+    //     case 3:
+    //       this.skipSteps();
+    //       break;
+    //     default:
+    //       this.handleActiveIndex();
+    //       break;
+    //   }
+    // }
   }
 
   handleActiveIndex() {
@@ -218,221 +198,80 @@ export class ZoneAddComponent implements OnInit {
         this.incrementActiveIndex();
         this.submitted = false;
         break;
-      case 1:
-        if(this.zoneForm.value.min_Wallet_Balance)
-        {
-          this.incrementActiveIndex();
-          this.submitted = false;
-        }
-        break;
-      case 2:
-        if (this.zoneForm.value.zone_Coordinates.length > 0 || this.zoneCordinates.length > 0) {
-          this.incrementActiveIndex();
-          this.submitted = false;
-        }
-        break;
-      case 3:
-        this.zoneFare == undefined ? this.incrementActiveIndex() : this.zoneFare.length >= 0 ? this.incrementActiveIndex() : true;
-        this.submitted = false;
-        break;
+      // case 1:
+      //   if(this.zoneForm.value.title)
+      //   {
+      //     this.incrementActiveIndex();
+      //     this.submitted = false;
+      //   }
+      //   break;
+      // case 2:
+      //   if (this.zoneForm.value.zone_Coordinates.length > 0 || this.zoneCordinates.length > 0) {
+      //     this.incrementActiveIndex();
+      //     this.submitted = false;
+      //   }
+      //   break;
+      // case 3:
+      //   this.zoneFare == undefined ? this.incrementActiveIndex() : this.zoneFare.length >= 0 ? this.incrementActiveIndex() : true;
+      //   this.submitted = false;
+      //   break;
     }
   }
   prevPage(e) {
-    if (e === 3) {
-      this.activeIndex = this.activeIndex - 2;
-      this.buttonDisable = false;
-    }
-    else
-      this.decrementActiveIndex();
+    // if (e === 2) {
+    //   this.activeIndex = this.activeIndex - 1;
+    //   this.buttonDisable = false;
+    // }
+    // else
+    //   this.decrementActiveIndex();
+    this.activeIndex = this.activeIndex-1;
   }
-
-  loadDropdownValues() {
-    this.service.allDropDownResult().then(responseList => {
-      this.lstZoneTypes = responseList.lstZoneTypes;
-      this.lstRideTypes = responseList.lstRideTypes;
-      this.lstCompanies = responseList.lstCompanies;
-      this.lstTemplates = responseList.lstRideTemplates;
+  loadDropdownValues()
+  {
+    this.service.getProjectDropdowns().then(resp => {
+      if (resp) {
+          this.project = resp;
+      }});
+      this.service.getVehicleTypeDropdown().subscribe(resp => {
+        if (resp.status) {
+            this.vehicleType = resp.data;
+        }});
+  }
+  // loadDropdownValues() {
+  //   this.service.allDropDownResult().then(responseList => {
+  //     this.lstZoneTypes = responseList.lstZoneTypes;
+  //     this.lstRideTypes = responseList.lstRideTypes;
+  //     this.lstCompanies = responseList.lstCompanies;
+  //     this.lstTemplates = responseList.lstRideTemplates;
       
-      this._lstWalletPackages = responseList.lstWalletPackages;
-      var _itemWalletPackage: any = [];
-      this._lstWalletPackages.forEach(function (item) {
-        _itemWalletPackage.push({ name: (item.title + " " + "TopUp Amount" + " " + item.top_Up_Amount + " " + "Bonus Amount" + " "+ item.bonus_Amount), code: item.id });
-      });
-      this.lstWalletPackages = _itemWalletPackage;
-    });
-  }
+  //     this._lstWalletPackages = responseList.lstWalletPackages;
+  //     var _itemWalletPackage: any = [];
+  //     this._lstWalletPackages.forEach(function (item) {
+  //       _itemWalletPackage.push({ name: (item.title + " " + "TopUp Amount" + " " + item.top_Up_Amount + " " + "Bonus Amount" + " "+ item.bonus_Amount), code: item.id });
+  //     });
+  //     this.lstWalletPackages = _itemWalletPackage;
+  //   });
+  // }
 
   loadForm() {
     this.zoneForm = this._formBuilder.group({
       title: ['', [Validators.required]],
       arTitle: [],
-     // zone_Start_Time: ['', [Validators.required]],
-     // zone_End_Time: ['', [Validators.required]],
-      min_Wallet_Balance: ['', [Validators.required]],
-      rideEnd_within_zone: [],
-      nearby_RedZone: [],
-      default_Speed: [''],
-      segway_Throttle_Command: [],
-      zone_Type_Id: ['', [Validators.required]],
+      vehicletypeId:[[],[Validators.required]],
+      projectId:["",[Validators.required]],
       center_Latitude: [''],
       center_Longitude: [''],
-      ride_fare_setting: this._formBuilder.array([]),
       zone_Coordinates: this._formBuilder.array([]),
       city_Id: ['', [Validators.required]],
       country_Id: ['', [Validators.required]],
-      ride_scrutiny_setting: this._formBuilder.array([]),
-      walletPackagesIds:[],
       setcurrentlat:[],
       setcurrentlong:[],
 
     });
-
-    this.ride_fare_setting().push(this.newfare());
-    this.ride_scrutiny_setting().push(this.newSettings());
   }
 
-  //Array
-  ride_fare_setting(): FormArray {
-    return this.zoneForm.get("ride_fare_setting") as FormArray
-  }
 
-  ride_scrutiny_setting(): FormArray {
-    return this.zoneForm.get("ride_scrutiny_setting") as FormArray
-  }
 
-  newfare(): FormGroup {
-    return this._formBuilder.group({
-      rideTypeId: [''],
-      vehicleCompanyId: [''],
-      fixed_Start_Price: [''],
-      time_Price: [''],
-      price_Per_Kilometer: [''],
-      rideTypeName: [''],
-      vehicaleCompany: ['']
-    })
-  }
-
-  newSettings(): FormGroup {
-    return this._formBuilder.group({
-      selectedTemplate: [''],
-      templateId: [''],
-      totalLeftMinutes: [''],
-      enable24Hours: [],
-      startTime: [''],
-      endTime: [''],
-      appliedDays: [""],
-      sendCustomerNotification: [],
-      sendAdminNotification: [],
-      allowRideEnd: [],
-      turnSpeedLow: [],
-      turnThrottleOff: [],
-      no_Of_Rides:[],
-      sequence:[],
-    })
-  }
-
-  addfare(i, fare) {
-    this.submitted = true;
-    if (fare.value.rideTypeId !== "" && fare.value.vehicleCompanyId !== "" && fare.value.fixed_Start_Price !== ""
-      && fare.value.time_Price !== "" && fare.value.price_Per_Kilometer !== "") {
-      if (fare.value.time_Price <= 100 && fare.value.price_Per_Kilometer <= 100 && fare.value.fixed_Start_Price <= 100) {
-        this.submitted = false;
-        fare.value.rideTypeName = this.rideType;
-        fare.value.vehicaleCompany = this.vehicaleCompany;
-        this.zonefare.push(fare.value);
-        this.zoneFare = this.zonefare;
-        this.ride_fare_setting().removeAt(i)
-        this.ride_fare_setting().push(this.newfare());
-      }
-    }
-  }
-
-  removefare(i) {
-    this.zoneFare.forEach((element, index) => {
-      if (index == i)
-        this.zoneFare.splice(index, 1);
-    });
-
-  }
-
-  addSetting(i, setting,rideIndex) {
-    this.submitted = true;
-    setting.value.appliedDays = Object.values(this.appliedDays).join("");
-    if (setting.value.enable24Hours == true) {
-      setting.value.startTime = "12:00:00";
-      setting.value.endTime = "12:00:00";
-    }
-    else{
-      const startdate = new Date(setting.value.startTime);
-      setting.value.startTime = `${startdate.getHours()}:${startdate.getMinutes()}:${startdate.getSeconds()}`;
-      const enddate = new Date(setting.value.endTime);
-      setting.value.endTime = `${enddate.getHours()}:${enddate.getMinutes()}:${enddate.getSeconds()}`;
-    }
-    if (setting.value.templateId !== "" && setting.value.totalLeftMinutes !== "" && 
-    setting.value.startTime !== ""  &&  setting.value.endTime !== "" && setting.value.appliedDays !== '0000000') {
-      this.submitted = false;
-      setting.value.selectedTemplate = this.scrutinyTemplate;
-      if(rideIndex == 0)
-      {
-        setting.value.no_Of_Rides = rideIndex+1;
-        setting.value.sequence = this.sequence1++;
-        this.lstSettings1.push(setting.value);
-        this.lstScrutinySettings1 = this.lstSettings1;
-        this.lstSettings.push(setting.value);
-        this.allLstScrutinySettings = this.lstSettings;
-      }
-      if(rideIndex == 1)
-      {
-        setting.value.no_Of_Rides = rideIndex+1;
-        setting.value.sequence = this.sequence2++;
-        this.lstSettings2.push(setting.value);
-        this.lstScrutinySettings2 = this.lstSettings2;
-        this.lstSettings.push(setting.value);
-        this.allLstScrutinySettings = this.lstSettings;
- 
-      }
-      if(rideIndex == 2)
-      {
-        setting.value.no_Of_Rides = rideIndex+1;
-        setting.value.sequence = this.sequence3++;
-        this.lstSettings3.push(setting.value);
-        this.lstScrutinySettings3 = this.lstSettings3;
-        this.lstSettings.push(setting.value);
-        this.allLstScrutinySettings = this.lstSettings;
-
-      }
-      if(rideIndex == 3)
-      {
-        setting.value.no_Of_Rides = rideIndex + 1;
-        setting.value.sequence = this.sequence4++;
-        this.lstSettings4.push(setting.value);
-        this.lstScrutinySettings4 = this.lstSettings4;
-        this.lstSettings.push(setting.value);
-        this.allLstScrutinySettings = this.lstSettings;
-      }
-      if(rideIndex == 4)
-      {
-        setting.value.no_Of_Rides = rideIndex + 1;
-        setting.value.sequence = this.sequence5++;
-        this.lstSettings5.push(setting.value);
-        this.lstScrutinySettings5 = this.lstSettings5;
-        this.lstSettings.push(setting.value);
-        this.allLstScrutinySettings = this.lstSettings;
-      }
-      this.ride_scrutiny_setting().removeAt(i)
-      this.ride_scrutiny_setting().push(this.newSettings());
-      Object.keys(this.appliedDays).forEach(w => this.appliedDays[w] = 0)
-
-      this.enable24Hours = false;
-      this.turnThrottleOff = false;
-      this.turnSpeedLow = false;
-      this.allowRideEnd = false;
-      this.sendAdminNotification = false;
-      this.sendCustomerNotification = false;
-
-    }
-     
-  }
 
   // removeSetting(i,rideIndex) {
     
@@ -469,34 +308,11 @@ export class ZoneAddComponent implements OnInit {
   //   }
   // }
 
-  removeSetting(i, rideIndex) {
-    let lstScrutinySettings;
-    
-    switch (rideIndex) {
-      case 0:
-        lstScrutinySettings = this.lstScrutinySettings1;
-        break;
-      case 1:
-        lstScrutinySettings = this.lstScrutinySettings2;
-        break;
-      case 2:
-        lstScrutinySettings = this.lstScrutinySettings3;
-        break;
-      case 3:
-        lstScrutinySettings = this.lstScrutinySettings4;
-        break;
-      default:
-        return;
-    }
-    
-    lstScrutinySettings.splice(i, 1);
-  }
-  
 
   onSubmitForm() {
 
     this.submitted = true;
-    this.setValue();
+    console.log(this.zoneForm.value)
     this.addNewZone(this.zoneForm.value)
 
   }
@@ -507,8 +323,8 @@ export class ZoneAddComponent implements OnInit {
         next: (response) => {
           this.resetForm();
           this.zoneDialog = false;
-          this.zoneFare = null;
-          this.allLstScrutinySettings = null;
+          //this.zoneFare = null;
+          //this.allLstScrutinySettings = null;
           if (response.status) {
             this.eventChange.emit(response.status);
             this.messageService.add({ severity: 'success', summary: 'Successful', detail: response.message, life: 3000 });
@@ -528,176 +344,176 @@ export class ZoneAddComponent implements OnInit {
     this.btnloading = false;
   }
 
-  setValue() {
-    if (this.redzone == 3) {
-      this.zoneForm.value.ride_fare_setting = null;
-      this.zoneForm.value.ride_scrutiny_setting = null;
-      this.zoneForm.value.min_Wallet_Balance = 0;
-      this.zoneForm.value.default_Speed = 0;
-      this.zoneForm.value.nearby_RedZone = false;
-      this.zoneForm.value.segway_Throttle_Command = false;
-      this.zoneForm.value.rideEnd_within_zone = false;
-      this.zoneForm.value.zone_Start_Time = this.currentDate;
-      this.zoneForm.value.zone_End_Time = this.currentDate;
-      this.zoneForm.value.zone_Coordinates = this.zoneCordinates;
-      if (this.zoneForm.value.zone_Coordinates.length > 0) {
-        this.submitted = false;
-      }
-    }
-    else {
+//   setValue() {
+//     if (this.redzone == 3) {
+//       this.zoneForm.value.ride_fare_setting = null;
+//       this.zoneForm.value.ride_scrutiny_setting = null;
+//       this.zoneForm.value.min_Wallet_Balance = 0;
+//       this.zoneForm.value.default_Speed = 0;
+//       this.zoneForm.value.nearby_RedZone = false;
+//       this.zoneForm.value.segway_Throttle_Command = false;
+//       this.zoneForm.value.rideEnd_within_zone = false;
+//       this.zoneForm.value.zone_Start_Time = this.currentDate;
+//       this.zoneForm.value.zone_End_Time = this.currentDate;
+//       this.zoneForm.value.zone_Coordinates = this.zoneCordinates;
+//       if (this.zoneForm.value.zone_Coordinates.length > 0) {
+//         this.submitted = false;
+//       }
+//     }
+//     else {
 
-      if(this.allLstScrutinySettings != null)
-        this.zoneForm.value.ride_scrutiny_setting = this.allLstScrutinySettings;
-      else
-      this.setDefaultScrutiny();
+//       if(this.allLstScrutinySettings != null)
+//         this.zoneForm.value.ride_scrutiny_setting = this.allLstScrutinySettings;
+//       else
+//       this.setDefaultScrutiny();
 
-      if(this.zoneFare != null)
-        this.zoneForm.value.ride_fare_setting = this.zoneFare;
-      else
-        this.setDefaultFare();
+//       if(this.zoneFare != null)
+//         this.zoneForm.value.ride_fare_setting = this.zoneFare;
+//       else
+//         this.setDefaultFare();
 
-      this.setPackageIds();
-      this.zoneForm.value.walletPackagesIds = this.lstWalletPackageIds;
-      this.zoneForm.value.default_Speed = this.defaultSpeed;
-    }
-    this.zoneForm.value.zone_Coordinates = this.zoneCordinates;
-    this.zoneForm.value.center_Latitude = parseFloat(this.latlng.toString().replace("(", "").replace(")", "").split(",")[0]);
-    this.zoneForm.value.center_Longitude = parseFloat(this.latlng.toString().replace("(", "").replace(")", "").split(",")[1].replace(" ", ""));
-  }
-  setDefaultScrutiny(){
-    const defaultRideScrutiny:  DefaultRideScrutinySettingsDto[] = [
-      {
-          templateId: 1, 
-          totalLeftMinutes: 10,  
-          no_Of_Rides: 1, 
-          Sequence:1,
-          startTime: '12:00',     
-          endTime: '12:00',       
-          appliedDays: '1111111',  
-          enable24Hours: true, 
-          sendCustomerNotification: true,  
-          sendAdminNotification: true,     
-          allowRideEnd: false,   
-          turnSpeedLow: false,     
-          turnThrottleOff: false, 
+// //      this.setPackageIds();
+//       this.zoneForm.value.walletPackagesIds = this.lstWalletPackageIds;
+//       this.zoneForm.value.default_Speed = this.defaultSpeed;
+//     }
+//     this.zoneForm.value.zone_Coordinates = this.zoneCordinates;
+//     this.zoneForm.value.center_Latitude = parseFloat(this.latlng.toString().replace("(", "").replace(")", "").split(",")[0]);
+//     this.zoneForm.value.center_Longitude = parseFloat(this.latlng.toString().replace("(", "").replace(")", "").split(",")[1].replace(" ", ""));
+//   }
+//   setDefaultScrutiny(){
+//     const defaultRideScrutiny:  DefaultRideScrutinySettingsDto[] = [
+//       {
+//           templateId: 1, 
+//           totalLeftMinutes: 10,  
+//           no_Of_Rides: 1, 
+//           Sequence:1,
+//           startTime: '12:00',     
+//           endTime: '12:00',       
+//           appliedDays: '1111111',  
+//           enable24Hours: true, 
+//           sendCustomerNotification: true,  
+//           sendAdminNotification: true,     
+//           allowRideEnd: false,   
+//           turnSpeedLow: false,     
+//           turnThrottleOff: false, 
              
-      },
-      {
-          templateId: 1, 
-          totalLeftMinutes: 0,  
-          no_Of_Rides: 1, 
-          Sequence:2,
-          enable24Hours: true,    
-          startTime: '12:00',     
-          endTime: '12:00',       
-          appliedDays: '1111111',   
-          sendCustomerNotification: true,  
-          sendAdminNotification: true,     
-          allowRideEnd: false,   
-          turnSpeedLow: false,     
-          turnThrottleOff: false, 
+//       },
+//       {
+//           templateId: 1, 
+//           totalLeftMinutes: 0,  
+//           no_Of_Rides: 1, 
+//           Sequence:2,
+//           enable24Hours: true,    
+//           startTime: '12:00',     
+//           endTime: '12:00',       
+//           appliedDays: '1111111',   
+//           sendCustomerNotification: true,  
+//           sendAdminNotification: true,     
+//           allowRideEnd: false,   
+//           turnSpeedLow: false,     
+//           turnThrottleOff: false, 
               
-      },
-      {
-          templateId: 1, 
-          totalLeftMinutes: -10,  
-          no_Of_Rides: 1, 
-          Sequence:3,
-          enable24Hours: true,    
-          startTime: '12:00',     
-          endTime: '12:00',       
-          appliedDays: '1111111',   
-          sendCustomerNotification: true,  
-          sendAdminNotification: true,     
-          allowRideEnd: true,   
-          turnSpeedLow: true,     
-          turnThrottleOff: true, 
+//       },
+//       {
+//           templateId: 1, 
+//           totalLeftMinutes: -10,  
+//           no_Of_Rides: 1, 
+//           Sequence:3,
+//           enable24Hours: true,    
+//           startTime: '12:00',     
+//           endTime: '12:00',       
+//           appliedDays: '1111111',   
+//           sendCustomerNotification: true,  
+//           sendAdminNotification: true,     
+//           allowRideEnd: true,   
+//           turnSpeedLow: true,     
+//           turnThrottleOff: true, 
               
-      },
-  ];
+//       },
+//   ];
   
-  this.zoneForm.value.ride_scrutiny_setting = defaultRideScrutiny;
+//   this.zoneForm.value.ride_scrutiny_setting = defaultRideScrutiny;
 
 
-  }
-  setDefaultFare(){
-    const defaultRideFareSetting:  DefaultRideFareSetting[] = [
-      {
-        rideTypeId:"78efe9d1-d4e7-11eb-b76d-3863bb70fb03", //single
-        vehicleCompanyId:"9ab9727d-1a37-11ed-9d6d-065837c3e1de",
-        fixed_Start_Price:0,
-        time_Price:1,
-        price_Per_Kilometer:0,
-        paused_Time_Price:0,
+//   }
+//   setDefaultFare(){
+//     const defaultRideFareSetting:  DefaultRideFareSetting[] = [
+//       {
+//         rideTypeId:"78efe9d1-d4e7-11eb-b76d-3863bb70fb03", //single
+//         vehicleCompanyId:"9ab9727d-1a37-11ed-9d6d-065837c3e1de",
+//         fixed_Start_Price:0,
+//         time_Price:1,
+//         price_Per_Kilometer:0,
+//         paused_Time_Price:0,
              
-      },
-      {
-        rideTypeId:"78efe9d1-d4e7-11eb-b76d-3863bb70fb03", //single
-        vehicleCompanyId:"a880d9c0-d1eb-11ec-ad19-3863bb70fb03",
-        fixed_Start_Price:0,
-        time_Price:1,
-        price_Per_Kilometer:0,
-        paused_Time_Price:0,
+//       },
+//       {
+//         rideTypeId:"78efe9d1-d4e7-11eb-b76d-3863bb70fb03", //single
+//         vehicleCompanyId:"a880d9c0-d1eb-11ec-ad19-3863bb70fb03",
+//         fixed_Start_Price:0,
+//         time_Price:1,
+//         price_Per_Kilometer:0,
+//         paused_Time_Price:0,
              
-      },
-      {
-        rideTypeId:"78efe9d1-d4e7-11eb-b76d-3863bb70fb03", //single
-        vehicleCompanyId:"4096fa5a-dd86-11eb-b76d-3863bb70fb03",
-        fixed_Start_Price:0,
-        time_Price:1,
-        price_Per_Kilometer:0,
-        paused_Time_Price:0,
+//       },
+//       {
+//         rideTypeId:"78efe9d1-d4e7-11eb-b76d-3863bb70fb03", //single
+//         vehicleCompanyId:"4096fa5a-dd86-11eb-b76d-3863bb70fb03",
+//         fixed_Start_Price:0,
+//         time_Price:1,
+//         price_Per_Kilometer:0,
+//         paused_Time_Price:0,
              
-      },
-      {
-        rideTypeId:"78efe9d1-d4e7-11eb-b76d-3863bb70fb03", //single
-        vehicleCompanyId:"47b6fc0d-92d0-11eb-938d-3863bb70fb03",
-        fixed_Start_Price:0,
-        time_Price:1,
-        price_Per_Kilometer:0,
-        paused_Time_Price:0,
+//       },
+//       {
+//         rideTypeId:"78efe9d1-d4e7-11eb-b76d-3863bb70fb03", //single
+//         vehicleCompanyId:"47b6fc0d-92d0-11eb-938d-3863bb70fb03",
+//         fixed_Start_Price:0,
+//         time_Price:1,
+//         price_Per_Kilometer:0,
+//         paused_Time_Price:0,
              
-      },
-      {
-        rideTypeId:"82efc2c0-d4e7-11eb-b76d-3863bb70fb03", //group
-        vehicleCompanyId:"9ab9727d-1a37-11ed-9d6d-065837c3e1de",
-        fixed_Start_Price:0,
-        time_Price:1,
-        price_Per_Kilometer:0,
-        paused_Time_Price:0,
+//       },
+//       {
+//         rideTypeId:"82efc2c0-d4e7-11eb-b76d-3863bb70fb03", //group
+//         vehicleCompanyId:"9ab9727d-1a37-11ed-9d6d-065837c3e1de",
+//         fixed_Start_Price:0,
+//         time_Price:1,
+//         price_Per_Kilometer:0,
+//         paused_Time_Price:0,
              
-      },
-      {
-        rideTypeId:"82efc2c0-d4e7-11eb-b76d-3863bb70fb03", //group
-        vehicleCompanyId:"a880d9c0-d1eb-11ec-ad19-3863bb70fb03",
-        fixed_Start_Price:0,
-        time_Price:1,
-        price_Per_Kilometer:0,
-        paused_Time_Price:0,
+//       },
+//       {
+//         rideTypeId:"82efc2c0-d4e7-11eb-b76d-3863bb70fb03", //group
+//         vehicleCompanyId:"a880d9c0-d1eb-11ec-ad19-3863bb70fb03",
+//         fixed_Start_Price:0,
+//         time_Price:1,
+//         price_Per_Kilometer:0,
+//         paused_Time_Price:0,
              
-      },
-      {
-        rideTypeId:"82efc2c0-d4e7-11eb-b76d-3863bb70fb03", //group
-        vehicleCompanyId:"4096fa5a-dd86-11eb-b76d-3863bb70fb03",
-        fixed_Start_Price:0,
-        time_Price:1,
-        price_Per_Kilometer:0,
-        paused_Time_Price:0,
+//       },
+//       {
+//         rideTypeId:"82efc2c0-d4e7-11eb-b76d-3863bb70fb03", //group
+//         vehicleCompanyId:"4096fa5a-dd86-11eb-b76d-3863bb70fb03",
+//         fixed_Start_Price:0,
+//         time_Price:1,
+//         price_Per_Kilometer:0,
+//         paused_Time_Price:0,
              
-      },
-      {
-        rideTypeId:"82efc2c0-d4e7-11eb-b76d-3863bb70fb03", //group
-        vehicleCompanyId:"47b6fc0d-92d0-11eb-938d-3863bb70fb03",
-        fixed_Start_Price:0,
-        time_Price:1,
-        price_Per_Kilometer:0,
-        paused_Time_Price:0,
+//       },
+//       {
+//         rideTypeId:"82efc2c0-d4e7-11eb-b76d-3863bb70fb03", //group
+//         vehicleCompanyId:"47b6fc0d-92d0-11eb-938d-3863bb70fb03",
+//         fixed_Start_Price:0,
+//         time_Price:1,
+//         price_Per_Kilometer:0,
+//         paused_Time_Price:0,
              
-      },
+//       },
 
-  ];
-    this.zoneForm.value.ride_fare_setting = defaultRideFareSetting;
-  }
+//   ];
+//     this.zoneForm.value.ride_fare_setting = defaultRideFareSetting;
+//   }
 
   private setCurrentPosition() {
     if ('geolocation' in navigator) {
@@ -738,6 +554,9 @@ export class ZoneAddComponent implements OnInit {
     
     this.zoneCordinates = lstzoneCoordinates;
     this.zoneForm.value.zone_Coordinates = this.zoneCordinates;
+    this.zoneForm.value.center_Latitude = parseFloat(this.latlng.toString().replace("(", "").replace(")", "").split(",")[0]);
+    this.zoneForm.value.center_Longitude = parseFloat(this.latlng.toString().replace("(", "").replace(")", "").split(",")[1].replace(" ", ""));
+ 
   }
 
   onMapReady(map) {
@@ -805,21 +624,19 @@ export class ZoneAddComponent implements OnInit {
   companyName(company: Dropdown) {
     this.vehicaleCompany = company.selectedOption.label;
   }
-
+  ngAfterContentChecked() {
+    this.cdref.detectChanges();
+}
   loadDropdownCountry() {
     //load counties
-    this._PromoCodeService.loadDropDown().subscribe(responseList => {
-      this.lstCountries = responseList.result.lstCountries;
+    this.projectService.getCityCountryDropdown().then(responseList => {
+      this.lstCountries = responseList.countrylist;
+      this.lstCities = responseList.citylist;
     });
   }
 
   onSelect(e) {
-    this.service.loadCityDropDown().subscribe(responseList => {
-      this.lstCities = responseList.result.lstcities;
       this.getlstCities = this.lstCities.filter(z => z.country_Id == e.value);
-
-    });
-
   }
 
   onRemovePolygon() {
@@ -845,16 +662,16 @@ export class ZoneAddComponent implements OnInit {
     this.appliedDays[i] = !e.checked[0] && !!this.appliedDays[i] ? 0 : 1
   }
 
-  setPackageIds(){
-    var lstPackageIds = [];
-    this.zoneForm.value.walletPackagesIds != null ?  this.zoneForm.value.walletPackagesIds.forEach(Package =>  {
-      lstPackageIds.push(Package.code);
-    }) : this.defaultPackages.forEach(Package =>  {
-         lstPackageIds.push(Package)
-    });
+  // setPackageIds(){
+  //   var lstPackageIds = [];
+  //   this.zoneForm.value.walletPackagesIds != null ?  this.zoneForm.value.walletPackagesIds.forEach(Package =>  {
+  //     lstPackageIds.push(Package.code);
+  //   }) : this.defaultPackages.forEach(Package =>  {
+  //        lstPackageIds.push(Package)
+  //   });
       
-    this.lstWalletPackageIds = lstPackageIds;
-  }
+  //   this.lstWalletPackageIds = lstPackageIds;
+  // }
 
   onUpdateMapPointer() {
     this.markers = [];

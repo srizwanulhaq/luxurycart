@@ -1,8 +1,9 @@
 export class VehicleTypedao {
     id?: string;
+    vehicle_Type_AutoId:string;
     title: string;
     seatingCapacity:number;
-    maxSpeed:number;
+    //maxSpeed:number;
     drive_Mode:Drive_Mode;
     active: boolean
     number: number;
@@ -29,6 +30,10 @@ export class DriveModeDropDownResponse {
     status: boolean;
 }
 export class DriveModeDropDown {
+    label:string;
+    value:string;
+}
+export class VehicleTypeDropDown {
     label:string;
     value:string;
 }

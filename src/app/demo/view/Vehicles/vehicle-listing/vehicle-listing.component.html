@@ -12,7 +12,7 @@
             <!-- <shared-date-range [startDate]="startDate" [endDate]="endDate" [loading]="loading"
                 (onRangeChange)="onRangeChange($event)" (onDateChange)="onDateChange($event)"></shared-date-range> -->
             <div class="grid">
-                <div class="md:col-6 col-12">
+                <!-- <div class="md:col-6 col-12">
                     <span class="">
                         <span>
                             <h6
@@ -36,7 +36,7 @@
                         *ngIf="states.length>0" [(activeIndex)]="selectedStats">
                         <p-tabPanel [header]="stats.label" *ngFor="let stats of states"></p-tabPanel>
                     </p-tabView>
-                </div>
+                </div> -->
                 <div class="md:col-12 text-right col-12">
 
                     <!-- <div style="display: flex; justify-content: end; align-items: center; height: 100%;" class="searc-b ride-search-b">
@@ -86,10 +86,10 @@
 
                     <div style="display: flex; justify-content: end; align-items: center; height: 100%;">
                         <span class="btn-left-box mr-2">
-                            <p-dropdown id="dash-drop-id"
+                            <!-- <p-dropdown id="dash-drop-id"
                                 [style]="{'min-width':'200px','text-align':'left', 'margin-right': '8px', 'margin-top': '8px','background': '#ef591f'}"
                                 [options]="projectlist" (onChange)="changeProject($event)" optionLabel="title"
-                                optionValue="id" [filter]="true"></p-dropdown>
+                                optionValue="id" [filter]="true"></p-dropdown> -->
                             <div class="dropdown" style="margin-top: 0;">
                                 <button onclick="myFunction1()" class="dropbtn1"
                                     style="margin-top: 0;background: #ef591f;">Export <i
@@ -194,20 +194,19 @@
                 <th pSortableColumn="number">Scooter
                     <p-sortIcon field="number"></p-sortIcon>
                 </th>
-                <th pSortableColumn="name">Company
-                    <p-sortIcon field="name"></p-sortIcon>
+                <th pSortableColumn="serial">Serial No (VIN No)
+                    <p-sortIcon field="serial"></p-sortIcon>
                 </th>
                 <th pSortableColumn="type">Type
                     <p-sortIcon field="type"></p-sortIcon>
                 </th>
-                <th pSortableColumn="battery">Battery
-                    <p-sortIcon field="battery"></p-sortIcon>
+                <th pSortableColumn="imei">IOT
+                    <p-sortIcon field="imei"></p-sortIcon>
                 </th>
-                <th pSortableColumn="zoneTitle">Zone
-                    <p-sortIcon field="parking_Zones.title"></p-sortIcon>
+                <th >Project Assigned
                 </th>
-                <th pSortableColumn="imei">IMEI
-                    <p-sortIcon field="iot.imei"></p-sortIcon>
+                <th pSortableColumn="status">Status
+                    <p-sortIcon field="status"></p-sortIcon>
                 </th>
                 <th>Details</th>
             </tr>
@@ -217,20 +216,20 @@
                 <td>
                     <p-tableCheckbox [value]="vehicle"></p-tableCheckbox>
                 </td>
-                <td><span class="p-column-title">Trip</span> {{vehicle.number}}
+                <td><span class="p-column-title">Scooter</span> {{vehicle.number}}
                 </td>
-                <td><span class="p-column-title">Company</span> {{vehicle.vehicleCompany.name}}
+                <td><span class="p-column-title">Serial No (VIN No)</span> {{vehicle.serial_No}}
                 </td>
                 <td><span class="p-column-title">Type</span> {{vehicle.vehicleTypes.title}}
                 </td>
-                <td style="width:14%; min-width:8rem;"><span class="p-column-title">Battery</span>
-                    {{vehicle.vehicleBattery}}%
+                <td><span class="p-column-title">IOT</span>
+                    {{vehicle.iot.imei}}
                 </td>
-                <td><span class="p-column-title">Zone</span> {{vehicle.parkingZones == null ? "-" :
-                    vehicle.parkingZones.title }}
+                <td><span class="p-column-title">Project Assigned</span> {{vehicle.project == null ? "-" :
+                    vehicle.project.project_AutoId }}
                 </td>
                 <td>
-                    {{vehicle.iot.imei}}
+                    {{vehicle.active==1?'Active':'In-Active'}}
                 </td>
                 <td class="sm-jus-end">
                     <button title="More Details" pButton pRipple

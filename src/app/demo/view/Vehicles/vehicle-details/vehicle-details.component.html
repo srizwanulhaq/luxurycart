@@ -7,10 +7,10 @@
 </p-confirmDialog>
 <p-sidebar id="vedicle-detail-penal" *ngIf="details" [(visible)]="main.bottomPanelActive" position="bottom"
     [baseZIndex]="10000">
-    <p-tabView id="detail-tabbing">
+    <!-- <p-tabView id="detail-tabbing"> -->
         
         <div class="action-row ">
-            <div class="btn-right-box text-center pr-2">
+            <!-- <div class="btn-right-box text-center pr-2">
                 <h6 class="m-0">Battery Update</h6>
                 <p-inputSwitch actionTitle="update_Battery" (onChange)="onBatteryUpdate($event,details.id)"
                     [(ngModel)]="details.update_Battery">
@@ -21,17 +21,24 @@
                 <p-inputSwitch actionTitle="update_Parking_Zone" (onChange)="onStatus($event,details.id)"
                     [(ngModel)]="details.update_Parking_Zone">
                 </p-inputSwitch>
-            </div>
+            </div> -->
+            
             <div class="action-btn " (click)="main.onEditPanelButtonClick($event,details) ">
                 <h6>Update</h6>
             </div>
-            <div class="action-btn" (click)="deleteVehicle(details.id) ">
+            <div>
+                <h6 class="m-0">In-Active / Active</h6>
+                <p-inputSwitch actionTitle="active" (onChange)="onChangeStatus($event,details.id)"
+                    [(ngModel)]="details.active">
+                </p-inputSwitch>
+            </div>
+            <!-- <div class="action-btn" (click)="deleteVehicle(details.id) ">
                 <h6>Delete</h6>
-            </div>
+            </div> -->
    
-            <div class="action-btn" (click)="main.ChangeLocation(details)">
+            <!-- <div class="action-btn" (click)="main.ChangeLocation(details)">
                 <h6>Change Location</h6>
-            </div>
+            </div> -->
 
          
        
@@ -40,43 +47,49 @@
 
         <div class="head-row">
             <h6 class="panel-parent-heading">
-                <span>
-                <img src="assets/layout/images/id.png" alt="" width="20">
+                 <span>
+                    Vehicle Details
+                <!-- <img src="assets/layout/images/id.png" alt="" width="20">
                 <span *ngIf="vehicleDetails !=null">
                     {{details.number}} has completed {{vehicleDetails.totalRides}} rides
 
-                </span>
-                </span>
+                </span> -->
+                </span> 
             </h6>
-                    <!-- <h5 class="top-row-center">
-                        Total Ride : {{vehicleDetails.totltRides}}
-                    </h5> -->
-            <div class="btn-right-box">
+            <!-- <div class="btn-right-box">
                 <a *ngIf="details.iot.imei != null" [routerLink]="['/iot/manage-iot-main']"
                     [queryParams]="{ customdata: details.iot.imei }" class="invoice-btn"><img class="mr-2"
-                        src="assets/layout/images/iot-num.png" alt="" width="20" height="20"><span>{{details.iot.imei }}
+                        src="assets/layout/images/iot-num.png" alt="" width="20" height="20"><span>
+                            <h6>{{details.iot.imei }}</h6>
                     </span>
                 </a>
-                <!-- <span class="battery-per">
-                  Iot  Battery {{details.iot.battery}} %
-                </span> -->
                 <div class="qr-main mt-2">
                     <p class="show-qr-img" (click)="previousWeekData()">Show Qr</p>
                     <div *ngIf = "isShow" class="qr-div">
                         <qr-code [value]=this.vehicleQR size="80"></qr-code>
                     </div>
-                    <!-- <qr-code [value]=this.vehicleQR size="80"></qr-code> -->
                 </div>
-            </div>
+            </div> -->
         </div>
 
-        <p-tabPanel header="Vehicle info">
+        <!-- <p-tabPanel header="Vehicle info"> -->
             <div class="submenu-content settings">
                 <div class="main-row">
+                    
                     <div class="sales-settings card-main">
-                        <h6><span>Company </span> </h6>
+                        <h6><span>Vehicle Number </span> </h6>
                         <img src="assets/layout/images/company.png" alt="" width="40">
-                        <h6> {{details.vehicleCompany.name}}</h6>
+                        <h6> {{details.number}}</h6>
+                    </div>
+                    <div class="sales-settings card-main">
+                        <h6><span>Serial No</span> </h6>
+                        <img src="assets/layout/images/company.png" alt="" width="40">
+                        <h6> {{details.serial_No}}</h6>
+                    </div>
+                    <div class="sales-settings card-main">
+                        <h6><span>IMEI No</span> </h6>
+                        <img src="assets/layout/images/company.png" alt="" width="40">
+                        <h6> {{details.iot.imei}}</h6>
                     </div>
                     <div class="shipment-settings card-main">
 
@@ -84,476 +97,33 @@
                         <img src="assets/layout/images/type.png" alt="" width="40">
                         <h6> {{details.vehicleTypes.title}}</h6>
                     </div>
-
                     <div class="shipment-settings card-main">
 
-                        <h6> <span>Model</span> </h6>
-                        <img src="assets/layout/images/model.png" alt="" width="40">
-                        <h6>
-                            {{ details.vehicleModel.name}}
-                        </h6>
+                        <h6><span>Project Assigned</span> </h6>
+                        <img src="assets/layout/images/type.png" alt="" width="40">
+                        <h6> {{details?.project==null?'-':details?.project.title +" (" +details?.project.project_AutoId +")"}} </h6>
                     </div>
 
-
                     <div class="shipment-settings card-main">
-
-                        <h6> <span>Create at</span> </h6>
+                        <h6> <span>Status</span> </h6>
+                        <img src="assets/layout/images/model.png" alt="" width="40">
+                        <h6>
+                            {{ details.active==1?'Active':'In-Active'}}
+                        </h6>
+                    </div>
+                    <div class="shipment-settings card-main">
+                        <h6> <span>Created at</span> </h6>
                         <img src="assets/layout/images/calender.png" alt="" width="40">
                         <h6>
                             {{ details.created_at | date:'MM-dd-yyyy'}}
                         </h6>
                     </div>
 
-                    <div class="history-settings card-main">
-                        <h6><span>Last Battery Replaced</span></h6>
-                        <img src="assets/layout/images/battery.png" alt="" width="40">
-                        <h6> {{details.lastBatteryReplaced}} </h6>
-                    </div>
-
-                    <div class="history-settings card-main">
-                        <h6><span>Battery Low Status</span></h6>
-                        <img src="assets/layout/images/battery.png" alt="" width="40">
-                        <h6> {{details.batterylowStatus}}</h6>
-                    </div>
-
-                    <div class="sales-settings card-main">
-                        <h6><span>Location Last Updated at</span> </h6>
-                        <img src="assets/layout/images/current.png" alt="" width="40">
-                        <h6>
-                            {{details.time_Status | dateAgo}}
-                        </h6>
-                    </div>
-                    <div class="history-settings card-main">
-                        <h6><span>Vehicle Battery</span></h6>
-                        <img src="assets/layout/images/battery.png" alt="" width="40">
-                        <h6> {{details.vehicleBattery}}%</h6>
-                    </div>
-                    <div class="history-settings card-main">
-                        <h6><span>Battery Standby Time</span></h6>
-                        <img src="assets/layout/images/battery.png" alt="" width="40">
-                        <h6> {{details.standbyTime}}</h6>
-                    </div>
-                </div>
-
-                <div class="main-row-right">
-
-                    <!-- <div class="status-topn">
-
-                    </div> -->
-
-                    <table [cellPadding]="0" [cellSpacing]="0">
-                        <tr class="mb-3">
-                            <th>
-                                <h6>Current Info</h6>
-                            </th>
-                            <th>
-                                <div class="status-topn">
-                                    <p class="status">
-                                        <span *ngIf="details.vehicleStatus.number != 2">Vehicle is Lock </span>
-                                    </p>
-                                    <p class="status">
-                                        <span *ngIf="details.vehicleStatus.number == 2">Vehicle is Unlock </span>
-                                    </p>
-                                    <p class="status" *ngIf="vehicleDetails">
-                                        <span *ngIf="vehicleDetails.is_WithZone == true" class="sec"> and In zone</span>
-                                    </p>                                  
-                                    <p class="status" *ngIf="vehicleDetails">
-                                        <span *ngIf="vehicleDetails.is_WithZone == false" class="sec">and Out of zone
-                                        </span>
-                                    </p>
-                                </div>
-                            </th>
-
-                        </tr>
-                        <tr class="di-none-onmob">
-                            <!-- <td>Current zone</td>
-                            <td>
-                                <span *ngIf="details.parkingZones">{{details.parkingZones.title}}</span>
-                                <span *ngIf="details.parkingZones == null">--</span>
-                            </td> -->
-                            <td style="padding-right: 10px;">
-
-                                <p class="m-0">Change Zone</p>
-                                <p-dropdown id="vehicle-m-zone-dr" [options]="zoneOptions"
-                                    [(ngModel)]="details.parkingZones == null ? 'Select Zone' :details.parkingZones.id"
-                                    placeholder="Select Zone" [filter]="true" filterBy="label" scrollHeight="200px"
-                                    (onChange)=" onChangeZone(details.id,$event)">
-                                </p-dropdown>
-
-
-                            </td>
-
-                            <td>
-                                <p class="m-0">Change Status</p>
-                                <p-dropdown id="vehicle-m-zone-dr" [options]="lstStatuses" [(ngModel)]="details.vehicleStatus.number"
-                                    placeholder="Select Item" [filter]="true" filterBy="label"
-                                    (ngModelChange)="ChangeVehicleStatus(details.id,details.vehicleStatus.number) ">
-                                </p-dropdown>
-                            </td>
-                         
-                        </tr>
-
-
-                        <tr class="di-bl-omob">
-                            <!-- <td>Current zone</td>
-                            <td>
-                                <span *ngIf="details.parkingZones">{{details.parkingZones.title}}</span>
-                                <span *ngIf="details.parkingZones == null">--</span>
-                            </td> -->
-                            <td colspan="3">
-
-                                <p class="m-0">Change zone</p>
-                                <p-dropdown id="vehicle-m-zone-dr" [options]="zoneOptions"
-                                    [(ngModel)]="details.parkingZones == null ? 'Select Zone' :details.parkingZones.id"
-                                    placeholder="Select Zone" [filter]="true" filterBy="label" scrollHeight="200px"
-                                    (onChange)=" onChangeZone(details.id,$event)">
-                                </p-dropdown>
-
-
-                            </td>
-
-                            
-                         
-                        </tr>
-
-
-                        <tr class="di-bl-omob">
-                            <td colspan="3">
-                                <p class="m-0">Change status</p>
-                                <p-dropdown id="vehicle-m-zone-dr" [options]="lstStatuses" [(ngModel)]="details.vehicleStatus.number"
-                                    placeholder="Select Item" [filter]="true" filterBy="label"
-                                    (ngModelChange)="ChangeVehicleStatus(details.id,details.vehicleStatus.number) ">
-                                </p-dropdown>
-                            </td>
-                        </tr>
-
-                       <!-- <tr>
-
-
-                            <td>Current status</td>
-                            <td>{{details.vehicleStatus.title}}</td>
-
-                            <td>
-                                <p class="m-0">Change status</p>
-                                <p-dropdown [options]="lstStatuses" [(ngModel)]="details.vehicleStatus.number"
-                                    placeholder="Select Item" [filter]="true" filterBy="label"
-                                    (ngModelChange)="ChangeVehicleStatus(details.id,details.vehicleStatus.number) ">
-                                </p-dropdown>
-                            </td>
-                        </tr>  -->
-
-
-                        <tr>
-
-
-                            <!-- <td>Current location</td> -->
-                            <td><a href="https://www.google.com/maps/search/?api=1&amp;query={{
-                                details.vehicleLocation != null
-                        ? details.vehicleLocation.latitude
-                        : 0
-                    }},{{
-                      details.vehicleLocation != null
-                        ? details.vehicleLocation.longitude
-                        : 0
-                    }}" class="navigation-marker" target="_blank">
-
-                                    <p class="lock"><i class="fa fa-link"></i>Click to see current location</p>
-                                </a></td>
-
-                            <td>
-                                <p class="m-0">Update Location of Vehicle</p>
-                                <p-inputSwitch (onChange)="onUpdateLocation($event,details.id); "
-                                    [(ngModel)]="details.updateLocation "></p-inputSwitch>
-                            </td>
-                        </tr>
-
-
-                        <!-- <tr>
-
-                            <td>Current Battery</td>
-                            <td colspan="2">{{details.vehicleBattery}}%</td>
-
-
-
-                        </tr> -->
-                        <!--
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr> -->
-                    </table>
-                    <h6 class="last-p">Last Pending Commands</h6>
-                    <table>
-                        <tr *ngIf="totalnumber > 0 ">
-                            <td *ngFor="let pending of pendingCommads">
-                                <div>
-                                    Command Name <br>
-                                    {{pending.command_name}}
-                                </div>
-                            </td>
-                        </tr>
-                        <tr *ngIf="totalnumber  == 0 ">
-                            <td>No pending Commands</td>
-                        </tr>
-                    </table>
-                </div>
-
-
-
-            </div>
-        </p-tabPanel>
-        <p-tabPanel header="Vehicle Current Status ">
-            <app-vehicle-current-status [details]="details"></app-vehicle-current-status>
-        </p-tabPanel>
-
-        <!-- <p-tabPanel header="Current Info">
-
-
-
-            <div class="submenu-content settings">
-                <div class="fare-card">
-                    <div class="order-settings fare-card-item">
-
-                        <h6>
-                            <span><i class="fa fa-battery"></i></span> <br>
-                            <span> Current Battery </span>
-                        </h6>
-                        <h5>{{details.vehicleBattery}}%</h5>
-                    </div>
-                    <div class="sales-settings fare-card-item">
-
-                        <h6>
-                            <span><i class="pi pi-map-marker"></i></span> <br>
-                            <span> Current zone </span>
-                        </h6>
-
-                        <h5 *ngIf="details.parkingZones">{{details.parkingZones.title}}</h5>
-                        <h5 *ngIf="details.parkingZones == null">--</h5>
-                    </div>
-                    <div class="shipment-settings fare-card-item">
-
-                        <h6>
-                            <span> <i class="pi pi-bookmark"></i></span> <br>
-                            <span> Current status </span>
-                        </h6>
-                        <h5>{{details.vehicleStatus.title}}</h5>
-
-                    </div>
-                    <div class="history-settings fare-card-item last">
-
-                        <h6>
-                            <span> <i class="pi pi-map-marker"></i></span> <br>
-                            <span>Current location</span>
-                        </h6>
-                        <a href="https://www.google.com/maps/search/?api=1&amp;query={{
-                                details.vehicleLocation != null
-                        ? details.vehicleLocation.latitude
-                        : 0
-                    }},{{
-                      details.vehicleLocation != null
-                        ? details.vehicleLocation.longitude
-                        : 0
-                    }}" class="navigation-marker" target="_blank">
-
-                            <p class="lock"><i class="fa fa-link"></i>Location</p>
-                        </a>
-                    </div>
+                    
                 </div>
             </div>
-        </p-tabPanel> -->
-        <p-tabPanel header="Previous Location">
-            <div class="main-pre-main">
-                <div class="pre-item-1">
-                    <h6>Last Parked Photo</h6>
-                    <img [src]="ride_image" width="100%" alt="" />
-                </div>
-                <div class="pre-item-2">
-                    <h6>Previous Location</h6>
-                    <app-vehicle-track [details]="details"></app-vehicle-track>
-                </div>
-            </div>
-        </p-tabPanel>
-        <!-- <p-tabPanel header="Stats">
-            <div class="stats-main">
-                <div class="stats-item">
-                    <div class="stats-row">
-                        <div class="left-box">
-                            <img src="../../../../../assets/layout/images/scooti-icon.png" alt="">
-                        </div>
-                        <div class="right" *ngIf="vehicleDetails != null">
-                            <div role="progressbar" aria-valuenow={{details.vehicleBattery}} aria-valuemin="0 "
-                                aria-valuemax="100 " style="--value: {{vehicleDetails.totltRides}}"></div>
-                            <p><span>Total Rides</span></p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </p-tabPanel> -->
-        <p-tabPanel header="Tcp commands">
-            <br>
-            <p-table #dt [value]="lstCommands" [lazy]="true" (onLazyLoad)="loadCommandLazy($event)" autoLayout="true"
-                [paginator]="true" [showCurrentPageReport]="true"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [rowsPerPageOptions]="[10,25,50]" columnResizeMode="expand" [totalRecords]="totalRecords" [rows]="12"
-                [loading]="loading">
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th>
-                            Command
-                        </th>
-                        <th>
-                            Value
-                        </th>
-                       
-                        
-                        <th>
-                            Action
-                        </th>
-                    </tr>
-                </ng-template>
-
-                <ng-template pTemplate="body" let-command>
-                    <tr>
-                        <td>{{command.title}}</td>
-                        <!-- <td *ngIf="command.isInputValue == true">
-                            <span class="p-column-title">Value</span>
-                            <input type="text" id="inputValue" name="{{command.inputValue}}"
-                                [(ngModel)]="command.inputValue" pInputText>
-                        </td> -->
-                        <!-- <td > <span class="p-column-title">Value</span> </td> -->
-                        <td>
-                            <div *ngIf="command.isInputValue == false">
-                                - 
-                            </div>
-                            <div
-                                *ngIf="command.buttonTitle == 'Send_Speed_Mode' && (details.vehicleCompany.number == 7 || details.vehicleCompany.number == 4 ||  details.vehicleCompany.number == 3)  ">
-                                <p-dropdown id="txtsubAccount" [options]="itemsSpeedMode"
-                                    (onChange)="speedMode($event)">
-                                </p-dropdown>
-                            </div>
-                        </td>
-                        <td>
-                            <!-- <span class="p-column-title">Action</span>
-                            <div *ngIf=" details.vehicleCompany.number != 7 &&  details.vehicleCompany.number != 4 &&  details.vehicleCompany.number != 11">
-                                <button (click)="sendTcpCommand(command.id);"
-                                    [disabled]="command.buttonTitle == 'Battery Open' || command.buttonTitle == 'Throttle ON' || command.buttonTitle == 'Throttle OFF' || command.buttonTitle == 'Send_Speed_Mode' || command.buttonTitle == 'Battery Close'"
-                                    pButton type="button" label="{{command.buttonTitle}}"
-                                    class="p-button-success tcp-com-btn"></button>
-                            </div>
-                            <div *ngIf=" details.vehicleCompany.number == 7 ||  details.vehicleCompany.number == 4 || details.vehicleCompany.number == 11" >
-                                <div *ngIf=" details.vehicleCompany.number == 4">
-                                    <button (click)="sendTcpCommand(command.id);"
-                                        [disabled]="command.buttonTitle == 'Throttle ON' || command.buttonTitle == 'Throttle OFF' || command.buttonTitle == 'Send_Speed_Mode'"
-                                        pButton type="button" label="{{command.buttonTitle}}"
-                                        class="p-button-success tcp-com-btn"></button>
-                                </div>
-                                <div *ngIf=" details.vehicleCompany.number == 7">
-                                    <button (click)="sendTcpCommand(command.id);"
-                                        [disabled]="command.buttonTitle == 'Battery Close' || command.buttonTitle == 'Send BUZZER_CONTROL_OFF' "
-                                        pButton type="button" label="{{command.buttonTitle}}"
-                                        class="p-button-success tcp-com-btn"></button>
-                                </div>
-                                <div *ngIf="details.vehicleCompany.number == 11">
-                                    <button (click)="sendTcpCommand(command.id);"
-                                        [disabled]="command.buttonTitle == 'Battery Close' ||  command.buttonTitle == 'Send_Speed_Mode' || command.buttonTitle == 'Battery Open'  "
-                                        pButton type="button" label="{{command.buttonTitle}}"
-                                        class="p-button-success tcp-com-btn"></button>
-                                </div> -->
-                            <span class="p-column-title">Action</span>
-                            <div
-                                *ngIf="details.vehicleCompany.number != 7 && details.vehicleCompany.number != 4 && details.vehicleCompany.number != 9 && details.vehicleCompany.number != 3 ">
-                                <button (click)="sendTcpCommand(command.id);"
-                                    [disabled]="command.buttonTitle == 'Battery Open' || command.buttonTitle == 'Throttle ON' || command.buttonTitle == 'Throttle OFF' || command.buttonTitle == 'Send_Speed_Mode' || command.buttonTitle == 'Battery Close'"
-                                    pButton type="button" label="{{command.buttonTitle}}"
-                                    class="p-button-success tcp-com-btn"></button>
-                            </div>
-                            <div
-                                *ngIf="details.vehicleCompany.number == 4 || details.vehicleCompany.number == 7 || details.vehicleCompany.number == 9 || details.vehicleCompany.number == 3 ">
-                                <button (click)="sendTcpCommand(command.id);"
-                                    [disabled]="(details.vehicleCompany.number == 4 && (command.buttonTitle == 'Throttle ON' || command.buttonTitle == 'Throttle OFF')) || ( (details.vehicleCompany.number == 7 || details.vehicleCompany.number == 3)   && (command.buttonTitle == 'Battery Close' || command.buttonTitle == 'Send BUZZER_CONTROL_OFF')) || (details.vehicleCompany.number == 9 && (  command.buttonTitle == 'Send_Speed_Mode' || command.buttonTitle == 'Send BUZZER_CONTROL_ON' || command.buttonTitle == 'Send BUZZER_CONTROL_OFF') )"
-                                    pButton type="button" label="{{command.buttonTitle}}"
-                                    class="p-button-success tcp-com-btn"></button>
-                            </div>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </p-tabPanel>
-        <p-tabPanel header="Command Tracking">
-            <div  class="lodi">
-                <div *ngIf="loading" class="lodi-child">
-                    <div class="custom-loader"></div>
-                </div>
-                <div style="display: flex; justify-content: end;margin-top: 20px;">
-                        <div class="search-wrapper">
-                            <div class="input-holder">
-                                <input type="text" class="search-input" placeholder="Search Command Tracking" [(ngModel)]="searchValue" />
-                                <button class="search-icon" onclick="searchToggle(this, event);" (click)="loadBatteryHits()"><span></span></button>
-                            </div>
-                            <span class="close" onclick="searchToggle(this, event);" (click)="loadBatteryHits(true)"></span>
-                        </div>
-                 </div>
-            <br>
-            <p-table #dt [value]="batteryHits" [lazy]="true" [lazyLoadOnInit]="false" (onLazyLoad)="loadBatteryHits()"
-                autoLayout="true" [paginator]="true" [showCurrentPageReport]="true"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [rowsPerPageOptions]="[10,25,50]" columnResizeMode="expand" [totalRecords]="totalRecords" [rows]="12">
-                <!-- <ng-template pTemplate="caption">
-                    <div class="grid">
-                        <div class="col-12">
-                            <div style="display: flex; justify-content: end;">
-                                <div class="custom-in-box">
-                                    <i title="Reset Filter" class="pi pi-times" (click)="loadBatteryHits(true)"></i>
-                                    <input pInputText type="text" [(ngModel)]="searchValue" placeholder="Type here"
-                                        class="search-input p-0 tran-search" />
-                                    <span (click)="loadBatteryHits()">Search
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ng-template> -->
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th pSortableColumn="userId">User
-                            <p-sortIcon field="userId"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="commandCount">Count
-                            <p-sortIcon field="commandCount">
-                            </p-sortIcon>
-                        </th>
-                    </tr>
-                </ng-template>
-
-                <ng-template pTemplate="body" let-batteryHit>
-                    <tr>
-                        <td><span class="p-column-title">User</span> {{batteryHit.userId}}</td>
-                        <td><span class="p-column-title">Count</span> {{batteryHit.commandCount}}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-            </div>
-        </p-tabPanel>
-        <!-- <p-tabPanel header="Actions ">
-
-
-            <div class="action-top">
-
-                <div class="top-right">
-
-                </div>
-                <div class="top-left">
-
-                </div>
-                <div class="top-left top-last">
-
-                </div>
-            </div>
-
-
-        </p-tabPanel> -->
-    </p-tabView>
+        <!-- </p-tabPanel>
+    </p-tabView> -->
 </p-sidebar>
 
 

@@ -8,6 +8,7 @@ import { ProjectMainComponent } from '../project-main/project-main.component';
 import { Projectdto } from 'src/app/demo/domain/Dto/Project/projectdto';
 import { first } from 'rxjs/operators';
 import { ProjectsService } from 'src/app/demo/service/projects.service';
+import { CityCountryDropdown, Citydao2 } from 'src/app/demo/domain/Dao/Zone/AllDropDowndao2';
 
 @Component({
   selector: 'app-project-create',
@@ -21,11 +22,11 @@ export class ProjectCreateComponent implements OnInit {
   lstDynamictype: DynamicTypeDto[];
   project: Projectdto;
   projectDialog: boolean;
+  dropdown:CityCountryDropdown;
   submitted: boolean;
   projectForm:FormGroup;
+  lstcities:Citydao2[];
   btnloading: boolean = false;
-  groupedZones: SelectItemGroup[];
-  selectedZones:SelectItem[];
   constructor(private _service: ProjectsService,
     private _Userservice: UserService,
     private _formBuilder: FormBuilder,
@@ -34,47 +35,23 @@ export class ProjectCreateComponent implements OnInit {
     private messageService: MessageService) { }
   ngOnInit(): void {
     
-    this.loadDropdownValues();
+    this.loadDropDown();
     this.loadForm();
     this.resetForm();
   }
-  loadDropdownValues() {
-    
-    this.groupedZones = [];
-    //get role list
-    this._service.requestDataFromMultipleSources().then(responseList => {
-    
-      this.lstDynamictype = responseList.dynVal.lstDynamicTypeDto;
-      
-      this.lstDynamictype.forEach(type => {
-        
-        if(type.number != DynamicDataEnum.Vehicles)
-        {
-          
-          
-          type.lstDynamicTypeData.forEach(ele=>{
-            var lstData : SelectItem[] = [];
-            
-            ele.lstDynamicData.forEach(element => {
-              lstData.push({ label: element.title, value: element.id });
-              
-            });
-            
-            this.groupedZones.push({ label: ele.title, value: ele.id, items: lstData});  
-           
-          }); 
-            
-        }
-      })
-    });
-  }
+ 
   loadForm() {
     this.projectForm = this._formBuilder.group({
       title: ["", [Validators.required]],
       artitle: ["", [Validators.required]],
-      lstZone: [[],[Validators.required]],
+      city_Id: ["",[Validators.required]],
+      country_Id: ["",[Validators.required]],
     });
     
+  }
+  onSelect(event)
+  {
+    this.lstcities  = this.dropdown.citylist.filter(x=>x.country_Id==event.value);
   }
   openNew() {
     this.submitted = false;
@@ -98,7 +75,13 @@ export class ProjectCreateComponent implements OnInit {
 
     this.addNewUser(this.projectForm.value);
   }
-
+  loadDropDown() {
+    
+    this._service.getCityCountryDropdown().then(res => {
+      
+      this.dropdown = res;
+    })
+  }
   addNewUser(project: Projectdto) {
     
     this._service.saveProjects(project).pipe(first())

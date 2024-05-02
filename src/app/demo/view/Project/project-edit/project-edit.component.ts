@@ -9,6 +9,7 @@ import { UserService } from 'src/app/demo/service/user.service';
 import { DynamicDataEnum } from 'src/app/demo/domain/Enums/DynamicDataEnums';
 import { first } from 'rxjs/operators';
 import { Projects } from 'src/app/demo/domain/Dao/Projects/projects';
+import { CityCountryDropdown, Citydao2 } from 'src/app/demo/domain/Dao/Zone/AllDropDowndao2';
 
 @Component({
   selector: 'app-project-edit',
@@ -26,6 +27,8 @@ export class ProjectEditComponent implements OnInit {
   lstDynamictype: DynamicTypeDto[];
   groupedZones: SelectItemGroup[];
   selectedZones:SelectItem[];
+  lstcities:Citydao2[];
+  dropdown:CityCountryDropdown;
   constructor(public main: ProjectMainComponent,
     private _Userservice: UserService,
     private _formBuilder: FormBuilder,
@@ -33,7 +36,7 @@ export class ProjectEditComponent implements OnInit {
     private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.loadDropdown();
+    this.loadDropDown();
     
     this.loadForm();
   }
@@ -43,62 +46,34 @@ export class ProjectEditComponent implements OnInit {
       id: ["", [Validators.required]],
         title: ["", [Validators.required]],
         artitle: ["", [Validators.required]],
-        lstZone:[[],[Validators.required]],
+        city_Id:["",[Validators.required]],
+        country_Id:["",[Validators.required]],
+        
     });  
   }
   
-  loadDropdown() {
+  loadDropDown() {
     
-    this.groupedZones = [];
-    //get role list
-    this.service.requestDataFromMultipleSources().then(responseList => {
-    
-      this.lstDynamictype = responseList.dynVal.lstDynamicTypeDto;
-      
-      this.lstDynamictype.forEach(type => {
-        
-        if(type.number != DynamicDataEnum.Vehicles)
-        {
-          
-
-          type.lstDynamicTypeData.forEach(ele=>{
-            var lstData : SelectItem[] = [];
-            
-            ele.lstDynamicData.forEach(element => {
-              lstData.push({ label: element.title, value: element.id });
-              
-            });
-            
-            this.groupedZones.push({ label: ele.title, value: ele.id, items: lstData});  
-            
-          }); 
-            
-        }
-      })
-    });
+    this.service.getCityCountryDropdown().then(res => {
+      this.dropdown = res;
+    })
+  }
+  onSelect(event)
+  {
+    this.lstcities  = this.dropdown.citylist.filter(x=>x.country_Id==event.value);
   }
   ngOnChanges(change: SimpleChange) {
-    let id=[];
+    
     if (!!change['editProjectData'].currentValue) {
       
         const temp = change['editProjectData'].currentValue
-        
+        this.lstcities = this.dropdown.citylist.filter(x=>x.country_Id ===temp.city.country_Id);
         const group: FormGroup = this.ProjectUpdateForm as FormGroup;
         group.controls['title'].setValue(temp.title || "");
         group.controls['artitle'].setValue(temp.arTitle || "");
         group.controls['id'].setValue(temp.id || "");
-        //group.controls['projectTypeId'].setValue(temp.conciergeprojectTypes.id || "");
-        
-        if(temp.lstZones.length>0)
-        {
-        temp.lstZones.forEach(element => {
-          id.push(element.id);
-        });
-        }
-        else{
-        id=null;
-        }
-        group.controls['lstZone'].setValue(id || []);
+        group.controls['city_Id'].setValue(temp.city_Id || "");
+        group.controls['country_Id'].setValue(temp.city.country_Id || "");
     }
     
    }
@@ -110,7 +85,6 @@ export class ProjectEditComponent implements OnInit {
         return;
     }
   
-    if(this.ProjectUpdateForm.value.lstZone != null || this.ProjectUpdateForm.value.lstZone.length > 0 )
     this.Updateproject(this.ProjectUpdateForm.value);
   }
   Updateproject(project) 

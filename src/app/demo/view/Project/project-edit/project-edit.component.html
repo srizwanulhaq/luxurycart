@@ -20,29 +20,16 @@
 
             <div class="formgrid grid">
                 <div class="field col">
-                    <label for="account">Select Zones <span class="star-sign">*</span></label>
-                    <p-listbox [options]="groupedZones" [group]="true" formControlName="lstZone" [metaKeySelection]="false"
-                        [checkbox]="true" [filter]="true" [multiple]="true" [listStyle]="{'max-height':'150px'}">
-                        <ng-template let-group pTemplate="group">
-                            <div class="p-d-flex p-ai-center">
-                            <span>{{group.label}}</span>
-                            </div>
-                        </ng-template>
-                    </p-listbox>
-                </div>
-                <!-- <div class="field col">
-                    <label>Wait Time<span class="star-sign">*</span></label>
-                    <input type="number" pInputText id="name" formControlName="wait_Time" /> 
+                    <label>Country<span class="star-sign">*</span></label>
+                    <p-dropdown id="txtcountryId" [options]="dropdown?.countrylist" formControlName="country_Id"   name="country_Id" (onChange)="onSelect($event)" placeholder="Select Country">
+                    </p-dropdown>
                 </div>
                 <div class="field col">
-                    <label>Managers<span style="color: red">*</span></label>
-                    <p-multiSelect [options]="lstUsers"  formControlName="mangersIds"
-                        scrollHeight="100px" defaultLabel="Select a Manager" selectedItemsLabel="{0} items selected"></p-multiSelect>
-                        <div *ngIf="submitted" class="invalid-feedback">
-                            <small style="color:red;" class="ng-dirty ng-invalid"
-                                *ngIf="boothForm.value.mangersIds  ==  null || partnerForm.value.mangersIds.length == 0 ">Please required Manager!</small>
-                        </div>
-                </div> -->
+                    <label>City<span class="star-sign">*</span></label>
+                    <p-dropdown id="txtcountryId" [options]="lstcities" name="city_Id" formControlName="city_Id"  placeholder="Select City">
+                    </p-dropdown>
+                </div>
+           
             </div>
 
         </ng-template>
