@@ -178,8 +178,6 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th>Project Id
-                </th>
                 <th pSortableColumn="zone_id">Zone Id
                     <p-sortIcon field="zone_id"></p-sortIcon>
                 </th>
@@ -195,6 +193,9 @@
                 <th pSortableColumn="city">City
                     <p-sortIcon field="city"></p-sortIcon>
                 </th>
+                
+                <th>Project Id
+                </th>
                 <th >Vehicle Type
                 </th>
                 <th>Details</th>
@@ -205,8 +206,7 @@
                 <!-- <td>
             <p-tableCheckbox [value]="vehicle"></p-tableCheckbox>
         </td> -->
-                <td><span class="p-column-title">Project Id</span> {{zone?.projects?.project_AutoId}}
-                </td>
+                
                 <td><span class="p-column-title">Zone Id</span> {{zone.zone_AutoId}}
                 </td>
                 <td><span class="p-column-title">Name</span> {{zone.title}}
@@ -219,6 +219,8 @@
                 </td>
                 <td><span class="p-column-title">City</span>
                     {{zone.city != null ? zone.city.name : '-'}}
+                </td>
+                <td><span class="p-column-title">Project Id</span> {{zone?.projects?.project_AutoId}}
                 </td>
                 <td><span class="p-column-title">Vehicle Types</span>
                     <span *ngFor="let item of zone.vehicle_Types">

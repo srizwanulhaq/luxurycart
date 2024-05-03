@@ -61,7 +61,8 @@ export class VehicleDetailsComponent implements OnInit {
         private confirmService: ConfirmationService,
         private _formBuilder: FormBuilder,
         private commandService: VehicleCommandService,
-        private _confirmationService: ConfirmationService) {
+        private _confirmationService: ConfirmationService,
+        private cdref:ChangeDetectorRef) {
    
     }
 
@@ -325,7 +326,9 @@ export class VehicleDetailsComponent implements OnInit {
         dt.reset();
         this.searchValue = ""
     }
-
+    ngAfterContentChecked() {
+        this.cdref.detectChanges();
+    }
     onChangeStatus(e, id) {
         var active = e.checked;
         this._confirmationService.confirm({
@@ -344,8 +347,9 @@ export class VehicleDetailsComponent implements OnInit {
               .subscribe({
                 next: (response) => {
                   this.eventChange.emit(response.result);
-                  this.messageService.add({severity: 'success', summary: 'Successful', detail: response.message, life: 3000});
                   this.main.bottomPanelActive = false;
+                  this.messageService.add({severity: 'success', summary: 'Successful', detail: response.message, life: 3000});
+                  
                 },
                 error: (error) => {
                     this.main.bottomPanelActive = true;

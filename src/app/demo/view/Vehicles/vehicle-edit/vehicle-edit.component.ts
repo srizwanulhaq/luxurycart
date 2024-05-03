@@ -53,6 +53,7 @@ export class VehicleEditComponent implements OnInit {
 
   ngOnChanges(change: SimpleChange) {
     if (!!change['editVehicleData'].currentValue) {
+      
         const temp = change['editVehicleData'].currentValue;
         this.lstIOT.push({label: temp.iot.imei, value:  temp.iot.id});
         const group: FormGroup = this.vehicleEditForm as FormGroup;
@@ -62,9 +63,9 @@ export class VehicleEditComponent implements OnInit {
         //group.controls['vehicleCompanyId'].setValue(temp.vehicleCompany.id || "" );
         group.controls['vehicleTypeId'].setValue(temp.vehicleTypes.id || "" );
         group.controls['serial_No'].setValue(temp.serial_No || "" );
-        group.controls['project_Id'].setValue(temp.project.id || "" );
+        group.controls['project_Id'].setValue(temp?.project?.id || "" );
         //group.controls['vehicleModelId'].setValue(temp.vehicleModel.id || "" );
-        group.controls['IOT_Id'].setValue(temp.iot.id || "" );
+        group.controls['IOT_Id'].setValue(temp?.iot.id || "" );
         //group.controls['vehicleBattery'].setValue(temp.vehicleBattery || 0 );
         //group.controls['subAccountId'].setValue(temp.subAccount.id || "" );
         
@@ -105,7 +106,6 @@ export class VehicleEditComponent implements OnInit {
     //load company, types, status, models, iot, and sub-accounts
     this.zoneService.getProjectDropdowns().then(resp => {
       if (resp) {
-        
           this.project = resp;
       }});
     this.service.requestDataFromMultipleSources().then(responseList => {

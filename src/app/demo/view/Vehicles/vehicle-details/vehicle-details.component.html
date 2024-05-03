@@ -28,7 +28,7 @@
             </div>
             <div>
                 <h6 class="m-0">In-Active / Active</h6>
-                <p-inputSwitch actionTitle="active" (onChange)="onChangeStatus($event,details.id)"
+                <p-inputSwitch actionTitle="active" [disabled]="!details.active" (onChange)="onChangeStatus($event,details.id)"
                     [(ngModel)]="details.active">
                 </p-inputSwitch>
             </div>

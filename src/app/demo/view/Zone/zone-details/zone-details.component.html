@@ -39,9 +39,9 @@
             <div class="submenu-content settings">
                 <div class="main-row">
                     <div class="sales-settings card-main">
-                        <h6><span>Zone ID </span> </h6>
+                        <h6><span>Project ID </span> </h6>
                         <img src="assets/layout/images/name.png" alt="" width="40">
-                        <h6> {{details.zone_AutoId != null ? details.zone_AutoId : '-' }}</h6>
+                        <h6> {{details.projects != null ? details.projects.project_AutoId : '-' }}</h6>
                     </div>
                     <div class="sales-settings card-main">
                         <h6><span>Arabic Name </span> </h6>
@@ -63,12 +63,12 @@
                         <img src="assets/layout/images/company.png" alt="" width="40">
                         <h6> {{details.city != null ? details.city.name : '-' }}</h6>
                     </div>
-                    <div class="shipment-settings card-main">
+                    <!-- <div class="shipment-settings card-main">
 
                         <h6><span>Project Assigned</span> </h6>
                         <img src="assets/layout/images/am.png" alt="" width="40">
                         <h6> {{details.projects.title}} ({{details.projects.project_AutoId }}) </h6>
-                    </div>
+                    </div> -->
 
                     <div class="shipment-settings card-main">
 
