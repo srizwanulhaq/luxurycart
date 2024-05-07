@@ -101,6 +101,7 @@ export class ZoneEditComponent implements OnInit {
       defaultSpeed:number;
     project: ProjectDropDown[];
     vehicleType: any;
+    showDefaultSpeed: boolean;
     constructor(public main: ZoneMainComponent, private service: ZoneService,
         private _formBuilder: FormBuilder, private messageService: MessageService, private datePipe: DatePipe,
         private _PromoCodeService: PackagediscountService,private projectService:ProjectsService,
@@ -220,16 +221,27 @@ export class ZoneEditComponent implements OnInit {
     ngOnChanges(change: SimpleChange) {
         if (!!change['editzoneData'].currentValue) {
             const temp = change['editzoneData'].currentValue;
-            
+            let maxSpeed=15;
             // this.select_zone_Start_Time = new Date(temp.zone_Start_Time);
             // this.select_zone_End_Time = new Date(temp.zone_End_Time);
             const group: FormGroup = this.zoneEditForm as FormGroup;
             group.controls['id'].setValue(temp.id || "");
             group.controls['title'].setValue(temp.title || "");
+            group.controls['default_Speed'].setValue(temp.default_Speed || 0);
             if (temp.vehicle_Types && temp.vehicle_Types.length > 0) 
             {
                 const vehicleTypeIds = temp.vehicle_Types.map(element => element.id);
                 group.controls['vehicletypeId'].setValue(vehicleTypeIds);
+            //     vehicleTypeIds.forEach(selectedType => {
+            //         let type = this.vehicleType.find(type => type.value === selectedType);
+            //         if (type && type.maxSpeed > maxSpeed) {
+            //             maxSpeed = type.maxSpeed;
+            //         }
+            //       });
+            //       this.zoneEditForm.controls.default_Speed.setValidators([Validators.min(10),
+            //         Validators.max(maxSpeed)]);
+                
+            // group.controls['default_Speed'].setValue(temp.default_Speed || maxSpeed || 0);
             } 
             else 
             {
@@ -284,6 +296,19 @@ export class ZoneEditComponent implements OnInit {
 
         }
     }
+//     onVehicleTypeSelection(event)
+//   {
+//     this.showDefaultSpeed=true;
+//     let maxSpeed = 15;
+//     event.value.forEach(selectedType => {
+//     let type = this.vehicleType.find(type => type.value === selectedType);
+//     if (type && type.maxSpeed > maxSpeed) {
+//         maxSpeed = type.maxSpeed;
+//     }
+//   });
+//     this.zoneEditForm.controls.default_Speed.setValidators([Validators.min(10),
+//       Validators.max(maxSpeed)]);
+//   }
     setStepForm() {
         if (this.redzone == 3) {
             this.items = [{
@@ -312,6 +337,7 @@ export class ZoneEditComponent implements OnInit {
             zone_Coordinates: this._formBuilder.array([]),
             city_Id: ['', [Validators.required]],
             country_Id: ['', [Validators.required]],
+            default_Speed:[0]
            
         });
         // this.ride_fare_setting().push(this.newfare());

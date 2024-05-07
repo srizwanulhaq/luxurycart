@@ -125,6 +125,10 @@
                 <p-sortIcon field="title">
                 </p-sortIcon>
             </th>
+            <th pSortableColumn="maxSpeed">Maximum Speed
+                <p-sortIcon field="maxSpeed">
+                </p-sortIcon>
+            </th>
             <th pSortableColumn="seatingCapacity">Seating Capacity
                 <p-sortIcon field="seatingCapacity">
                 </p-sortIcon>
@@ -146,6 +150,8 @@
             </td>
             <td><span class="p-column-title">Vehicle Type Id</span> {{vehicleType.vehicle_Type_AutoId}}</td>
             <td><span class="p-column-title">Title</span> {{vehicleType.title}}</td>
+            <td><span class="p-column-title">Maximum Speed</span> {{vehicleType.maxSpeed}}</td>
+            
             <td><span class="p-column-title">Seating Capacity</span> {{vehicleType.seatingCapacity}}</td>
             <td><span class="p-column-title">Driving Mode</span> {{vehicleType?.drive_Mode?.title}}</td>
             <!-- <td><span class="p-column-title">Number</span> {{vehicleType.number}}</td>

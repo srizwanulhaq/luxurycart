@@ -57,6 +57,14 @@
                                 *ngIf="zoneForm.controls.arTitle.errors?.required">Please required Ar Title!</small>
                         </div> -->
                     </div>
+                    <div class="field col">
+                        <label for="account">Maximum Speed<span class="star-sign">*</span></label>
+                        <input type="number" pInputText id="defaultSpeed" formControlName="default_Speed" />
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <small style="color:red;" class="ng-dirty ng-invalid"
+                                *ngIf="zoneForm.controls.default_Speed.errors">Default Speed must be less the Max Speed of selected Vehicle Type</small>
+                        </div>
+                    </div>
                 </div>
                 <div class="formgrid grid">
                     <div class="field col">
@@ -70,6 +78,7 @@
                         <p-multiSelect id="vehicletype" [options]="vehicleType" filter="true" formControlName="vehicletypeId" placeholder="Select Vehicle Types">
                         </p-multiSelect>
                     </div>
+                    
                 </div>
 
             </div>

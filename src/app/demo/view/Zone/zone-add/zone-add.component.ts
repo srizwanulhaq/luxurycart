@@ -109,6 +109,7 @@ export class ZoneAddComponent implements OnInit {
   sequence5 = 1;
   itemsSpeedMode: any;
   defaultSpeed:number = 25;
+  showDefaultSpeed: boolean;
 
   constructor(public main: ZoneMainComponent, private service: ZoneService,
     private _formBuilder: FormBuilder, private messageService: MessageService,
@@ -252,13 +253,26 @@ export class ZoneAddComponent implements OnInit {
   //     this.lstWalletPackages = _itemWalletPackage;
   //   });
   // }
-
+  // onVehicleTypeSelection(event)
+  // {
+  //   this.showDefaultSpeed=true;
+  //   let maxSpeed = 15;
+  //   event.value.forEach(selectedType => {
+  //   let type = this.vehicleType.find(type => type.value === selectedType);
+  //   if (type && type.maxSpeed > maxSpeed) {
+  //       maxSpeed = type.maxSpeed;
+  //   }
+  // });
+  //   this.zoneForm.controls.default_Speed.setValidators([Validators.min(10),
+  //     Validators.max(maxSpeed)]);
+  // }
   loadForm() {
     this.zoneForm = this._formBuilder.group({
       title: ['', [Validators.required]],
       arTitle: [],
       vehicletypeId:[[],[Validators.required]],
       projectId:["",[Validators.required]],
+      default_Speed:[0,[Validators.required]],
       center_Latitude: [''],
       center_Longitude: [''],
       zone_Coordinates: this._formBuilder.array([]),

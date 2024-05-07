@@ -3,7 +3,7 @@ export class VehicleTypedao {
     vehicle_Type_AutoId:string;
     title: string;
     seatingCapacity:number;
-    //maxSpeed:number;
+    maxSpeed:number;
     drive_Mode:Drive_Mode;
     active: boolean
     number: number;
@@ -36,5 +36,6 @@ export class DriveModeDropDown {
 export class VehicleTypeDropDown {
     label:string;
     value:string;
+    maxSpeed:number;
 }
 

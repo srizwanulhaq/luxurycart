@@ -43,7 +43,7 @@ export class VehicleTypeFormComponent implements OnInit {
             this.dataForm.setValue({
                 title: this.vehicleType.title,
                 seatingCapacity: this.vehicleType.seatingCapacity,
-                //maxSpeed: this.vehicleType.maxSpeed,
+                maxSpeed: this.vehicleType.maxSpeed,
                 drive_Mode_Id:this.vehicleType.drive_Mode.id,
             })
         }
@@ -60,7 +60,7 @@ export class VehicleTypeFormComponent implements OnInit {
         this.dataForm = this.formBuilder.group({
             title: ["", [Validators.required]],
             seatingCapacity: [0, [Validators.required,Validators.max(100)]],
-            //maxSpeed: [0, [Validators.required,Validators.max(200),Validators.min(10)]],
+            maxSpeed: [0, [Validators.required,Validators.max(200),Validators.min(10)]],
             drive_Mode_Id:["", [Validators.required]],
         });
     }
