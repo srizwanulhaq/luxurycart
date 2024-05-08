@@ -23,15 +23,15 @@
                 </p-inputSwitch>
             </div> -->
             
-            <div class="action-btn " (click)="main.onEditPanelButtonClick($event,details) ">
+            <div class="action-btn " style="margin-top: 30px;" (click)="main.onEditPanelButtonClick($event,details) ">
                 <h6>Update</h6>
             </div>
-            <div>
+            <!-- <div>
                 <h6 class="m-0">In-Active / Active</h6>
                 <p-inputSwitch actionTitle="active" [disabled]="!details.active" (onChange)="onChangeStatus($event,details.id)"
                     [(ngModel)]="details.active">
                 </p-inputSwitch>
-            </div>
+            </div> -->
             <!-- <div class="action-btn" (click)="deleteVehicle(details.id) ">
                 <h6>Delete</h6>
             </div> -->
@@ -70,6 +70,19 @@
                     </div>
                 </div>
             </div> -->
+
+            <div style="    display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: end;
+            padding-right: 20px;">
+                
+                <p-inputSwitch actionTitle="active" [disabled]="!details.active" (onChange)="onChangeStatus($event,details.id)"
+                    [(ngModel)]="details.active">
+                </p-inputSwitch>
+                <h6 class="m-0" style="    color: white;
+                padding-left: 10px;">In-Active / Active</h6>
+            </div>
         </div>
 
         <!-- <p-tabPanel header="Vehicle info"> -->
