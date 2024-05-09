@@ -106,7 +106,10 @@
                 </td>
                 <td>
                     <span class="p-column-title">Amount (In SAR)</span>
-                    <s>{{package.no_Of_Tickets*package.amount}}</s> <span class="bg-success">{{package.net_Amount}}</span>
+                    <s>{{package.no_Of_Tickets*package.amount}}</s> 
+                    <span class="amount-badge">{{package.net_Amount}}</span>
+                    
+
                 </td>
                 <td>
                     <span class="p-column-title">Percentage Discount (%)</span> {{package.discounted_Percent}}%
