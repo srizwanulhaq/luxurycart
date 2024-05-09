@@ -1,0 +1,13 @@
+<app-lc-tour-packages-details [details]="_packages" [event]="event" (eventChange)="onChange($event)">
+</app-lc-tour-packages-details>
+<div class="col-12">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <div class="card component-main-card">
+                <app-add-lc-tour-package (eventChange)="onChange($event)"></app-add-lc-tour-package>
+                <app-lc-tour-packages-listing [event]="event"></app-lc-tour-packages-listing>
+                <app-update-lc-tour-package [packages]="_packages" (eventChange)="onChange($event)"></app-update-lc-tour-package>
+               </div>
+        </div>
+    </div>
+</div>

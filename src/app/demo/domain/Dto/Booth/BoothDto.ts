@@ -39,7 +39,7 @@ export class BoothListDao {
 export class BoothManagerDto{
 
      id:string;
-     t
+     
 }
 
 

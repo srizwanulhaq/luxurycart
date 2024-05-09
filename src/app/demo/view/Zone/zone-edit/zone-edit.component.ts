@@ -513,7 +513,6 @@ export class ZoneEditComponent implements OnInit {
                         this.eventChange.emit(response.status);
                         this.messageService.add({ severity: 'success', summary: 'Successful', detail: response.message, life: 3000 });
                     } else {
-
                         this.messageService.add({ severity: 'warning', summary: 'Failed', detail: response.message, life: 3000 });
                     }
                 },

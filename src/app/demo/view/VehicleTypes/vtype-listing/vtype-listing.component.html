@@ -129,6 +129,14 @@
                 <p-sortIcon field="maxSpeed">
                 </p-sortIcon>
             </th>
+            <!-- <th pSortableColumn="ticketPrice">Ticket Price
+                <p-sortIcon field="ticketPrice">
+                </p-sortIcon>
+            </th> -->
+            <th pSortableColumn="duration">Duration
+                <p-sortIcon field="duration">
+                </p-sortIcon>
+            </th>
             <th pSortableColumn="seatingCapacity">Seating Capacity
                 <p-sortIcon field="seatingCapacity">
                 </p-sortIcon>
@@ -151,7 +159,8 @@
             <td><span class="p-column-title">Vehicle Type Id</span> {{vehicleType.vehicle_Type_AutoId}}</td>
             <td><span class="p-column-title">Title</span> {{vehicleType.title}}</td>
             <td><span class="p-column-title">Maximum Speed</span> {{vehicleType.maxSpeed}}</td>
-            
+            <!-- <td><span class="p-column-title">Ticket Price</span> {{vehicleType.ticketPrice}}</td> -->
+            <td><span class="p-column-title">Duration</span> {{vehicleType.duration}}</td>
             <td><span class="p-column-title">Seating Capacity</span> {{vehicleType.seatingCapacity}}</td>
             <td><span class="p-column-title">Driving Mode</span> {{vehicleType?.drive_Mode?.title}}</td>
             <!-- <td><span class="p-column-title">Number</span> {{vehicleType.number}}</td>

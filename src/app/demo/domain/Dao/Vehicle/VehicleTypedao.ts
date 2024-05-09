@@ -4,6 +4,8 @@ export class VehicleTypedao {
     title: string;
     seatingCapacity:number;
     maxSpeed:number;
+    duration:number;
+    ticketPrice:number;
     drive_Mode:Drive_Mode;
     active: boolean
     number: number;

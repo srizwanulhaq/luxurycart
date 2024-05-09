@@ -1,0 +1,129 @@
+
+<div  class="lodi">
+    <div *ngIf="loading" class="lodi-child">
+        <div class="custom-loader"></div>
+    </div>
+<div id="rides-table">
+    <p-table #dt [value]="packages" rowGroupMode="rowspan" groupRowsBy="users.email" [columns]="cols" [lazy]="true"
+        (onLazyLoad)="loadPackages($event)" [totalRecords]="totalRecords" [rows]="10" [paginator]="true"
+        [rowsPerPageOptions]="rowsPerPageOptions" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple"
+        [rowHover]="true" dataKey="id" stateStorage="local" stateKey="lstLCPackages-local">
+        <ng-template pTemplate="caption">
+            <div class="grid">
+                <div class="md:col-12 text-right col-12 pb-0">
+                    <div style="display: flex; justify-content: end;">
+                        <span class="transactio-exp-btn">
+                            <div class="dropdown">
+                                <button onclick="myFunction1()" class="dropbtn1">Export <i
+                                        class="pi pi-chevron-up"></i></button>
+                                <div id="myDropdown1" class="dropdown-content1">
+                                    <div class="grid">
+                                        <div class="md:col-4 col-4">
+                                            <div class="export-item">
+                                                <img src="../../../../../assets/layout/images/excel-icon.png" alt=""
+                                                    width="20">
+                                                <p>Excel</p>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-4 col-4">
+                                            <div class="export-item">
+                                                <img src="../../../../../assets/layout/images/pdf-icon.png" alt=""
+                                                    width="20">
+                                                <p>Pdf</p>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-4 col-4">
+                                            <div class="export-item">
+                                                <img src="../../../../../assets/layout/images/icons8-export-csv-80.png"
+                                                    alt="" width="20">
+                                                <p>Csv</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </span>
+
+                        <div class="custom-in-box transaction-filter mt-2">
+                            <i title="Reset Filter" class="pi pi-times" (click)="resetDataTable(dt)"></i>
+                            <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                                (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                                class="search-input p-0 tran-search" />
+                            <span (click)="dt.filterGlobal(filterGlobalValue, 'contains')">Search
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="date">Date and Time
+                    <p-sortIcon field="date"></p-sortIcon>
+                </th>
+                <th pSortableColumn="title">Title
+                    <p-sortIcon field="title">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="ticket_type">Ticket Type
+                    <p-sortIcon field="ticket_type">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="quantity">Quantity
+                    <p-sortIcon field="quantity">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="amount">Amount (In SAR)
+                    <p-sortIcon field="amount"></p-sortIcon>
+                </th>
+                <th pSortableColumn="percent">Percentage Discount (%)
+                    <p-sortIcon field="percent"></p-sortIcon>
+                </th>
+
+                <th>Details</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-package>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="package"></p-tableCheckbox>
+                </td>
+                <td><span class="p-column-title">Date and Time</span> {{package.created_at | date:'medium'}}
+                </td>
+                
+                <td><span class="p-column-title">Title</span> {{package.title}}
+                </td>
+                <td><span class="p-column-title">Ticket Type</span> {{package?.ticket_Type.title}}
+                <td><span class="p-column-title">Quantity</span> {{package.no_Of_Tickets}}
+                </td>
+                <td>
+                    <span class="p-column-title">Amount (In SAR)</span>
+                    <s>{{package.no_Of_Tickets*package.amount}}</s> <span class="bg-success">{{package.net_Amount}}</span>
+                </td>
+                <td>
+                    <span class="p-column-title">Percentage Discount (%)</span> {{package.discounted_Percent}}%
+                </td>
+                <td class="sm-jus-end">
+                    <div class="flex" style="position: relative;justify-content: center;">
+                        <button pButton pRipple class="p-button-rounded p-button-success theme-btn ac-btn" href="#"
+                        (click)="main.onBottomPanelButtonClick($event, package)">
+                        <img src="../../../../../assets/layout/images/more-detail.png" alt="" width="18">
+                    
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>
+
+</div>

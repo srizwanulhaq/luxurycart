@@ -20,6 +20,8 @@ export class MenuSidebarService {
             { label: 'Users', icon: 'fa fa-users', routerLink: ['/users/user-main'] },
             { label: 'User Track', icon: 'pi pi-user-plus', routerLink: ['/user-track/user-track-main'] },
             { label: 'Visit Place', icon: 'pi pi-sitemap', routerLink: ['/visit-place/visit-place-main'] },
+            { label: 'Ticket Type', icon: 'pi pi-ticket', routerLink: ['/ticket-type/ticket-type-main'] },
+            { label: 'LC Tour Packages', icon: 'fa fa-gift', routerLink: ['/lc-tour-package/lc-tour-package-main'] },
             {
                 label: 'Stats Report', icon: 'pi pi-chart-line',
                 items: [
