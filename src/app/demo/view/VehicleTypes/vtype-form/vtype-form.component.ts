@@ -46,7 +46,7 @@ export class VehicleTypeFormComponent implements OnInit {
                 maxSpeed: this.vehicleType.maxSpeed,
                 drive_Mode_Id:this.vehicleType.drive_Mode.id,
                 //ticketPrice:this.vehicleType.ticketPrice || 0.0,
-                duration: this.vehicleType.duration || 0.0,
+                //duration: this.vehicleType.duration || 0.0,
             })
         }
     }
@@ -65,7 +65,7 @@ export class VehicleTypeFormComponent implements OnInit {
             maxSpeed: [0, [Validators.required,Validators.max(200),Validators.min(10)]],
             drive_Mode_Id:["", [Validators.required]],
             //ticketPrice:[0.0, [Validators.required]],
-            duration: [0.0, [Validators.required]],
+            //duration: [0.0, [Validators.required]],
         });
     }
 
