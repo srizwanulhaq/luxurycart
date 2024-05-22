@@ -43,7 +43,15 @@ export class ZoneService {
             })
         });
       }
-    
+      getVehicleTypeDropdownbyId(id:string) {
+        console.log(id)
+        return this.http.get<any>(`${environment.apiUrl}/api/v1/admin/vehicles/types/vehicle-dropdown-by-id?id=${id}`, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            })
+        });
+      }
     updateZone(zone: EditZoneDao) {
         return this.http.post<any>(`${environment.apiUrl}/api/v2/AdminParkingZone/update`, zone);
     }

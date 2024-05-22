@@ -53,13 +53,19 @@ export class AddTicketTypeComponent implements OnInit {
         if (resp) {
             this.project = resp;
         }});
-        this.zoneService.getVehicleTypeDropdown().subscribe(resp => {
-          if (resp.status) {
-              this.vehicleType = resp.data;
-          }});
+        // this.zoneService.getVehicleTypeDropdown().subscribe(resp => {
+        //   if (resp.status) {
+        //       this.vehicleType = resp.data;
+        //   }});
     
     }
-
+    onProjectSelection(event)
+    {
+      this.zoneService.getVehicleTypeDropdownbyId(event.value).subscribe(resp => {
+        if (resp.status) {
+            this.vehicleType = resp.data;
+        }});
+    }
     openNew() {
     this.submitted = false;
     this.ticket_typeDialog = true;

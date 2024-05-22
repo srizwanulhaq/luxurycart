@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService, SelectItem, SelectItemGroup } from 'primeng/api';
 import { ProjectsService } from 'src/app/demo/service/projects.service';
@@ -10,6 +10,7 @@ import { DynamicDataEnum } from 'src/app/demo/domain/Enums/DynamicDataEnums';
 import { first } from 'rxjs/operators';
 import { Projects } from 'src/app/demo/domain/Dao/Projects/projects';
 import { CityCountryDropdown, Citydao2 } from 'src/app/demo/domain/Dao/Zone/AllDropDowndao2';
+import { VehicleTypeDropDown } from 'src/app/demo/domain/Dao/Vehicle/VehicleTypedao';
 
 @Component({
   selector: 'app-project-edit',
@@ -27,13 +28,15 @@ export class ProjectEditComponent implements OnInit {
   lstDynamictype: DynamicTypeDto[];
   groupedZones: SelectItemGroup[];
   selectedZones:SelectItem[];
+  vehicleType:VehicleTypeDropDown[];
   lstcities:Citydao2[];
   dropdown:CityCountryDropdown;
   constructor(public main: ProjectMainComponent,
     private _Userservice: UserService,
     private _formBuilder: FormBuilder,
     private service: ProjectsService,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+  private cdref:ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.loadDropDown();
@@ -48,7 +51,7 @@ export class ProjectEditComponent implements OnInit {
         artitle: ["", [Validators.required]],
         city_Id:["",[Validators.required]],
         country_Id:["",[Validators.required]],
-        
+        vehicletypeId:[[]],
     });  
   }
   
@@ -56,7 +59,11 @@ export class ProjectEditComponent implements OnInit {
     
     this.service.getCityCountryDropdown().then(res => {
       this.dropdown = res;
-    })
+    });
+    this.service.getVehicleTypeDropdown().subscribe(resp => {
+      if (resp.status) {
+          this.vehicleType = resp.data;
+      }});
   }
   onSelect(event)
   {
@@ -67,6 +74,7 @@ export class ProjectEditComponent implements OnInit {
     if (!!change['editProjectData'].currentValue) {
       
         const temp = change['editProjectData'].currentValue
+        console.log(temp);
         this.lstcities = this.dropdown.citylist.filter(x=>x.country_Id ===temp.city.country_Id);
         const group: FormGroup = this.ProjectUpdateForm as FormGroup;
         group.controls['title'].setValue(temp.title || "");
@@ -74,6 +82,11 @@ export class ProjectEditComponent implements OnInit {
         group.controls['id'].setValue(temp.id || "");
         group.controls['city_Id'].setValue(temp.city_Id || "");
         group.controls['country_Id'].setValue(temp.city.country_Id || "");
+        var vehIds=[];
+        temp.lstVehicleTypes.forEach(element => {
+          vehIds.push(element.vehicle_Type.id)
+        });
+        group.controls['vehicletypeId'].setValue(vehIds || "");
     }
     
    }
@@ -113,5 +126,7 @@ export class ProjectEditComponent implements OnInit {
     this.ProjectUpdateForm.reset();
     this.btnLoading = false;
   }
-  
+  ngAfterContentChecked() {
+    this.cdref.detectChanges();
+  }
 }

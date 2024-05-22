@@ -15,13 +15,15 @@ export class MenuSidebarService {
             { label: 'Zones', icon: 'pi pi-map', routerLink: ['/zones/zone-main'] },
             { label: 'Customers', icon: 'fa fa-users', routerLink: ['customers/customer-main'] },
             { label: 'Transactions', icon: 'pi pi-wallet', routerLink: ['transactions/transaction-main'] },
+            { label: 'Vehicle Types', icon: 'pi pi-sitemap', routerLink: ['/vehicle-type/vehicle-type-main'] },
+            { label: 'Projects', icon: 'pi pi-sitemap', routerLink: ['/projects/projects-main'] },
+            { label: 'Ticket Type', icon: 'pi pi-ticket', routerLink: ['/ticket-type/ticket-type-main'] },
+            { label: 'LC Tour Packages', icon: 'fa fa-gift', routerLink: ['/lc-tour-package/lc-tour-package-main'] },
             { label: 'Maps', icon: 'pi pi-sitemap', routerLink: ['/map/map-main'] },
             { label: 'Roles', icon: 'pi pi-fw pi-eye', routerLink: ['/roles/role-main'] },
             { label: 'Users', icon: 'fa fa-users', routerLink: ['/users/user-main'] },
             { label: 'User Track', icon: 'pi pi-user-plus', routerLink: ['/user-track/user-track-main'] },
             { label: 'Visit Place', icon: 'pi pi-sitemap', routerLink: ['/visit-place/visit-place-main'] },
-            { label: 'Ticket Type', icon: 'pi pi-ticket', routerLink: ['/ticket-type/ticket-type-main'] },
-            { label: 'LC Tour Packages', icon: 'fa fa-gift', routerLink: ['/lc-tour-package/lc-tour-package-main'] },
             {
                 label: 'Stats Report', icon: 'pi pi-chart-line',
                 items: [
@@ -44,7 +46,7 @@ export class MenuSidebarService {
            
             { label: 'Push Notification', icon: 'pi pi-send', routerLink: ['/push-notifications/push-notification-main'] },
             { label: 'Pending Commands', icon: 'pi pi-sort-alt-slash', routerLink: ['/pendingCommand/pending-command-main'] },
-            { label: 'Projects', icon: 'pi pi-sitemap', routerLink: ['/projects/projects-main'] },
+            // { label: 'Projects', icon: 'pi pi-sitemap', routerLink: ['/projects/projects-main'] },
             {
                 label: 'Tours', icon: 'pi pi-chart-line',
                 items: [
@@ -76,7 +78,6 @@ export class MenuSidebarService {
             { label: 'City', icon: 'pi pi-sitemap', routerLink: ['/city/city-main'] },
             { label: 'Currency', icon: 'pi pi-money-bill', routerLink: ['/currency/currency-main'] },
             { label: 'Vehicle Companies', icon: 'pi pi-sitemap', routerLink: ['/vehicle-company/vehicle-company-main'] },
-            { label: 'Vehicle Types', icon: 'pi pi-sitemap', routerLink: ['/vehicle-type/vehicle-type-main'] },
             { label: 'Ride Scrutiny Templates', icon: 'pi pi-sitemap', routerLink: ['/ride-scrutiny-templates/ride-scrutiny-templates-main'] },
           
             { label: 'Vehicle Head Count', icon: 'pi pi-sitemap', routerLink: ['/vehicle-head-count'] },

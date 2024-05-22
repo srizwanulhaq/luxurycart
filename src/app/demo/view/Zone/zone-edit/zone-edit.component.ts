@@ -187,10 +187,17 @@ export class ZoneEditComponent implements OnInit {
       if (resp) {
           this.project = resp;
       }});
-      this.service.getVehicleTypeDropdown().subscribe(resp => {
-        if (resp.status) {
-            this.vehicleType = resp.data;
-        }});
+    //   this.service.getVehicleTypeDropdown().subscribe(resp => {
+    //     if (resp.status) {
+    //         this.vehicleType = resp.data;
+    //     }});
+  }
+  onProjectSelection(event)
+  {
+    this.service.getVehicleTypeDropdownbyId(event.value).subscribe(resp => {
+      if (resp.status) {
+          this.vehicleType = resp.data;
+      }});
   }
   loadDropdownCountry() {
     //load counties
@@ -228,6 +235,10 @@ export class ZoneEditComponent implements OnInit {
             group.controls['id'].setValue(temp.id || "");
             group.controls['title'].setValue(temp.title || "");
             group.controls['default_Speed'].setValue(temp.default_Speed || 0);
+            this.service.getVehicleTypeDropdownbyId(temp.projects.id).subscribe(resp => {
+                if (resp.status) {
+                    this.vehicleType = resp.data;
+                }});
             if (temp.vehicle_Types && temp.vehicle_Types.length > 0) 
             {
                 const vehicleTypeIds = temp.vehicle_Types.map(element => element.id);

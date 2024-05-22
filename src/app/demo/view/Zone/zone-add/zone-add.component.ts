@@ -233,10 +233,14 @@ export class ZoneAddComponent implements OnInit {
       if (resp) {
           this.project = resp;
       }});
-      this.service.getVehicleTypeDropdown().subscribe(resp => {
-        if (resp.status) {
-            this.vehicleType = resp.data;
-        }});
+      
+  }
+  onProjectSelection(event)
+  {
+    this.service.getVehicleTypeDropdownbyId(event.value).subscribe(resp => {
+      if (resp.status) {
+          this.vehicleType = resp.data;
+      }});
   }
   // loadDropdownValues() {
   //   this.service.allDropDownResult().then(responseList => {

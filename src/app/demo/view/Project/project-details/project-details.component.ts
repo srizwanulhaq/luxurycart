@@ -27,6 +27,7 @@ export class ProjectDetailsComponent implements OnInit {
   set details(value: Projects) {
       if (value) {
           this._details = value;
+          //console.log(value)
       }
 
   }

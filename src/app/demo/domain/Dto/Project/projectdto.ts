@@ -4,6 +4,7 @@ export class Projectdto {
     projectName:string;
     arabicName:string;
     city_Id:string;
+    vehicletypeId:[]
     created_at:string;
     active:boolean;
 }

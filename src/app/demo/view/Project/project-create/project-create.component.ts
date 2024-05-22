@@ -9,6 +9,7 @@ import { Projectdto } from 'src/app/demo/domain/Dto/Project/projectdto';
 import { first } from 'rxjs/operators';
 import { ProjectsService } from 'src/app/demo/service/projects.service';
 import { CityCountryDropdown, Citydao2 } from 'src/app/demo/domain/Dao/Zone/AllDropDowndao2';
+import { VehicleTypeDropDown } from 'src/app/demo/domain/Dao/Vehicle/VehicleTypedao';
 
 @Component({
   selector: 'app-project-create',
@@ -27,6 +28,7 @@ export class ProjectCreateComponent implements OnInit {
   projectForm:FormGroup;
   lstcities:Citydao2[];
   btnloading: boolean = false;
+  vehicleType:VehicleTypeDropDown[];
   constructor(private _service: ProjectsService,
     private _Userservice: UserService,
     private _formBuilder: FormBuilder,
@@ -46,6 +48,7 @@ export class ProjectCreateComponent implements OnInit {
       artitle: ["", [Validators.required]],
       city_Id: ["",[Validators.required]],
       country_Id: ["",[Validators.required]],
+      vehicletypeId:[[]],
     });
     
   }
@@ -80,7 +83,11 @@ export class ProjectCreateComponent implements OnInit {
     this._service.getCityCountryDropdown().then(res => {
       
       this.dropdown = res;
-    })
+    });
+    this._service.getVehicleTypeDropdown().subscribe(resp => {
+      if (resp.status) {
+          this.vehicleType = resp.data;
+      }});
   }
   addNewUser(project: Projectdto) {
     

@@ -21,7 +21,7 @@
             <div class="formgrid grid">
                 <div class="field col">
                     <label for="project">Project <span class="star-sign">*</span></label>
-                    <p-dropdown id="project" filter="true" [options]="project" name="project"
+                    <p-dropdown id="project" filter="true" [options]="project" name="project" (onChange)="onProjectSelection($event)"
                             formControlName="project_Id" placeholder="Select Project">
                         </p-dropdown>
                     <small class="ng-dirty ng-invalid" *ngIf="submitted">Project is required.</small>

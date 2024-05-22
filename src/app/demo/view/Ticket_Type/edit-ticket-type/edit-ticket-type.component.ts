@@ -51,13 +51,19 @@ export class EditTicketTypeComponent implements OnInit {
       if (resp) {
           this.project = resp;
       }});
-      this.zoneService.getVehicleTypeDropdown().subscribe(resp => {
-        if (resp.status) {
-            this.vehicleType = resp.data;
-        }});
+      // this.zoneService.getVehicleTypeDropdown().subscribe(resp => {
+      //   if (resp.status) {
+      //       this.vehicleType = resp.data;
+      //   }});
   
   }
-  
+  onProjectSelection(event)
+  {
+    this.zoneService.getVehicleTypeDropdownbyId(event.value).subscribe(resp => {
+      if (resp.status) {
+          this.vehicleType = resp.data;
+      }});
+  }
 
   @Input() 
   set details(value: TicketType) {
@@ -82,7 +88,10 @@ export class EditTicketTypeComponent implements OnInit {
       this.ticketForm.controls.ticket_Price.setValue(this.details.ticket_Price);
       this.ticketForm.controls.project_Id.setValue(this.details.project_Id);
       this.ticketForm.controls.vehicle_Type_Id.setValue(this.details.vehicle_Type_Id);
-      
+      this.zoneService.getVehicleTypeDropdownbyId(this.details.project_Id).subscribe(resp => {
+        if (resp.status) {
+            this.vehicleType = resp.data;
+        }});
     }
   }
 
