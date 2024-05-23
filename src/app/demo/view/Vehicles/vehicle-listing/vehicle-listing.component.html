@@ -223,7 +223,7 @@
                 <td><span class="p-column-title">Type</span> {{vehicle.vehicleTypes.title}}
                 </td>
                 <td><span class="p-column-title">IOT</span>
-                    {{vehicle.iot.imei}}
+                    {{vehicle?.iot?.imei}}
                 </td>
                 <td><span class="p-column-title">Project Assigned</span> {{vehicle.project == null ? "-" :
                     vehicle.project.project_AutoId }}

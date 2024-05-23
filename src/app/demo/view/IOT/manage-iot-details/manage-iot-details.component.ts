@@ -58,6 +58,31 @@ export class ManageIotDetailsComponent implements OnInit {
       }
     });
   }
+  unassign(IotId) {
+    this.main.event = null;
+    this._confirmationService.confirm({
+      message: 'Do you want to unassign?',
+      header: 'Confirmation',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+          this._manageIotService.unassign(IotId)
+          .pipe(first()).subscribe({
+          next: response => {
+            this.eventChange.emit(response.result);
+            this.messageService.add({severity: 'success', summary: 'Successful', detail: response.message, life: 3000});;
+            this.main.bottomPanelActive =false
+            
+          },
+          error: error => {
+            this.messageService.add({severity: 'error', summary: 'Failed', detail: error.error.message, life: 3000});
+            this.main.bottomPanelActive =true;
+          }
+        });
+      },
+      reject: () => {
+      }
+    });
+  }
   rebootIot(IotId) {
 
     this.main.event = null;

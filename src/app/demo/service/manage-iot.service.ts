@@ -29,6 +29,9 @@ export class ManageIotService {
     updateManageIotData(iotDtoes: EditIotDto) {
         return this._http.post<any>(`${environment.apiUrl}/api/v1/AdminManageIOT/updateManageIotData`, iotDtoes);
     }
+    unassign(iotId: string) {
+        return this._http.post<any>(`${environment.apiUrl}/api/v1/AdminManageIOT/unassign`, null, { params: { id: iotId } });
+    }
     getAllSubAccountIOTModelLoad() {
         return this._http
             .get<IotDAO>(`${environment.apiUrl}/api/v1/AdminManageIOT/getAllSubAccountIOTModelLoad`);
