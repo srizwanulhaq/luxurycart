@@ -10,7 +10,7 @@ import { DialogModule } from 'primeng/dialog';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DropdownModule } from 'primeng/dropdown';
@@ -27,7 +27,8 @@ import { EventEditComponent } from '../event-edit/event-edit.component';
 import { EventListComponent } from '../event-list/event-list.component';
 import { EventMainComponent } from './event-main.component';
 import { EventMainRoutingModule } from './event-main-routing.module';
-
+import { CalendarModule } from 'primeng/calendar';
+import { NamedObservableService } from 'src/app/demo/service/named-observable.service';
 
 
 @NgModule({
@@ -57,12 +58,13 @@ import { EventMainRoutingModule } from './event-main-routing.module';
         CheckboxModule,
         InputTextModule,
         DateRangeComponentModule,
-        PasswordModule
+        PasswordModule,
+         CalendarModule 
     ],
     providers: [
         ManageIotService,
         IconService,
-        MessageService
+        MessageService,ConfirmationService,NamedObservableService
     ]
 })
 export class EventMainModule { }
