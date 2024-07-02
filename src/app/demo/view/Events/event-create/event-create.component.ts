@@ -26,6 +26,7 @@ Time_field
       Project_Id:['',Validators.required],
       Name:['',Validators.required],
       Time:['',Validators.required],
+      Ticket_Available:['',Validators.required],
       Ticket_Limit:['',Validators.required],
       Ticket_Used:[''],
     });

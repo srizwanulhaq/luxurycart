@@ -1,0 +1,127 @@
+<div class="lodi">
+    <div *ngIf="loading" class="lodi-child">
+        <div class="custom-loader"></div>
+    </div>
+    <p-toast></p-toast>
+    <p-confirmDialog #cd id="cutomer-confrim-model" [style]="{width: '35vw', top: '-190px'}" [baseZIndex]="10000">
+        <ng-template pTemplate="footer">
+            <button type="button" pButton class="cofirm-model-cancel-btn" label="No" (click)="cd.reject()"></button>
+            <button type="button" pButton label="Yes" (click)="cd.accept()"></button>
+        </ng-template>
+    </p-confirmDialog>
+    <p-table id="rides-table" #dt [value]="gameTicketListDAO" dataKey="id" styleClass="p-datatable-gridlines" [rowHover]="true"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" columnResizeMode="expand"
+        [totalRecords]="totalRecords" [rows]="10"
+        [globalFilterFields]="['iotManage.no','iotManage.battery','iotManage.imei','iotManage.allowTCPCommands','iotManage.customId','iotManage.integrated','iotManage.notes','iotManage.phone','iotManage.phonePrefix','iotManage.updated_at','iotManage.iotModels.title','iotManage.iotModels.code','iotManage.vehicles.number']"
+        [lazy]="true" (onLazyLoad)="loadGameTicket($event)" autoLayout="true" stateStorage="local"
+        stateKey="iotListDAO-local">
+        <ng-template pTemplate="caption">
+            <div class="grid">
+                <div class="md:col-6 col-12">
+                    <span class="">
+                        <span>                          
+                        </span>
+                    </span>
+                </div>
+                <div class="text-right md:col-6 col-12 ">
+
+
+                    <div style="display: flex; justify-content: end; align-items: center; height: 100%;">
+
+                        <div class="">
+                            <div class="dropdown">
+                                <button onclick="myFunction()" class="dropbtn" title="Filter"
+                                    style="margin-top: 4px;margin-left: 2px;background: #ef591f;">
+                                    <img src="../../../assets/layout/images/filter-16.png" alt="">
+                                </button>
+                                <div id="myDropdown" class="dropdown-content" style="margin-top: 0;">
+                                    <i onclick="myFunction()" class="fa fa-times close-bt-show-mb"></i>
+
+                                    <div class="calender-box">
+                                        <shared-date-range [startDate]="startDate" [endDate]="endDate"
+                                            [loading]="loading" (onRangeChange)="onRangeChange($event)"
+                                            (onDateChange)="onDateChange($event)"></shared-date-range>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="custom-in-box transaction-filter">
+                            <i title="Reset Filter" class="pi pi-times" (click)="resetDataTable(dt)"></i>
+                            <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                                (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                                class="search-input p-0 tran-search" />
+                            <span (click)="dt.filterGlobal(filterGlobalValue, 'contains')">Search
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th [pSortableColumn]="'Gtitle'" pResizableColumn>
+                    Game Title
+                    <p-sortIcon [field]="'Gtitle'"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'paid'" pResizableColumn>
+                    Paid
+                    <p-sortIcon [field]="'paid'"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'amount'" pResizableColumn>
+                    Amount
+                    <p-sortIcon [field]="'amount'"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'created_at'" pResizableColumn>
+                    Created Date
+                    <p-sortIcon [field]="'created_at'"></p-sortIcon>
+                <!-- </th>
+                <th>Action</th> -->
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-gameItem let-rowIndex="index">
+            <tr>
+                <td>
+                    <span class="p-column-title">Game Title</span>
+
+                    {{gameItem?.games.title}}
+                </td>
+                <td>
+                    <span class="p-column-title">Paid</span>
+                    {{gameItem?.isPaid ? 'Paind' : 'Unpaid'}}
+                </td>
+                <td>
+                    <span class="p-column-title">Amount</span>
+                    {{gameItem?.totalAmount}}
+                </td>
+                <td>
+                    <span class="p-column-title">Created Date</span>
+                    {{gameItem?.created_at|date:'medium'}}
+                </td>
+
+                <!-- <td class="sm-jus-end">
+                    <button title="More Details" pButton pRipple
+                        class="p-button-rounded p-button-success theme-btn ac-btn " href="# "
+                        (click)="openUpdate(gameItem) ">
+
+                        <i class="fa fa-pencil" style="color: white;"></i>
+
+                    </button>
+
+                </td> -->
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage ">
+            <tr>
+                <td colspan="13 ">
+                    <p class="empty-list ">No Iot found.</p>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

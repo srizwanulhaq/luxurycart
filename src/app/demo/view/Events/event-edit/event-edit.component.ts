@@ -29,6 +29,7 @@ export class EventEditComponent implements OnInit {
         Project_Id:['',Validators.required],
         Name:['',Validators.required],
         Time:['',Validators.required],
+        Ticket_Available:['',Validators.required],
         Ticket_Limit:['',Validators.required],
         Ticket_Used:[''],
       });
@@ -61,6 +62,7 @@ export class EventEditComponent implements OnInit {
       this.saveProjecteventForm.controls['Project_Id'].setValue(observer?.projectEvent?.project_Id);
       this.saveProjecteventForm.controls['Name'].setValue(observer?.projectEvent?.name);
       this.saveProjecteventForm.controls['Time'].setValue(new Date(observer?.projectEvent?.time));
+      this.saveProjecteventForm.controls['Ticket_Available'].setValue(observer?.projectEvent?.ticket_Available || 0);
       this.saveProjecteventForm.controls['Ticket_Limit'].setValue(observer?.projectEvent?.ticket_Limit);
       this.saveProjecteventForm.controls['Ticket_Used'].setValue(observer?.projectEvent?.ticket_Used);
       this.bindingV =  this.projectList?.find((a)=>{

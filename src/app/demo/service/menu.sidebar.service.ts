@@ -101,9 +101,9 @@ export class MenuSidebarService {
             { label: 'Booths', icon: 'pi pi-sitemap', routerLink: ['/booths/booth-main'] },
             { label: 'Concierge Request', icon: 'pi pi-clone', routerLink: ['/concierge-request/concierge-request-main'] },
             { label: 'Concierge Package', icon: 'pi pi-sitemap', routerLink: ['/concierge-package/concierge-package-main'] },
-           
-           
-            
+            { label: 'Event', icon: 'pi pi-calendar-plus', routerLink: ['/event/event-main'] },
+            { label: 'Event Ticket', icon: 'pi pi-ticket', routerLink: ['/eventTicket/eventTicket-main'] },
+            { label: 'Game', icon: 'pi pi-discord', routerLink: ['/game/game-main'] },
             // { label: 'Customer Ride', icon: 'fa fa-motorcycle', routerLink: ['/customer-ride/customer-ride-main'] },
             // { label: 'Customer Insurance', icon: 'fa fa-heart', routerLink: ['/customer-insurance/customer-insurance-main'] },
        

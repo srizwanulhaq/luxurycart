@@ -1,0 +1,214 @@
+<div class="lodi">
+    <div *ngIf="loading" class="lodi-child">
+        <div class="custom-loader"></div>
+    </div>
+    <p-toast></p-toast>
+    <p-confirmDialog #cd id="cutomer-confrim-model" [style]="{width: '35vw', top: '-190px'}" [baseZIndex]="10000">
+        <ng-template pTemplate="footer">
+            <button type="button" pButton class="cofirm-model-cancel-btn" label="No" (click)="cd.reject()"></button>
+            <button type="button" pButton label="Yes" (click)="cd.accept()"></button>
+        </ng-template>
+    </p-confirmDialog>
+    <p-table id="rides-table" #dt [value]="eventTicketListDAO" dataKey="id" styleClass="p-datatable-gridlines" [rowHover]="true"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" columnResizeMode="expand"
+        [totalRecords]="totalRecords" [rows]="10"
+        [globalFilterFields]="['iotManage.no','iotManage.battery','iotManage.imei','iotManage.allowTCPCommands','iotManage.customId','iotManage.integrated','iotManage.notes','iotManage.phone','iotManage.phonePrefix','iotManage.updated_at','iotManage.iotModels.title','iotManage.iotModels.code','iotManage.vehicles.number']"
+        [lazy]="true" (onLazyLoad)="loadEventticket($event)" autoLayout="true" stateStorage="local"
+        stateKey="iotListDAO-local">
+        <ng-template pTemplate="caption">
+            <div class="grid">
+                <div class="md:col-6 col-12">
+                    <span class="">
+                        <span>
+                            <!-- <p-tabView class="iot-tabing" (onChange)="statusChanged($event)" id="status-tab">
+                                <p-tabPanel header="All">
+                                </p-tabPanel>
+                                <p-tabPanel header="Only Used">
+                                </p-tabPanel>
+                                <p-tabPanel header="Not  Used">
+                                </p-tabPanel>
+                                <p-tabPanel header="Inactive for > 1 day">
+                                </p-tabPanel>
+                                <p-tabPanel header="Inactive for > 7 day">
+                                </p-tabPanel>
+
+                            </p-tabView> -->
+
+                          
+                        </span>
+                    </span>
+                </div>
+                <div class="text-right md:col-6 col-12 ">
+
+
+                    <div style="display: flex; justify-content: end; align-items: center; height: 100%;">
+                        <!-- <span class="btn-left-box mr-2">
+                            <div class="dropdown" style="margin-top: 0;">
+                                <button onclick="myFunction1()" class="dropbtn1"
+                                    style="margin-top: 0;background: #ef591f;">Export <i
+                                        class="pi pi-chevron-up"></i></button>
+                                <div id="myDropdown1" class="dropdown-content1">
+                                    <div class="grid">
+                                        <div class="md:col-4 col-4">
+                                            <div class="export-item">
+                                                <img src="../../../../../assets/layout/images/excel-icon.png" alt=""
+                                                    width="20">
+                                                <p>Excel</p>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-4 col-4">
+                                            <div class="export-item">
+                                                <img src="../../../../../assets/layout/images/pdf-icon.png" alt=""
+                                                    width="20">
+                                                <p>Pdf</p>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-4 col-4">
+                                            <div class="export-item">
+                                                <img src="../../../../../assets/layout/images/icons8-export-csv-80.png"
+                                                    alt="" width="20">
+                                                <p>Csv</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </span> -->
+
+                        <div class="">
+                            <div class="dropdown">
+                                <button onclick="myFunction()" class="dropbtn" title="Filter"
+                                    style="margin-top: 4px;margin-left: 2px;background: #ef591f;">
+                                    <img src="../../../assets/layout/images/filter-16.png" alt="">
+                                </button>
+                                <div id="myDropdown" class="dropdown-content" style="margin-top: 0;">
+                                    <i onclick="myFunction()" class="fa fa-times close-bt-show-mb"></i>
+                                    <!-- <i onclick="myFunction()" class="fa fa-times close-bt"></i> -->
+
+                                    <div class="calender-box">
+                                        <shared-date-range [startDate]="startDate" [endDate]="endDate"
+                                            [loading]="loading" (onRangeChange)="onRangeChange($event)"
+                                            (onDateChange)="onDateChange($event)"></shared-date-range>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="custom-in-box transaction-filter">
+                            <i title="Reset Filter" class="pi pi-times" (click)="resetDataTable(dt)"></i>
+                            <input pInputText type="text" [(ngModel)]="filterGlobalValue"
+                                (keyup.enter)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Type here"
+                                class="search-input p-0 tran-search" />
+                            <span (click)="dt.filterGlobal(filterGlobalValue, 'contains')">Search
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <!-- <th [pSortableColumn]="'id'" pResizableColumn>
+                    Event Id
+                    <p-sortIcon [field]="'id'"></p-sortIcon>
+                </th> -->
+                <th [pSortableColumn]="'event'" pResizableColumn>
+                    Event Title
+                    <p-sortIcon [field]="'event'"></p-sortIcon>
+                </th>
+                <!-- <th [pSortableColumn]="'atitle'" pResizableColumn>
+                    Arabic Title
+                    <p-sortIcon [field]="'atitle'"></p-sortIcon>
+                </th> -->
+                <th [pSortableColumn]="'package'" pResizableColumn>
+                    Package
+                    <p-sortIcon [field]="'package'"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'type'" pResizableColumn>
+                    Type
+                    <p-sortIcon [field]="'type'"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'type'" pResizableColumn>
+                    No Of Ticket
+                </th>
+                <th [pSortableColumn]="'price'" pResizableColumn>
+                    Price
+                    <p-sortIcon [field]="'price'"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'type'" pResizableColumn>
+                    Is Paid
+                </th>
+                <th [pSortableColumn]="'created_at'" pResizableColumn>
+                    Created Date
+                    <p-sortIcon [field]="'created_at'"></p-sortIcon>
+                </th>
+                <!-- <th>Action</th> -->
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-iotManage let-rowIndex="index">
+            <tr>
+                <!-- <td>
+                    <span class="p-column-title">Event Id</span>
+                    {{iotManage?.projectEvent}}
+                </td> -->
+                <td>
+                    <span class="p-column-title">Event Title</span>
+
+                    {{iotManage?.projectEventName}}
+                </td>
+                <!-- <td>
+                    <span class="p-column-title">Arabic Title</span>
+                    {{iotManage.battery}}%
+                </td> -->
+                <td>
+                    <span class="p-column-title">Package</span>
+                    {{iotManage?.projectPackageName}}
+                </td>
+                <td>
+                    <span class="p-column-title">Type</span>
+                    {{iotManage?.projectTypeName}}
+                </td>
+                <td>
+                    <span class="p-column-title">No Of Ticket</span>
+                    {{iotManage?.ticket_Limit}}
+                </td>
+                <td>
+                    <span class="p-column-title">Price</span>
+                    {{iotManage?.price}}
+                </td>
+                <td>
+                    <span class="p-column-title">Is Paid</span>
+                    {{iotManage?.is_Paid?'Paid':'Unpaid'}}
+                </td>
+                <td>
+                    <span class="p-column-title">Created Date</span>
+                    {{iotManage?.created_at|date:'medium'}}
+                </td>
+
+                <!-- <td class="sm-jus-end">
+                    <button title="More Details" pButton pRipple
+                        class="p-button-rounded p-button-success theme-btn ac-btn " href="# "
+                        (click)="openUpdate(iotManage) ">
+
+                        <i class="fa fa-pencil" style="color: white;"></i>
+
+                    </button>
+
+                </td> -->
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage ">
+            <tr>
+                <td colspan="13 ">
+                    <p class="empty-list ">No Iot found.</p>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

@@ -144,6 +144,7 @@ import { LoaderInterceptor } from './demo/service/loader.interceptor';
 import { LoaderComponent } from './loader/loader.component';
 import { DateRangeComponentModule } from './demo/view/DateRange/date-range.component.module';
 
+
 export function tokenGetter() {
     return localStorage.getItem("token");
 }
@@ -281,6 +282,8 @@ FullCalendarModule.registerPlugins([
         FileDemoComponent,
         BlockViewer,
         LoaderComponent,
+        
+        
     ],
     providers: [
         LoaderService,
