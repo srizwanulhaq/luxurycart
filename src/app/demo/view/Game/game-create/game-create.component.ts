@@ -18,7 +18,8 @@ constructor(private _formBuilder:FormBuilder,private service:GameService
   ,private observer :NamedObservableService, private messageService: MessageService) {
     this.saveGameForm = this._formBuilder.group({
       Title:['',Validators.required],
-      Price:['',Validators.required]
+      Price:['',Validators.required],
+      Qty:[0,Validators.required]
     })
 
    }

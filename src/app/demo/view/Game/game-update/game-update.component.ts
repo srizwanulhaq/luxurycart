@@ -19,7 +19,8 @@ export class GameUpdateComponent implements OnInit {
       this.saveGameForm = this._formBuilder.group({
         Id:['',Validators.required],
         Title:['',Validators.required],
-        Price:['',Validators.required]
+        Price:['',Validators.required],
+        Qty:[0,Validators.required]
       })
   
      }
@@ -38,6 +39,7 @@ export class GameUpdateComponent implements OnInit {
         Id: res?.id,
         Title: res?.title,
         Price: res?.price,
+        Qty:res?.qty
     });
     this.gameDialog=true
   }

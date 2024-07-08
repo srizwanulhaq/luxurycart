@@ -69,6 +69,10 @@
                     Game Title
                     <p-sortIcon [field]="'Gtitle'"></p-sortIcon>
                 </th>
+                <th [pSortableColumn]="'qty'" pResizableColumn>
+                    Quantity
+                    <p-sortIcon [field]="'qty'"></p-sortIcon>
+                </th>
                 <th [pSortableColumn]="'price'" pResizableColumn>
                     Price
                     <p-sortIcon [field]="'price'"></p-sortIcon>
@@ -86,6 +90,10 @@
                     <span class="p-column-title">Game Title</span>
 
                     {{gameItem?.title}}
+                </td>
+                <td>
+                    <span class="p-column-title">Quantity</span>
+                    {{gameItem?.qty}}
                 </td>
                 <td>
                     <span class="p-column-title">Price</span>
