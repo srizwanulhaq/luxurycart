@@ -88,6 +88,7 @@ import { LoginMainComponent } from './demo/view/Login/login-main/login-main.comp
                     { path: 'tour-customer-purchase', loadChildren: () => import('./demo/view/TourCustomerPurchase/tour-customer-purchase-main/tour-customer-purchase-main.module').then(m => m.TourCustomerPurchaseMainModule), canActivate: [AuthGuard] },
                     { path: 'ticket-type', loadChildren: () => import('./demo/view/Ticket_Type/ticket-type-main/ticket-type-main.module').then(m => m.TicketTypeMainModule), canActivate: [AuthGuard] },
                     { path: 'lc-tour-package', loadChildren: () => import('./demo/view/LC_Tour_Packages/lc-tour-packages-main/lc-tour-packages-main.module').then(m => m.LCTourPackagesMainModule), canActivate: [AuthGuard] },
+                    { path: 'event-ticket-type', loadChildren: () => import('./demo/view/Event-Ticket-Type/event-ticket-type-main/event-ticket-type-main.module').then(m => m.EventTicketTypeMainModule), canActivate: [AuthGuard] },
                
                 ]
             },

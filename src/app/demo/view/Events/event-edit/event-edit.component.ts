@@ -64,7 +64,7 @@ export class EventEditComponent implements OnInit {
       this.saveProjecteventForm.controls['Time'].setValue(new Date(observer?.projectEvent?.time));
       this.saveProjecteventForm.controls['Ticket_Available'].setValue(observer?.projectEvent?.ticket_Available || 0);
       this.saveProjecteventForm.controls['Ticket_Limit'].setValue(observer?.projectEvent?.ticket_Limit);
-      this.saveProjecteventForm.controls['Ticket_Used'].setValue(observer?.projectEvent?.ticket_Used);
+      //this.saveProjecteventForm.controls['Ticket_Used'].setValue(observer?.projectEvent?.ticket_Used);
       this.bindingV =  this.projectList?.find((a)=>{
         return a.value == observer?.projectEvent?.project_Id;
       }) 
@@ -80,7 +80,7 @@ export class EventEditComponent implements OnInit {
       if (this.saveProjecteventForm.valid) {
         var payload = this.saveProjecteventForm.value;;
         payload.Project_Id = payload.Project_Id.value;
-        payload.Ticket_Used = payload.Ticket_Used==null ? 0 : payload.Ticket_Used;
+        //payload.Ticket_Used = payload.Ticket_Used==null ? 0 : payload.Ticket_Used;
         payload.Time = moment(payload.Time).format('YYYY-MM-DDTHH:mm:ss') //new Date(payload.Time); 
         this.btnloading=true;
         this.service.updateProjectEvent(this.saveProjecteventForm.value).subscribe(res=>{

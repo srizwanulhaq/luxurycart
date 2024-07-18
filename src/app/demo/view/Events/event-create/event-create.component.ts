@@ -28,7 +28,7 @@ Time_field
       Time:['',Validators.required],
       Ticket_Available:['',Validators.required],
       Ticket_Limit:['',Validators.required],
-      Ticket_Used:[''],
+      //Ticket_Used:[''],
     });
     this.service.getProjectDD().subscribe(res=>{
       this.projectList=res?.data;
@@ -43,9 +43,9 @@ Time_field
   }
   onSubmitProjecteventForm() {
     if (this.saveProjecteventForm.valid) {
-      var payload = this.saveProjecteventForm.value;;
+      var payload = this.saveProjecteventForm.value;
       payload.Project_Id = payload.Project_Id.value;
-      payload.Ticket_Used = payload.Ticket_Used==null ? 0 : payload.Ticket_Used;
+     // payload.Ticket_Used = payload.Ticket_Used==null ? 0 : payload.Ticket_Used;
       payload.Time = moment(payload.Time).format('YYYY-MM-DDTHH:mm:ss') //new Date(payload.Time); 
       this.btnloading=true;
       this.service.createProjectEvent(this.saveProjecteventForm.value).subscribe(res=>{

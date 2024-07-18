@@ -53,10 +53,10 @@ export class VehicleTypeFormComponent implements OnInit {
     loadDropDown()
     {
         this.service.loadDropDown().subscribe(resp => {
-                if (resp.status) {
-                    this.driveModeDropDown = resp.data
-                }
-            })
+            if (resp.status) {
+                this.driveModeDropDown = resp.data
+            }
+        })
     }
     loadForm() {
         this.dataForm = this.formBuilder.group({

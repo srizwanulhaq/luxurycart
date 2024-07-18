@@ -1,0 +1,10 @@
+<div class="col-12">
+    <div class="grid">
+        <div class="col-12 p-0">
+            <div class="card component-main-card">
+                <app-edit-event-ticket-type [editData]="ticket_type" (eventChange)="onChange($event)"></app-edit-event-ticket-type>
+                <app-add-new-event-ticket-type (eventChange)="onChange($event)"></app-add-new-event-ticket-type>
+                <app-event-ticket-type-listing [event] = "event"></app-event-ticket-type-listing>
+            </div>
+        </div>
+    </div>
