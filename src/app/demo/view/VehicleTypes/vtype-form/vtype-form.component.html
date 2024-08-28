@@ -1,6 +1,6 @@
 <p-toast></p-toast>
 <form [formGroup]="dataForm" (ngSubmit)="onSubmitData()">
-    <p-dialog id="ride-model" [(visible)]="showModal" [style]="{width: '550px'}" header="Vehicle Type" [modal]="true"
+    <p-dialog id="ride-model" [(visible)]="showModal" [style]="{width: '550px'}" header="Vehicle Group" [modal]="true"
         class="p-fluid" [dismissableMask]="true" (onHide)="resetAll()">
         <ng-template pTemplate="content">
             <div class="formgrid grid">

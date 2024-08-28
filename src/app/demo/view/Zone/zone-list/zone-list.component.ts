@@ -23,7 +23,7 @@ export class ZoneListComponent implements OnInit {
     @ViewChild(Table, { static: false }) tableEvent;
     rowsPerPageOptions = [10, 25, 50];
     filterGlobalValue: any;
-    selectedStatus: number = 2;
+    selectedStatus: number = 1;
     startDate: string = ""
     endDate: string = ""
     loading: boolean = false;

@@ -10,7 +10,7 @@ import { DefaultRideFareSetting, DefaultRideScrutinySettingsDto, NewZoneDao, Rid
 import { PackagediscountService } from 'src/app/demo/service/packagediscount.service';
 import { ZoneService } from 'src/app/demo/service/zone.service';
 import { ZoneMainComponent } from '../zone-main/zone-main.component';
-import { VehicleTypeDropDown } from 'src/app/demo/domain/Dao/Vehicle/VehicleTypedao';
+import { DriveModeDropDown, VehicleTypeDropDown } from 'src/app/demo/domain/Dao/Vehicle/VehicleTypedao';
 import { SimpleProjectDao } from 'src/app/demo/domain/Dao/Projects/projects';
 import { ProjectsService } from 'src/app/demo/service/projects.service';
 import { ProjectDropDown } from 'src/app/demo/domain/Dto/Project/projectdto';
@@ -70,6 +70,7 @@ export class ZoneAddComponent implements OnInit {
   lstSettings3 = [];
   lstSettings4 = [];
   lstSettings5 = [];
+  driveModeDropDown:DriveModeDropDown[];
   selectedTemplate: number;
   enable24Hours: boolean = false;
   sendCustomerNotification: boolean = false;
@@ -141,6 +142,7 @@ export class ZoneAddComponent implements OnInit {
     this.setOption();
     this.loadDropdownValues();
     this.setCurrentPosition();
+    this.loadDropDown();
     //this.setOptionForRides();
 
   }
@@ -284,11 +286,20 @@ export class ZoneAddComponent implements OnInit {
       country_Id: ['', [Validators.required]],
       setcurrentlat:[],
       setcurrentlong:[],
+      drive_Mode_Id: ['', [Validators.required]],
 
     });
   }
 
-
+  loadDropDown()
+  {
+      debugger;
+      this.service.loadDropDown().subscribe(resp => {
+              if (resp.status) {
+                  this.driveModeDropDown = resp.data
+              }
+          })
+  }
 
 
   // removeSetting(i,rideIndex) {

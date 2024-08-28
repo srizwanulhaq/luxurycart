@@ -177,7 +177,7 @@ export class VehicleService {
         }).toPromise()
     }
 
-    // Vehicle Types
+    // Vehicle Groups
     getVehicleTypes(
         pageIndex: number,
         pageSize: number,

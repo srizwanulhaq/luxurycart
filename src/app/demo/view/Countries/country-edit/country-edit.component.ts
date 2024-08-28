@@ -40,6 +40,7 @@ export class CountryEditComponent implements OnInit {
     this.countryEditForm = this._formBuilder.group({
         id:["",[Validators.required]],
         name: ["", [Validators.required]],
+        arabic_name: ["", [Validators.required]],
         sub_region: ["", [Validators.required]],
         time_Zones: ["", [Validators.required]],
         translations: ["", [Validators.required]],
@@ -52,6 +53,7 @@ ngOnChanges(change: SimpleChange) {
       const group: FormGroup = this.countryEditForm as FormGroup;
       group.controls['id'].setValue(temp.id || "");
       group.controls['name'].setValue(temp.name || "");
+      group.controls['arabic_name'].setValue(temp.arabic_name || "");
       group.controls['sub_region'].setValue(temp.sub_Region || "");
       group.controls['time_Zones'].setValue(temp.time_Zones || "");
       group.controls['translations'].setValue(temp.translations || "");

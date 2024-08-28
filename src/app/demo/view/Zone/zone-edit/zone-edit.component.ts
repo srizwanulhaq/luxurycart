@@ -11,6 +11,7 @@ import { ZoneService } from 'src/app/demo/service/zone.service';
 import { ZoneMainComponent } from '../zone-main/zone-main.component';
 import { ProjectsService } from 'src/app/demo/service/projects.service';
 import { ProjectDropDown } from 'src/app/demo/domain/Dto/Project/projectdto';
+import { DriveModeDropDown } from 'src/app/demo/domain/Dao/Vehicle/VehicleTypedao';
 declare var google: any;
 @Component({
     selector: 'app-zone-edit',
@@ -86,6 +87,7 @@ export class ZoneEditComponent implements OnInit {
   lstScrutinySettings3: RideScrutinySettings[];
   lstScrutinySettings4: RideScrutinySettings[];
   lstScrutinySettings5: RideScrutinySettings[];
+  driveModeDropDown:DriveModeDropDown[];
     sequence1 = 1;
     sequence2 = 1;
     sequence3 = 1;
@@ -114,6 +116,7 @@ export class ZoneEditComponent implements OnInit {
         this.loadDropdownValues();
         this.setCurrentPosition();
         this.loadDropdownCountry();
+        this.loadDropDown();
         //this.setDefaultSpeed();
     }
 
@@ -206,7 +209,15 @@ export class ZoneEditComponent implements OnInit {
       this.lstCities = responseList.citylist;
     });
   }
-
+  loadDropDown()
+  {
+      debugger;
+      this.service.loadDropDown().subscribe(resp => {
+              if (resp.status) {
+                  this.driveModeDropDown = resp.data
+              }
+          })
+  }
  
     // loadDropdownValues() {
     //     this.service.allDropDownResult().then(responseList => {
@@ -226,6 +237,7 @@ export class ZoneEditComponent implements OnInit {
     //     });
     // }
     ngOnChanges(change: SimpleChange) {
+        debugger;
         if (!!change['editzoneData'].currentValue) {
             const temp = change['editzoneData'].currentValue;
             let maxSpeed=15;
@@ -234,6 +246,7 @@ export class ZoneEditComponent implements OnInit {
             const group: FormGroup = this.zoneEditForm as FormGroup;
             group.controls['id'].setValue(temp.id || "");
             group.controls['title'].setValue(temp.title || "");
+            group.controls['drive_Mode_Id'].setValue(temp.drive_Mode_Id || "");
             group.controls['default_Speed'].setValue(temp.default_Speed || 0);
             this.service.getVehicleTypeDropdownbyId(temp.projects.id).subscribe(resp => {
                 if (resp.status) {
@@ -348,7 +361,8 @@ export class ZoneEditComponent implements OnInit {
             zone_Coordinates: this._formBuilder.array([]),
             city_Id: ['', [Validators.required]],
             country_Id: ['', [Validators.required]],
-            default_Speed:[0]
+            default_Speed:[0],
+            drive_Mode_Id: ['', [Validators.required]]
            
         });
         // this.ride_fare_setting().push(this.newfare());

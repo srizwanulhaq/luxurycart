@@ -7,6 +7,9 @@ export class Projectdto {
     vehicletypeId:[]
     created_at:string;
     active:boolean;
+    status:string;
+    start_Date:string;
+    end_Date:string;
 }
 export class ProjectDropDown {
     label:string;

@@ -8,7 +8,7 @@ import { ProjectMainComponent } from '../project-main/project-main.component';
 import { Projectdto } from 'src/app/demo/domain/Dto/Project/projectdto';
 import { first } from 'rxjs/operators';
 import { ProjectsService } from 'src/app/demo/service/projects.service';
-import { CityCountryDropdown, Citydao2 } from 'src/app/demo/domain/Dao/Zone/AllDropDowndao2';
+import { CityCountryDropdown, Citydao2, ProjectStatus } from 'src/app/demo/domain/Dao/Zone/AllDropDowndao2';
 import { VehicleTypeDropDown } from 'src/app/demo/domain/Dao/Vehicle/VehicleTypedao';
 
 @Component({
@@ -27,8 +27,13 @@ export class ProjectCreateComponent implements OnInit {
   submitted: boolean;
   projectForm:FormGroup;
   lstcities:Citydao2[];
+  Status:ProjectStatus[];
   btnloading: boolean = false;
   vehicleType:VehicleTypeDropDown[];
+  setStartDate: Date | null = null;
+  setEndDate: Date | null = null;
+  dateError: boolean = false;
+ 
   constructor(private _service: ProjectsService,
     private _Userservice: UserService,
     private _formBuilder: FormBuilder,
@@ -41,16 +46,40 @@ export class ProjectCreateComponent implements OnInit {
     this.loadForm();
     this.resetForm();
   }
- 
+  onStartDateSelect(event: any) {
+    this.setStartDate = event;
+    this.validateDates();
+  }
+
+  onEndDateSelect(event: any) {
+    this.setEndDate = event;
+    this.validateDates();
+  }
+
+  validateDates() {
+    if (this.setEndDate && this.setStartDate && this.setEndDate < this.setStartDate) {
+      this.dateError = true;  // Show error message
+    } else {
+      this.dateError = false; // Hide error message
+    }
+  }
   loadForm() {
     this.projectForm = this._formBuilder.group({
       title: ["", [Validators.required]],
       artitle: ["", [Validators.required]],
       city_Id: ["",[Validators.required]],
       country_Id: ["",[Validators.required]],
+      end_Date: ["",[Validators.required]],
+      start_Date: ["",[Validators.required]],
+      status: ["",[Validators.required]],
       vehicletypeId:[[]],
     });
-    
+    this.Status = [
+      { label: "Active", value: "Active" },
+      { label: "Completed", value: "Completed" },
+      { label: "On Hold", value: "On Hold" },
+      { label: "Canceled", value: "Canceled" }
+  ];
   }
   onSelect(event)
   {

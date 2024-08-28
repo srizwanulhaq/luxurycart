@@ -32,12 +32,26 @@
            
             </div>
             <div class="formgrid grid">
+                <div class="md:col-6">
+                    <label>Start Date<span class="star-sign">*</span></label> <br>
+                    <p-calendar id="startDateCal" name="startDate" [disabled]="true" formControlName="start_Date"  placeholder="Select Start Date" (onSelect)="onStartDateSelect($event)"></p-calendar>
+                </div>
+                <div class="md:col-6">
+                    <label>End Date<span class="star-sign">*</span></label> <br>
+                    <p-calendar id="endDateCal" name="endDate" formControlName="end_Date"  placeholder="Select End Date" [showButtonBar]="true" [minDate]="setStartDate" (onSelect)="onEndDateSelect($event)"></p-calendar>
+                    <div *ngIf="dateError" style="color: red;">End Date cannot be earlier than Start Date.</div>
+                </div>
+            </div>
+            <div class="formgrid grid">
                 <div class="field col">
-                    <label for="account">Vehicle Types<span class="star-sign">*</span></label>
-                    <p-multiSelect id="vehicletype" [options]="vehicleType" filter="true" formControlName="vehicletypeId" placeholder="Select Vehicle Types">
-                    </p-multiSelect>
+                    <label>Status<span class="star-sign">*</span></label>
+                    <p-dropdown id="txtcountryId" [options]="Status" name="status" formControlName="status"  placeholder="Select Status">
+                    </p-dropdown>
                 </div>
                 <div class="field col">
+                    <label for="account">Vehicle Group<span class="star-sign">*</span></label>
+                    <p-multiSelect id="vehicletype" [options]="vehicleType" filter="true" formControlName="vehicletypeId" placeholder="Select Vehicle Group">
+                    </p-multiSelect>
                 </div>
             </div>
         </ng-template>

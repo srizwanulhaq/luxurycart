@@ -2,12 +2,12 @@
     <div class="left-box">
         <h4>
             <span>
-                Vehicle Types
+                Vehicle Group
             </span>
         </h4>
     </div>
     <div class="right-box">
-        <button pButton pRipple label="Add Vehicle Type" class="p-button-success mr-2 theme-btn"
+        <button pButton pRipple label="Add Vehicle Group" class="p-button-success mr-2 theme-btn"
             (click)="formData()"></button>
     </div>
 </div>
@@ -117,7 +117,7 @@
             <th style="width: 3rem">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
-            <th pSortableColumn="id">Vehicle Type Id
+            <th pSortableColumn="id">Vehicle Group Id
                 <p-sortIcon field="id">
                 </p-sortIcon>
             </th>
@@ -156,7 +156,7 @@
             <td>
                 <p-tableCheckbox [value]="vehicleType"></p-tableCheckbox>
             </td>
-            <td><span class="p-column-title">Vehicle Type Id</span> {{vehicleType.vehicle_Type_AutoId}}</td>
+            <td><span class="p-column-title">Vehicle Group Id</span> {{vehicleType.vehicle_Type_AutoId}}</td>
             <td><span class="p-column-title">Title</span> {{vehicleType.title}}</td>
             <td><span class="p-column-title">Maximum Speed</span> {{vehicleType.maxSpeed}}</td>
             <!-- <td><span class="p-column-title">Ticket Price</span> {{vehicleType.ticketPrice}}</td> -->
@@ -180,7 +180,7 @@
         <tr *ngIf="totalRecords == 0">
             <td colspan="7" class="text-center">
                 <div>
-                    No vehicle types right now
+                    No vehicle Group right now
                 </div>
             </td>
         </tr>

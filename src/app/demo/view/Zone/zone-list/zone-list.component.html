@@ -16,7 +16,7 @@
                             <p-tabView (onChange)="statusChanged($event)" id="status-tab">
                                 <p-tabPanel header="All">
                                 </p-tabPanel>
-                                <p-tabPanel header="Active">
+                                <p-tabPanel header="Active" [selected]="true">
                                 </p-tabPanel>
                                 <p-tabPanel header="Deactive">
                                 </p-tabPanel>
@@ -196,7 +196,7 @@
                 
                 <th>Project Id
                 </th>
-                <th >Vehicle Type
+                <th >Vehicle Group
                 </th>
                 <th>Details</th>
             </tr>
@@ -222,7 +222,7 @@
                 </td>
                 <td><span class="p-column-title">Project Id</span> {{zone?.projects?.project_AutoId}}
                 </td>
-                <td><span class="p-column-title">Vehicle Types</span>
+                <td><span class="p-column-title">Vehicle Group</span>
                     <span *ngFor="let item of zone.vehicle_Types">
                         {{item.title}}, 
                     </span>
