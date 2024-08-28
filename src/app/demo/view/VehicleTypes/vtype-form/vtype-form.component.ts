@@ -45,27 +45,23 @@ export class VehicleTypeFormComponent implements OnInit {
                 seatingCapacity: this.vehicleType.seatingCapacity,
                 maxSpeed: this.vehicleType.maxSpeed,
                 drive_Mode_Id:this.vehicleType.drive_Mode.id,
-                //ticketPrice:this.vehicleType.ticketPrice || 0.0,
-                //duration: this.vehicleType.duration || 0.0,
             })
         }
     }
     loadDropDown()
     {
         this.service.loadDropDown().subscribe(resp => {
-            if (resp.status) {
-                this.driveModeDropDown = resp.data
-            }
-        })
+                if (resp.status) {
+                    this.driveModeDropDown = resp.data
+                }
+            })
     }
     loadForm() {
         this.dataForm = this.formBuilder.group({
             title: ["", [Validators.required]],
             seatingCapacity: [0, [Validators.required,Validators.max(100)]],
-            maxSpeed: [0, [Validators.required,Validators.max(200),Validators.min(10)]],
-            drive_Mode_Id:["", [Validators.required]],
-            //ticketPrice:[0.0, [Validators.required]],
-            //duration: [0.0, [Validators.required]],
+            maxSpeed: [0],
+            drive_Mode_Id:["be08532b-fd77-11ee-944d-0a828dc5d2d2"],
         });
     }
 
