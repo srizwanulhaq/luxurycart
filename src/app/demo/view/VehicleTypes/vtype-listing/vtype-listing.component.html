@@ -117,34 +117,22 @@
             <th style="width: 3rem">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
-            <th pSortableColumn="id">Vehicle Group Id
-                <p-sortIcon field="id">
-                </p-sortIcon>
-            </th>
             <th pSortableColumn="title">Title
                 <p-sortIcon field="title">
                 </p-sortIcon>
             </th>
-            <th pSortableColumn="maxSpeed">Maximum Speed
-                <p-sortIcon field="maxSpeed">
-                </p-sortIcon>
-            </th>
-            <!-- <th pSortableColumn="ticketPrice">Ticket Price
-                <p-sortIcon field="ticketPrice">
-                </p-sortIcon>
-            </th> -->
-            <!-- <th pSortableColumn="duration">Duration
-                <p-sortIcon field="duration">
-                </p-sortIcon>
-            </th> -->
             <th pSortableColumn="seatingCapacity">Seating Capacity
                 <p-sortIcon field="seatingCapacity">
                 </p-sortIcon>
             </th>
-            <th pSortableColumn="drive_Mode">Driving Mode
-                <p-sortIcon field="drive_Mode">
+            <!-- <th pSortableColumn="maxSpeed">Max Speed
+                <p-sortIcon field="maxSpeed">
                 </p-sortIcon>
             </th>
+            <th pSortableColumn="drive_Mode">Drive Mode
+                <p-sortIcon field="drive_Mode">
+                </p-sortIcon>
+            </th> -->
             <th pSortableColumn="created_at">Date
                 <p-sortIcon field="created_at"></p-sortIcon>
             </th>
@@ -156,13 +144,10 @@
             <td>
                 <p-tableCheckbox [value]="vehicleType"></p-tableCheckbox>
             </td>
-            <td><span class="p-column-title">Vehicle Group Id</span> {{vehicleType.vehicle_Type_AutoId}}</td>
             <td><span class="p-column-title">Title</span> {{vehicleType.title}}</td>
-            <td><span class="p-column-title">Maximum Speed</span> {{vehicleType.maxSpeed}}</td>
-            <!-- <td><span class="p-column-title">Ticket Price</span> {{vehicleType.ticketPrice}}</td> -->
-            <!-- <td><span class="p-column-title">Duration</span> {{vehicleType.duration}}</td> -->
             <td><span class="p-column-title">Seating Capacity</span> {{vehicleType.seatingCapacity}}</td>
-            <td><span class="p-column-title">Driving Mode</span> {{vehicleType?.drive_Mode?.title}}</td>
+            <!-- <td><span class="p-column-title">Max Speed</span> {{vehicleType.maxSpeed}}</td>
+            <td><span class="p-column-title">Drive Mode</span> {{vehicleType?.drive_Mode?.title}}</td> -->
             <!-- <td><span class="p-column-title">Number</span> {{vehicleType.number}}</td>
             <td><span class="p-column-title">Active</span>
                 <button type="button" [ngClass]="setToggleClass(vehicleType.active)"
@@ -180,7 +165,7 @@
         <tr *ngIf="totalRecords == 0">
             <td colspan="7" class="text-center">
                 <div>
-                    No vehicle Group right now
+                    No vehicle group right now
                 </div>
             </td>
         </tr>
