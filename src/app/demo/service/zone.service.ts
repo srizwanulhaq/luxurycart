@@ -7,6 +7,7 @@ import { AllDropDowndao2 } from '../domain/Dao/Zone/AllDropDowndao2';
 import { EditZoneDao } from '../domain/Dao/Zone/EditZoneDao';
 import { NewZoneDao } from '../domain/Dao/Zone/NewZoneDao';
 import { ParkingZonesResponse, Parking_ZonesDto } from '../domain/Dto/Zone/Parking_ZonesDto';
+import { DriveModeDropDownResponse } from '../domain/Dao/Vehicle/VehicleTypedao';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,10 @@ import { ParkingZonesResponse, Parking_ZonesDto } from '../domain/Dto/Zone/Parki
 export class ZoneService {
 
     constructor(private http: HttpClient) { }
-
+    loadDropDown()
+    {
+      return this.http.get<DriveModeDropDownResponse>(`${environment.apiUrl}/api/v1/admin/vehicles/types/dropdowns/load-values`);
+    }
     allDropDownResult() {
         return this.http.get(`${environment.apiUrl}/api/v2/AdminParkingZone/dropdowns/load-values`)
             .toPromise()

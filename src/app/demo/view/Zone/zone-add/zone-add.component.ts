@@ -10,6 +10,7 @@ import { DefaultRideFareSetting, DefaultRideScrutinySettingsDto, NewZoneDao, Rid
 import { PackagediscountService } from 'src/app/demo/service/packagediscount.service';
 import { ZoneService } from 'src/app/demo/service/zone.service';
 import { ZoneMainComponent } from '../zone-main/zone-main.component';
+import { DriveModeDropDown } from 'src/app/demo/domain/Dao/Vehicle/VehicleTypedao';
 declare var google: any;
 
 @Component({
@@ -116,8 +117,10 @@ export class ZoneAddComponent implements OnInit {
     //this.setCurrentPosition();
     this.loadForm();
     this.loadDropdownCountry();
+    this.loadDropDown();
     this.setDefaultSpeed()
   }
+  driveModeDropDown:DriveModeDropDown[];
   @Output() eventChange = new EventEmitter<Event>();
   setDefaultSpeed(){
     this.itemsSpeedMode = [
@@ -136,6 +139,7 @@ export class ZoneAddComponent implements OnInit {
     this.buttonDisable = false;
     this.setOption();
     this.loadDropdownValues();
+    
     this.setCurrentPosition();
     this.setOptionForRides();
 
@@ -245,7 +249,15 @@ export class ZoneAddComponent implements OnInit {
     else
       this.decrementActiveIndex();
   }
-
+  loadDropDown()
+  {
+      debugger;
+      this.service.loadDropDown().subscribe(resp => {
+              if (resp.status) {
+                  this.driveModeDropDown = resp.data
+              }
+          })
+  }
   loadDropdownValues() {
     this.service.allDropDownResult().then(responseList => {
       this.lstZoneTypes = responseList.lstZoneTypes;
@@ -282,6 +294,7 @@ export class ZoneAddComponent implements OnInit {
       country_Id: ['', [Validators.required]],
       ride_scrutiny_setting: this._formBuilder.array([]),
       walletPackagesIds:[],
+      drive_Mode_Id: ['', [Validators.required]],
       setcurrentlat:[],
       setcurrentlong:[],
 

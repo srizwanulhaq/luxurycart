@@ -9,6 +9,7 @@ import { EditZoneDao, RideFareSetting, RideScrutinySettings, Zone_CoordinatesDao
 import { PackagediscountService } from 'src/app/demo/service/packagediscount.service';
 import { ZoneService } from 'src/app/demo/service/zone.service';
 import { ZoneMainComponent } from '../zone-main/zone-main.component';
+import { DriveModeDropDown } from 'src/app/demo/domain/Dao/Vehicle/VehicleTypedao';
 declare var google: any;
 @Component({
     selector: 'app-zone-edit',
@@ -84,6 +85,7 @@ export class ZoneEditComponent implements OnInit {
   lstScrutinySettings3: RideScrutinySettings[];
   lstScrutinySettings4: RideScrutinySettings[];
   lstScrutinySettings5: RideScrutinySettings[];
+  driveModeDropDown:DriveModeDropDown[];
     sequence1 = 1;
     sequence2 = 1;
     sequence3 = 1;
@@ -109,8 +111,17 @@ export class ZoneEditComponent implements OnInit {
         this.setCurrentPosition();
         this.loadDropdownCountry();
         this.setDefaultSpeed();
+        this.loadDropDown();
     }
-
+    loadDropDown()
+    {
+        debugger;
+        this.service.loadDropDown().subscribe(resp => {
+                if (resp.status) {
+                    this.driveModeDropDown = resp.data
+                }
+            })
+    }
     @Output() eventChange = new EventEmitter<Event>();
     setDefaultSpeed(){
         this.itemsSpeedMode = [
@@ -314,6 +325,7 @@ export class ZoneEditComponent implements OnInit {
             ride_scrutiny_setting4: this._formBuilder.array([]),
             ride_scrutiny_setting5: this._formBuilder.array([]),
             walletPackagesIds:[],
+            drive_Mode_Id: ['', [Validators.required]],
         });
         this.ride_fare_setting().push(this.newfare());
        

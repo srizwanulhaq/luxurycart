@@ -33,7 +33,7 @@ export class MenuSidebarService {
                     },
                 ]
             },
-            { label: 'Rent Request', icon: 'fa fa-taxi', routerLink: ['/rent-request/rent-request-main'] },
+            // { label: 'Rent Request', icon: 'fa fa-taxi', routerLink: ['/rent-request/rent-request-main'] },
             { label: 'Wallet Packages', icon: 'fa fa-gift', routerLink: ['/wallet-packages/wallet-package-main'] },
             { label: 'Promotions', icon: 'fa fa-ticket', routerLink: ['/promotions/promotion-main'] },
             { label: 'Special Offers', icon: 'fa fa-gift', routerLink: ['/special-offer/special-offer-main'] },
@@ -70,11 +70,28 @@ export class MenuSidebarService {
                   
                 ]
             },
+            {
+                label: 'Country', icon: 'pi pi-flag-fill', routerLink: ['/country/country-main'],
+                items: [{label: 'Country', icon: 'pi pi-flag-fill', routerLink: ['/country/country-main']},
+                    {
+                        label: 'City', icon: 'pi pi-sitemap', routerLink: ['/city/city-main'] ,
+                        items: [{label: 'City', icon: 'pi pi-sitemap', routerLink: ['/city/city-main']},
+                            {
+                            label: 'Projects', icon: 'pi pi-sitemap', routerLink: ['/projects/projects-main'] ,
+                            items: [{label: 'Projects', icon: 'pi pi-sitemap', routerLink: ['/projects/projects-main']},
+                            {
+                            label: 'Projects', icon: 'pi pi-sitemap', routerLink: ['/projects/projects-main'] 
+                            },]
+                            },]
+                    }
+                  
+                ]
+            },
             { label: 'Country', icon: 'pi pi-flag-fill', routerLink: ['/country/country-main'] },
             { label: 'City', icon: 'pi pi-sitemap', routerLink: ['/city/city-main'] },
             { label: 'Currency', icon: 'pi pi-money-bill', routerLink: ['/currency/currency-main'] },
             { label: 'Vehicle Companies', icon: 'pi pi-sitemap', routerLink: ['/vehicle-company/vehicle-company-main'] },
-            { label: 'Vehicle Types', icon: 'pi pi-sitemap', routerLink: ['/vehicle-type/vehicle-type-main'] },
+            { label: 'Vehicle Group', icon: 'pi pi-sitemap', routerLink: ['/vehicle-type/vehicle-type-main'] },
             { label: 'Ride Scrutiny Templates', icon: 'pi pi-sitemap', routerLink: ['/ride-scrutiny-templates/ride-scrutiny-templates-main'] },
           
             { label: 'Vehicle Head Count', icon: 'pi pi-sitemap', routerLink: ['/vehicle-head-count'] },
@@ -95,9 +112,9 @@ export class MenuSidebarService {
             //         },
             //     ]
             // },
-            { label: 'Booths', icon: 'pi pi-sitemap', routerLink: ['/booths/booth-main'] },
-            { label: 'Concierge Request', icon: 'pi pi-clone', routerLink: ['/concierge-request/concierge-request-main'] },
-            { label: 'Concierge Package', icon: 'pi pi-sitemap', routerLink: ['/concierge-package/concierge-package-main'] },
+            // { label: 'Booths', icon: 'pi pi-sitemap', routerLink: ['/booths/booth-main'] },
+            // { label: 'Concierge Request', icon: 'pi pi-clone', routerLink: ['/concierge-request/concierge-request-main'] },
+            // { label: 'Concierge Package', icon: 'pi pi-sitemap', routerLink: ['/concierge-package/concierge-package-main'] },
            
            
             

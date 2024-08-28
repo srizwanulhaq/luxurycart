@@ -65,6 +65,15 @@
                             <p-multiSelect id="zone-mul" [options]="lstWalletPackages" [(ngModel)]="selectedLstPackages"  optionLabel="name"  formControlName="walletPackagesIds" defaultLabel="Select Wallet Package" selectedItemsLabel="{0} items selected" ></p-multiSelect>
                     </div>
                 </div>
+                <div class="formgrid grid">
+                    <div class="field col-6">
+                    <label for="title">Drive Mode <span class="star-sign">*</span></label>
+                    <p-dropdown id="driveMode" [options]="driveModeDropDown" placeholder="Select Mode"
+                                     formControlName="drive_Mode_Id">
+                                </p-dropdown>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted">Drive Mode is required.</small>
+                </div>
+            </div>
             </div>
 
             <div *ngIf="activeIndex == 1">

@@ -2,12 +2,12 @@
     <div class="left-box">
         <h4>
             <span>
-                Vehicle Types
+                Vehicle Group
             </span>
         </h4>
     </div>
     <div class="right-box">
-        <button pButton pRipple label="Add Vehicle Type" class="p-button-success mr-2 theme-btn"
+        <button pButton pRipple label="Add Vehicle Group" class="p-button-success mr-2 theme-btn"
             (click)="formData()"></button>
     </div>
 </div>
@@ -125,14 +125,14 @@
                 <p-sortIcon field="seatingCapacity">
                 </p-sortIcon>
             </th>
-            <th pSortableColumn="maxSpeed">Max Speed
+            <!-- <th pSortableColumn="maxSpeed">Max Speed
                 <p-sortIcon field="maxSpeed">
                 </p-sortIcon>
             </th>
             <th pSortableColumn="drive_Mode">Drive Mode
                 <p-sortIcon field="drive_Mode">
                 </p-sortIcon>
-            </th>
+            </th> -->
             <th pSortableColumn="created_at">Date
                 <p-sortIcon field="created_at"></p-sortIcon>
             </th>
@@ -146,8 +146,8 @@
             </td>
             <td><span class="p-column-title">Title</span> {{vehicleType.title}}</td>
             <td><span class="p-column-title">Seating Capacity</span> {{vehicleType.seatingCapacity}}</td>
-            <td><span class="p-column-title">Max Speed</span> {{vehicleType.maxSpeed}}</td>
-            <td><span class="p-column-title">Drive Mode</span> {{vehicleType?.drive_Mode?.title}}</td>
+            <!-- <td><span class="p-column-title">Max Speed</span> {{vehicleType.maxSpeed}}</td>
+            <td><span class="p-column-title">Drive Mode</span> {{vehicleType?.drive_Mode?.title}}</td> -->
             <!-- <td><span class="p-column-title">Number</span> {{vehicleType.number}}</td>
             <td><span class="p-column-title">Active</span>
                 <button type="button" [ngClass]="setToggleClass(vehicleType.active)"
@@ -165,7 +165,7 @@
         <tr *ngIf="totalRecords == 0">
             <td colspan="7" class="text-center">
                 <div>
-                    No vehicle types right now
+                    No vehicle group right now
                 </div>
             </td>
         </tr>

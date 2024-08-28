@@ -13,7 +13,6 @@ import { MenuSidebarService } from "./menu.sidebar.service";
     private currentUser;
     
     constructor(private authService: AuthenticationService, menuItems: MenuSidebarService) {
-      
       this.currentUser = authService.currentUserValue;
       this.menus = menuItems.menus;
       this.items$ = this.getSidebarItems();

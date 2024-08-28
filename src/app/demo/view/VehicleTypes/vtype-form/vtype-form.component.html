@@ -1,6 +1,6 @@
 <p-toast></p-toast>
 <form [formGroup]="dataForm" (ngSubmit)="onSubmitData()">
-    <p-dialog id="ride-model" [(visible)]="showModal" [style]="{width: '550px'}" header="Vehicle Type" [modal]="true"
+    <p-dialog id="ride-model" [(visible)]="showModal" [style]="{width: '550px'}" header="Vehicle Group" [modal]="true"
         class="p-fluid" [dismissableMask]="true" (onHide)="resetAll()">
         <ng-template pTemplate="content">
             <div class="formgrid grid">
@@ -18,19 +18,19 @@
                 </div>
             </div>
             <div class="formgrid grid">
-                <div class="field col">
+                <!-- <div class="field col">
                     <label for="seatingCapacity">Max Speed <span class="star-sign">*</span></label>
                     <input type="number" pInputText id="seatingCapacity" formControlName="maxSpeed" required autofocus
                         [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
                     <small class="ng-dirty ng-invalid" *ngIf="submitted">Max Speed is required.</small>
-                </div>
-                <div class="field col">
+                </div> -->
+                <!-- <div class="field col">
                     <label for="title">Drive Mode <span class="star-sign">*</span></label>
                     <p-dropdown id="driveMode" [options]="driveModeDropDown" placeholder="Select Mode"
                                      formControlName="drive_Mode_Id">
                                 </p-dropdown>
                     <small class="ng-dirty ng-invalid" *ngIf="submitted">Drive Mode is required.</small>
-                </div>
+                </div> -->
                 
             </div>
         </ng-template>

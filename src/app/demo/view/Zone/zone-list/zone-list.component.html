@@ -16,7 +16,7 @@
                             <p-tabView (onChange)="statusChanged($event)" id="status-tab">
                                 <p-tabPanel header="All">
                                 </p-tabPanel>
-                                <p-tabPanel header="Active">
+                                <p-tabPanel header="Active" [selected]="true">
                                 </p-tabPanel>
                                 <p-tabPanel header="Deactive">
                                 </p-tabPanel>
@@ -224,7 +224,7 @@
                 <td class="sm-jus-end">
                     <button title="More Details" pButton pRipple
                         class="p-button-rounded p-button-success theme-btn ac-btn" href="#"
-                        (click)="main.onBottomPanelButtonClick($event, zone)">
+                        (click)="main.onEditPanelButtonClick($event, zone)">
                         <img src="../../../../../assets/layout/images/more-detail.png" alt="" width="18">
                     </button>
                 </td>
