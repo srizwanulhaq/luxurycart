@@ -55,21 +55,22 @@ export class VehicleEditComponent implements OnInit {
     if (!!change['editVehicleData'].currentValue) {
       
         const temp = change['editVehicleData'].currentValue;
+        console.log(temp)
         this.lstIOT.push({label: temp.iot.imei, value:  temp.iot.id});
         const group: FormGroup = this.vehicleEditForm as FormGroup;
         group.controls['id'].setValue(temp.id || "");
         group.controls['number'].setValue(temp.number || "");
         //group.controls['vehicleStatusId'].setValue(temp.vehicleStatus.id || "");
         //group.controls['vehicleCompanyId'].setValue(temp.vehicleCompany.id || "" );
-        group.controls['vehicleTypeId'].setValue(temp.vehicleTypes.id || "" );
+        group.controls['vehicleTypeId'].setValue(temp?.vehicleTypes?.id || "" );
         group.controls['serial_No'].setValue(temp.serial_No || "" );
-        group.controls['project_Id'].setValue(temp?.project?.id || "" );
+        group.controls['project_Id'].setValue(temp?.project?.id);
         //group.controls['vehicleModelId'].setValue(temp.vehicleModel.id || "" );
         group.controls['IOT_Id'].setValue(temp?.iot.id || "" );
         //group.controls['vehicleBattery'].setValue(temp.vehicleBattery || 0 );
         //group.controls['subAccountId'].setValue(temp.subAccount.id || "" );
         
-        
+        console.log(this.vehicleEditForm.controls["vehicleTypeId"].value)
     }
   }
   
@@ -97,8 +98,8 @@ export class VehicleEditComponent implements OnInit {
       IOT_Id: ["", [Validators.required]],
       //subAccountId: ["", [Validators.required]],
       //vehicleBattery: ["", [Validators.required,Validators.max(100), Validators.min(0)]],
-      serial_No: ["", [Validators.required, Validators.max(17), Validators.min(15)]],
-      project_Id:[""],
+      serial_No: ["", [Validators.required, Validators.maxLength(17), Validators.minLength(15)]],
+      project_Id:[],
     });
   }
 
@@ -143,7 +144,7 @@ export class VehicleEditComponent implements OnInit {
       this.btnloading = false;
       return;
     }
-   
+   //console.log(this.vehicleEditForm.value)
     this.updateVehicle(this.vehicleEditForm.value);
   }
 
