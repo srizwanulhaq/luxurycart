@@ -11,12 +11,27 @@ export class MenuSidebarService {
             { label: 'Dashboard', icon: 'fa fa-home', routerLink: ['/'] },
             { label: 'Rides', icon: 'fa fa-motorcycle', routerLink: ['/rides/ride-main'] },
             { label: 'Vehicles', icon: 'fa fa-taxi', routerLink: ['/vehicles/vehicle-main'] },
-            { label: 'Manage IoT', icon: 'fa fa-list', routerLink: ['/iot/manage-iot-main'] },
-            { label: 'Zones', icon: 'pi pi-map', routerLink: ['/zones/zone-main'] },
+            //{ label: 'Zones', icon: 'pi pi-map', routerLink: ['/zones/zone-main'] },
+            { label: 'Country', icon: 'pi pi-flag-fill', routerLink: ['/country/country-main'],
+                items: 
+                [
+                    {label: 'Country', icon: 'pi pi-flag-fill', routerLink: ['/country/country-main']},
+                    { label: 'City', icon: 'pi pi-sitemap', routerLink: ['/city/city-main'] },
+                    { label: 'Projects', icon: 'pi pi-sitemap', routerLink: ['/projects/projects-main'] },
+                    
+                ]
+             },
             { label: 'Customers', icon: 'fa fa-users', routerLink: ['customers/customer-main'] },
             { label: 'Transactions', icon: 'pi pi-wallet', routerLink: ['transactions/transaction-main'] },
-            { label: 'Vehicle Types', icon: 'pi pi-sitemap', routerLink: ['/vehicle-type/vehicle-type-main'] },
-            { label: 'Projects', icon: 'pi pi-sitemap', routerLink: ['/projects/projects-main'] },
+            { label: 'Vehicle Types', icon: 'pi pi-sitemap', routerLink: ['/vehicle-type/vehicle-type-main'] ,
+                items:
+                [
+                    { label: 'Vehicle Types', icon: 'pi pi-sitemap', routerLink: ['/vehicle-type/vehicle-type-main']},
+                    { label: 'Manage IoT', icon: 'fa fa-list', routerLink: ['/iot/manage-iot-main'] },
+                    { label: 'Zones', icon: 'pi pi-map', routerLink: ['/zones/zone-main'] },
+                ]
+            },
+            //{ label: 'Projects', icon: 'pi pi-sitemap', routerLink: ['/projects/projects-main'] },
             { label: 'Ticket Type', icon: 'pi pi-ticket', routerLink: ['/ticket-type/ticket-type-main'] },
             { label: 'LC Tour Packages', icon: 'fa fa-gift', routerLink: ['/lc-tour-package/lc-tour-package-main'] },
             { label: 'Maps', icon: 'pi pi-sitemap', routerLink: ['/map/map-main'] },
@@ -74,8 +89,8 @@ export class MenuSidebarService {
                   
                 ]
             },
-            { label: 'Country', icon: 'pi pi-flag-fill', routerLink: ['/country/country-main'] },
-            { label: 'City', icon: 'pi pi-sitemap', routerLink: ['/city/city-main'] },
+            
+            //{ label: 'City', icon: 'pi pi-sitemap', routerLink: ['/city/city-main'] },
             { label: 'Currency', icon: 'pi pi-money-bill', routerLink: ['/currency/currency-main'] },
             { label: 'Vehicle Companies', icon: 'pi pi-sitemap', routerLink: ['/vehicle-company/vehicle-company-main'] },
             { label: 'Ride Scrutiny Templates', icon: 'pi pi-sitemap', routerLink: ['/ride-scrutiny-templates/ride-scrutiny-templates-main'] },
