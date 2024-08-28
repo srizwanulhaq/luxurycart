@@ -16,7 +16,10 @@ export class Citydao2{
     value:string;
     country_Id:string;
 }
-
+export class ProjectStatus{
+    label:string;
+    value:string;
+}
 export class CityCountryDropdown{
     countrylist: IModeldao[];
     citylist:Citydao2[];

@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { NamedObservableService } from 'src/app/demo/service/named-observable.service';
 import { ProjectEventService } from 'src/app/demo/service/project-event.service';
-import * as moment from 'moment';
+//import * as moment from 'moment';
 
 @Component({
   selector: 'app-event-edit',
@@ -81,7 +81,7 @@ export class EventEditComponent implements OnInit {
         var payload = this.saveProjecteventForm.value;;
         payload.Project_Id = payload.Project_Id.value;
         //payload.Ticket_Used = payload.Ticket_Used==null ? 0 : payload.Ticket_Used;
-        payload.Time = moment(payload.Time).format('YYYY-MM-DDTHH:mm:ss') //new Date(payload.Time); 
+       // payload.Time = moment(payload.Time).format('YYYY-MM-DDTHH:mm:ss') //new Date(payload.Time); 
         this.btnloading=true;
         this.service.updateProjectEvent(this.saveProjecteventForm.value).subscribe(res=>{
           this.observer.register("callProjectEventList");

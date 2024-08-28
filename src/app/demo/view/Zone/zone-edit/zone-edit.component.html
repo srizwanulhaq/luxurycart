@@ -49,7 +49,7 @@
                         <input type="number" pInputText id="defaultSpeed" formControlName="default_Speed" />
                         <div *ngIf="submitted" class="invalid-feedback">
                             <small style="color:red;" class="ng-dirty ng-invalid"
-                                *ngIf="zoneEditForm.controls.default_Speed.errors">Default Speed must be less the Max Speed of selected Vehicle Type</small>
+                                *ngIf="zoneEditForm.controls.default_Speed.errors">Default Speed must be less the Max Speed of selected Vehicle Group</small>
                         </div>
                     </div>
                 </div>
@@ -61,12 +61,21 @@
                     </div>
     
                     <div class="field col">
-                        <label for="account">Vehicle Types<span class="star-sign">*</span></label>
-                        <p-multiSelect id="vehicletype" [options]="vehicleType" filter="true" formControlName="vehicletypeId" placeholder="Select Vehicle Types">
+                        <label for="account">Vehicle Group<span class="star-sign">*</span></label>
+                        <p-multiSelect id="vehicletype" [options]="vehicleType" filter="true" formControlName="vehicletypeId" placeholder="Select Vehicle Group">
                         </p-multiSelect>
                     </div>
                     
                 </div>
+                <div class="formgrid grid">
+                    <div class="field col-6">
+                    <label for="title">Drive Mode <span class="star-sign">*</span></label>
+                    <p-dropdown id="driveMode" [options]="driveModeDropDown" placeholder="Select Mode"
+                                     formControlName="drive_Mode_Id">
+                                </p-dropdown>
+                    <small style="color:red;"  class="ng-dirty ng-invalid" *ngIf="submitted">Drive Mode is required!</small>
+                </div>
+            </div>
             </div>
 
             <!-- <div *ngIf="activeIndex == 1">

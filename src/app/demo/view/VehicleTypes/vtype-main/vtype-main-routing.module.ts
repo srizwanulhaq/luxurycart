@@ -17,7 +17,7 @@ const routes: Routes = [
                 path: 'vehicle-type-main',
                 component: VehicleTypeMainComponent,
                 data: {
-                    title: 'Vehicle Type'
+                    title: 'Vehicle Group'
                 }
             },
         ]

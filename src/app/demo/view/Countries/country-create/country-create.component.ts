@@ -42,6 +42,7 @@ export class CountryCreateComponent implements OnInit {
   loadForm() {
     this.countryForm = this._formBuilder.group({
         name: ["", [Validators.required]],
+        arabic_name: ["", [Validators.required]],
         sub_region: ["", [Validators.required]],
         time_Zones: ["", [Validators.required]],
         translations: ["", [Validators.required]],

@@ -24,6 +24,7 @@ export interface EditZoneDao{
     ride_Scrutiny_Setting4: RideScrutinySettings[];
     ride_Scrutiny_Setting5: RideScrutinySettings[];
     city_Id:string;
+    drive_Mode_Id:string;
 }
 
 export class Zone_Coordinates {

@@ -9,14 +9,15 @@ import { UserService } from 'src/app/demo/service/user.service';
 import { DynamicDataEnum } from 'src/app/demo/domain/Enums/DynamicDataEnums';
 import { first } from 'rxjs/operators';
 import { Projects } from 'src/app/demo/domain/Dao/Projects/projects';
-import { CityCountryDropdown, Citydao2 } from 'src/app/demo/domain/Dao/Zone/AllDropDowndao2';
+import { CityCountryDropdown, Citydao2, ProjectStatus } from 'src/app/demo/domain/Dao/Zone/AllDropDowndao2';
 import { VehicleTypeDropDown } from 'src/app/demo/domain/Dao/Vehicle/VehicleTypedao';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-project-edit',
   templateUrl: './project-edit.component.html',
   styleUrls: ['./project-edit.component.scss'],
-  providers:[MessageService]
+  providers:[MessageService,DatePipe]
 })
 export class ProjectEditComponent implements OnInit {
 
@@ -30,13 +31,17 @@ export class ProjectEditComponent implements OnInit {
   selectedZones:SelectItem[];
   vehicleType:VehicleTypeDropDown[];
   lstcities:Citydao2[];
+  Status:ProjectStatus[];
   dropdown:CityCountryDropdown;
+  setStartDate: Date | null = null;
+  setEndDate: Date | null = null;
+  dateError: boolean = false;
   constructor(public main: ProjectMainComponent,
     private _Userservice: UserService,
     private _formBuilder: FormBuilder,
     private service: ProjectsService,
     private messageService: MessageService,
-  private cdref:ChangeDetectorRef) { }
+  private cdref:ChangeDetectorRef,private datepipe: DatePipe) { }
 
   ngOnInit(): void {
     this.loadDropDown();
@@ -51,10 +56,34 @@ export class ProjectEditComponent implements OnInit {
         artitle: ["", [Validators.required]],
         city_Id:["",[Validators.required]],
         country_Id:["",[Validators.required]],
+        end_Date: ["",[Validators.required]],
+      start_Date: ["",[Validators.required]],
+      status: ["",[Validators.required]],
         vehicletypeId:[[]],
-    });  
+    });   
+     this.Status = [
+      { label: "Active", value: "Active" },
+      { label: "Completed", value: "Completed" },
+      { label: "On Hold", value: "On Hold" },
+      { label: "Canceled", value: "Canceled" }
+  ];
   }
-  
+  onStartDateSelect(event: any) {
+    this.setStartDate = event;
+    this.validateDates();
+  }
+
+  onEndDateSelect(event: any) {
+    this.setEndDate = event;
+    this.validateDates();
+  }
+  validateDates() {
+    if (this.setEndDate && this.setStartDate && this.setEndDate < this.setStartDate) {
+      this.dateError = true;  // Show error message
+    } else {
+      this.dateError = false; // Hide error message
+    }
+  }
   loadDropDown() {
     
     this.service.getCityCountryDropdown().then(res => {
@@ -70,7 +99,7 @@ export class ProjectEditComponent implements OnInit {
     this.lstcities  = this.dropdown.citylist.filter(x=>x.country_Id==event.value);
   }
   ngOnChanges(change: SimpleChange) {
-    
+    debugger;
     if (!!change['editProjectData'].currentValue) {
       
         const temp = change['editProjectData'].currentValue
@@ -81,6 +110,11 @@ export class ProjectEditComponent implements OnInit {
         group.controls['artitle'].setValue(temp.arTitle || "");
         group.controls['id'].setValue(temp.id || "");
         group.controls['city_Id'].setValue(temp.city_Id || "");
+        this.setStartDate=new Date(temp.start_Date|| "");
+        this.setEndDate=new Date(temp.end_Date|| "");
+        group.controls['start_Date'].setValue(new Date(temp.start_Date) || "");
+        group.controls['end_Date'].setValue(new Date(temp.end_Date) || "");
+        group.controls['status'].setValue(temp.status || "");
         group.controls['country_Id'].setValue(temp.city.country_Id || "");
         var vehIds=[];
         temp.lstVehicleTypes.forEach(element => {
@@ -102,6 +136,7 @@ export class ProjectEditComponent implements OnInit {
   }
   Updateproject(project) 
   {
+    debugger;
     this.service.updateProjects(project).pipe(first())
         .subscribe({
             next: (response) => {
@@ -121,7 +156,9 @@ export class ProjectEditComponent implements OnInit {
             },
         });
   }
-
+  setDateFormat(date: Date): string {
+    return this.datepipe.transform(date, "yyyy-MM-dd HH:mm:00")
+}
   resetForm(){
     this.ProjectUpdateForm.reset();
     this.btnLoading = false;

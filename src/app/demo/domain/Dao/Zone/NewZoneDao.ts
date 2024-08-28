@@ -16,6 +16,7 @@ export interface NewZoneDao{
     ride_Fare_Setting:RideFareSetting[];
     city_Id:string;
     country_Id:string;
+    drive_Mode_Id:string;
     ride_Scrutiny_Setting: RideScrutinySettingsDto[];
     walletPackagesIds:string[];
 }
