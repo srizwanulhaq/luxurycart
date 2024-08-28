@@ -60,7 +60,7 @@ export class VehicleCreateComponent implements OnInit {
             IOT_Id: ["", [Validators.required]],
             //subAccountId: ["", [Validators.required]],
             //vehicleBattery: ["", [Validators.required, Validators.max(100), Validators.min(0)]],
-            serial_No: ["", [Validators.required, Validators.max(17), Validators.min(15)]],
+            serial_No: [, [Validators.required, Validators.maxLength(17), Validators.minLength(15)]],
             project_Id:[""],
         });
     }
