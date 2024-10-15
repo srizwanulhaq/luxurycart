@@ -70,22 +70,22 @@
                         <h6> {{details.projects.title}} ({{details.projects.project_AutoId }}) </h6>
                     </div> -->
 
-                    <div class="shipment-settings card-main">
+                    <!-- <div class="shipment-settings card-main">
 
                         <h6> <span>Vehicle Group</span> </h6>
                         <img src="assets/layout/images/model.png" alt="" width="40">
                         <h6 *ngFor="let item of details.vehicle_Types">
                             {{ item.title }}
                         </h6>
-                    </div>
-                    <div class="shipment-settings card-main">
+                    </div> -->
+                    <!-- <div class="shipment-settings card-main">
 
                         <h6> <span>Maximum Speed</span> </h6>
                         <img src="assets/layout/images/model.png" alt="" width="40">
                         <h6>
                             {{ details?.default_Speed }}
                         </h6>
-                    </div>
+                    </div> -->
                     <div class="shipment-settings card-main">
 
                         <h6> <span>Create at</span> </h6>
@@ -169,6 +169,27 @@
                 </agm-map>
             </div>
 
+        </p-tabPanel>
+        <p-tabPanel header="Marks">
+            <div class="agm-container">
+                <agm-map [zoom]="10"
+                         [latitude]="details.center_Latitude"
+                         [longitude]="details.center_Longitude"
+                         [mapTypeControl]="true"
+                         [draggable]="true"> <!-- Add mapClick event -->
+                         
+                    <!-- Add markers dynamically to the map -->
+                    <agm-marker *ngFor="let marker of details.parking_zone_marks; let i = index"
+                                [latitude]="marker.lat"
+                                [longitude]="marker.lng"
+                                [label]="'Location ' + (i + 1)"> <!-- Label the marker with a number -->
+                    </agm-marker>
+            
+                    <!-- Polygon connecting the marker coordinates -->
+                    <agm-polygon #polygon [paths]="details.parking_zone_marks" [strokeColor]="'green'" [visible]="true">
+                    </agm-polygon>
+                </agm-map>
+            </div>
         </p-tabPanel>
         <!-- <p-tabPanel header="Ride Scrutiny Setting"
             *ngIf="details.zone_Type != null ? details.zone_Type.number != 3 : true ">

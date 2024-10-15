@@ -7,9 +7,20 @@
             <div class="formgrid grid">
                 <div class="field col">
                     <label for="email">Email <span class="star-sign">*</span></label>
-                    <input type="text" pInputText id="email" formControlName="email" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted">Email is required.</small>
-                </div>
+                    <input 
+                        type="text" 
+                        pInputText 
+                        id="email" 
+                        formControlName="email" 
+                        required 
+                        autofocus 
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && emailField.invalid}" 
+                    />
+                    
+                    <!-- Show an error if the email field is empty or format is invalid -->
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && emailField.errors?.required">Email is required.</small>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && emailField.errors?.email">Invalid email format.</small>
+                </div>  
                 <div class="field col" id="user-add-pass">
                     <label for="password">Password <span class="star-sign">*</span></label>
                     <p-password formControlName="password" id="password" name="password" placeholder="**********" [toggleMask]="true"></p-password>

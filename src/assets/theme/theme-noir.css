@@ -1140,7 +1140,7 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
   border-color: #2196F3;
 }
 .p-multiselect .p-multiselect-label {
-  padding: 0.5rem 0.5rem;
+  padding: 0.9rem 0.5rem;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
 .p-multiselect .p-multiselect-label.p-placeholder {

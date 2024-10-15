@@ -57,14 +57,14 @@
                                 *ngIf="zoneForm.controls.arTitle.errors?.required">Please required Ar Title!</small>
                         </div> -->
                     </div>
-                    <div class="field col">
+                    <!-- <div class="field col">
                         <label for="account">Maximum Speed<span class="star-sign">*</span></label>
                         <input type="number" pInputText id="defaultSpeed" formControlName="default_Speed" />
                         <div *ngIf="submitted" class="invalid-feedback">
                             <small style="color:red;" class="ng-dirty ng-invalid"
                                 *ngIf="zoneForm.controls.default_Speed.errors">Default Speed must be less the Max Speed of selected Vehicle Group</small>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="formgrid grid">
                     <div class="field col">
@@ -73,14 +73,14 @@
                         </p-dropdown>
                     </div>
     
-                    <div class="field col">
+                    <!-- <div class="field col">
                         <label for="account">Vehicle Group<span class="star-sign">*</span></label>
                         <p-multiSelect id="vehicletype" [options]="vehicleType" filter="true" formControlName="vehicletypeId" placeholder="Select Vehicle Group">
                         </p-multiSelect>
-                    </div>
+                    </div> -->
                     
                 </div>
-                <div class="formgrid grid">
+                <!-- <div class="formgrid grid">
                     <div class="field col-6">
                     <label for="title">Drive Mode <span class="star-sign">*</span></label>
                     <p-dropdown id="driveMode" [options]="driveModeDropDown" placeholder="Select Mode"
@@ -88,7 +88,7 @@
                                 </p-dropdown>
                     <small style="color:red;"  class="ng-dirty ng-invalid" *ngIf="submitted">Drive Mode is required!</small>
                 </div>
-            </div>
+            </div> -->
             </div>
 
             
@@ -122,17 +122,48 @@
                     </div>
                 </div>
             </div>
-            
+
+            <div *ngIf="activeIndex == 2">
+            <div class="agm-container mt-4 mb-4">
+               
+                <div class="agm-container">
+                    <agm-map [zoom]="10"
+                             [latitude]="setcurrentlat"
+                             [longitude]="setcurrentlong"
+                             [mapTypeControl]="true"
+                             [draggable]="true"
+                             (mapClick)="onMapClick($event)"> <!-- Add mapClick event -->
+                             
+                        <!-- Add markers dynamically to the map -->
+                        <agm-marker *ngFor="let marker of markerPin; let i = index"
+                                    [latitude]="marker.lat"
+                                    [longitude]="marker.lng"
+                                    [label]="'Location ' + (i + 1)" (markerClick)="removeMarker(i)"> <!-- Label the marker with a number -->
+                        </agm-marker>
+                
+                        <!-- Polygon connecting the marker coordinates -->
+                        <agm-polygon #polygon [paths]="markerPin" [strokeColor]="'green'" [visible]="true">
+                        </agm-polygon>
+                    </agm-map>
+                </div>
+                
+        
+                <div *ngIf="submitted" class="invalid-feedback">
+                    <small style="color:red;" class="ng-dirty ng-invalid"
+                        *ngIf="zoneForm.controls.zone_Coordinates.length == 0">Please required zone points!</small>
+                </div>
+            </div>
+        </div>
 
             <div class="grid grid-nogutter justify-content-end mt-3">
                 <p-button id="step-btn" class="theme-btn"label="Back"
-                    *ngIf="activeIndex != 0" (click)="prevPage(redzone)"></p-button>
+                    *ngIf="activeIndex != 0" (click)="prevPage(activeIndex)"></p-button>
                 <p-button id="step-btn" [ngClass]="{'dnone': buttonDisable}" class="theme-btn ml-1-"
-                     label="Next" *ngIf="activeIndex ==0"
-                    (click)="nextPage(redzone)" iconPos="right"></p-button>
+                     label="Next" *ngIf="activeIndex !=2"
+                    (click)="nextPage(activeIndex)" iconPos="right"></p-button>
 
 
-                <button pRipple label="Submit" *ngIf="activeIndex == 1" [disabled]="!zoneForm.valid" icon="pi pi-check"
+                <button pRipple label="Submit" *ngIf="activeIndex == 2" icon="pi pi-check"
                     class="theme-btn ml-1">
                     <p-progressSpinner *ngIf="btnloading" [style]="{width: '25px', height: '25px'}"
                         styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"

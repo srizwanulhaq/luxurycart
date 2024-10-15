@@ -53,7 +53,7 @@ export class UserAddComponent implements OnInit {
  
   loadForm() {
     this.userForm = this._formBuilder.group({
-      email: ["", [Validators.required]],
+      email: ["", [Validators.required,Validators.email]],
       password: ["", [Validators.required]],
       roleId: ["", [Validators.required]],
       subAccountId: ["", [Validators.required]],

@@ -86,10 +86,12 @@ export class ZoneAddComponent implements OnInit {
   weeks: string[] = [
     "Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"
   ]
+  markerPin: { lat: number, lng: number }[] = [];
   validatedays:string;
   vehicleType:VehicleTypeDropDown[];
   project:ProjectDropDown[];
   lstWalletPackageIds:string[];
+  mappedCoordinates: { lat: number, lng: number, sequence:number }[] = [];
   markers: marker[] = [
     {
       lat: 0,
@@ -152,6 +154,9 @@ export class ZoneAddComponent implements OnInit {
     },
     {
       label: 'Draw Zone',
+    },
+    {
+      label: 'Add Point Zone',
     }
     ];
 
@@ -176,11 +181,17 @@ export class ZoneAddComponent implements OnInit {
   //   }
   // }
   nextPage(e) {
-    this.submitted = true;
-    if(this.zoneForm.controls.title.value && this.zoneForm.controls.projectId && this.zoneForm.controls.vehicletypeId)
+    debugger;
+    this.submitted = false;
+    if(this.zoneForm.controls.title.value && this.zoneForm.controls.projectId && this.zoneForm.controls.vehicletypeId && this.activeIndex==0)
     {
       this.handleActiveIndex();
+    }else if(this.zoneForm.value.zone_Coordinates.length == 0 && this.activeIndex == 1) {
+      this.submitted = true;
+    }else if(this.zoneForm.value.zone_Coordinates.length > 0 && this.activeIndex == 1) {
+      this.handleActiveIndex();
     }
+    //this.activeIndex = this.activeIndex+1;
     // if (this.zoneForm.value.title  &&
     //   this.zoneForm.value.zone_Type_Id && this.zoneForm.value.city_Id && this.zoneForm.value.country_Id) {
 
@@ -196,11 +207,9 @@ export class ZoneAddComponent implements OnInit {
   }
 
   handleActiveIndex() {
-    switch (this.activeIndex) {
-      case 0:
         this.incrementActiveIndex();
         this.submitted = false;
-        break;
+
       // case 1:
       //   if(this.zoneForm.value.title)
       //   {
@@ -218,7 +227,7 @@ export class ZoneAddComponent implements OnInit {
       //   this.zoneFare == undefined ? this.incrementActiveIndex() : this.zoneFare.length >= 0 ? this.incrementActiveIndex() : true;
       //   this.submitted = false;
       //   break;
-    }
+    
   }
   prevPage(e) {
     // if (e === 2) {
@@ -287,6 +296,7 @@ export class ZoneAddComponent implements OnInit {
       setcurrentlat:[],
       setcurrentlong:[],
       drive_Mode_Id: ['', [Validators.required]],
+      zone_Marks: this._formBuilder.array([]),
 
     });
   }
@@ -339,14 +349,20 @@ export class ZoneAddComponent implements OnInit {
 
 
   onSubmitForm() {
-
+debugger;
     this.submitted = true;
+    this.zoneForm.value.zone_Marks = this.markerPin;
+    if(this.markerPin.length > 0){
     console.log(this.zoneForm.value)
     this.addNewZone(this.zoneForm.value)
-
+    }else{
+        this.submitted=true;
+    }
   }
 
   addNewZone(zone: NewZoneDao) {
+
+    debugger;
     this.service.saveZone(zone).pipe(first())
       .subscribe({
         next: (response) => {
@@ -580,9 +596,15 @@ export class ZoneAddComponent implements OnInit {
       this.messageService.add({ severity: 'success', summary: 'Successful', detail: '', life: 3000 });
     } else 
       this.messageService.add({ severity: 'warning', summary: 'Failed', detail:'Wrong polygone', life: 3000 });
-    
+    debugger;
     this.zoneCordinates = lstzoneCoordinates;
     this.zoneForm.value.zone_Coordinates = this.zoneCordinates;
+    this.mappedCoordinates = this.zoneForm.value.zone_Coordinates.map(coord => ({
+      lat: coord.latitude,
+      lng: coord.longitude,
+      sequence:coord.sequence
+
+    }));
     this.zoneForm.value.center_Latitude = parseFloat(this.latlng.toString().replace("(", "").replace(")", "").split(",")[0]);
     this.zoneForm.value.center_Longitude = parseFloat(this.latlng.toString().replace("(", "").replace(")", "").split(",")[1].replace(" ", ""));
  
@@ -716,7 +738,17 @@ export class ZoneAddComponent implements OnInit {
   speedMode(event) {
     this.defaultSpeed = event.value
 }
-
+onMapClick(event: any): void {
+  debugger;
+  const coords = {
+    lat: event.coords.lat,  // Get latitude from the event
+    lng: event.coords.lng   // Get longitude from the event
+  };
+  this.markerPin.push(coords);
+}
+removeMarker(index: number): void {
+  this.markerPin.splice(index, 1);  // Remove marker from array at the clicked index
+}
 }
 interface marker {
   lat: number;

@@ -1,0 +1,9 @@
+.mouse-pointer {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    pointer-events: none; /* Pointer won't interact with elements */
+  }
+  

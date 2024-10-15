@@ -31,6 +31,6 @@ export class CountryService {
         return this.http.post<any>(`${environment.apiUrl}/api/v1/AdminCountry/save`, country);
     }
     updateCountry(country: EditCountryDto) {
-        return this.http.post<any>(`${environment.apiUrl}/api/v1/AdminCountry/save`, country);
+        return this.http.post<any>(`${environment.apiUrl}/api/v1/AdminCountry/update`, country);
     }
 }

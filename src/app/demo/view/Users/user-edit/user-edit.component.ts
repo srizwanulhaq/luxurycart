@@ -58,7 +58,7 @@ export class UserEditComponent implements OnInit {
   loadForm() {
     this.userEditForm = this._formBuilder.group({
       userId: ["", [Validators.required]],
-      email: ["", [Validators.required]],
+      email: ["", [Validators.required,Validators.email]],
       password: [""],
       roleId: ["", [Validators.required]],
       subAccountId: ["", [Validators.required]],

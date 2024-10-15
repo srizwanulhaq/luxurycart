@@ -143,6 +143,13 @@ import { LoaderService } from './demo/service/loaderservice';
 import { LoaderInterceptor } from './demo/service/loader.interceptor';
 import { LoaderComponent } from './loader/loader.component';
 import { DateRangeComponentModule } from './demo/view/DateRange/date-range.component.module';
+import { TaxiMainComponent } from './demo/view/Taxis/taxi-main/taxi-main.component';
+import { TaxiListComponent } from './demo/view/Taxis/taxi-list/taxi-list.component';
+import { TourMainComponent } from './demo/view/Tours/tour-main/tour-main.component';
+import { TourListComponent } from './demo/view/Tours/tour-list/tour-list.component';
+import { ZonePriceMainComponent } from './demo/view/ZonePrice/zone-price-main/zone-price-main.component';
+import { ZonePriceAddComponent } from './demo/view/ZonePrice/zone-price-add/zone-price-add.component';
+import { ZonePriceListComponent } from './demo/view/ZonePrice/zone-price-list/zone-price-list.component';
 
 
 export function tokenGetter() {
@@ -282,6 +289,13 @@ FullCalendarModule.registerPlugins([
         FileDemoComponent,
         BlockViewer,
         LoaderComponent,
+        TaxiMainComponent,
+        TaxiListComponent,
+        TourMainComponent,
+        TourListComponent,
+        ZonePriceMainComponent,
+        ZonePriceAddComponent,
+        ZonePriceListComponent,
         
         
     ],

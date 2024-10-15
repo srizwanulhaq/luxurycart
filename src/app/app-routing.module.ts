@@ -41,6 +41,11 @@ import { LoginMainComponent } from './demo/view/Login/login-main/login-main.comp
                     { path: 'promotions', loadChildren: () => import('./demo/view/Promotions/promotion-main/promotion-main.module').then(m => m.PromotionMainModule), canActivate: [AuthGuard] },
                     { path: 'vehicles', loadChildren: () => import('./demo/view/Vehicles/vehicle-main/vehicle-main.module').then(m => m.VehicleMainModule), canActivate: [AuthGuard] },
                     { path: 'transactions', loadChildren: () => import('./demo/view/Transaction/transaction-main/transaction-main.module').then(m => m.TransactionMainModule), canActivate: [AuthGuard] },
+                    { path: 'taxis', loadChildren: () => import('./demo/view/Taxis/taxi-main/taxi-main-routing.module').then(m => m.TaxiMainRoutingModule), canActivate: [AuthGuard] },
+
+                    { path: 'tours', loadChildren: () => import('./demo/view/Tours/tour-main/tour-main-routing.module').then(m => m.TourMainRoutingModule), canActivate: [AuthGuard] },
+                    { path: 'zoneprice', loadChildren: () => import('./demo/view/ZonePrice/zone-price-main/zone-price-main-routing.module').then(m => m.ZonePriceMainRoutingModule), canActivate: [AuthGuard] },
+
                     { path: 'customers', loadChildren: () => import('./demo/view/Customers/customer-main/customer-main.module').then(m => m.CustomerMainModule), canActivate: [AuthGuard] },
                     { path: 'iot', loadChildren: () => import('./demo/view/IOT/manage-iot-main/manage-iot-main.module').then(m => m.ManageIotMainModule), canActivate: [AuthGuard] },
                     { path: 'event', loadChildren: () => import('./demo/view/Events/event-main/event-main.module').then(m => m.EventMainModule), canActivate: [AuthGuard] },

@@ -31,6 +31,7 @@ export class ZoneDetailsComponent implements OnInit {
   @Input() 
   set details(value: Parking_ZonesDto) {
     if (value) {
+      debugger;
       this._details = value;
       //this._details.ride_Scrutiny_SettingList.sort((a, b) => a.no_Of_Rides > b.no_Of_Rides ? 1 : -1);
     

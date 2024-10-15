@@ -80,7 +80,7 @@ export class ZoneEditComponent implements OnInit {
     selectedLstPackages : any[];
     _lstWalletPackages : any[];
     lstWalletPackageIds:string[];
-
+    markerPin: { lat: number, lng: number }[] = [];
   allLstScrutinySettings: RideScrutinySettings[];
   lstScrutinySettings1: RideScrutinySettings[];
   lstScrutinySettings2: RideScrutinySettings[];
@@ -134,6 +134,9 @@ export class ZoneEditComponent implements OnInit {
         },
         {
             label: 'Draw Zone',
+        },
+        {
+          label: 'Add Point Zone',
         }
         ];
     }
@@ -157,11 +160,15 @@ export class ZoneEditComponent implements OnInit {
     
     //   }
     nextPage(e) {
-        this.submitted = true;
+        this.submitted = false;
         if(this.zoneEditForm.controls.title.value && this.zoneEditForm.controls.projectId && this.zoneEditForm.controls.vehicletypeId)
         {
           this.activeIndex=this.activeIndex+1;
-        }
+        }else if(this.zoneEditForm.value.zone_Coordinates.length == 0 && this.activeIndex == 1) {
+            this.submitted = true;
+          }else if(this.zoneEditForm.value.zone_Coordinates.length > 0 && this.activeIndex == 1) {
+            this.activeIndex=this.activeIndex+1;
+          }
         // if (this.zoneForm.value.title  &&
         //   this.zoneForm.value.zone_Type_Id && this.zoneForm.value.city_Id && this.zoneForm.value.country_Id) {
     
@@ -175,14 +182,10 @@ export class ZoneEditComponent implements OnInit {
         //   }
         // }
       }
+     
     
     prevPage(e) {
-        if (e === 3) {
-            this.activeIndex = this.activeIndex - 2;
-            this.buttonDisable = false;
-        }
-        else
-            this.activeIndex = this.activeIndex - 1;
+        this.activeIndex = this.activeIndex-1;
     }
     loadDropdownValues()
     {
@@ -296,6 +299,7 @@ export class ZoneEditComponent implements OnInit {
             this.currentlat = temp.center_Latitude;
             this.currentlng = temp.center_Longitude;
             this.zoneCordinates = temp.zone_Coordinates;
+            this.markerPin = temp.parking_zone_marks;
             var lstzoneCoordinates = [];
             temp.zone_Coordinates.forEach(function (item_lat_lng, index) {
                 lstzoneCoordinates.push({ lat: item_lat_lng.lat, lng: item_lat_lng.lng, sequence: index + 1 });
@@ -341,6 +345,9 @@ export class ZoneEditComponent implements OnInit {
             {
                 label: 'Draw Zone',
             },
+            {
+              label: 'Add Point Zone',
+            }
             ];
         }
         else {
@@ -362,8 +369,8 @@ export class ZoneEditComponent implements OnInit {
             city_Id: ['', [Validators.required]],
             country_Id: ['', [Validators.required]],
             default_Speed:[0],
-            drive_Mode_Id: ['', [Validators.required]]
-           
+            drive_Mode_Id: ['', [Validators.required]],
+            zone_Marks: this._formBuilder.array([])
         });
         // this.ride_fare_setting().push(this.newfare());
        
@@ -523,9 +530,15 @@ export class ZoneEditComponent implements OnInit {
     // }
     onSubmitForm() {
         this.setValue();
-        this.editNewZone(this.zoneEditForm.value)
+    this.zoneEditForm.value.zone_Marks = this.markerPin;
+    if(this.markerPin.length > 0){
+    this.editNewZone(this.zoneEditForm.value)
+    }else{
+        this.submitted=true;
+    }
     }
     editNewZone(zone: EditZoneDao) {
+        debugger;
         this.service.updateZone(zone).pipe(first())
             .subscribe({
                 next: (response) => {
@@ -899,6 +912,17 @@ export class ZoneEditComponent implements OnInit {
     ngAfterContentChecked() {
         this.cdref.detectChanges();
     }
+    onMapClick(event: any): void {
+        debugger;
+        const coords = {
+          lat: event.coords.lat,  // Get latitude from the event
+          lng: event.coords.lng   // Get longitude from the event
+        };
+        this.markerPin.push(coords);
+      }
+      removeMarker(index: number): void {
+        this.markerPin.splice(index, 1);  // Remove marker from array at the clicked index
+      }
 }
 interface marker {
   lat: number;

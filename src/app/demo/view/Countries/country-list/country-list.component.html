@@ -118,7 +118,7 @@
                 Name
                 <p-sortIcon [field]="'name'"></p-sortIcon>
             </th>
-            <th [pSortableColumn]="'sub_Region'" pResizableColumn>
+            <!-- <th [pSortableColumn]="'sub_Region'" pResizableColumn>
                 Sub Region
                 <p-sortIcon [field]="'sub_Region'"></p-sortIcon>
             </th>
@@ -129,7 +129,7 @@
             <th [pSortableColumn]="'translation'" pResizableColumn>
                 Translation
                 <p-sortIcon [field]="'translation'"></p-sortIcon>
-            </th>
+            </th> -->
             <th [pSortableColumn]="'currency'" pResizableColumn>
                 Currency
                 <p-sortIcon [field]="'currency'"></p-sortIcon>
@@ -155,7 +155,7 @@
 
                 {{ country.name }}
             </td>
-            <td>
+            <!-- <td>
                 <span class="p-column-title">Sub Region</span>
 
                 {{ country.sub_Region }}
@@ -168,7 +168,7 @@
             <td>
                 <span class="p-column-title">Translation</span>
                 {{ country.translations }}
-            </td>
+            </td> -->
             <td>
                 <span class="p-column-title">Currency</span>
                 {{ country.currency.name }}
@@ -179,7 +179,7 @@
 
             </td>
 
-            <td class="sm-jus-end">
+            <td style="display: inline-flex !important;">
                 <!-- <button style="" title="Edit" pButton pRipple class="p-button-rounded p-button-success theme-btn ac-btn" href="#"
                     (click)="main.onEditPanelButtonClick($event, country)"> -->
                     <!-- <img src="../../../../../assets/layout/images/more-detail.png" alt="" width="18"> -->
