@@ -14,18 +14,18 @@ import { ProjectsService } from 'src/app/demo/service/projects.service';
 import { ProjectDropDown } from 'src/app/demo/domain/Dto/Project/projectdto';
 import { SpecialOfferService } from 'src/app/demo/service/special-offer.service';
 
-
 @Component({
-  selector: 'app-zone-price-add',
-  templateUrl: './zone-price-add.component.html',
-  styleUrls: ['./zone-price-add.component.scss'],
+  selector: 'app-zone-price-edit',
+  templateUrl: './zone-price-edit.component.html',
+  styleUrls: ['./zone-price-edit.component.scss'],
   providers: [MessageService]
 })
-export class ZonePriceAddComponent implements OnInit {
-  
+export class ZonePriceEditComponent implements OnInit {
+
   submitted: boolean;
   IsSameZone: boolean;
-  zoneDialog: boolean;
+zoneDialog: boolean;
+  @Input() zonePriceData: any;
   btnloading: boolean;
   currentlat: number = 0;
   currentlng: number = 0;
@@ -116,7 +116,6 @@ export class ZonePriceAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadForm();
-    //this.setDefaultSpeed()
   }
   @Output() eventChange = new EventEmitter<Event>();
   // setDefaultSpeed(){
@@ -159,8 +158,16 @@ export class ZonePriceAddComponent implements OnInit {
       
       this.lstZones = responseList.lstZones;
     });
+    this.FillData();
   }
- 
+  FillData(){
+    
+    const group: FormGroup = this.zoneForm as FormGroup;
+    group.controls['Id'].setValue(this.zonePriceData.id || "");
+    group.controls['from_zone'].setValue(this.zonePriceData.fromZone || "");
+    group.controls['to_zone'].setValue(this.zonePriceData.toZone || "");
+    group.controls['zone_price'].setValue(this.zonePriceData.price || "");
+  }
   loadDropdownValues()
   {
     this.service.getProjectDropdowns().then(resp => {
@@ -173,7 +180,7 @@ export class ZonePriceAddComponent implements OnInit {
 
   loadForm() {
     this.zoneForm = this._formBuilder.group({
-      Id:[""],
+      Id:["",[Validators.required]],
       from_zone:["",[Validators.required]],
       to_zone:["",[Validators.required]],
       zone_price: [null, [Validators.required, Validators.min(1), Validators.max(10000)]],
@@ -204,7 +211,7 @@ export class ZonePriceAddComponent implements OnInit {
   addNewZone(zone: Zone_PriceDao) {
 
     
-    this.service.saveZonePrice(zone).pipe(first())
+    this.service.UpdateZonePrice(zone).pipe(first())
       .subscribe({
         next: (response) => {
           this.resetForm();

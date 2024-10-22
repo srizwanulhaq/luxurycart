@@ -28,7 +28,7 @@
               
                 <div style="display: flex; justify-content: end;">
                     <span>
-                        <div class="dropdown">
+                        <!-- <div class="dropdown">
                             <button onclick="myFunction1()" class="dropbtn1">Export <i
                                     class="pi pi-chevron-up"></i></button>
                             <div id="myDropdown1" class="dropdown-content1">
@@ -57,7 +57,7 @@
                                 </div>
 
                             </div>
-                        </div>
+                        </div> -->
                     </span>
                     <!-- <div class="custom-in-box">
                         <i title="Reset Filter" class="pi pi-times" (click)="resetDataTable(dt)"></i>
@@ -114,9 +114,9 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th style="width: 3rem">
+            <!-- <th style="width: 3rem">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
+            </th> -->
             <th pSortableColumn="title">Title
                 <p-sortIcon field="title">
                 </p-sortIcon>
@@ -141,9 +141,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-vehicleType let-rowIndex="rowIndex">
         <tr [pSelectableRow]="vehicleType" [pSelectableRowIndex]="rowIndex">
-            <td>
+            <!-- <td>
                 <p-tableCheckbox [value]="vehicleType"></p-tableCheckbox>
-            </td>
+            </td> -->
             <td><span class="p-column-title">Title</span> {{vehicleType.title}}</td>
             <td><span class="p-column-title">Seating Capacity</span> {{vehicleType.seatingCapacity}}</td>
             <!-- <td><span class="p-column-title">Max Speed</span> {{vehicleType.maxSpeed}}</td>

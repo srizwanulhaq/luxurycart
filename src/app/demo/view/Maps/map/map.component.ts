@@ -162,9 +162,11 @@ export class MapComponent implements OnInit,OnDestroy   {
     this.timerSubscription.unsubscribe();
   }
   getAllMaps() {
+    
     this.progressSpinner = true
     this._mapsService.getAllMaps().subscribe(response => {
       this.mapsDao = response.mapsto;
+      debugger;
       this.parkingZone = this.mapsDao.parking_Zones;
       this.parkingZone = this.parkingZone.filter(x => x.zone_Type.number != 0)
       this.vehicles = this.mapsDao.vehicles;

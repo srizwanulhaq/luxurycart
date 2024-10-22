@@ -5,7 +5,7 @@ import { CityDropDownResult } from '../domain/Dao/Promotions/CityDropDowndao';
 import { AllDropDownResult } from '../domain/Dao/Zone/AllDropDowndao';
 import { AllDropDowndao2 } from '../domain/Dao/Zone/AllDropDowndao2';
 import { EditZoneDao } from '../domain/Dao/Zone/EditZoneDao';
-import { NewZoneDao } from '../domain/Dao/Zone/NewZoneDao';
+import { NewZoneDao, Zone_PriceDao } from '../domain/Dao/Zone/NewZoneDao';
 import { ParkingZonesResponse, Parking_ZonesDto } from '../domain/Dto/Zone/Parking_ZonesDto';
 import { SimpleProjectDao } from '../domain/Dao/Projects/projects';
 import { DriveModeDropDownResponse, VehicleTypeDropDown } from '../domain/Dao/Vehicle/VehicleTypedao';
@@ -30,6 +30,12 @@ export class ZoneService {
     saveZone(zone: NewZoneDao) {
         return this.http.post<any>(`${environment.apiUrl}/api/v2/AdminParkingZone/save`, zone);
     }
+    saveZonePrice(zone: Zone_PriceDao) {
+      return this.http.post<any>(`${environment.apiUrl}/api/v2/AdminParkingZone/savePrice`, zone);
+  }
+  UpdateZonePrice(zone: Zone_PriceDao) {
+    return this.http.post<any>(`${environment.apiUrl}/api/v2/AdminParkingZone/UpdatePrice`, zone);
+}
     getProjectDropdowns() {
         return this.http.get<any>(`${environment.apiUrl}/api/v1/AdminProject/project-dropdown`, {
             headers: new HttpHeaders({
@@ -69,6 +75,14 @@ export class ZoneService {
       .toPromise()
       .then(res => res as ParkingZonesResponse)
       .then(data => data.data);
+}
+getAllZonePrice(pageIndex: number, pageSize: number, globalFilter: string, selectedProject:string,
+  sortField: string, sortOrder: number, StatusValue: number, dateRangeStr: string) {
+
+return this.http.get<any>(`${environment.apiUrl}/api/v2/AdminParkingZone/getZonePrice?pageSize=${pageSize}&PageNumber=${pageIndex}&globalFilter=${globalFilter}&selectedProject=${selectedProject}&sortField=${sortField}&sortOrder=${sortOrder}&StatusValue=${StatusValue}${dateRangeStr}`)
+.toPromise()
+.then(res => res as ParkingZonesResponse)
+.then(data => data.data);
 }
 loadCityDropDown() {
   return this.http

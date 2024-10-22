@@ -16,8 +16,11 @@ export class TaxiMainComponent implements OnInit {
 
   constructor() { }
 
+
   ngOnInit(): void {
   }
+
+
 
   onBottomPanelButtonClick(event, Transaction) {
     this.Transaction = Transaction;

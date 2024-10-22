@@ -23,6 +23,7 @@ export class Transactiondao {
     customers: Customers;
     customer_Id:string;
     serial_No:number;
+    isScan:boolean;
 }
 export class TransactionListDao {
     id:string;

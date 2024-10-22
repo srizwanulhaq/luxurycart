@@ -12,7 +12,9 @@ import { TransactionService } from 'src/app/demo/service/transaction.service';
 export class TourListComponent implements OnInit {
   loading: boolean;
   lstTransactions: Transactiondao[];
+  ALL_lstTransactions: Transactiondao[];
   totalRecords: number;
+  ALL_totalRecords: number;
   total_debit: number;
   total_credit: number;
   cols: any[];
@@ -43,9 +45,14 @@ export class TourListComponent implements OnInit {
             !!this.startDate ? `&startDate=${this.startDate}&endDate=${this.endDate}` : ""
         ).then(res => {
           debugger;
-            this.lstTransactions = res.results;
-            this.lstTransactions.sort((a, b) => a.serial_No > b.serial_No ? -1 : 1);
-            this.totalRecords = res.rowCount;
+          debugger;
+          this.ALL_lstTransactions= res.results;
+          this.lstTransactions = this.ALL_lstTransactions
+              .filter(transaction => transaction.isScan === false) // Filter where isScan is 1
+              .sort((a, b) => a.serial_No > b.serial_No ? -1 : 1); // Sort by serial_No
+
+          this.totalRecords = this.lstTransactions.length;
+          this.ALL_totalRecords = res.rowCount;
             // this.total_debit = res.total_Debit;
             // this.total_credit = res.total_Credit;
             this.loading = false;
@@ -62,4 +69,22 @@ onRangeChange(reset) {
 onDateChange(data) {
   this[`${data.type}Date`] = data.date
 }
+statusChanged(e:any){
+  debugger;
+    if(e.index == 2){
+            this.lstTransactions = this.ALL_lstTransactions
+            .filter(transaction => transaction.isScan === true) // Filter where isScan is 1
+            .sort((a, b) => a.serial_No > b.serial_No ? -1 : 1); // Sort by serial_No
+          this.totalRecords = this.lstTransactions.length;
+    }else if(e.index == 0){
+            this.lstTransactions = this.ALL_lstTransactions
+            .sort((a, b) => a.serial_No > b.serial_No ? -1 : 1); // Sort by serial_No
+          this.totalRecords = this.lstTransactions.length;
+    }else{
+      this.lstTransactions = this.ALL_lstTransactions
+      .filter(transaction => transaction.isScan === false) // Filter where isScan is 1
+      .sort((a, b) => a.serial_No > b.serial_No ? -1 : 1); // Sort by serial_No
+    this.totalRecords = this.lstTransactions.length;
+    }
+  }
 }

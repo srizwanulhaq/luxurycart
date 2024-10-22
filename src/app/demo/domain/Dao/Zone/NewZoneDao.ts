@@ -31,6 +31,12 @@ export class Zone_Coordinates {
     created_at: Date;
     updated_at: Date;
 }
+export class Zone_PriceDao {
+    Id:string
+    from_zone:string;
+    to_zone: string;
+    zone_price: number;
+}
 export class Zone_CoordinatesDao {
     sequence:number;
     latitude: number;

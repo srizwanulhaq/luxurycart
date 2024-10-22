@@ -107,7 +107,7 @@
                             </div>
                         </div>
                     </div>
-                <div class="agm-container mt-4 mb-4">
+                <div class="agm-container mt-1 mb-1">
                     <agm-map [zoom]="10" [latitude]="setcurrentlat" [longitude]="setcurrentlong"
                         (mapReady)="onMapReady($event)" [disableDefaultUI]="false" [zoomControl]="false">
                         <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label" [markerDraggable]="m.draggable" (dragEnd)="markerDragEnd(m, $event)">

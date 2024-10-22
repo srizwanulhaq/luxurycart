@@ -1,18 +1,10 @@
+
 <p-toast></p-toast>
-<div class="bread-container">
-    <div class="left-box">
-        <h4>
-            <span>
-                 Zone Price
-            </span>
-        </h4>
-    </div>
-    <div class="right-box">
-        <button pButton pRipple label="Add Zone Price" class="p-button-success mr-2 theme-btn" (click)="newZone()"></button>
-    </div>
-</div>
+
+        <button pButton pRipple label="edit" style="width: 45px !important;" class="p-button-rounded p-button-success theme-btn ac-btn" (click)="newZone()"></button>
+  
 <form [formGroup]="zoneForm" (ngSubmit)="onSubmitForm()">
-    <p-dialog id="new-zone-model" [(visible)]="zoneDialog" [style]="{width: '1200px'}" header="Zone Price Add"
+    <p-dialog id="new-zone-model" [(visible)]="zoneDialog" [style]="{width: '1200px'}" header="Zone Price Edit"
         [modal]="true" class="p-fluid" [dismissableMask]="true">
         <ng-template pTemplate="content">
             <div>

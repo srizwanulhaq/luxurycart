@@ -10,7 +10,7 @@ export class MenuSidebarService {
         [
             { label: 'Dashboard', icon: 'fa fa-home', routerLink: ['/'] },
            // { label: 'Rides', icon: 'fa fa-motorcycle', routerLink: ['/rides/ride-main'] },
-          //  { label: 'Vehicles', icon: 'fa fa-taxi', routerLink: ['/vehicles/vehicle-main'] },
+           { label: 'Vehicles', icon: 'fa fa-taxi', routerLink: ['/vehicles/vehicle-main'] },
             //{ label: 'Zones', icon: 'pi pi-map', routerLink: ['/zones/zone-main'] },
             { label: 'Country', icon: 'pi pi-flag-fill', routerLink: ['/country/country-main'],
                 items: 
@@ -24,12 +24,14 @@ export class MenuSidebarService {
             { label: 'Customers', icon: 'fa fa-users', routerLink: ['customers/customer-main'] },
             { label: 'Transactions', icon: 'pi pi-wallet', routerLink: ['transactions/transaction-main'] },
             { label: 'Zones', icon: 'pi pi-map', routerLink: ['/zones/zone-main'] },
+            { label: 'Zone Price', icon: 'pi pi-map', routerLink: ['/zoneprice/zone-price-main'] },
+            { label: 'Manage IoT', icon: 'fa fa-list', routerLink: ['/iot/manage-iot-main'] },
             //{ label: 'Zones Price', icon: 'pi pi-map', routerLink: ['/zoneprice/zone-price-main'] },
-            // { label: 'Vehicle Types', icon: 'pi pi-sitemap', routerLink: ['/vehicle-type/vehicle-type-main'] ,
+             { label: 'Vehicle Group', icon: 'pi pi-sitemap', routerLink: ['/vehicle-type/vehicle-type-main']} ,
             //     items:
             //     [
             //         { label: 'Vehicle Types', icon: 'pi pi-sitemap', routerLink: ['/vehicle-type/vehicle-type-main']},
-            //         { label: 'Manage IoT', icon: 'fa fa-list', routerLink: ['/iot/manage-iot-main'] },
+           
             //         { label: 'Zones', icon: 'pi pi-map', routerLink: ['/zones/zone-main'] },
             //     ]
             // },

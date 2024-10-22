@@ -44,7 +44,7 @@ import { LoginMainComponent } from './demo/view/Login/login-main/login-main.comp
                     { path: 'taxis', loadChildren: () => import('./demo/view/Taxis/taxi-main/taxi-main-routing.module').then(m => m.TaxiMainRoutingModule), canActivate: [AuthGuard] },
 
                     { path: 'tours', loadChildren: () => import('./demo/view/Tours/tour-main/tour-main-routing.module').then(m => m.TourMainRoutingModule), canActivate: [AuthGuard] },
-                    { path: 'zoneprice', loadChildren: () => import('./demo/view/ZonePrice/zone-price-main/zone-price-main-routing.module').then(m => m.ZonePriceMainRoutingModule), canActivate: [AuthGuard] },
+                    //{ path: 'zoneprice', loadChildren: () => import('./demo/view/ZonePrice/zone-price-main/zone-price-main-routing.module').then(m => m.ZonePriceMainRoutingModule), canActivate: [AuthGuard] },
 
                     { path: 'customers', loadChildren: () => import('./demo/view/Customers/customer-main/customer-main.module').then(m => m.CustomerMainModule), canActivate: [AuthGuard] },
                     { path: 'iot', loadChildren: () => import('./demo/view/IOT/manage-iot-main/manage-iot-main.module').then(m => m.ManageIotMainModule), canActivate: [AuthGuard] },
@@ -60,6 +60,7 @@ import { LoginMainComponent } from './demo/view/Login/login-main/login-main.comp
                     { path: 'special-offer', loadChildren: () => import('./demo/view/SpecialOffer/special-offer-main/special-offer-main.module').then(m => m.SpecialOfferMainModule), canActivate: [AuthGuard] },
                     { path: 'stats-report/:type', loadChildren: () => import('./demo/view/StatsReport/statsr.module').then(m => m.StatsReportModule), canActivate: [AuthGuard] },
                     { path: 'zones', loadChildren: () => import('./demo/view/Zone/zone-main/zone-main.module').then(m => m.ZoneMainModule), canActivate: [AuthGuard] },
+                    { path: 'zoneprice', loadChildren: () => import('./demo/view/ZonePrice/zone-price-main/zone-price-main.module').then(m => m.ZonePriceMainModule), canActivate: [AuthGuard] },
                     { path: 'notifications', loadChildren: () => import('./demo/view/Notifications/noti-main/noti-main.module').then(m => m.NotificationMainModule), canActivate: [AuthGuard] },
                     { path: 'push-notifications', loadChildren: () => import('./demo/view/PushNotifications/pnoti-main/pnoti-main.module').then(m => m.PushNotificationMainModule), canActivate: [AuthGuard] },
                     { path: 'pendingCommand', loadChildren: () => import('./demo/view/PendingCommand/pending-command-main/pending-command-main.module').then(m => m.PendingCommandMainModule), canActivate: [AuthGuard] },
