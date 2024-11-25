@@ -9,11 +9,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { CheckboxModule } from 'primeng/checkbox';
 import {PasswordModule} from 'primeng/password';
+import { deleteAccountt } from './delete-account';
 
 @NgModule({
   declarations: [
     LoginMainComponent,
-    LoginFormComponent],
+    LoginFormComponent,
+    deleteAccountt],
   imports: [
     CommonModule,
     ButtonModule,

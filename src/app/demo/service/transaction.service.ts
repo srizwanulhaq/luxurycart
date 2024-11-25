@@ -24,14 +24,14 @@ export class TransactionService {
         .then(res => res as TransactionResponseV2)
         .then(data => data.data);
     }
-    getAllTaxiRecords(pageIndex: number, pageSize: number, globalFilter: string, sortField: string, sortOrder: number, dateRangeStr: string) {
-        return this._http.get<any>(`${environment.apiUrl}/api/v2/AdminTransaction/AllTaxiRecords?pageSize=${pageSize}&PageNumber=${pageIndex}&sortField=${sortField}&sortOrder=${sortOrder}&globalFilter=${globalFilter}${dateRangeStr}`)
+    getAllTaxiRecords(pageIndex: number, pageSize: number, globalFilter: string, sortField: string, sortOrder: number,selectedStatus:number, dateRangeStr: string) {
+        return this._http.get<any>(`${environment.apiUrl}/api/v2/AdminTransaction/AllTaxiRecords?pageSize=${pageSize}&PageNumber=${pageIndex}&sortField=${sortField}&sortOrder=${sortOrder}&selectedStatus=${selectedStatus}&globalFilter=${globalFilter}${dateRangeStr}`)
         .toPromise()
         .then(res => res as TransactionResponseV2)
         .then(data => data.data);
     }
-    getAllTourRecords(pageIndex: number, pageSize: number, globalFilter: string, sortField: string, sortOrder: number, dateRangeStr: string) {
-        return this._http.get<any>(`${environment.apiUrl}/api/v2/AdminTransaction/AllTourRecords?pageSize=${pageSize}&PageNumber=${pageIndex}&sortField=${sortField}&sortOrder=${sortOrder}&globalFilter=${globalFilter}${dateRangeStr}`)
+    getAllTourRecords(pageIndex: number, pageSize: number, globalFilter: string, sortField: string, sortOrder: number,selectedStatus:number, dateRangeStr: string) {
+        return this._http.get<any>(`${environment.apiUrl}/api/v2/AdminTransaction/AllTourRecords?pageSize=${pageSize}&PageNumber=${pageIndex}&sortField=${sortField}&sortOrder=${sortOrder}&selectedStatus=${selectedStatus}&globalFilter=${globalFilter}${dateRangeStr}`)
         .toPromise()
         .then(res => res as TransactionResponseV2)
         .then(data => data.data);

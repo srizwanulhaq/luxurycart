@@ -26,7 +26,7 @@ export class TourListComponent implements OnInit {
   searchValue: any;
   filterGlobalValue: any = null;
   event_status:any;
-  
+  selectedStatus:number=0;
   constructor( private transactionService: TransactionService,) { }
 
   ngOnInit(): void {
@@ -39,20 +39,16 @@ export class TourListComponent implements OnInit {
         this.transactionService.getAllTourRecords(
             event.first / event.rows + 1,
             event.rows,
-            event.globalFilter ?? this.filterGlobalValue,
+            this.filterGlobalValue,
             event.sortField,
             event.sortOrder,
+            this.selectedStatus,
             !!this.startDate ? `&startDate=${this.startDate}&endDate=${this.endDate}` : ""
         ).then(res => {
           debugger;
-          debugger;
-          this.ALL_lstTransactions= res.results;
-          this.lstTransactions = this.ALL_lstTransactions
-              .filter(transaction => transaction.isScan === false) // Filter where isScan is 1
-              .sort((a, b) => a.serial_No > b.serial_No ? -1 : 1); // Sort by serial_No
+          this.lstTransactions = res.results; // Sort by serial_No
 
-          this.totalRecords = this.lstTransactions.length;
-          this.ALL_totalRecords = res.rowCount;
+          this.totalRecords = res.rowCount;
             // this.total_debit = res.total_Debit;
             // this.total_credit = res.total_Credit;
             this.loading = false;
@@ -72,19 +68,12 @@ onDateChange(data) {
 statusChanged(e:any){
   debugger;
     if(e.index == 2){
-            this.lstTransactions = this.ALL_lstTransactions
-            .filter(transaction => transaction.isScan === true) // Filter where isScan is 1
-            .sort((a, b) => a.serial_No > b.serial_No ? -1 : 1); // Sort by serial_No
-          this.totalRecords = this.lstTransactions.length;
+            this.selectedStatus=1;
     }else if(e.index == 0){
-            this.lstTransactions = this.ALL_lstTransactions
-            .sort((a, b) => a.serial_No > b.serial_No ? -1 : 1); // Sort by serial_No
-          this.totalRecords = this.lstTransactions.length;
+      this.selectedStatus=null;
     }else{
-      this.lstTransactions = this.ALL_lstTransactions
-      .filter(transaction => transaction.isScan === false) // Filter where isScan is 1
-      .sort((a, b) => a.serial_No > b.serial_No ? -1 : 1); // Sort by serial_No
-    this.totalRecords = this.lstTransactions.length;
+      this.selectedStatus=0;
     }
+    this.loadTransactionLazy(this.tableEvent);
   }
 }

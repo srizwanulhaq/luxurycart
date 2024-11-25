@@ -99,6 +99,7 @@ import { LoginMainComponent } from './demo/view/Login/login-main/login-main.comp
                 ]
             },
             { path: 'login', loadChildren: () => import('./demo/view/Login/login-main/login-main.module').then(m => m.LoginMainModule) },
+            { path: 'account', loadChildren: () => import('./demo/view/Login/login-main/login-main.module').then(m => m.LoginMainModule) },
             { path: '**', redirectTo: '/notfound' },
         ], { scrollPositionRestoration: 'enabled' })
     ],

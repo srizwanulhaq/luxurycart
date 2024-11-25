@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginMainComponent } from './login-main.component';
+import { deleteAccountt } from './delete-account';
 
 const routes: Routes = [
   {
@@ -18,6 +19,13 @@ const routes: Routes = [
         component: LoginMainComponent,
         data: {
           title: 'Login'
+        }
+      },
+      {
+        path: 'deleteAccount',
+        component: deleteAccountt,
+        data: {
+          title: 'Delete Account'
         }
       },
     ]
