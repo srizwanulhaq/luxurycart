@@ -64,6 +64,7 @@ export class MenuSidebarService {
            // { label: 'Maintenance', icon: 'pi pi-cog', routerLink: ['/maintenance/maintenance-main'] },
            
             { label: 'Push Notification', icon: 'pi pi-send', routerLink: ['/push-notifications/push-notification-main'] },
+            { label: 'Booth Ticket Purchases', icon: 'pi pi-ticket', routerLink: ['./boothTicketPurchase/booth-ticket-purchase-main'] },
             { label: 'Taxi', icon: 'pi pi-car', routerLink: ['taxis/taxi-main'] },
             { label: 'Tours', icon: 'pi pi-car', routerLink: ['tours/tour-main'] },
            // { label: 'Pending Commands', icon: 'pi pi-sort-alt-slash', routerLink: ['/pendingCommand/pending-command-main'] },

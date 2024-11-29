@@ -147,6 +147,8 @@ import { TaxiMainComponent } from './demo/view/Taxis/taxi-main/taxi-main.compone
 import { TaxiListComponent } from './demo/view/Taxis/taxi-list/taxi-list.component';
 import { TourMainComponent } from './demo/view/Tours/tour-main/tour-main.component';
 import { TourListComponent } from './demo/view/Tours/tour-list/tour-list.component';
+import { BoothTicketPurchaseMainComponent } from './demo/view/BoothTicketPurchase/booth-ticket-purchase-main/booth-ticket-purchase-main.component';
+import { BoothTicketPurchaseListComponent } from './demo/view/BoothTicketPurchase/booth-ticket-purchase-list/booth-ticket-purchase-list.component';
 
 
 export function tokenGetter() {
@@ -290,6 +292,8 @@ FullCalendarModule.registerPlugins([
         TaxiListComponent,
         TourMainComponent,
         TourListComponent,
+        BoothTicketPurchaseMainComponent,
+        BoothTicketPurchaseListComponent
         
         
     ],

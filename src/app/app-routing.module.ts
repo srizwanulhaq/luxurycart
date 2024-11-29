@@ -42,6 +42,7 @@ import { LoginMainComponent } from './demo/view/Login/login-main/login-main.comp
                     { path: 'vehicles', loadChildren: () => import('./demo/view/Vehicles/vehicle-main/vehicle-main.module').then(m => m.VehicleMainModule), canActivate: [AuthGuard] },
                     { path: 'transactions', loadChildren: () => import('./demo/view/Transaction/transaction-main/transaction-main.module').then(m => m.TransactionMainModule), canActivate: [AuthGuard] },
                     { path: 'taxis', loadChildren: () => import('./demo/view/Taxis/taxi-main/taxi-main-routing.module').then(m => m.TaxiMainRoutingModule), canActivate: [AuthGuard] },
+                    { path: 'boothTicketPurchase', loadChildren: () => import('./demo/view/BoothTicketPurchase/booth-ticket-purchase-main/booth-ticket-purchase-main-routing.module').then(m => m.BoothTicketPurchaseMainRoutingModule), canActivate: [AuthGuard] },
 
                     { path: 'tours', loadChildren: () => import('./demo/view/Tours/tour-main/tour-main-routing.module').then(m => m.TourMainRoutingModule), canActivate: [AuthGuard] },
                     //{ path: 'zoneprice', loadChildren: () => import('./demo/view/ZonePrice/zone-price-main/zone-price-main-routing.module').then(m => m.ZonePriceMainRoutingModule), canActivate: [AuthGuard] },
