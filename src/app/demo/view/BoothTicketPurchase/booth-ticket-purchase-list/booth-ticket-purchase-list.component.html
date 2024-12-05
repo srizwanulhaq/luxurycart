@@ -63,21 +63,21 @@
           <th pSortableColumn="Qty">Qty<p-sortIcon field="Qty"></p-sortIcon></th>
           <th pSortableColumn="Amount">Amount <p-sortIcon field="Amount"></p-sortIcon></th>
           <th pSortableColumn="Payment_mode">Payment Mode <p-sortIcon field="Payment_mode"></p-sortIcon></th>
-          <!-- <th pSortableColumn="customerReference">Customer Reference <p-sortIcon field="customerReference"></p-sortIcon></th> -->
           <th pSortableColumn="scanBy">Scan By <p-sortIcon field="scanBy"></p-sortIcon></th>
-          <th pSortableColumn="created_at">Created Date <p-sortIcon field="created_at"></p-sortIcon></th>
+          <th pSortableColumn="purchaseDate">Purchase Date <p-sortIcon field="purchaseDate"></p-sortIcon></th>
+          <th pSortableColumn="created_at">Scan Date <p-sortIcon field="created_at"></p-sortIcon></th>
         </tr>
       </ng-template>
   
       <ng-template pTemplate="body" let-transaction>
         <tr>
           <!-- <td>{{ transaction.reference_Id }}</td> -->
-          <td>{{ transaction.vehicle_Type_Id }}</td>
+          <td>{{ transaction.title }}</td>
           <td>{{ transaction.qty }}</td>
           <td>{{ transaction.amount | number : '1.2-2' }}</td>
           <td>{{ transaction.payment_Mode }}</td>
-          <!-- <td>{{ transaction.customer_Reference }}</td> -->
           <td>{{ transaction.scan_By }}</td>
+          <td>{{ transaction.purchase_Date | date: 'medium'  }}</td>
           <td>{{ transaction.created_Date | date: 'medium' }}</td>
         </tr>
       </ng-template>

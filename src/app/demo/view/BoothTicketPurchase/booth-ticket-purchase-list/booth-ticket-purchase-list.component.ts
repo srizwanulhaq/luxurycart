@@ -32,7 +32,7 @@ export class BoothTicketPurchaseListComponent implements OnInit {
       { field: 'amount', header: 'Amount' },
       { field: 'payment_Mode', header: 'Payment Mode' },
       { field: 'vehicle_Type_Id', header: 'Vehicle Type' },
-      { field: 'customer_Reference', header: 'Customer Reference' },
+      // { field: 'customer_Reference', header: 'Customer Reference' },
       { field: 'reference_Id', header: 'Reference ID' },
       { field: 'purchase_Date', header: 'Purchase Date' },
       { field: 'created_Date', header: 'Created Date' },
