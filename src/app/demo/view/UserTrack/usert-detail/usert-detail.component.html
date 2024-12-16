@@ -1,7 +1,7 @@
 <p-sidebar *ngIf="!!userTrackDetail" [(visible)]="bottomPanelActive" position="bottom" [baseZIndex]="10000"
     (onHide)="onDetailPanelClose()">
-    <h3 class="text-center" style="color:#6E6E6E;font-weight: 600;font-family: primaryFontBold;"><span
-            style="border-bottom: 3px solid #ef591f;padding-bottom: 3px;">User Info</span></h3>
+    <p-tabView id="detail-tabbing">
+        <p-tabPanel header="User Info">
             <div class="grid">
                 <div class="md:col-12 col-12 text-right">
                     <div class="">
@@ -119,4 +119,11 @@
             </p-table>
         </div>
     </div>
+        </p-tabPanel>
+        <p-tabPanel header="Vehicle Track">
+            </p-tabPanel>
+    </p-tabView>
+    <!-- <h3 class="text-center" style="color:#6E6E6E;font-weight: 600;font-family: primaryFontBold;"><span
+            style="border-bottom: 3px solid #ef591f;padding-bottom: 3px;">User Info</span></h3> -->
+           
 </p-sidebar>
